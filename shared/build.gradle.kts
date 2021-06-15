@@ -3,6 +3,8 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 plugins {
     kotlin("multiplatform")
     id("com.android.library")
+    id("kotlinx-serialization")
+    id("com.squareup.sqldelight")
 }
 
 kotlin {
@@ -22,22 +24,90 @@ kotlin {
         }
     }
     sourceSets {
-        val commonMain by getting
+        val commonMain by getting {
+            dependencies {
+                // Serialization
+                implementation(Deps.JetBrains.Kotlin.serialization)
+                // implementation(Deps.JetBrains.Kotlinx.atomicfuCommon)
+                // Ktor
+                implementation(Deps.JetBrains.Ktor.clientCommon)
+                // Ktor Features
+                implementation(Deps.JetBrains.Ktor.serialization)
+                implementation(Deps.JetBrains.Ktor.commonLogging)
+
+                implementation(Deps.JetBrains.Coroutines.common) {
+                    version {
+                        strictly(Deps.JetBrains.Coroutines.VERSION)
+                    }
+                }
+                implementation(Deps.Squareup.SQLDelight.coroutinesExtension)
+                // Apollo client
+                implementation(Deps.Apollo.api)
+                implementation(Deps.Apollo.kotlinRuntime)
+                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.1.1")
+            }
+        }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
+                api(Deps.JetBrains.Ktor.clientMock)
+                api(Deps.JetBrains.Coroutines.common)
             }
         }
-        val androidMain by getting
+        val androidMain by  getting {
+            dependencies {
+                implementation(Deps.JetBrains.Kotlin.testJunit)
+                implementation(Deps.Squareup.SQLDelight.sqliteDriver)
+                implementation(Deps.Squareup.SQLDelight.androidDriver)
+
+                implementation(Deps.JetBrains.Ktor.clientAndroid)
+                implementation(Deps.JetBrains.Coroutines.android)
+
+                implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
+
+            }
+        }
         val androidTest by getting {
             dependencies {
-                implementation(kotlin("test-junit"))
-                implementation("junit:junit:4.13.2")
+
+
+                implementation(Deps.JetBrains.Kotlin.testKotlin)
+                /**/
+                implementation(Deps.JetBrains.Kotlin.serialization)
+                implementation(Deps.JetBrains.Coroutines.test)
+                /**/
+                implementation(Deps.AndroidX.Test.core)
+                implementation(Deps.AndroidX.Test.junit)
+                implementation(Deps.AndroidX.Test.runner)
+                implementation(Deps.AndroidX.Test.rules)
+//                implementation(kotlin("test-junit"))
+//                implementation("junit:junit:4.13.2")
+
+                implementation(Deps.Squareup.mockServer)
+                implementation(Deps.Squareup.SQLDelight.sqliteDriver)
             }
         }
-        val iosMain by getting
+        val iosMain by getting{
+            dependencies {
+                implementation(Deps.Squareup.SQLDelight.nativeDriver)
+                implementation(Deps.JetBrains.Ktor.clientIos)
+                implementation(Deps.JetBrains.Coroutines.common) {
+                    version {
+                        strictly(Deps.JetBrains.Coroutines.VERSION)
+                    }
+                }
+            }
+        }
         val iosTest by getting
+    }
+}
+
+sqldelight {
+    database("SuprSend") { // This will be the name of the generated database class.
+        packageName = "app.suprsend.android"
+        schemaOutputDirectory = file("src/commonMain/sqldelight/databases")
+        verifyMigrations = true
     }
 }
 
