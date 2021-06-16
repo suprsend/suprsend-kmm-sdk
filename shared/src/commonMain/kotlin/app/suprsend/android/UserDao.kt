@@ -1,9 +1,13 @@
 package app.suprsend.android
 
+import com.squareup.sqldelight.runtime.coroutines.asFlow
+import com.squareup.sqldelight.runtime.coroutines.mapToList
+import kotlinx.coroutines.flow.Flow
 
-class UserDao(suprSend: SuprSend) {
 
-    private val db = suprSend.userQueries
+class UserDao(suprSendDatabase: SuprSendDatabase) {
+
+    private val db = suprSendDatabase.userQueries
 
     internal fun insert(id: String, name: String, company: Company) {
         db.insertItem(
@@ -13,5 +17,5 @@ class UserDao(suprSend: SuprSend) {
         )
     }
 
-    internal fun select(): List<UserModel> = db.selectAll().executeAsList()
+    internal fun select(): Flow<List<UserModel>> = db.selectAll().asFlow().mapToList()
 }

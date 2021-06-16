@@ -1,5 +1,7 @@
 package app.suprsend.android
 
+import kotlinx.coroutines.flow.Flow
+
 class UserRepository(
     val userDao: UserDao,
     val userNetwork: UserNetwork
@@ -9,7 +11,7 @@ class UserRepository(
         userDao.insert(userModel.id, userModel.name, userModel.company!!)
     }
 
-    suspend fun getUsers(): List<UserModel> {
+    suspend fun getUsers(): Flow<List<UserModel>> {
         return userDao.select()
     }
 
@@ -19,7 +21,7 @@ class UserRepository(
 
     companion object {
         fun getInstance(): UserRepository {
-            val userDao = UserDao(globalDatabase.get()!!.database)
+            val userDao = UserDao(globalDatabase.get()!!.suprSendDatabase)
             val userNetwork = UserNetwork()
             return UserRepository(userDao,userNetwork)
         }

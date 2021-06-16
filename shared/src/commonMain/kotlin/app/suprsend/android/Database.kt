@@ -4,23 +4,25 @@ import com.squareup.sqldelight.ColumnAdapter
 import com.squareup.sqldelight.db.SqlDriver
 
 internal class Database {
-    val database: SuprSend
+
+    val suprSendDatabase: SuprSendDatabase
+
     lateinit var driver: SqlDriver
 
     constructor(databaseDriver: SqlDriver) {
-        database = createDatabase(databaseDriver)
+        suprSendDatabase = createDatabase(databaseDriver)
     }
 
     constructor(databaseDriverFactory: DatabaseDriverFactory) {
-        database = createDatabase(databaseDriverFactory)
+        suprSendDatabase = createDatabase(databaseDriverFactory)
     }
 
-    private fun createDatabase(databaseDriverFactory: DatabaseDriverFactory): SuprSend {
+    private fun createDatabase(databaseDriverFactory: DatabaseDriverFactory): SuprSendDatabase {
         val driver = databaseDriverFactory.createDriver()
         return createDatabase(driver)
     }
 
-    private fun createDatabase(databaseDriver: SqlDriver): SuprSend {
+    private fun createDatabase(databaseDriver: SqlDriver): SuprSendDatabase {
         driver = databaseDriver
         val coordinateAdapter = object : ColumnAdapter<Company, String> {
             override fun decode(databaseValue: String): Company {
@@ -33,7 +35,7 @@ internal class Database {
             }
         }
 
-        return SuprSend(
+        return SuprSendDatabase(
             driver,
             UserModel.Adapter(
                 companyAdapter = coordinateAdapter
@@ -42,4 +44,4 @@ internal class Database {
     }
 }
 
-internal inline fun <T> databaseScope(block: SuprSend.() -> T) = block(globalDatabase.get()?.database!!)
+internal inline fun <T> databaseScope(block: SuprSendDatabase.() -> T) = block(globalDatabase.get()?.suprSendDatabase!!)

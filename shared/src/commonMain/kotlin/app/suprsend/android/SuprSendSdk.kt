@@ -13,7 +13,7 @@ internal val globalDatabase: Atomic<Database?> = Atomic(null)
 @SharedImmutable
 internal val globalNetwork: Atomic<HttpClient?> = Atomic(null)
 
-class KMMMain {
+object SuprSendSdk {
 
     fun initialize(databaseDriverFactory: DatabaseDriverFactory) {
         initializeDatabase(databaseDriverFactory)

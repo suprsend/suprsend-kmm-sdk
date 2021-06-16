@@ -5,6 +5,6 @@ import com.squareup.sqldelight.db.SqlDriver
 
 actual class DatabaseDriverFactory {
     actual fun createDriver(): SqlDriver {
-        return AndroidSqliteDriver(SuprSend.Schema, AndroidConfig.androidConfig.context, DATABASE_NAME)
+        return AndroidSqliteDriver(SuprSendDatabase.Schema, SuprSendAndroidConfig.suprSendAndroidConfig.context, DATABASE_NAME)
     }
 }
