@@ -1,5 +1,7 @@
-package app.suprsend.android
+package app.suprsend.android.user
 
+import app.suprsend.android.SuprSendDatabase
+import app.suprsend.android.UserModel
 import com.squareup.sqldelight.runtime.coroutines.asFlow
 import com.squareup.sqldelight.runtime.coroutines.mapToList
 import kotlinx.coroutines.flow.Flow

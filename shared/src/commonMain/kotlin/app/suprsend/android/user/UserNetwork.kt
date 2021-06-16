@@ -1,5 +1,6 @@
-package app.suprsend.android
+package app.suprsend.android.user
 
+import app.suprsend.android.globalNetwork
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter
 import io.ktor.http.URLProtocol

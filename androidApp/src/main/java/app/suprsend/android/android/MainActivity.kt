@@ -6,11 +6,11 @@ import android.util.Log
 import app.suprsend.android.Greeting
 import android.widget.TextView
 import app.suprsend.android.SuprSendAndroidConfig
-import app.suprsend.android.Company
-import app.suprsend.android.DatabaseDriverFactory
+import app.suprsend.android.user.Company
+import app.suprsend.android.database.DatabaseDriverFactory
 import app.suprsend.android.SuprSendSdk
 import app.suprsend.android.UserModel
-import app.suprsend.android.UserRepository
+import app.suprsend.android.user.UserRepository
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -20,6 +20,8 @@ fun greet(): String {
 }
 
 class MainActivity : AppCompatActivity() {
+
+    var count = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         tv.setOnClickListener {
             GlobalScope.launch {
                 val userRepository = UserRepository.getInstance()
-                userRepository.insertUser(UserModel("1", "Niks", Company("C1", "nik@gmail.com")))
+                userRepository.insertUser(UserModel("${count++}", "Niks", Company("C1", "nik@gmail.com")))
             }
         }
 
@@ -47,7 +49,7 @@ class MainActivity : AppCompatActivity() {
             userRepository
                 .getUsers()
                 .collect { list ->
-
+                    Log.i("yep", "${list.map { it.id }}")
                 }
 
             Log.i("yep", "${userRepository.makeRemoteCall()}")

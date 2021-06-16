@@ -1,5 +1,7 @@
-package app.suprsend.android
+package app.suprsend.android.user
 
+import app.suprsend.android.GLOBAL_SUPR_SEND_DATABASE_WRAPPER
+import app.suprsend.android.UserModel
 import kotlinx.coroutines.flow.Flow
 
 class UserRepository(
@@ -21,7 +23,7 @@ class UserRepository(
 
     companion object {
         fun getInstance(): UserRepository {
-            val userDao = UserDao(globalDatabase.get()!!.suprSendDatabase)
+            val userDao = UserDao(GLOBAL_SUPR_SEND_DATABASE_WRAPPER.get()!!.suprSendDatabase)
             val userNetwork = UserNetwork()
             return UserRepository(userDao,userNetwork)
         }

@@ -1,4 +1,4 @@
-import app.suprsend.android.Company;
+import app.suprsend.android.user.Company;
 
 CREATE TABLE UserModel (
     id TEXT NOT NULL,

@@ -1,9 +1,13 @@
-package app.suprsend.android
+package app.suprsend.android.database
 
+import app.suprsend.android.user.Company
+import app.suprsend.android.SuprSendDatabase
+import app.suprsend.android.UserModel
+import app.suprsend.android.GLOBAL_SUPR_SEND_DATABASE_WRAPPER
 import com.squareup.sqldelight.ColumnAdapter
 import com.squareup.sqldelight.db.SqlDriver
 
-internal class Database {
+internal class SuprSendDatabaseWrapper {
 
     val suprSendDatabase: SuprSendDatabase
 
@@ -44,4 +48,4 @@ internal class Database {
     }
 }
 
-internal inline fun <T> databaseScope(block: SuprSendDatabase.() -> T) = block(globalDatabase.get()?.suprSendDatabase!!)
+internal inline fun <T> databaseScope(block: SuprSendDatabase.() -> T) = block(GLOBAL_SUPR_SEND_DATABASE_WRAPPER.get()?.suprSendDatabase!!)
