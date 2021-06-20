@@ -1,9 +1,8 @@
-package app.suprsend.android
+package app.suprsend.android.database
 
 import com.squareup.sqldelight.db.SqlDriver
 
-internal const val DATABASE_NAME = "suprsend.db"
-
 public expect class DatabaseDriverFactory {
     internal fun createDriver(): SqlDriver
+    internal fun getDatabaseName():String
 }

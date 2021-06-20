@@ -104,7 +104,7 @@ kotlin {
 }
 
 sqldelight {
-    database("SuprSend") { // This will be the name of the generated database class.
+    database("SuprSendDatabase") { // This will be the name of the generated database class.
         packageName = "app.suprsend.android"
         schemaOutputDirectory = file("src/commonMain/sqldelight/databases")
         verifyMigrations = true

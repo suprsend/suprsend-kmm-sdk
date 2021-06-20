@@ -1,4 +1,4 @@
-package app.suprsend.android
+package app.suprsend.android.user
 
 import  kotlinx.serialization.Serializable
 
