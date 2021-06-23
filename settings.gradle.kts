@@ -6,6 +6,6 @@ pluginManagement {
     }
 }
 
-rootProject.name = "Supr_Send"
+rootProject.name = "SuprSendKMM"
 include(":androidApp")
 include(":shared")

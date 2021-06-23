@@ -1,14 +1,15 @@
 plugins {
     id("com.android.application")
     kotlin("android")
+    id("com.google.gms.google-services")
 }
 
 android {
-    compileSdkVersion(30)
+    compileSdkVersion(Deps.Android.compileSdk)
     defaultConfig {
         applicationId = "app.suprsend.android.android"
-        minSdkVersion(16)
-        targetSdkVersion(30)
+        minSdkVersion(Deps.Android.minSdk)
+        targetSdkVersion(Deps.Android.targetSdk)
         versionCode = 1
         versionName = "1.0"
         multiDexEnabled = true
@@ -40,4 +41,8 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesAndroidVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesAndroidVersion")
     implementation("androidx.multidex:multidex:2.0.1")
+    implementation("com.google.firebase:firebase-bom:28.1.0")
+    implementation("com.google.firebase:firebase-analytics:19.0.0")
+    implementation("com.google.firebase:firebase-messaging:22.0.0")
+    implementation("com.google.code.gson:gson:2.8.6")
 }
