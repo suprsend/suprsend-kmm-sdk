@@ -67,7 +67,6 @@ kotlin {
                 implementation(Deps.JetBrains.Coroutines.android)
 
                 implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
-                implementation("io.karn:notify:1.4.0")
                 implementation("androidx.core:core-ktx:1.5.0")
 
             }
