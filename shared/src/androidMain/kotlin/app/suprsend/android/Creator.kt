@@ -1,4 +1,4 @@
-package app.suprsend.android.android
+package app.suprsend.android
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder

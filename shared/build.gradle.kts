@@ -69,6 +69,11 @@ kotlin {
                 implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
                 implementation("androidx.core:core-ktx:1.5.0")
 
+                implementation("com.google.firebase:firebase-analytics:19.0.0")
+                implementation("com.google.firebase:firebase-messaging:22.0.0")
+
+                //Todo version constants
+                implementation("com.google.code.gson:gson:2.8.6")
             }
         }
         val androidTest by getting {

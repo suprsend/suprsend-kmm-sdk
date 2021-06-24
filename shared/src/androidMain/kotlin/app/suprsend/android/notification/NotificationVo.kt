@@ -1,12 +1,74 @@
 package app.suprsend.android.notification
 
+
+data class RawNotification(
+    val id: String,
+
+    //Channel Details
+    val channelId: String?,
+    val channelName: String?,
+    val channelDescription: String?,
+    val channelShowBadge: Boolean?,
+    val channelVisibility: NotificationChannelVisibility?,
+    val channelImportance: NotificationChannelImportance?,
+
+    //Notification Details
+    val notificationTitle: String?,
+    val shortDescription: String?,
+    val longDescription: String?,
+    val iconUrl: String?,
+    val imageUrl: String? = null
+
+) {
+    fun getNotificationVo(): NotificationVo {
+        var notificationVo = NotificationVo(
+            id = id,
+            notificationChannelVo = NotificationChannelVo(
+                id = channelId ?: "default_channel",
+                name = channelName ?: "Default Channel",
+                description = channelDescription ?: "",
+                showBadge = channelShowBadge ?: true,
+                visibility = channelVisibility ?: NotificationChannelVisibility.PUBLIC,
+                importance = channelImportance ?: NotificationChannelImportance.HIGH
+            ),
+            notificationBasicVo = NotificationBasicVo(
+                contentTitle = notificationTitle ?: "",
+                contentText = shortDescription ?: "",
+            )
+        )
+
+        notificationVo = if (!imageUrl.isNullOrBlank()) {
+            notificationVo.copy(
+                bigPictureVo = BigPictureVo(
+                    bigContentTitle = notificationTitle,
+                    summaryText = shortDescription,
+                    bigPictureUrl = imageUrl,
+                    largeIconUrl = iconUrl
+                )
+            )
+        } else {
+            notificationVo.copy(
+                bigTextVo = BigTextVo(
+                    title = notificationTitle,
+                    contentText = shortDescription,
+                    bigContentTitle = notificationTitle,
+                    bigText = longDescription
+                )
+            )
+        }
+
+        return notificationVo
+    }
+}
+
+
 data class NotificationVo(
     val id: String,
     val notificationChannelVo: NotificationChannelVo,
     val notificationBasicVo: NotificationBasicVo,
-    val inboxStyleVo: InBoxStyleVo? = null,
     val bigTextVo: BigTextVo? = null,
-    val bigPictureVo: BigPictureVo? = null
+    val bigPictureVo: BigPictureVo? = null,
+    val inboxStyleVo: InBoxStyleVo? = null
 )
 
 data class NotificationChannelVo(
@@ -14,8 +76,8 @@ data class NotificationChannelVo(
     val name: String,
     val description: String,
     val showBadge: Boolean,
-    val visibility: NotificationChannelVisibility,
-    val importance: NotificationChannelImportance
+    val visibility: NotificationChannelVisibility = NotificationChannelVisibility.PUBLIC,
+    val importance: NotificationChannelImportance = NotificationChannelImportance.HIGH
 )
 
 enum class NotificationChannelVisibility {

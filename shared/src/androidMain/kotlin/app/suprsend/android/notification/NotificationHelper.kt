@@ -7,6 +7,7 @@ import android.content.Context
 import android.graphics.Color
 import android.os.Build
 import androidx.core.app.NotificationCompat
+import app.suprsend.android.Creator
 import app.suprsend.android.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -14,79 +15,14 @@ import kotlinx.coroutines.launch
 
 object NotificationHelper {
 
-    fun showTextNotification(context: Context) {
-
-        GlobalScope.launch(Dispatchers.IO) {
-            showNotificationInternal(
-                context,
-                NotificationVo(
-                    id = "showTextNotification",
-                    notificationChannelVo = NotificationChannelVo(
-                        id = "Channel Id",
-                        name = "Channel Name",
-                        description = "Channel Description",
-                        showBadge = true,
-                        visibility = NotificationChannelVisibility.PUBLIC,
-                        importance = NotificationChannelImportance.HIGH
-                    ),
-                    notificationBasicVo = NotificationBasicVo(
-                        contentTitle = "Content Title",
-                        contentText = "Content Text",
-                        largeIconUrl = "https://niksdevelop.herokuapp.com/images/346kb.jpg",
-                        color = "#FF0000",
-                        subText = "Sub Text",
-                        showWhenTimeStamp = true
-                    ),
-                    bigTextVo = BigTextVo(
-                        title = "Title",
-                        contentText = "Content Text",
-                        summaryText = "Summary Text",
-                        bigContentTitle = "Big Content Title",
-                        bigText = "Big Text"
-                    )
-                )
-            )
+    suspend fun showRawNotification(context: Context, payloadJson: String) {
+        try {
+            val rawNotification = Creator.gson.fromJson(payloadJson, RawNotification::class.java)
+            showNotificationInternal(context, rawNotification.getNotificationVo())
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
-
-    fun showNotification(context: Context,notificationVo: NotificationVo){
-        GlobalScope.launch(Dispatchers.IO) {
-            showNotificationInternal(context,notificationVo)
-        }
-    }
-    fun showImageNotification(context: Context) {
-        GlobalScope.launch(Dispatchers.IO) {
-            showNotificationInternal(
-                context,
-                NotificationVo(
-                    id = "showImageNotification",
-                    notificationChannelVo = NotificationChannelVo(
-                        id = "Channel Id",
-                        name = "Channel Name",
-                        description = "Channel Description",
-                        showBadge = true,
-                        visibility = NotificationChannelVisibility.PUBLIC,
-                        importance = NotificationChannelImportance.HIGH
-                    ),
-                    notificationBasicVo = NotificationBasicVo(
-                        contentTitle = "Content Title",
-                        contentText = "Content Text",
-                        largeIconUrl = "https://niksdevelop.herokuapp.com/images/346kb.jpg",
-                        color = "#FF0000",
-                        subText = "Sub Text",
-                        showWhenTimeStamp = true
-                    ),
-                    bigPictureVo = BigPictureVo(
-                        bigContentTitle = "Big Content Title",
-                        summaryText = "Summary Text",
-                        bigPictureUrl = "https://niksdevelop.herokuapp.com/images/346kb.jpg",
-                        largeIconUrl = "https://niksdevelop.herokuapp.com/images/346kb.jpg",
-                    )
-                )
-            )
-        }
-    }
-
 
     private fun showNotificationInternal(context: Context, notificationVo: NotificationVo) {
 
@@ -173,7 +109,6 @@ object NotificationHelper {
 
         //builder.addAction(it)
     }
-
 
     private fun setChannel(notificationManager: NotificationManager, notificationChannelVo: NotificationChannelVo): Boolean {
 
@@ -299,5 +234,68 @@ object NotificationHelper {
 //                content.messages.forEach { s.addMessage(it.text, it.timestamp, it.sender) }
 //            }
 
+    }
+
+    suspend fun showTextNotification(context: Context) {
+        showNotificationInternal(
+            context,
+            NotificationVo(
+                id = "showTextNotification",
+                notificationChannelVo = NotificationChannelVo(
+                    id = "Channel Id",
+                    name = "Channel Name",
+                    description = "Channel Description",
+                    showBadge = true,
+                    visibility = NotificationChannelVisibility.PUBLIC,
+                    importance = NotificationChannelImportance.HIGH
+                ),
+                notificationBasicVo = NotificationBasicVo(
+                    contentTitle = "Content Title",
+                    contentText = "Content Text",
+                    largeIconUrl = "https://niksdevelop.herokuapp.com/images/346kb.jpg",
+                    color = "#FF0000",
+                    subText = "Sub Text",
+                    showWhenTimeStamp = true
+                ),
+                bigTextVo = BigTextVo(
+                    title = "Title",
+                    contentText = "Content Text",
+                    summaryText = "Summary Text",
+                    bigContentTitle = "Big Content Title",
+                    bigText = "Big Text"
+                )
+            )
+        )
+    }
+
+    suspend fun showImageNotification(context: Context) {
+        showNotificationInternal(
+            context,
+            NotificationVo(
+                id = "showImageNotification",
+                notificationChannelVo = NotificationChannelVo(
+                    id = "Channel Id",
+                    name = "Channel Name",
+                    description = "Channel Description",
+                    showBadge = true,
+                    visibility = NotificationChannelVisibility.PUBLIC,
+                    importance = NotificationChannelImportance.HIGH
+                ),
+                notificationBasicVo = NotificationBasicVo(
+                    contentTitle = "Content Title",
+                    contentText = "Content Text",
+                    largeIconUrl = "https://niksdevelop.herokuapp.com/images/346kb.jpg",
+                    color = "#FF0000",
+                    subText = "Sub Text",
+                    showWhenTimeStamp = true
+                ),
+                bigPictureVo = BigPictureVo(
+                    bigContentTitle = "Big Content Title",
+                    summaryText = "Summary Text",
+                    bigPictureUrl = "https://niksdevelop.herokuapp.com/images/346kb.jpg",
+                    largeIconUrl = "https://niksdevelop.herokuapp.com/images/346kb.jpg",
+                )
+            )
+        )
     }
 }

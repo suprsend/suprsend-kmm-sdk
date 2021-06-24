@@ -1,11 +1,14 @@
-package app.suprsend.android.android
+package app.suprsend.android.fcm
 
 import android.util.Log
+import app.suprsend.android.SuprSendConstants
 import app.suprsend.android.notification.NotificationHelper
-import app.suprsend.android.notification.NotificationVo
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
+//Todo : Rename me
 class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
@@ -14,11 +17,11 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
         val data = remoteMessage.data
         if (data.isNotEmpty()) {
-            Log.d(TAG, "Message data payload: ${data}")
-            if (data.containsKey("supr_send_n_pl")) {
-                val jsonStr = data.get("supr_send_n_pl")
-                val notificationVo = Creator.gson.fromJson(jsonStr, NotificationVo::class.java)
-                NotificationHelper.showNotification(applicationContext, notificationVo)
+            Log.d(TAG, "Message data payload: $data")
+            if (data.containsKey(SuprSendConstants.NOTIFICATION_PAYLOAD)) {
+                GlobalScope.launch {
+                    NotificationHelper.showRawNotification(applicationContext, data[SuprSendConstants.NOTIFICATION_PAYLOAD] ?: "")
+                }
             }
         }
     }

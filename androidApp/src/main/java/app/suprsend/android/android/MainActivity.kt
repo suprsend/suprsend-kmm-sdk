@@ -1,6 +1,5 @@
 package app.suprsend.android.android
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -71,9 +70,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        findViewById<View>(R.id.notificationSample).setOnClickListener {
-            startActivity(Intent(this@MainActivity, NotificationDemoActivity::class.java))
-        }
     }
 
     private fun initialize() {
