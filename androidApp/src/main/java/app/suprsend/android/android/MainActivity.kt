@@ -13,7 +13,6 @@ import app.suprsend.android.UserModel
 import app.suprsend.android.database.DatabaseDriverFactory
 import app.suprsend.android.user.Company
 import app.suprsend.android.user.UserRepository
-import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.collect
@@ -59,7 +58,7 @@ class MainActivity : AppCompatActivity() {
         greet.text = greet()
 
         findViewById<View>(R.id.insertInDb).setOnClickListener {
-            GlobalScope.launch() {
+            GlobalScope.launch {
                 val userRepository = UserRepository.getInstance()
                 userRepository.insertUser(UserModel("${count++}", "Niks", Company("C1", "nik@gmail.com")))
             }
@@ -68,7 +67,9 @@ class MainActivity : AppCompatActivity() {
         findViewById<View>(R.id.makeNwCall).setOnClickListener {
             GlobalScope.launch() {
                 val userRepository = UserRepository.getInstance()
-                Log.i("yep", "${userRepository.makeRemoteCall()}")
+                val response = userRepository.makeRemoteCall()
+                Log.i("yep", "$response")
+                Toast.makeText(this@MainActivity, "$response", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -85,7 +86,9 @@ class MainActivity : AppCompatActivity() {
             userRepository
                 .getUsers()
                 .collect { list ->
-                    Log.i("yep", "${list.map { it.id }}")
+                    val ids = list.map { it.id }
+                    Log.i("yep", "$ids")
+                    Toast.makeText(this@MainActivity, "$ids", Toast.LENGTH_SHORT).show()
                 }
         }
     }
