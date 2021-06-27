@@ -14,6 +14,7 @@ import app.suprsend.android.database.DatabaseDriverFactory
 import app.suprsend.android.user.Company
 import app.suprsend.android.user.UserRepository
 import com.google.firebase.messaging.FirebaseMessaging
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -58,14 +59,14 @@ class MainActivity : AppCompatActivity() {
         greet.text = greet()
 
         findViewById<View>(R.id.insertInDb).setOnClickListener {
-            GlobalScope.launch {
+            GlobalScope.launch((Dispatchers.Main)) {
                 val userRepository = UserRepository.getInstance()
                 userRepository.insertUser(UserModel("${count++}", "Niks", Company("C1", "nik@gmail.com")))
             }
         }
 
         findViewById<View>(R.id.makeNwCall).setOnClickListener {
-            GlobalScope.launch() {
+            GlobalScope.launch((Dispatchers.Main)) {
                 val userRepository = UserRepository.getInstance()
                 val response = userRepository.makeRemoteCall()
                 Log.i("yep", "$response")
@@ -76,7 +77,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initialize() {
-        GlobalScope.launch {
+        GlobalScope.launch((Dispatchers.Main)) {
             SuprSendAndroidConfig.initialize(applicationContext)
 
             SuprSendSdk.initialize(DatabaseDriverFactory())
