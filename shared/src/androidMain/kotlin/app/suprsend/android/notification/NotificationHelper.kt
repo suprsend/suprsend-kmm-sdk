@@ -3,15 +3,15 @@ package app.suprsend.android.notification
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import androidx.core.app.NotificationCompat
+import androidx.core.os.bundleOf
 import app.suprsend.android.Creator
 import app.suprsend.android.R
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 object NotificationHelper {
 
@@ -32,17 +32,63 @@ object NotificationHelper {
 
         val notificationBuilder = NotificationCompat.Builder(context, notificationVo.notificationChannelVo.id)
 
-        setBasicVo(notificationBuilder, notificationVo)
+        setBasicVo(context, notificationBuilder, notificationVo)
 
         setStyle(notificationBuilder, notificationVo)
 
-        notificationBuilder.build()
+        setNotificationAction(context, notificationBuilder, notificationVo)
 
+        notificationBuilder.build()
 
         notificationManager.notify(notificationVo.id.hashCode(), notificationBuilder.build())
     }
 
-    private fun setBasicVo(notificationBuilder: NotificationCompat.Builder, notificationVo: NotificationVo) {
+    private fun setNotificationAction(context: Context, notificationBuilder: NotificationCompat.Builder, notificationVo: NotificationVo) {
+
+        try {
+            notificationVo.actions?.forEachIndexed { index, notificationActionVo ->
+
+                val actionIcon = try {
+                    context.resources.getIdentifier(notificationActionVo.iconDrawableName, "drawable", context.packageName)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    0
+                }
+                val actionLink = notificationActionVo.link
+                val actionIntent = if (actionLink.isNullOrBlank()) {
+                    context.packageManager.getLaunchIntentForPackage(context.packageName)
+                } else {
+                    Intent(context, NotificationRedirectionActivity::class.java)
+                        .setClass(context, NotificationRedirectionActivity::class.java)
+                        .putExtras(
+                            bundleOf(
+                                NotificationRedirectionActivity.FLOW_NAME to NotificationRedirection.NOTIFICATION_ACTION_CLICKED,
+                                NotificationRedirectionActivity.FLOW_PAYLOAD to notificationActionVo,
+                            )
+                        )
+                        .setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
+                }
+
+                actionIntent?.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+
+                notificationBuilder.addAction(
+                    actionIcon,
+                    notificationActionVo.title,
+                    PendingIntent.getActivity(
+                        context,
+                        (System.currentTimeMillis() + index).toInt(),
+                        actionIntent,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                    )
+                )
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+    }
+
+    private fun setBasicVo(context: Context, notificationBuilder: NotificationCompat.Builder, notificationVo: NotificationVo) {
         val notificationBasicVo = notificationVo.notificationBasicVo
 
         notificationBuilder.setChannelId(notificationVo.notificationChannelVo.id)
@@ -67,6 +113,7 @@ object NotificationHelper {
                 notificationBuilder.color = Color.parseColor(stringColorCode)
         }
 
+//        val smallIcon = context.applicationInfo.icon
         notificationBuilder.setSmallIcon(R.drawable.ic_notification)
 
         notificationBasicVo.subText?.let { subText ->
@@ -107,7 +154,16 @@ object NotificationHelper {
         // builder.addPerson(it)
 
 
-        //builder.addAction(it)
+        try {
+            // Todo : set big text / picture notification content intent
+            val contentIntent = context.packageManager.getLaunchIntentForPackage(context.packageName)
+            contentIntent?.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+            val contentPI = PendingIntent.getBroadcast(context, System.currentTimeMillis().toInt(), contentIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+            notificationBuilder.setContentIntent(contentPI)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
     }
 
     private fun setChannel(notificationManager: NotificationManager, notificationChannelVo: NotificationChannelVo): Boolean {
