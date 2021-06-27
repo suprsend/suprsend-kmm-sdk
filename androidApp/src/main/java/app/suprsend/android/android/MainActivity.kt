@@ -13,6 +13,7 @@ import app.suprsend.android.UserModel
 import app.suprsend.android.database.DatabaseDriverFactory
 import app.suprsend.android.user.Company
 import app.suprsend.android.user.UserRepository
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.collect
@@ -39,11 +40,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun subscribeToTopic() {
-        FirebaseMessaging.getInstance().subscribeToTopic("all_users")
+        val topicName = "all_users"
+        FirebaseMessaging.getInstance().subscribeToTopic(topicName)
             .addOnCompleteListener { task ->
-                var msg = "Subscribed to topic all_users"
+                var msg = "Subscribed to topic $topicName"
                 if (!task.isSuccessful) {
-                    msg = "Failed to subscribe to topic : all_users"
+                    msg = "Failed to subscribe to topic : $topicName"
                 }
                 Log.d("firebase", msg)
                 Toast.makeText(this@MainActivity, msg, Toast.LENGTH_SHORT).show()
