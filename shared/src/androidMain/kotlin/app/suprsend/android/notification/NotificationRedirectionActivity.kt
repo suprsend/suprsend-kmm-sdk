@@ -31,12 +31,19 @@ class NotificationRedirectionActivity : Activity() {
                 NotificationRedirection.NOTIFICATION_ACTION_CLICKED -> {
                     handleNotificationActionClicked(activityExtras)
                 }
+                else -> {
+                    // do nothing
+                    Logger.e(TAG, "payload not handled")
+                }
             }
+        } else {
+            Logger.e(TAG, "payload not found")
         }
     }
 
     private fun handleNotificationActionClicked(activityExtras: Bundle) {
-        val notificationActionVo = activityExtras.get(FLOW_PAYLOAD) as NotificationActionVo
+        val notificationActionVo = activityExtras.get(FLOW_PAYLOAD) as? NotificationActionVo
+        notificationActionVo ?: return
 
         //Remove notification
         val notificationManager = getSystemService(NOTIFICATION_SERVICE) as? NotificationManager
