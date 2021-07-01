@@ -10,14 +10,14 @@ import android.graphics.Color
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.os.bundleOf
-import app.suprsend.android.Creator
+import app.suprsend.android.base.AndroidCreator
 import app.suprsend.android.R
 
-object NotificationHelper {
+internal object NotificationHelper {
 
     suspend fun showRawNotification(context: Context, payloadJson: String) {
         try {
-            val rawNotification = Creator.gson.fromJson(payloadJson, RawNotification::class.java)
+            val rawNotification = AndroidCreator.gson.fromJson(payloadJson, RawNotification::class.java)
             showNotificationInternal(context, rawNotification.getNotificationVo())
         } catch (e: Exception) {
             e.printStackTrace()

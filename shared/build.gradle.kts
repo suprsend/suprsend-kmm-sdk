@@ -42,10 +42,8 @@ kotlin {
                     }
                 }
                 implementation(Deps.Squareup.SQLDelight.coroutinesExtension)
-                // Apollo client
-//                implementation(Deps.Apollo.api)
-//                implementation(Deps.Apollo.kotlinRuntime)
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.1.1")
+                implementation("androidx.annotation:annotation:1.2.0")
             }
         }
         val commonTest by getting {

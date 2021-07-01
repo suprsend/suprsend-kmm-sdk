@@ -5,7 +5,7 @@ import android.app.NotificationManager
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import app.suprsend.android.log.Logger
+import android.util.Log
 
 class NotificationRedirectionActivity : Activity() {
 
@@ -14,13 +14,13 @@ class NotificationRedirectionActivity : Activity() {
         try {
             val activityExtras = intent.extras
             if (null == intent || activityExtras == null) {
-                Logger.d(TAG, "meta data not received in $TAG")
+                Log.d(TAG, "meta data not received in $TAG")
                 return
             }
             handleFlowPayload(activityExtras)
             finish()
         } catch (e: Exception) {
-            Logger.e(TAG, "unable to handle meta data in $TAG")
+            Log.e(TAG, "unable to handle meta data in $TAG")
             finish()
         }
     }
@@ -33,11 +33,11 @@ class NotificationRedirectionActivity : Activity() {
                 }
                 else -> {
                     // do nothing
-                    Logger.e(TAG, "payload not handled")
+                    Log.e(TAG, "payload not handled")
                 }
             }
         } else {
-            Logger.e(TAG, "payload not found")
+            Log.e(TAG, "payload not found")
         }
     }
 
@@ -61,7 +61,7 @@ class NotificationRedirectionActivity : Activity() {
     }
 
     companion object {
-        const val TAG = "NotificationRedirectionActivity"
+        const val TAG = "NRA"
         const val FLOW_NAME = "flow_name"
         const val FLOW_PAYLOAD = "flow_payload"
     }

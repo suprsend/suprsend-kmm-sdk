@@ -1,13 +1,22 @@
-package app.suprsend.android
+package app.suprsend.android.base
 
+import android.annotation.SuppressLint
+import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 
-object Creator {
+
+@SuppressLint("StaticFieldLeak")
+internal object AndroidCreator {
+
+    lateinit var context: Context
+
     val gson: Gson by lazy {
         GsonBuilder()
             .setDateFormat("yyyy-MM-dd HH:mm:ss")
             .setLenient()
             .create()
     }
+
+
 }
