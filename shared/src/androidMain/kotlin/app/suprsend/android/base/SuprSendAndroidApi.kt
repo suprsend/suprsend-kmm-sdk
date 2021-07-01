@@ -10,7 +10,7 @@ object SuprSendAndroidApi {
         context: Context,
         databaseDriverFactory: DatabaseDriverFactory
     ) {
-        AndroidCreator.context = context
+        AndroidCreator.context = context.applicationContext
         SuprSendSdkInternal.initialize(
             databaseDriverFactory = databaseDriverFactory
         )

@@ -9,6 +9,7 @@ import com.google.gson.GsonBuilder
 @SuppressLint("StaticFieldLeak")
 internal object AndroidCreator {
 
+    //Keeping only application context here
     lateinit var context: Context
 
     val gson: Gson by lazy {
@@ -17,6 +18,5 @@ internal object AndroidCreator {
             .setLenient()
             .create()
     }
-
 
 }

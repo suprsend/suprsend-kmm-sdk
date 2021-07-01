@@ -87,7 +87,7 @@ internal object SuprSendSdkInternal {
             .launch {
                 val eventRepository = EventRepository()
                 eventRepository
-                    .getDirtyEvents(SuprSendConstants.FLUSH_EVENT_SIZE)
+                    .getDirtyEvents(SuprSendConstants.FLUSH_EVENT_PAYLOAD_SIZE)
                     .map { eventModelList ->
                         Json.encodeToJsonElement(ListSerializer(EventModel.serializer()), eventModelList).toString()
                     }
