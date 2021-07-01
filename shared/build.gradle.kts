@@ -5,6 +5,7 @@ plugins {
     id("com.android.library")
     id("kotlinx-serialization")
     id("com.squareup.sqldelight")
+    id("kotlin-parcelize")
 }
 
 kotlin {
@@ -42,8 +43,8 @@ kotlin {
                 }
                 implementation(Deps.Squareup.SQLDelight.coroutinesExtension)
                 // Apollo client
-                implementation(Deps.Apollo.api)
-                implementation(Deps.Apollo.kotlinRuntime)
+//                implementation(Deps.Apollo.api)
+//                implementation(Deps.Apollo.kotlinRuntime)
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.1.1")
             }
         }
@@ -55,9 +56,11 @@ kotlin {
                 api(Deps.JetBrains.Coroutines.common)
             }
         }
-        val androidMain by  getting {
+        val androidMain by getting {
             dependencies {
+
                 implementation(Deps.JetBrains.Kotlin.testJunit)
+
                 implementation(Deps.Squareup.SQLDelight.sqliteDriver)
                 implementation(Deps.Squareup.SQLDelight.androidDriver)
 
@@ -65,7 +68,13 @@ kotlin {
                 implementation(Deps.JetBrains.Coroutines.android)
 
                 implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
+                implementation("androidx.core:core-ktx:1.5.0")
 
+                implementation("com.google.firebase:firebase-analytics:19.0.0")
+                implementation("com.google.firebase:firebase-messaging:22.0.0")
+
+                //Todo version constants
+                implementation("com.google.code.gson:gson:2.8.6")
             }
         }
         val androidTest by getting {
@@ -88,7 +97,7 @@ kotlin {
                 implementation(Deps.Squareup.SQLDelight.sqliteDriver)
             }
         }
-        val iosMain by getting{
+        val iosMain by getting {
             dependencies {
                 implementation(Deps.Squareup.SQLDelight.nativeDriver)
                 implementation(Deps.JetBrains.Ktor.clientIos)
@@ -112,11 +121,11 @@ sqldelight {
 }
 
 android {
-    compileSdkVersion(30)
+    compileSdkVersion(Deps.Android.compileSdk)
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     defaultConfig {
-        minSdkVersion(16)
-        targetSdkVersion(30)
+        minSdkVersion(Deps.Android.minSdk)
+        targetSdkVersion(Deps.Android.targetSdk)
     }
 }
 

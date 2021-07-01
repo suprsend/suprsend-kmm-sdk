@@ -4,6 +4,7 @@ buildscript {
         google()
         mavenCentral()
         maven(url = "https://kotlin.bintray.com/kotlinx")
+        maven(url = "https://jitpack.io")
     }
     dependencies {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.10")
@@ -11,6 +12,7 @@ buildscript {
         classpath("org.jetbrains.kotlin:kotlin-serialization:1.5.10")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.10")
         classpath(Deps.Squareup.SQLDelight.gradlePlugin)
+        classpath ("com.google.gms:google-services:4.3.8")
     }
 }
 
@@ -18,6 +20,7 @@ allprojects {
     repositories {
         google()
         mavenCentral()
+        maven(url ="https://jitpack.io")
     }
 }
 
