@@ -75,6 +75,15 @@ internal object NotificationHelper {
 
         notificationBuilder.setChannelId(notificationVo.notificationChannelVo.id)
 
+        notificationVo.notificationBasicVo.priority.let { priority ->
+            notificationBuilder.priority = when (priority) {
+                NotificationPriority.HIGH -> NotificationCompat.PRIORITY_HIGH
+                NotificationPriority.LOW -> NotificationCompat.PRIORITY_LOW
+                NotificationPriority.MAX -> NotificationCompat.PRIORITY_MAX
+                NotificationPriority.MIN -> NotificationCompat.PRIORITY_MIN
+                NotificationPriority.DEFAULT -> NotificationCompat.PRIORITY_DEFAULT
+            }
+        }
 
         notificationBasicVo.contentTitle.let { contentTitle ->
             notificationBuilder.setContentTitle(contentTitle)

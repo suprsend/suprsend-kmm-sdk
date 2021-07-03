@@ -3,7 +3,6 @@ package app.suprsend.android.notification
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
-
 data class RawNotification(
     val id: String,
 
@@ -14,6 +13,8 @@ data class RawNotification(
     val channelShowBadge: Boolean?,
     val channelVisibility: NotificationChannelVisibility?,
     val channelImportance: NotificationChannelImportance?,
+
+    val priority: NotificationPriority?,
 
     //Notification Details
     val smallIconDrawableName: String? = null,
@@ -56,6 +57,7 @@ data class RawNotification(
                 importance = channelImportance ?: NotificationChannelImportance.HIGH
             ),
             notificationBasicVo = NotificationBasicVo(
+                priority = priority ?: NotificationPriority.DEFAULT,
                 contentTitle = notificationTitle ?: "",
                 contentText = shortDescription ?: "",
                 tickerText = tickerText ?: "",
@@ -152,7 +154,12 @@ enum class NotificationChannelImportance {
     HIGH, LOW, MAX, MIN, DEFAULT
 }
 
+enum class NotificationPriority {
+    HIGH, LOW, MAX, MIN, DEFAULT
+}
+
 data class NotificationBasicVo(
+    val priority: NotificationPriority,
     val smallIconDrawableName: String? = null,
     //#000000
     val color: String? = null,
