@@ -35,8 +35,8 @@ data class RawNotification(
     val showWhenTimeStamp: Boolean? = null,
     val whenTimeStamp: Long? = null,
 
-    val localOnly: Boolean? = null,
     val onGoing: Boolean? = null,
+    val localOnly: Boolean? = null,
 
     //Actions
     val actions: List<NotificationActionVo>? = null
@@ -150,22 +150,27 @@ enum class NotificationChannelImportance {
 }
 
 data class NotificationBasicVo(
+    val smallIconDrawableName: String? = null,
     //#000000
     val color: String? = null,
     val contentTitle: String,
     val subText: String? = null,
     val contentText: String,
     val largeIconUrl: String? = null,
-    val showWhenTimeStamp: Boolean? = null,
-    val whenTimeStamp: Long? = null,
-    val autoCancel: Boolean? = null,
-    val smallIconDrawableName: String? = null,
+    val deeplink: String? = null,
+
     val category: String? = null,
     val group: String? = null,
-    val localOnly: Boolean? = null,
-    val onGoing: Boolean? = null,
+
+    val autoCancel: Boolean? = null,
     val timeoutAfter: Long? = null,
-    val deeplink: String? = null
+
+    val showWhenTimeStamp: Boolean? = null,
+    val whenTimeStamp: Long? = null,
+
+    val onGoing: Boolean? = null,
+    val localOnly: Boolean? = null
+
 )
 
 data class BigTextVo(

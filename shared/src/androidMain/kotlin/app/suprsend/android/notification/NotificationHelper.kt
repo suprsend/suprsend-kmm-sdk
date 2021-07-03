@@ -111,6 +111,12 @@ internal object NotificationHelper {
             notificationBuilder.setWhen(whenTimeStamp)
         }
 
+
+        //The duration of time after which the notification is automatically dismissed.
+        notificationBasicVo.timeoutAfter?.let { timeoutAfter ->
+            notificationBuilder.setTimeoutAfter(timeoutAfter)
+        }
+
         //Dismiss the notification on click?
         notificationBasicVo.autoCancel?.let { autoCancel ->
             notificationBuilder.setAutoCancel(autoCancel)
@@ -143,10 +149,7 @@ internal object NotificationHelper {
             notificationBuilder.setOngoing(onGoing)
         }
 
-        //The duration of time after which the notification is automatically dismissed.
-        notificationBasicVo.timeoutAfter?.let { timeoutAfter ->
-            notificationBuilder.setTimeoutAfter(timeoutAfter)
-        }
+
 
 
         //notificationBuilder.setProgress(0,0,true)
