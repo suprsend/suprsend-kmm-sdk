@@ -107,6 +107,10 @@ internal object NotificationHelper {
             notificationBuilder.setShowWhen(showWhenTimeStamp)
         }
 
+        notificationBasicVo.whenTimeStamp?.let { whenTimeStamp ->
+            notificationBuilder.setWhen(whenTimeStamp)
+        }
+
         //Dismiss the notification on click?
         notificationBasicVo.autoCancel?.let { autoCancel ->
             notificationBuilder.setAutoCancel(autoCancel)
@@ -140,8 +144,8 @@ internal object NotificationHelper {
         }
 
         //The duration of time after which the notification is automatically dismissed.
-        notificationBasicVo.timeout?.let { timeout ->
-            notificationBuilder.setTimeoutAfter(timeout)
+        notificationBasicVo.timeoutAfter?.let { timeoutAfter ->
+            notificationBuilder.setTimeoutAfter(timeoutAfter)
         }
 
 

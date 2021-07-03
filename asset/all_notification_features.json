@@ -1,0 +1,55 @@
+{
+  "id": "campain_sale_1",
+
+  "channelId": "Channel ID",
+  "channelName": "Channel Name",
+  "channelDescription": "Channel Description",
+  "channelShowBadge": true,
+  "channelVisibility": "PUBLIC",
+  "channelImportance": "HIGH",
+
+  "smallIconDrawableName": "ic_alarm",
+  "color": "#FF0000",
+  "notificationTitle": "Super Offer Deal Flat 99% Off 😃",
+  "subText": "Check",
+  "shortDescription": "Deal breaker flat 99% Off 😃",
+  "longDescription": "Very limited offer starting at 10:00PM will be closed within 1 min.",
+  "iconUrl": "https://niksdevelop.herokuapp.com/images/346kb.jpg",
+  "imageUrl": "https://niksdevelop.herokuapp.com/images/346kb.jpg",
+  "deeplink": "https://google.com",
+
+  "category": "Offer Category",
+  "group": "Sale21",
+
+  "autoCancel": true,
+  "timeout": 1625323740,
+
+  "onGoing": false,
+
+  "when": 1625323740,
+  "showWhenTimeStamp": true,
+
+  "localOnly": true,
+
+
+  "actions": [
+    {
+      "id": "21",
+      "title": "Google",
+      "link": "https://google.com",
+      "iconDrawableName": "ic_5g"
+    },
+    {
+      "id": "22",
+      "title": "Slack",
+      "link": "https://slack.com",
+      "iconDrawableName": null
+    },
+    {
+      "id": "23",
+      "title": "Youtube Deeplink",
+      "link": "vnd.youtube://4KnNVK-udTU",
+      "iconDrawableName": null
+    }
+  ]
+}

@@ -24,14 +24,19 @@ data class RawNotification(
     val longDescription: String?,
     val iconUrl: String?,
     val imageUrl: String? = null,
+    val deeplink: String? = null,
+
     val category: String? = null,
     val group: String? = null,
+
     val autoCancel: Boolean? = null,
+    val timeoutAfter: Long? = null,
+
     val showWhenTimeStamp: Boolean? = null,
+    val whenTimeStamp: Long? = null,
+
     val localOnly: Boolean? = null,
     val onGoing: Boolean? = null,
-    val timeout: Long? = null,
-    val deeplink: String? = null,
 
     //Actions
     val actions: List<NotificationActionVo>? = null
@@ -55,13 +60,14 @@ data class RawNotification(
                 color = color,
                 subText = subText,
                 showWhenTimeStamp = showWhenTimeStamp,
+                whenTimeStamp = whenTimeStamp,
                 autoCancel = autoCancel,
                 smallIconDrawableName = smallIconDrawableName,
                 category = category,
                 group = group,
                 localOnly = localOnly,
                 onGoing = onGoing,
-                timeout = timeout,
+                timeoutAfter = timeoutAfter,
                 deeplink = deeplink
             ),
             actions = actions
@@ -151,13 +157,14 @@ data class NotificationBasicVo(
     val contentText: String,
     val largeIconUrl: String? = null,
     val showWhenTimeStamp: Boolean? = null,
+    val whenTimeStamp: Long? = null,
     val autoCancel: Boolean? = null,
     val smallIconDrawableName: String? = null,
     val category: String? = null,
     val group: String? = null,
     val localOnly: Boolean? = null,
     val onGoing: Boolean? = null,
-    val timeout: Long? = null,
+    val timeoutAfter: Long? = null,
     val deeplink: String? = null
 )
 
