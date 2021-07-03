@@ -9,13 +9,12 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import androidx.core.app.NotificationCompat
-import androidx.core.os.bundleOf
 import app.suprsend.android.base.AndroidCreator
 import app.suprsend.android.R
 
 internal object NotificationHelper {
 
-    suspend fun showRawNotification(context: Context, payloadJson: String) {
+    fun showRawNotification(context: Context, payloadJson: String) {
         try {
             val rawNotification = AndroidCreator.gson.fromJson(payloadJson, RawNotification::class.java)
             showNotificationInternal(context, rawNotification.getNotificationVo())
@@ -49,25 +48,13 @@ internal object NotificationHelper {
             notificationVo.actions?.forEachIndexed { index, notificationActionVo ->
 
                 val actionIcon = try {
-                    context.resources.getIdentifier(notificationActionVo.iconDrawableName, "drawable", context.packageName)
+
                 } catch (e: Exception) {
                     e.printStackTrace()
                     0
                 }
-                val actionLink = notificationActionVo.link
-                val actionIntent = if (actionLink.isNullOrBlank()) {
-                    context.packageManager.getLaunchIntentForPackage(context.packageName)
-                } else {
-                    Intent(context, NotificationRedirectionActivity::class.java)
-                        .setClass(context, NotificationRedirectionActivity::class.java)
-                        .putExtras(
-                            bundleOf(
-                                NotificationRedirectionActivity.FLOW_NAME to NotificationRedirection.NOTIFICATION_ACTION_CLICKED,
-                                NotificationRedirectionActivity.FLOW_PAYLOAD to notificationActionVo,
-                            )
-                        )
-                        .setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
-                }
+
+                val actionIntent = NotificationRedirectionActivity.getIntent(context, notificationActionVo)
 
                 actionIntent?.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
 
@@ -113,8 +100,9 @@ internal object NotificationHelper {
                 notificationBuilder.color = Color.parseColor(stringColorCode)
         }
 
-//        val smallIcon = context.applicationInfo.icon
-        notificationBuilder.setSmallIcon(R.drawable.ic_notification)
+        val smallIcon = context.getDrawableIdFromName(notificationBasicVo.smallIconDrawableName) ?: R.drawable.ic_notification
+
+        notificationBuilder.setSmallIcon(smallIcon)
 
         notificationBasicVo.subText?.let { subText ->
             notificationBuilder.setSubText(subText)
@@ -125,38 +113,60 @@ internal object NotificationHelper {
         }
 
         //Dismiss the notification on click?
-        //.setAutoCancel(payload.meta.cancelOnClick)
+        notificationBasicVo.autoCancel?.let { autoCancel ->
+            notificationBuilder.setAutoCancel(autoCancel)
+        }
 
-        //Set the click handler for the notifications
-        //.setContentIntent(payload.meta.clickIntent)
 
         //Set the handler in the event that the notification is dismissed.
-        //.setDeleteIntent(payload.meta.clearIntent)
+        val notificationDeleteIntent = NotificationRedirectionActivity.notificationDismissIntent(context, NotificationDismissVo(notificationVo.id))
+        notificationDeleteIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+        val notificationDeletePI = PendingIntent.getBroadcast(context, System.currentTimeMillis().toInt(), notificationDeleteIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+        notificationBuilder.setDeleteIntent(notificationDeletePI)
 
         //The category of the notification which allows android to prioritize the notification as required.
-        //.setCategory(payload.meta.category)
+        notificationBasicVo.category?.let { category ->
+            notificationBuilder.setCategory(category)
+        }
 
         //Set the key by which this notification will be grouped.
-        //.setGroup(payload.meta.group)
+        notificationBasicVo.group?.let { group ->
+            notificationBuilder.setGroup(group)
+        }
 
         //Set whether or not this notification is only relevant to the current device.
-        //.setLocalOnly(payload.meta.localOnly)
+        notificationBasicVo.localOnly?.let { localOnly ->
+            notificationBuilder.setLocalOnly(localOnly)
+        }
 
         //Set whether this notification is sticky.
-        //.setOngoing(payload.meta.sticky)
+        notificationBasicVo.onGoing?.let { onGoing ->
+            notificationBuilder.setOngoing(onGoing)
+        }
 
         //The duration of time after which the notification is automatically dismissed.
-        //.setTimeoutAfter(payload.meta.timeout)
+        notificationBasicVo.timeout?.let { timeout ->
+            notificationBuilder.setTimeoutAfter(timeout)
+        }
 
 
-        //builder.setProgress(0,0,true)
+        //notificationBuilder.setProgress(0,0,true)
 
-        // builder.addPerson(it)
+//        notificationBuilder.addPerson(
+//            Person
+//                .Builder()
+//                .setImportant(true)
+//                .setName("")
+//                .setIcon()
+//                .setUri()
+//                .build()
+//        )
 
 
         try {
             // Todo : set big text / picture notification content intent
-            val contentIntent = context.packageManager.getLaunchIntentForPackage(context.packageName)
+            val notificationActionVo = notificationVo.getDeeplinkNotificationActionVo()
+            val contentIntent = NotificationRedirectionActivity.getIntent(context, notificationActionVo)
             contentIntent?.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
             val contentPI = PendingIntent.getBroadcast(context, System.currentTimeMillis().toInt(), contentIntent, PendingIntent.FLAG_UPDATE_CURRENT)
             notificationBuilder.setContentIntent(contentPI)
@@ -204,76 +214,13 @@ internal object NotificationHelper {
     }
 
     private fun setStyle(builder: NotificationCompat.Builder, notificationVo: NotificationVo) {
+        handleInboxStyleVo(notificationVo, builder)
+        handleBigTextVo(notificationVo, builder)
+        handleBigPictureVo(notificationVo, builder)
+        handleMessagingStyleVo(notificationVo, builder)
+    }
 
-
-        val inboxStyleVo = notificationVo.inboxStyleVo
-
-        if (inboxStyleVo != null) {
-            val inboxStyle = NotificationCompat.InboxStyle()
-
-            inboxStyleVo.bigContentTitle?.let { bigContentTitle ->
-                inboxStyle.setBigContentTitle(bigContentTitle)
-            }
-
-            inboxStyleVo.summaryText?.let { summaryText ->
-                inboxStyle.setSummaryText(summaryText)
-            }
-
-            inboxStyleVo.lines?.forEach { line ->
-                inboxStyle.addLine(line)
-            }
-
-            builder.setStyle(inboxStyle)
-        }
-
-
-        val bigTextVo = notificationVo.bigTextVo
-        if (bigTextVo != null) {
-
-            val bigTextStyle = NotificationCompat.BigTextStyle()
-
-            bigTextVo.bigContentTitle?.let { bigContentTitle ->
-                bigTextStyle.setBigContentTitle(bigContentTitle)
-            }
-
-            bigTextVo.summaryText?.let { summaryText ->
-                bigTextStyle.setSummaryText(summaryText)
-            }
-
-            bigTextVo.bigText?.let { bigText ->
-                bigTextStyle.bigText(bigText)
-            }
-
-            builder.setStyle(bigTextStyle)
-        }
-
-
-        val bigPictureVo = notificationVo.bigPictureVo
-        if (bigPictureVo != null) {
-            //Big Picture
-            val bigPictureStyle = NotificationCompat.BigPictureStyle()
-
-            bigPictureVo.bigContentTitle?.let { bigContentTitle ->
-                bigPictureStyle.setBigContentTitle(bigContentTitle)
-            }
-
-            bigPictureVo.summaryText?.let { summaryText ->
-                bigPictureStyle.setSummaryText(summaryText)
-            }
-
-            bigPictureVo.bigPictureUrl?.let { bigPictureUrl ->
-                bigPictureStyle.bigPicture(BitmapHelper.getBitmapFromUrl(bigPictureUrl))
-            }
-
-            bigPictureVo.largeIconUrl?.let { largeIconUrl ->
-                bigPictureStyle.bigLargeIcon(BitmapHelper.getBitmapFromUrl(largeIconUrl))
-            }
-
-            builder.setStyle(bigPictureStyle)
-
-        }
-
-
+    private fun handleMessagingStyleVo(notificationVo: NotificationVo, builder: NotificationCompat.Builder) {
 //        NotificationCompat
 //            .MessagingStyle(
 //                Person
@@ -289,69 +236,80 @@ internal object NotificationHelper {
 //            .also { s ->
 //                content.messages.forEach { s.addMessage(it.text, it.timestamp, it.sender) }
 //            }
-
     }
 
-    suspend fun showTextNotification(context: Context) {
-        showNotificationInternal(
-            context,
-            NotificationVo(
-                id = "showTextNotification",
-                notificationChannelVo = NotificationChannelVo(
-                    id = "Channel Id",
-                    name = "Channel Name",
-                    description = "Channel Description",
-                    showBadge = true,
-                    visibility = NotificationChannelVisibility.PUBLIC,
-                    importance = NotificationChannelImportance.HIGH
-                ),
-                notificationBasicVo = NotificationBasicVo(
-                    contentTitle = "Content Title",
-                    contentText = "Content Text",
-                    largeIconUrl = "https://niksdevelop.herokuapp.com/images/346kb.jpg",
-                    color = "#FF0000",
-                    subText = "Sub Text",
-                    showWhenTimeStamp = true
-                ),
-                bigTextVo = BigTextVo(
-                    title = "Title",
-                    contentText = "Content Text",
-                    summaryText = "Summary Text",
-                    bigContentTitle = "Big Content Title",
-                    bigText = "Big Text"
-                )
-            )
-        )
+    private fun handleBigPictureVo(notificationVo: NotificationVo, builder: NotificationCompat.Builder) {
+        val bigPictureVo = notificationVo.bigPictureVo ?: return
+        //Big Picture
+        val bigPictureStyle = NotificationCompat.BigPictureStyle()
+
+        bigPictureVo.bigContentTitle?.let { bigContentTitle ->
+            bigPictureStyle.setBigContentTitle(bigContentTitle)
+        }
+
+        bigPictureVo.summaryText?.let { summaryText ->
+            bigPictureStyle.setSummaryText(summaryText)
+        }
+
+        bigPictureVo.bigPictureUrl?.let { bigPictureUrl ->
+            bigPictureStyle.bigPicture(BitmapHelper.getBitmapFromUrl(bigPictureUrl))
+        }
+
+        bigPictureVo.largeIconUrl?.let { largeIconUrl ->
+            bigPictureStyle.bigLargeIcon(BitmapHelper.getBitmapFromUrl(largeIconUrl))
+        }
+
+        builder.setStyle(bigPictureStyle)
     }
 
-    suspend fun showImageNotification(context: Context) {
-        showNotificationInternal(
-            context,
-            NotificationVo(
-                id = "showImageNotification",
-                notificationChannelVo = NotificationChannelVo(
-                    id = "Channel Id",
-                    name = "Channel Name",
-                    description = "Channel Description",
-                    showBadge = true,
-                    visibility = NotificationChannelVisibility.PUBLIC,
-                    importance = NotificationChannelImportance.HIGH
-                ),
-                notificationBasicVo = NotificationBasicVo(
-                    contentTitle = "Content Title",
-                    contentText = "Content Text",
-                    largeIconUrl = "https://niksdevelop.herokuapp.com/images/346kb.jpg",
-                    color = "#FF0000",
-                    subText = "Sub Text",
-                    showWhenTimeStamp = true
-                ),
-                bigPictureVo = BigPictureVo(
-                    bigContentTitle = "Big Content Title",
-                    summaryText = "Summary Text",
-                    bigPictureUrl = "https://niksdevelop.herokuapp.com/images/346kb.jpg",
-                    largeIconUrl = "https://niksdevelop.herokuapp.com/images/346kb.jpg",
-                )
-            )
-        )
+    private fun handleBigTextVo(notificationVo: NotificationVo, builder: NotificationCompat.Builder) {
+        val bigTextVo = notificationVo.bigTextVo ?: return
+
+        val bigTextStyle = NotificationCompat.BigTextStyle()
+
+        bigTextVo.bigContentTitle?.let { bigContentTitle ->
+            bigTextStyle.setBigContentTitle(bigContentTitle)
+        }
+
+        bigTextVo.summaryText?.let { summaryText ->
+            bigTextStyle.setSummaryText(summaryText)
+        }
+
+        bigTextVo.bigText?.let { bigText ->
+            bigTextStyle.bigText(bigText)
+        }
+
+        builder.setStyle(bigTextStyle)
+    }
+
+    private fun handleInboxStyleVo(notificationVo: NotificationVo, builder: NotificationCompat.Builder) {
+        val inboxStyleVo = notificationVo.inboxStyleVo ?: return
+
+        val inboxStyle = NotificationCompat.InboxStyle()
+
+        inboxStyleVo.bigContentTitle?.let { bigContentTitle ->
+            inboxStyle.setBigContentTitle(bigContentTitle)
+        }
+
+        inboxStyleVo.summaryText?.let { summaryText ->
+            inboxStyle.setSummaryText(summaryText)
+        }
+
+        inboxStyleVo.lines?.forEach { line ->
+            inboxStyle.addLine(line)
+        }
+
+        builder.setStyle(inboxStyle)
+    }
+
+
+}
+
+fun Context.getDrawableIdFromName(drawableName: String?): Int? {
+    drawableName ?: return null
+    return try {
+        resources.getIdentifier(drawableName, "drawable", packageName)
+    } catch (e: Exception) {
+        null
     }
 }

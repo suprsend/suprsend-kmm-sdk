@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <service
-            android:name="app.suprsend.android.fcm.MyFirebaseMessagingService"
+            android:name="app.suprsend.android.fcm.SuprSendFirebaseMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

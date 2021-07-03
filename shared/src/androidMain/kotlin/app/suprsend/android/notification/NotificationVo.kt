@@ -16,11 +16,21 @@ data class RawNotification(
     val channelImportance: NotificationChannelImportance?,
 
     //Notification Details
+    val color: String?,
     val notificationTitle: String?,
+    val subText: String?,
     val shortDescription: String?,
     val longDescription: String?,
     val iconUrl: String?,
     val imageUrl: String? = null,
+    val smallIconDrawableName: String? = null,
+    val category: String? = null,
+    val group: String? = null,
+    val autoCancel: Boolean? = null,
+    val showWhenTimeStamp: Boolean? = null,
+    val localOnly: Boolean? = null,
+    val onGoing: Boolean? = null,
+    val timeout: Long? = null,
 
     //Actions
     val actions: List<NotificationActionVo>? = null
@@ -40,8 +50,27 @@ data class RawNotification(
             notificationBasicVo = NotificationBasicVo(
                 contentTitle = notificationTitle ?: "",
                 contentText = shortDescription ?: "",
+                largeIconUrl = iconUrl,
+                color = color,
+                subText = subText,
+                showWhenTimeStamp = showWhenTimeStamp,
+                autoCancel = autoCancel,
+                smallIconDrawableName = smallIconDrawableName,
+                category = category,
+                group = group,
+                localOnly = localOnly,
+                onGoing = onGoing,
+                timeout = timeout,
             ),
-            actions = actions?.map { notificationActionVo -> notificationActionVo.copy(notificationID = id) }
+            actions = actions
+                ?.map { notificationActionVo ->
+                    if (notificationActionVo.id == null)
+                        notificationActionVo
+                            .copy(
+                                id = id
+                            )
+                    else notificationActionVo
+                }
         )
 
         notificationVo = if (!imageUrl.isNullOrBlank()) {
@@ -76,12 +105,20 @@ data class NotificationVo(
     val bigTextVo: BigTextVo? = null,
     val bigPictureVo: BigPictureVo? = null,
     val inboxStyleVo: InBoxStyleVo? = null,
-    val actions: List<NotificationActionVo>? = null
-)
+    val actions: List<NotificationActionVo>? = null,
+    val deeplink: String? = null
+) {
+    fun getDeeplinkNotificationActionVo(): NotificationActionVo? {
+        return if (deeplink == null)
+            null
+        else
+            NotificationActionVo(id = id, link = deeplink)
+    }
+}
 
 @Parcelize
 data class NotificationActionVo(
-    val notificationID: String?,
+    val id: String?,
     val title: String? = null,
     val link: String? = null,
     val iconDrawableName: String? = null
@@ -105,13 +142,20 @@ enum class NotificationChannelImportance {
 }
 
 data class NotificationBasicVo(
-    val contentTitle: String,
-    val contentText: String,
-    val largeIconUrl: String? = null,
     //#000000
     val color: String? = null,
+    val contentTitle: String,
     val subText: String? = null,
+    val contentText: String,
+    val largeIconUrl: String? = null,
     val showWhenTimeStamp: Boolean? = null,
+    val autoCancel: Boolean? = null,
+    val smallIconDrawableName: String? = null,
+    val category: String? = null,
+    val group: String? = null,
+    val localOnly: Boolean? = null,
+    val onGoing: Boolean? = null,
+    val timeout: Long? = null
 )
 
 data class BigTextVo(

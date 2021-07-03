@@ -2,10 +2,14 @@ package app.suprsend.android.notification
 
 import android.app.Activity
 import android.app.NotificationManager
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.os.Parcelable
 import android.util.Log
+import androidx.core.os.bundleOf
+import kotlinx.parcelize.Parcelize
 
 class NotificationRedirectionActivity : Activity() {
 
@@ -47,7 +51,7 @@ class NotificationRedirectionActivity : Activity() {
 
         //Remove notification
         val notificationManager = getSystemService(NOTIFICATION_SERVICE) as? NotificationManager
-        notificationManager?.cancel((notificationActionVo.notificationID ?: "").hashCode())
+        notificationManager?.cancel((notificationActionVo.id ?: "").hashCode())
 
         //Target intent
         val link = notificationActionVo.link
@@ -61,13 +65,44 @@ class NotificationRedirectionActivity : Activity() {
     }
 
     companion object {
-        const val TAG = "NRA"
-        const val FLOW_NAME = "flow_name"
-        const val FLOW_PAYLOAD = "flow_payload"
+        private const val TAG = "NRA"
+        private const val FLOW_NAME = "flow_name"
+        private const val FLOW_PAYLOAD = "flow_payload"
+
+        fun getIntent(context: Context, notificationActionVo: NotificationActionVo? = null): Intent? {
+            if (notificationActionVo?.link == null) {
+                // If link is not present open launcher activity
+                return context.packageManager.getLaunchIntentForPackage(context.packageName)
+            }
+            return Intent(context, NotificationRedirectionActivity::class.java)
+                .setClass(context, NotificationRedirectionActivity::class.java)
+                .putExtras(
+                    bundleOf(
+                        FLOW_NAME to NotificationRedirection.NOTIFICATION_ACTION_CLICKED,
+                        FLOW_PAYLOAD to notificationActionVo,
+                    )
+                )
+        }
+
+        fun notificationDismissIntent(context: Context, notificationDismissVo: NotificationDismissVo): Intent {
+            return Intent(context, NotificationRedirectionActivity::class.java)
+                .setClass(context, NotificationRedirectionActivity::class.java)
+                .putExtras(
+                    bundleOf(
+                        FLOW_NAME to NotificationRedirection.NOTIFICATION_DISMISS,
+                        FLOW_PAYLOAD to notificationDismissVo,
+                    )
+                )
+        }
     }
 
 }
 
 enum class NotificationRedirection {
-    NOTIFICATION_ACTION_CLICKED
+    NOTIFICATION_ACTION_CLICKED, NOTIFICATION_DISMISS
 }
+
+@Parcelize
+data class NotificationDismissVo(
+    val id: String
+) : Parcelable
