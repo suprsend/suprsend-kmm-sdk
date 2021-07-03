@@ -47,12 +47,7 @@ internal object NotificationHelper {
         try {
             notificationVo.actions?.forEachIndexed { index, notificationActionVo ->
 
-                val actionIcon = try {
-
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                    0
-                }
+                val actionIcon = context.getDrawableIdFromName(notificationActionVo.iconDrawableName) ?: 0
 
                 val actionIntent = NotificationRedirectionActivity.getIntent(context, notificationActionVo)
 
@@ -121,7 +116,7 @@ internal object NotificationHelper {
         //Set the handler in the event that the notification is dismissed.
         val notificationDeleteIntent = NotificationRedirectionActivity.notificationDismissIntent(context, NotificationDismissVo(notificationVo.id))
         notificationDeleteIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
-        val notificationDeletePI = PendingIntent.getBroadcast(context, System.currentTimeMillis().toInt(), notificationDeleteIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+        val notificationDeletePI = PendingIntent.getActivity(context, System.currentTimeMillis().toInt(), notificationDeleteIntent, PendingIntent.FLAG_UPDATE_CURRENT)
         notificationBuilder.setDeleteIntent(notificationDeletePI)
 
         //The category of the notification which allows android to prioritize the notification as required.
@@ -168,7 +163,7 @@ internal object NotificationHelper {
             val notificationActionVo = notificationVo.getDeeplinkNotificationActionVo()
             val contentIntent = NotificationRedirectionActivity.getIntent(context, notificationActionVo)
             contentIntent?.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
-            val contentPI = PendingIntent.getBroadcast(context, System.currentTimeMillis().toInt(), contentIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+            val contentPI = PendingIntent.getActivity(context, System.currentTimeMillis().toInt(), contentIntent, PendingIntent.FLAG_UPDATE_CURRENT)
             notificationBuilder.setContentIntent(contentPI)
         } catch (e: Exception) {
             e.printStackTrace()

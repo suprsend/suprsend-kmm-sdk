@@ -16,6 +16,7 @@ data class RawNotification(
     val channelImportance: NotificationChannelImportance?,
 
     //Notification Details
+    val smallIconDrawableName: String? = null,
     val color: String?,
     val notificationTitle: String?,
     val subText: String?,
@@ -23,7 +24,6 @@ data class RawNotification(
     val longDescription: String?,
     val iconUrl: String?,
     val imageUrl: String? = null,
-    val smallIconDrawableName: String? = null,
     val category: String? = null,
     val group: String? = null,
     val autoCancel: Boolean? = null,
@@ -31,6 +31,7 @@ data class RawNotification(
     val localOnly: Boolean? = null,
     val onGoing: Boolean? = null,
     val timeout: Long? = null,
+    val deeplink: String? = null,
 
     //Actions
     val actions: List<NotificationActionVo>? = null
@@ -61,6 +62,7 @@ data class RawNotification(
                 localOnly = localOnly,
                 onGoing = onGoing,
                 timeout = timeout,
+                deeplink = deeplink
             ),
             actions = actions
                 ?.map { notificationActionVo ->
@@ -105,10 +107,10 @@ data class NotificationVo(
     val bigTextVo: BigTextVo? = null,
     val bigPictureVo: BigPictureVo? = null,
     val inboxStyleVo: InBoxStyleVo? = null,
-    val actions: List<NotificationActionVo>? = null,
-    val deeplink: String? = null
+    val actions: List<NotificationActionVo>? = null
 ) {
     fun getDeeplinkNotificationActionVo(): NotificationActionVo? {
+        val deeplink = notificationBasicVo.deeplink
         return if (deeplink == null)
             null
         else
@@ -155,7 +157,8 @@ data class NotificationBasicVo(
     val group: String? = null,
     val localOnly: Boolean? = null,
     val onGoing: Boolean? = null,
-    val timeout: Long? = null
+    val timeout: Long? = null,
+    val deeplink: String? = null
 )
 
 data class BigTextVo(

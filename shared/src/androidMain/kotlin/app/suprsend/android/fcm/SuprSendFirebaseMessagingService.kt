@@ -32,6 +32,6 @@ class SuprSendFirebaseMessagingService : FirebaseMessagingService() {
 
 
     companion object {
-        private const val TAG = "MyFirebaseMsgService"
+        private const val TAG = "SS_FCM"
     }
 }

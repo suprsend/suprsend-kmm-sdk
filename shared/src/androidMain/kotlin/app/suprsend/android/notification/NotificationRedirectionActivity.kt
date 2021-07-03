@@ -35,6 +35,9 @@ class NotificationRedirectionActivity : Activity() {
                 NotificationRedirection.NOTIFICATION_ACTION_CLICKED -> {
                     handleNotificationActionClicked(activityExtras)
                 }
+                NotificationRedirection.NOTIFICATION_DISMISS -> {
+                    Log.i(TAG, "Notification dismissed")
+                }
                 else -> {
                     // do nothing
                     Log.e(TAG, "payload not handled")
@@ -71,10 +74,9 @@ class NotificationRedirectionActivity : Activity() {
 
         fun getIntent(context: Context, notificationActionVo: NotificationActionVo? = null): Intent? {
             if (notificationActionVo?.link == null) {
-                // If link is not present open launcher activity
                 return context.packageManager.getLaunchIntentForPackage(context.packageName)
             }
-            return Intent(context, NotificationRedirectionActivity::class.java)
+            return Intent()
                 .setClass(context, NotificationRedirectionActivity::class.java)
                 .putExtras(
                     bundleOf(
@@ -85,7 +87,7 @@ class NotificationRedirectionActivity : Activity() {
         }
 
         fun notificationDismissIntent(context: Context, notificationDismissVo: NotificationDismissVo): Intent {
-            return Intent(context, NotificationRedirectionActivity::class.java)
+            return Intent()
                 .setClass(context, NotificationRedirectionActivity::class.java)
                 .putExtras(
                     bundleOf(

@@ -82,27 +82,3 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
-
-
-//GlobalScope.launch((Dispatchers.Main)) {
-//    val userRepository = UserRepository.getInstance()
-//    userRepository.insertUser(UserModel("${count++}", "Niks", Company("C1", "nik@gmail.com")))
-//}
-//
-
-//GlobalScope.launch((Dispatchers.Main)) {
-//    val userRepository = UserRepository.getInstance()
-//    val response = userRepository.makeRemoteCall()
-//    Log.i("yep", "$response")
-//    Toast.makeText(this@MainActivity, "$response", Toast.LENGTH_SHORT).show()
-//}
-
-//val userRepository = UserRepository.getInstance()
-//
-//userRepository
-//    .getUsers()
-//    .collect { list ->
-//        val ids = list.map { it.id }
-//        Log.i("yep", "$ids")
-//        Toast.makeText(this@MainActivity, "$ids", Toast.LENGTH_SHORT).show()
-//    }
