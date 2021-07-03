@@ -84,6 +84,10 @@ internal object NotificationHelper {
             notificationBuilder.setContentText(contentText)
         }
 
+        notificationBasicVo.tickerText.let { tickerText ->
+            notificationBuilder.setTicker(tickerText)
+        }
+
         notificationBasicVo.largeIconUrl?.let { largeIconUrl ->
             if (largeIconUrl.isNotBlank())
                 notificationBuilder.setLargeIcon(BitmapHelper.getBitmapFromUrl(largeIconUrl))
@@ -122,6 +126,10 @@ internal object NotificationHelper {
             notificationBuilder.setAutoCancel(autoCancel)
         }
 
+        //Set whether this notification is sticky.
+        notificationBasicVo.onGoing?.let { onGoing ->
+            notificationBuilder.setOngoing(onGoing)
+        }
 
         //Set the handler in the event that the notification is dismissed.
         val notificationDeleteIntent = NotificationRedirectionActivity.notificationDismissIntent(context, NotificationDismissVo(notificationVo.id))
@@ -143,13 +151,6 @@ internal object NotificationHelper {
         notificationBasicVo.localOnly?.let { localOnly ->
             notificationBuilder.setLocalOnly(localOnly)
         }
-
-        //Set whether this notification is sticky.
-        notificationBasicVo.onGoing?.let { onGoing ->
-            notificationBuilder.setOngoing(onGoing)
-        }
-
-
 
 
         //notificationBuilder.setProgress(0,0,true)

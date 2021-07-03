@@ -22,6 +22,7 @@ data class RawNotification(
     val subText: String?,
     val shortDescription: String?,
     val longDescription: String?,
+    val tickerText: String?,
     val iconUrl: String?,
     val imageUrl: String? = null,
     val deeplink: String? = null,
@@ -29,13 +30,14 @@ data class RawNotification(
     val category: String? = null,
     val group: String? = null,
 
+    val onGoing: Boolean? = null,
     val autoCancel: Boolean? = null,
+
     val timeoutAfter: Long? = null,
 
     val showWhenTimeStamp: Boolean? = null,
     val whenTimeStamp: Long? = null,
 
-    val onGoing: Boolean? = null,
     val localOnly: Boolean? = null,
 
     //Actions
@@ -56,17 +58,18 @@ data class RawNotification(
             notificationBasicVo = NotificationBasicVo(
                 contentTitle = notificationTitle ?: "",
                 contentText = shortDescription ?: "",
+                tickerText = tickerText ?: "",
                 largeIconUrl = iconUrl,
                 color = color,
                 subText = subText,
                 showWhenTimeStamp = showWhenTimeStamp,
                 whenTimeStamp = whenTimeStamp,
+                onGoing = onGoing,
                 autoCancel = autoCancel,
                 smallIconDrawableName = smallIconDrawableName,
                 category = category,
                 group = group,
                 localOnly = localOnly,
-                onGoing = onGoing,
                 timeoutAfter = timeoutAfter,
                 deeplink = deeplink
             ),
@@ -156,19 +159,22 @@ data class NotificationBasicVo(
     val contentTitle: String,
     val subText: String? = null,
     val contentText: String,
+    val tickerText: String,
     val largeIconUrl: String? = null,
     val deeplink: String? = null,
 
     val category: String? = null,
     val group: String? = null,
 
+    val onGoing: Boolean? = null,
     val autoCancel: Boolean? = null,
+
     val timeoutAfter: Long? = null,
 
     val showWhenTimeStamp: Boolean? = null,
     val whenTimeStamp: Long? = null,
 
-    val onGoing: Boolean? = null,
+
     val localOnly: Boolean? = null
 
 )
