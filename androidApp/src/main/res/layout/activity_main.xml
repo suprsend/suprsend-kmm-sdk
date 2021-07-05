@@ -16,17 +16,26 @@
         android:text="Greet" />
 
     <TextView
-        android:id="@+id/insertInDb"
+        android:id="@+id/trackEventName"
         style="@style/textFormatInLL"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:text="insertInDb" />
+        android:text="Track Event Name" />
 
     <TextView
-        android:id="@+id/makeNwCall"
+        android:id="@+id/trackEventProperties"
         style="@style/textFormatInLL"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:text="makeNwCall" />
+        android:text="Track Event Properties" />
+
+
+
+    <TextView
+        android:id="@+id/flush"
+        style="@style/textFormatInLL"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Flush Events" />
 
 </LinearLayout>

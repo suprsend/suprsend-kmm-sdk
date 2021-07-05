@@ -1,10 +1,9 @@
 package app.suprsend.android.database
 
-import app.suprsend.android.user.Company
+import app.suprsend.android.EventTable
 import app.suprsend.android.SuprSendDatabase
-import app.suprsend.android.UserModel
-import app.suprsend.android.GLOBAL_SUPR_SEND_DATABASE_WRAPPER
-import com.squareup.sqldelight.ColumnAdapter
+import app.suprsend.android.base.GLOBAL_SUPR_SEND_DATABASE_WRAPPER
+import app.suprsend.android.event.EventModel
 import com.squareup.sqldelight.db.SqlDriver
 
 internal class SuprSendDatabaseWrapper {
@@ -14,11 +13,11 @@ internal class SuprSendDatabaseWrapper {
     lateinit var driver: SqlDriver
 
     constructor(databaseDriver: SqlDriver) {
-        suprSendDatabase = createDatabase(databaseDriver)
+        suprSendDatabase = createDatabase(databaseDriver = databaseDriver)
     }
 
     constructor(databaseDriverFactory: DatabaseDriverFactory) {
-        suprSendDatabase = createDatabase(databaseDriverFactory)
+        suprSendDatabase = createDatabase(databaseDriverFactory = databaseDriverFactory)
     }
 
     private fun createDatabase(databaseDriverFactory: DatabaseDriverFactory): SuprSendDatabase {
@@ -28,21 +27,11 @@ internal class SuprSendDatabaseWrapper {
 
     private fun createDatabase(databaseDriver: SqlDriver): SuprSendDatabase {
         driver = databaseDriver
-        val coordinateAdapter = object : ColumnAdapter<Company, String> {
-            override fun decode(databaseValue: String): Company {
-                val split = databaseValue.split(":")
-                return Company(split[0], split[1])
-            }
-
-            override fun encode(value: Company): String {
-                return "${value.id}:${value.email}"
-            }
-        }
 
         return SuprSendDatabase(
-            driver,
-            UserModel.Adapter(
-                companyAdapter = coordinateAdapter
+            driver = driver,
+            EventTableAdapter = EventTable.Adapter(
+                eventAdapter = DataModelColumnAdapter(serializer = EventModel.serializer())
             )
         )
     }

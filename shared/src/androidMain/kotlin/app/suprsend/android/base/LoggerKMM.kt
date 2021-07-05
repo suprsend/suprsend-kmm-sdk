@@ -1,68 +1,62 @@
-package app.suprsend.android.log
+package app.suprsend.android.base
 
 import android.util.Log
 
-object Logger {
+internal actual class LoggerKMM {
 
-    const val VERBOSE = 101
-    const val DEBUG = 102
-    const val INFO = 103
-    const val ERROR = 104
-    const val OFF = Int.MAX_VALUE
+    actual var logLevel: LogLevel = LogLevel.OFF
 
-    var logLevel: Int = OFF
 
     fun v(tag: String?, message: String?) {
-        if (isLogAllowed(VERBOSE)) {
+        if (isLogAllowed(LogLevel.VERBOSE.num)) {
             Log.v(tag, message!!)
         }
     }
 
     fun v(tag: String?, message: String?, throwable: Throwable?) {
-        if (isLogAllowed(VERBOSE)) {
+        if (isLogAllowed(LogLevel.VERBOSE.num)) {
             Log.v(tag, message, throwable)
         }
     }
 
     fun d(tag: String?, message: String?) {
-        if (isLogAllowed(DEBUG)) {
+        if (isLogAllowed(LogLevel.DEBUG.num)) {
             Log.d(tag, message!!)
         }
     }
 
     fun d(tag: String?, message: String?, throwable: Throwable?) {
-        if (isLogAllowed(DEBUG)) {
+        if (isLogAllowed(LogLevel.DEBUG.num)) {
             Log.d(tag, message, throwable)
         }
     }
 
-    fun i(tag: String?, message: String?) {
-        if (isLogAllowed(INFO)) {
+    actual fun i(tag: String, message: String) {
+        if (isLogAllowed(LogLevel.INFO.num)) {
             Log.i(tag, message!!)
         }
     }
 
     fun i(tag: String?, message: String?, throwable: Throwable?) {
-        if (isLogAllowed(INFO)) {
+        if (isLogAllowed(LogLevel.INFO.num)) {
             Log.i(tag, message, throwable)
         }
     }
 
 
     fun e(tag: String?, message: String?) {
-        if (isLogAllowed(ERROR)) {
+        if (isLogAllowed(LogLevel.ERROR.num)) {
             Log.e(tag, message!!)
         }
     }
 
-    fun e(tag: String?, message: String?, throwable: Throwable?) {
-        if (isLogAllowed(ERROR)) {
+    actual fun e(tag: String, message: String, throwable: Throwable) {
+        if (isLogAllowed(LogLevel.ERROR.num)) {
             Log.e(tag, message, throwable)
         }
     }
 
     private fun isLogAllowed(level: Int): Boolean {
-        return logLevel <= level
+        return logLevel.num <= level
     }
-
 }

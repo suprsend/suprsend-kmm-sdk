@@ -3,7 +3,6 @@ package app.suprsend.android.notification
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
-
 data class RawNotification(
     val id: String,
 
@@ -15,12 +14,32 @@ data class RawNotification(
     val channelVisibility: NotificationChannelVisibility?,
     val channelImportance: NotificationChannelImportance?,
 
+    val priority: NotificationPriority?,
+
     //Notification Details
+    val smallIconDrawableName: String? = null,
+    val color: String?,
     val notificationTitle: String?,
+    val subText: String?,
     val shortDescription: String?,
     val longDescription: String?,
+    val tickerText: String?,
     val iconUrl: String?,
     val imageUrl: String? = null,
+    val deeplink: String? = null,
+
+    val category: String? = null,
+    val group: String? = null,
+
+    val onGoing: Boolean? = null,
+    val autoCancel: Boolean? = null,
+
+    val timeoutAfter: Long? = null,
+
+    val showWhenTimeStamp: Boolean? = null,
+    val whenTimeStamp: Long? = null,
+
+    val localOnly: Boolean? = null,
 
     //Actions
     val actions: List<NotificationActionVo>? = null
@@ -38,10 +57,33 @@ data class RawNotification(
                 importance = channelImportance ?: NotificationChannelImportance.HIGH
             ),
             notificationBasicVo = NotificationBasicVo(
+                priority = priority ?: NotificationPriority.DEFAULT,
                 contentTitle = notificationTitle ?: "",
                 contentText = shortDescription ?: "",
+                tickerText = tickerText ?: "",
+                largeIconUrl = iconUrl,
+                color = color,
+                subText = subText,
+                showWhenTimeStamp = showWhenTimeStamp,
+                whenTimeStamp = whenTimeStamp,
+                onGoing = onGoing,
+                autoCancel = autoCancel,
+                smallIconDrawableName = smallIconDrawableName,
+                category = category,
+                group = group,
+                localOnly = localOnly,
+                timeoutAfter = timeoutAfter,
+                deeplink = deeplink
             ),
-            actions = actions?.map { notificationActionVo -> notificationActionVo.copy(notificationID = id) }
+            actions = actions
+                ?.map { notificationActionVo ->
+                    if (notificationActionVo.id == null)
+                        notificationActionVo
+                            .copy(
+                                id = id
+                            )
+                    else notificationActionVo
+                }
         )
 
         notificationVo = if (!imageUrl.isNullOrBlank()) {
@@ -77,11 +119,19 @@ data class NotificationVo(
     val bigPictureVo: BigPictureVo? = null,
     val inboxStyleVo: InBoxStyleVo? = null,
     val actions: List<NotificationActionVo>? = null
-)
+) {
+    fun getDeeplinkNotificationActionVo(): NotificationActionVo? {
+        val deeplink = notificationBasicVo.deeplink
+        return if (deeplink == null)
+            null
+        else
+            NotificationActionVo(id = id, link = deeplink)
+    }
+}
 
 @Parcelize
 data class NotificationActionVo(
-    val notificationID: String?,
+    val id: String?,
     val title: String? = null,
     val link: String? = null,
     val iconDrawableName: String? = null
@@ -104,14 +154,36 @@ enum class NotificationChannelImportance {
     HIGH, LOW, MAX, MIN, DEFAULT
 }
 
+enum class NotificationPriority {
+    HIGH, LOW, MAX, MIN, DEFAULT
+}
+
 data class NotificationBasicVo(
-    val contentTitle: String,
-    val contentText: String,
-    val largeIconUrl: String? = null,
+    val priority: NotificationPriority,
+    val smallIconDrawableName: String? = null,
     //#000000
     val color: String? = null,
+    val contentTitle: String,
     val subText: String? = null,
+    val contentText: String,
+    val tickerText: String,
+    val largeIconUrl: String? = null,
+    val deeplink: String? = null,
+
+    val category: String? = null,
+    val group: String? = null,
+
+    val onGoing: Boolean? = null,
+    val autoCancel: Boolean? = null,
+
+    val timeoutAfter: Long? = null,
+
     val showWhenTimeStamp: Boolean? = null,
+    val whenTimeStamp: Long? = null,
+
+
+    val localOnly: Boolean? = null
+
 )
 
 data class BigTextVo(

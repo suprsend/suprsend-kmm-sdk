@@ -1,0 +1,15 @@
+import app.suprsend.android.event.EventModel;
+
+CREATE TABLE EventTable (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    event TEXT as EventModel,
+    isDirty INTEGER NOT NULL
+);
+
+track:
+INSERT OR FAIL INTO EventTable(id,event,isDirty) VALUES (?,?,?);
+
+
+getTrackedEvents:
+SELECT *
+FROM EventTable WHERE isDirty =? LIMIT :limit;
