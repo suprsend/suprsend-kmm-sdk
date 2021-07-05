@@ -59,22 +59,13 @@ internal object SuprSendSdkInternal {
             val json = buildJsonObject {
                 properties
                     ?.forEach { (key, value) ->
-                        val processedKey = if (key.length > SuprSendConstants.EVENT_KEY_MAX_LENGTH) {
-                            key.substring(0, SuprSendConstants.EVENT_KEY_MAX_LENGTH - 1)
-                        } else {
-                            key
-                        }
-                        if (value is Boolean)
-                            put(processedKey, value)
-                        else if (value is Number)
-                            put(processedKey, value)
-                        else if (value is String) {
-                            val processedValue = if (value.length > SuprSendConstants.EVENT_VALUE_MAX_LENGTH) {
-                                key.substring(0, SuprSendConstants.EVENT_VALUE_MAX_LENGTH - 1)
-                            } else {
-                                value
+                        val processedKey = EventSanitation.processKey(key)
+                        when (value) {
+                            is Boolean -> put(processedKey, value)
+                            is Number -> put(processedKey, value)
+                            is String -> {
+                                put(processedKey, EventSanitation.processValue(value))
                             }
-                            put(processedKey, processedValue)
                         }
                     }
             }

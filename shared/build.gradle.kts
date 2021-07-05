@@ -29,7 +29,7 @@ kotlin {
             dependencies {
                 // Serialization
                 implementation(Deps.JetBrains.Kotlin.serialization)
-                // implementation(Deps.JetBrains.Kotlinx.atomicfuCommon)
+                implementation(Deps.JetBrains.Kotlin.datetime)
                 // Ktor
                 implementation(Deps.JetBrains.Ktor.clientCommon)
                 // Ktor Features
@@ -42,8 +42,7 @@ kotlin {
                     }
                 }
                 implementation(Deps.Squareup.SQLDelight.coroutinesExtension)
-                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.1.1")
-                implementation("androidx.annotation:annotation:1.2.0")
+                implementation(Deps.AndroidX.ANNOTATION)
             }
         }
         val commonTest by getting {
