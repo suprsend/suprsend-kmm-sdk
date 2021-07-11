@@ -1,10 +1,10 @@
 package app.suprsend.android.event
 
-import io.ktor.client.request.*
-import io.ktor.http.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.serialization.json.JsonElement
 
-class EventRemoteDataSource {
-
+internal class EventRemoteDataSource : EventDataSourceContract {
+    override fun track(value: JsonElement?, isDirty: Boolean) {
 //    return globalNetwork.get()?.get<String> {
 //        url {
 //            this.protocol = URLProtocol.HTTPS
@@ -13,4 +13,12 @@ class EventRemoteDataSource {
 //            path("api", "users")
 //        }
 //    }
+        TODO("Not yet implemented")
+    }
+
+    override fun getEvents(limit: Long, isDirty: Boolean): Flow<List<EventModel>> {
+        TODO("Not yet implemented")
+    }
+
+
 }

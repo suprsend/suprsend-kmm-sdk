@@ -6,4 +6,5 @@ internal object SuprSendConstants {
     const val EVENT_VALUE_MAX_LENGTH = 512
     const val FLUSH_EVENT_PAYLOAD_SIZE = 500L
 
+    const val ANONYMOUS_USER_ID_LENGTH  = 36
 }

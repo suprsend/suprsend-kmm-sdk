@@ -49,7 +49,7 @@ internal actual class LoggerKMM {
         }
     }
 
-    actual fun e(tag: String, message: String, throwable: Throwable) {
+    actual fun e(tag: String, message: String, throwable: Throwable?) {
         if (isLogAllowed(LogLevel.ERROR.num)) {
             printLog(tag, message, throwable)
         }

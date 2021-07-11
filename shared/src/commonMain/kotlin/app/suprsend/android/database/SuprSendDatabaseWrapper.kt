@@ -1,8 +1,10 @@
 package app.suprsend.android.database
 
+import app.suprsend.android.ConfigTable
 import app.suprsend.android.EventTable
 import app.suprsend.android.SuprSendDatabase
-import app.suprsend.android.base.GLOBAL_SUPR_SEND_DATABASE_WRAPPER
+import app.suprsend.android.GLOBAL_SUPR_SEND_DATABASE_WRAPPER
+import app.suprsend.android.config.ConfigModel
 import app.suprsend.android.event.EventModel
 import com.squareup.sqldelight.db.SqlDriver
 
@@ -31,7 +33,10 @@ internal class SuprSendDatabaseWrapper {
         return SuprSendDatabase(
             driver = driver,
             EventTableAdapter = EventTable.Adapter(
-                eventAdapter = DataModelColumnAdapter(serializer = EventModel.serializer())
+                modelAdapter = DataModelColumnAdapter(serializer = EventModel.serializer())
+            ),
+            ConfigTableAdapter = ConfigTable.Adapter(
+                valueAdapter = DataModelColumnAdapter(serializer = ConfigModel.serializer())
             )
         )
     }

@@ -12,11 +12,8 @@ internal object AndroidCreator {
     //Keeping only application context here
     lateinit var context: Context
 
-    val gson: Gson by lazy {
-        GsonBuilder()
-            .setDateFormat("yyyy-MM-dd HH:mm:ss")
-            .setLenient()
-            .create()
+    fun isContextInitialized(): Boolean {
+        return this::context.isInitialized
     }
 
 }

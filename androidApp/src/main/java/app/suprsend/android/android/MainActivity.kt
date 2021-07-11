@@ -7,12 +7,13 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import app.suprsend.android.Greeting
-import app.suprsend.android.base.SuprSendAndroidApi
-import app.suprsend.android.database.DatabaseDriverFactory
+import app.suprsend.android.SuprSendApi
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import org.json.JSONObject
+import java.util.*
 
 
 fun greet(): String {
@@ -20,6 +21,8 @@ fun greet(): String {
 }
 
 class MainActivity : AppCompatActivity() {
+
+    lateinit var suprSendApi: SuprSendApi
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +46,6 @@ class MainActivity : AppCompatActivity() {
                 Log.d("firebase", msg)
                 Toast.makeText(this@MainActivity, msg, Toast.LENGTH_SHORT).show()
             }
-
     }
 
     private fun addClickListeners() {
@@ -53,32 +55,29 @@ class MainActivity : AppCompatActivity() {
 
 
         findViewById<View>(R.id.trackEventName).setOnClickListener {
-            SuprSendAndroidApi.trackEvent("Product Viewed")
+            suprSendApi.track("Product Viewed")
         }
 
         findViewById<View>(R.id.trackEventProperties).setOnClickListener {
-            SuprSendAndroidApi.trackEvent(
+            suprSendApi.track(
                 "Product Viewed",
-                hashMapOf(
-                    "Name" to "Super Bike",
-                    "Price" to 99.9,
-                    "Quantity" to 45,
-                    "Availability" to true
-                )
+                JSONObject().apply {
+                    put("Name", "Super Bike")
+                    put("Price", 99.9)
+                    put("Quantity", 45)
+                    put("Availability", true)
+                }
             )
         }
 
         findViewById<View>(R.id.flush).setOnClickListener {
-            SuprSendAndroidApi.flush()
+            suprSendApi.reset()
         }
     }
 
     private fun initialize() {
-        GlobalScope.launch((Dispatchers.Main)) {
-            SuprSendAndroidApi.initialize(
-                applicationContext,
-                DatabaseDriverFactory()
-            )
+        GlobalScope.launch((Dispatchers.IO)) {
+            suprSendApi = SuprSendApi.getInstance(applicationContext, "123")
         }
     }
 }

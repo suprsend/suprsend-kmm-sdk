@@ -2,27 +2,23 @@ package app.suprsend.android.event
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.serialization.json.JsonElement
 
 internal class EventRepository(
     private val eventLocalDatasource: EventLocalDatasource = EventLocalDatasource(),
     private val eventRemoteDatasource: EventRemoteDataSource = EventRemoteDataSource()
-) {
+) : EventDataSourceContract {
 
-    fun trackEvent(eventName: String, value: String) {
+    override fun track(value: JsonElement?, isDirty: Boolean) {
         eventLocalDatasource.track(
-            name = eventName,
-            value = value
+            value = value,
+            isDirty = isDirty
         )
     }
 
 
-    fun getDirtyEvents(limit: Long): Flow<List<EventModel>> {
+    override fun getEvents(limit: Long, isDirty: Boolean): Flow<List<EventModel>> {
         return eventLocalDatasource
-            .getEvents(limit, true)
-            .map { eventList ->
-                eventList
-                    .filter { it.event != null }
-                    .map { it.event!! }
-            }
+            .getEvents(limit, isDirty)
     }
 }

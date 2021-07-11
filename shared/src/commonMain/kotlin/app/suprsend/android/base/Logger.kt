@@ -14,7 +14,7 @@ internal object Logger {
         loggerKMM.i(tag, message)
     }
 
-    fun e(tag: String, message: String, throwable: Throwable) {
+    fun e(tag: String, message: String, throwable: Throwable? = null) {
         loggerKMM.e(tag, message, throwable)
     }
 }

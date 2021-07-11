@@ -11,12 +11,13 @@ import android.os.Build
 import androidx.core.app.NotificationCompat
 import app.suprsend.android.base.AndroidCreator
 import app.suprsend.android.R
+import kotlinx.serialization.json.Json
 
 internal object NotificationHelper {
 
     fun showRawNotification(context: Context, payloadJson: String) {
         try {
-            val rawNotification = AndroidCreator.gson.fromJson(payloadJson, RawNotification::class.java)
+            val rawNotification = Json.decodeFromString(RawNotification.serializer(), payloadJson)
             showNotificationInternal(context, rawNotification.getNotificationVo())
         } catch (e: Exception) {
             e.printStackTrace()

@@ -1,8 +1,8 @@
 package app.suprsend.android.notification
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class RawNotification(
     val id: String,
 
@@ -129,13 +129,13 @@ data class NotificationVo(
     }
 }
 
-@Parcelize
+@Serializable
 data class NotificationActionVo(
     val id: String?,
     val title: String? = null,
     val link: String? = null,
     val iconDrawableName: String? = null
-) : Parcelable
+)
 
 data class NotificationChannelVo(
     val id: String,
