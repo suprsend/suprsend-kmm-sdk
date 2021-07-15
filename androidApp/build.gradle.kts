@@ -12,7 +12,7 @@ android {
         minSdkVersion(Deps.Android.minSdk)
         targetSdkVersion(Deps.Android.targetSdk)
         versionCode = 1
-        versionName = "1.0"
+        versionName = "1.1"
         multiDexEnabled = true
     }
     signingConfigs {

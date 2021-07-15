@@ -18,7 +18,8 @@ internal object NotificationHelper {
 
     fun showRawNotification(context: Context, payloadJson: String) {
         try {
-            val rawNotification = AndroidCreator.gson.fromJson(payloadJson, RawNotification::class.java)
+//            val rawNotification = AndroidCreator.gson.fromJson(payloadJson, RawNotification::class.java)
+            val rawNotification = Json.decodeFromString(RawNotification.serializer(), payloadJson)
             showNotificationInternal(context, rawNotification.getNotificationVo())
         } catch (e: Exception) {
             Logger.e("nh", "showRawNotification", e)
