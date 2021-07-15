@@ -2,9 +2,9 @@ package app.suprsend.android.base
 
 import android.util.Log
 
-internal actual class LoggerKMM {
+actual class LoggerKMM {
 
-    actual var logLevel: LogLevel = LogLevel.OFF
+    actual var logLevel: LogLevel = LogLevel.VERBOSE
 
 
     fun v(tag: String?, message: String?) {

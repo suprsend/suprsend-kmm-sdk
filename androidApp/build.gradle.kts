@@ -29,6 +29,9 @@ android {
             keyPassword = "debugdebug"
         }
     }
+    buildFeatures {
+        dataBinding = true
+    }
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false

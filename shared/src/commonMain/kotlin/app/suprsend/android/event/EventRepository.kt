@@ -16,9 +16,12 @@ internal class EventRepository(
         )
     }
 
-
-    override fun getEvents(limit: Long, isDirty: Boolean): Flow<List<EventModel>> {
+    override fun getEvents(limit: Long, isDirty: Boolean): List<EventModel> {
         return eventLocalDatasource
             .getEvents(limit, isDirty)
+    }
+
+    override fun delete(ids: List<Long>) {
+        eventLocalDatasource.delete(ids)
     }
 }

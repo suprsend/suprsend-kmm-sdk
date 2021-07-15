@@ -1,16 +1,13 @@
-package app.suprsend.android.event
+package app.suprsend.android.user
 
 import app.suprsend.android.GLOBAL_SUPR_SEND_DATABASE_WRAPPER
 import app.suprsend.android.database.DBConversion
-import com.squareup.sqldelight.runtime.coroutines.asFlow
-import com.squareup.sqldelight.runtime.coroutines.mapToList
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
+import app.suprsend.android.event.EventModel
 import kotlinx.serialization.json.JsonElement
 
-internal class EventLocalDatasource : EventDataSourceContract {
+internal class UserEventLocalDataSource : UserEventDataSourceContract {
 
-    private val queries = GLOBAL_SUPR_SEND_DATABASE_WRAPPER.get()!!.suprSendDatabase.eventTableQueries
+    private val queries = GLOBAL_SUPR_SEND_DATABASE_WRAPPER.get()!!.suprSendDatabase.userEventTableQueries
 
     override fun track(value: JsonElement?, isDirty: Boolean) {
         queries.track(

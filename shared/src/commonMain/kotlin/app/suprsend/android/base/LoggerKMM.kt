@@ -1,6 +1,6 @@
 package app.suprsend.android.base
 
-internal expect class LoggerKMM constructor() {
+expect class LoggerKMM constructor() {
 
     actual var logLevel: LogLevel
 
@@ -9,7 +9,7 @@ internal expect class LoggerKMM constructor() {
 
 }
 
-internal enum class LogLevel(val num: Int) {
+enum class LogLevel(val num: Int) {
     VERBOSE(101),
     DEBUG(102),
     INFO(103),

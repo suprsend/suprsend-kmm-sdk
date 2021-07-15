@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import app.suprsend.android.Greeting
 import app.suprsend.android.SuprSendApi
+import app.suprsend.android.android.databinding.ActivityMainBinding
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -24,9 +25,14 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var suprSendApi: SuprSendApi
 
+    lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        binding = ActivityMainBinding.inflate(layoutInflater)
+
+        setContentView(binding.root)
 
         initialize()
 
@@ -37,7 +43,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun subscribeToTopic() {
         val topicName = "all_users"
-        FirebaseMessaging.getInstance().subscribeToTopic(topicName)
+        FirebaseMessaging
+            .getInstance()
+            .subscribeToTopic(topicName)
             .addOnCompleteListener { task ->
                 var msg = "Subscribed to topic $topicName"
                 if (!task.isSuccessful) {
@@ -49,16 +57,31 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun addClickListeners() {
-        //Todo : Move to data binding
-        val greet: TextView = findViewById(R.id.greet)
-        greet.text = greet()
+
+        binding.greet.text = greet()
 
 
-        findViewById<View>(R.id.trackEventName).setOnClickListener {
+        binding.identify.setOnClickListener {
+            suprSendApi.identify("1234")
+        }
+
+
+        binding.superProperty.setOnClickListener {
+            suprSendApi.setSuperProperties(
+                JSONObject().apply {
+                    put("Super Property String", "123")
+                    put("Super Property Int", 123)
+                    put("Super Property Float", 123.43)
+                    put("Super Property Boolean", false)
+                }
+            )
+        }
+
+        binding.trackEventName.setOnClickListener {
             suprSendApi.track("Product Viewed")
         }
 
-        findViewById<View>(R.id.trackEventProperties).setOnClickListener {
+        binding.trackEventProperties.setOnClickListener {
             suprSendApi.track(
                 "Product Viewed",
                 JSONObject().apply {
@@ -70,8 +93,12 @@ class MainActivity : AppCompatActivity() {
             )
         }
 
-        findViewById<View>(R.id.flush).setOnClickListener {
-            suprSendApi.reset()
+        binding.flush.setOnClickListener {
+            suprSendApi.flush()
+        }
+
+        binding.crash.setOnClickListener {
+            Integer.parseInt("a")
         }
     }
 

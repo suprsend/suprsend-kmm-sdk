@@ -16,4 +16,11 @@ internal object AndroidCreator {
         return this::context.isInitialized
     }
 
+    val gson: Gson by lazy {
+        GsonBuilder()
+            .setDateFormat("yyyy-MM-dd HH:mm:ss")
+            .setLenient()
+            .create()
+    }
+
 }
