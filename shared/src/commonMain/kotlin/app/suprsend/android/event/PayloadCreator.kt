@@ -1,9 +1,14 @@
 package app.suprsend.android.event
 
-import app.suprsend.android.SuprSendApiInternal
+import app.suprsend.android.SSApiInternal
+import app.suprsend.android.base.SSConstants
 import app.suprsend.android.base.addUpdateJsoObject
+import app.suprsend.android.base.timeInMillis
+import app.suprsend.android.base.uuid
+import kotlinx.serialization.json.JsonBuilder
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonObjectBuilder
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.buildJsonObject
 
@@ -12,16 +17,17 @@ object PayloadCreator {
     fun buildIdentityEventPayload(
         identifiedId: String,
         anonymousId: String,
-        apiKey: String = SuprSendApiInternal.apiKey
+        apiKey: String = SSApiInternal.apiKey
     ): JsonObject {
         return buildJsonObject {
-            put("event", JsonPrimitive("\$identify"))
-            put("ENV", JsonPrimitive(apiKey))
+            put(SSConstants.EVENT, JsonPrimitive(SSConstants.IDENTIFY))
+            put(SSConstants.ENV, JsonPrimitive(apiKey))
             put(
-                "properties",
+                SSConstants.PROPERTIES,
                 buildJsonObject {
-                    put("\$identified_id", JsonPrimitive(identifiedId))
-                    put("\$anon_id", JsonPrimitive(anonymousId))
+                    addCommonEventProperties()
+                    put(SSConstants.IDENTIFIED_ID, JsonPrimitive(identifiedId))
+                    put(SSConstants.ANONYMOUS_ID, JsonPrimitive(anonymousId))
                 }
             )
         }
@@ -32,17 +38,24 @@ object PayloadCreator {
         distinctId: String,
         superProperties: JsonObject,
         userProperties: JsonObject?,
-        apiKey: String = SuprSendApiInternal.apiKey
+        apiKey: String = SSApiInternal.apiKey
     ): JsonObject {
 
         // Add super properties
         val finalPropertiesJsonObject = (userProperties ?: JsonObject(mutableMapOf())).addUpdateJsoObject(superProperties)
 
+        finalPropertiesJsonObject.addUpdateJsoObject(
+            buildJsonObject {
+                addCommonEventProperties()
+            }
+        )
+
         return buildJsonObject {
-            put("event", JsonPrimitive(eventName))
-            put("distinct_id", JsonPrimitive(distinctId))
-            put("ENV", JsonPrimitive(apiKey))
-            put("properties", finalPropertiesJsonObject)
+            put(SSConstants.EVENT, JsonPrimitive(eventName))
+            put(SSConstants.DISTINCT_ID, JsonPrimitive(distinctId))
+            put(SSConstants.ENV, JsonPrimitive(apiKey))
+
+            put(SSConstants.PROPERTIES, finalPropertiesJsonObject)
         }
     }
 
@@ -54,17 +67,21 @@ object PayloadCreator {
         distinctId: String,
         setProperties: JsonElement,
         operator: String,
-        apiKey: String = SuprSendApiInternal.apiKey,
+        apiKey: String = SSApiInternal.apiKey,
     ): JsonObject {
         return buildJsonObject {
-            put("distinct_id", JsonPrimitive(distinctId))
-            put("ENV", JsonPrimitive(apiKey))
+            addCommonEventProperties()
+            put(SSConstants.DISTINCT_ID, JsonPrimitive(distinctId))
+            put(SSConstants.ENV, JsonPrimitive(apiKey))
             put(
                 operator,
                 setProperties
             )
         }
     }
+}
 
-
+private fun JsonObjectBuilder.addCommonEventProperties() {
+    put(SSConstants.INSERT_ID, JsonPrimitive(uuid()))
+    put(SSConstants.TIME, JsonPrimitive(timeInMillis()))
 }

@@ -1,11 +1,11 @@
 package app.suprsend.android.base
 
-import app.suprsend.android.SuprSendApi
+import app.suprsend.android.SSApi
 import kotlin.system.exitProcess
 import android.os.Process
 
 class ExceptionHandler(
-    private val suprSendApi: SuprSendApi
+    private val suprSendApi: SSApi
 ) {
     fun track() {
         val defaultHandler = Thread.getDefaultUncaughtExceptionHandler()

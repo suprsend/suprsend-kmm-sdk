@@ -3,10 +3,10 @@ package app.suprsend.android.base
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
-import app.suprsend.android.SuprSendApi
+import app.suprsend.android.SSApi
 
 internal class ActivityLifecycleCallbackHandler(
-    private val suprSendApi: SuprSendApi
+    private val suprSendApi: SSApi
 ) : Application.ActivityLifecycleCallbacks {
     override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
     }

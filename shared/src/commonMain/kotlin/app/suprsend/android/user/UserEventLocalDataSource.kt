@@ -1,21 +1,22 @@
 package app.suprsend.android.user
 
 import app.suprsend.android.GLOBAL_SUPR_SEND_DATABASE_WRAPPER
+import app.suprsend.android.base.uuid
 import app.suprsend.android.database.DBConversion
 import app.suprsend.android.event.EventModel
-import kotlinx.serialization.json.JsonElement
 
 internal class UserEventLocalDataSource : UserEventDataSourceContract {
 
     private val queries = GLOBAL_SUPR_SEND_DATABASE_WRAPPER.get()!!.suprSendDatabase.userEventTableQueries
 
-    override fun track(value: JsonElement?, isDirty: Boolean) {
+    override fun track(eventModel: EventModel, isDirty: Boolean) {
         queries.track(
-            id = null,
-            model = EventModel(value),
+            id = eventModel.id,
+            model = eventModel,
             isDirty = DBConversion.booleanToLong(isDirty)
         )
     }
+
 
     override fun getEvents(limit: Long, isDirty: Boolean): List<EventModel> {
         return queries
@@ -25,8 +26,9 @@ internal class UserEventLocalDataSource : UserEventDataSourceContract {
             .map { item -> item.model!!.copy(id = item.id) }
     }
 
-    override fun delete(ids: List<Long>) {
+    override fun delete(ids: List<String>) {
         queries.delete(ids)
     }
+
 
 }

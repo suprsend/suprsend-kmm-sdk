@@ -1,5 +1,10 @@
 object Deps {
 
+    //TODO : Clear all dependencies version
+    const val SDK_VERSION_CODE = 1
+    const val SDK_VERSION_NAME = "1.0"
+
+
     object AndroidX {
         const val ANNOTATION = "androidx.annotation:annotation:1.2.0"
 

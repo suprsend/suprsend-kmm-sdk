@@ -1,10 +1,11 @@
 package app.suprsend.android.base
 
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.jsonObject
-
 
 fun String?.toKotlinJsonObject(): JsonObject {
     return try {
@@ -16,7 +17,14 @@ fun String?.toKotlinJsonObject(): JsonObject {
     }
 }
 
-fun JsonObject.addUpdateJsoObject(updateJsonObject: JsonObject): JsonObject {
+fun JsonElement?.addUpdateJsoObject(updateJsonObject: JsonObject): JsonElement? {
+    return if (this is JsonObject)
+        this.addUpdateJsoObject(updateJsonObject)
+    else this
+}
+
+fun JsonObject?.addUpdateJsoObject(updateJsonObject: JsonObject): JsonObject {
+    this ?: return updateJsonObject
     return JsonObject(
         toMutableMap()
             .apply {
@@ -25,6 +33,16 @@ fun JsonObject.addUpdateJsoObject(updateJsonObject: JsonObject): JsonObject {
                 }
             }
     )
+}
+
+fun Map<String, Any>.toJsonObject(): JsonObject {
+    return buildJsonObject {
+        forEach { (key, value) ->
+            value.convertToJsonPrimitive(key)?.let { jp ->
+                put(key, jp)
+            }
+        }
+    }
 }
 
 fun JsonObject.addCreateNewJO(key: String, value: Any): JsonObject {

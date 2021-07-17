@@ -8,7 +8,7 @@ import kotlinx.serialization.json.JsonElement
 data class EventModel(
     val value: JsonElement? = null,
     @Transient
-    val id: Long? = null
+    val id: String = ""
 )
 
 //Todo - Export database schema before release

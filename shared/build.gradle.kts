@@ -124,6 +124,10 @@ android {
     defaultConfig {
         minSdkVersion(Deps.Android.minSdk)
         targetSdkVersion(Deps.Android.targetSdk)
+        versionCode = Deps.SDK_VERSION_CODE
+        versionName = Deps.SDK_VERSION_NAME
+        buildConfigField("String", "SS_SDK_VERSION_CODE", "\"${versionCode.toString()}\"")
+        buildConfigField("String", "SS_SDK_VERSION_NAME", "\"$versionName\"")
     }
 }
 

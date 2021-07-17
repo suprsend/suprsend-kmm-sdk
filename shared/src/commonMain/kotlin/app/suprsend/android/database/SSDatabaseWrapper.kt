@@ -9,7 +9,7 @@ import app.suprsend.android.config.ConfigModel
 import app.suprsend.android.event.EventModel
 import com.squareup.sqldelight.db.SqlDriver
 
-internal class SuprSendDatabaseWrapper {
+internal class SSDatabaseWrapper {
 
     val suprSendDatabase: SuprSendDatabase
 

@@ -2,12 +2,10 @@ package app.suprsend.android.android
 
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import app.suprsend.android.Greeting
-import app.suprsend.android.SuprSendApi
+import app.suprsend.android.SSApi
 import app.suprsend.android.android.databinding.ActivityMainBinding
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.coroutines.Dispatchers
@@ -23,7 +21,7 @@ fun greet(): String {
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var suprSendApi: SuprSendApi
+    lateinit var suprSendApi: SSApi
 
     lateinit var binding: ActivityMainBinding
 
@@ -104,7 +102,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initialize() {
         GlobalScope.launch((Dispatchers.IO)) {
-            suprSendApi = SuprSendApi.getInstance(applicationContext, "123")
+            suprSendApi = SSApi.getInstance(applicationContext, "123")
         }
     }
 }

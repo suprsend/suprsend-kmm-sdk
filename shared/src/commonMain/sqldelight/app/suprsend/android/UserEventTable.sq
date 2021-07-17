@@ -1,7 +1,7 @@
 import app.suprsend.android.event.EventModel;
 
 CREATE TABLE UserEventTable (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id TEXT PRIMARY KEY NOT NULL,
     model   TEXT as EventModel,
     isDirty INTEGER NOT NULL
 );

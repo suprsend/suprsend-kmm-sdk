@@ -1,6 +1,6 @@
 package app.suprsend.android.user.api
 
-interface UserApi {
+interface UserApiInternalContract {
 
     fun set(key: String, value: Any)
     fun set(propertiesJson: String)
@@ -28,5 +28,5 @@ interface UserApi {
     fun setAndroidPush(token: String)
     fun unSetAndroidPush(token: String)
     fun refreshAndroidPush(token: String)
-
+    fun reset()
 }

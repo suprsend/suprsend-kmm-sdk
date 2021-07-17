@@ -2,10 +2,10 @@ package app.suprsend.android.base
 
 import android.os.Handler
 import android.os.Looper
-import app.suprsend.android.SuprSendApi
+import app.suprsend.android.SSApi
 
 class PeriodicFlush(
-    private val suprSendApi: SuprSendApi
+    private val suprSendApi: SSApi
 ) {
     // For evey delay seconds it will flush events
     private val delay = 60 * 1000L

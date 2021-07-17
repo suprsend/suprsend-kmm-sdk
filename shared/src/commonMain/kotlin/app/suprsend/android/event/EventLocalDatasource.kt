@@ -1,21 +1,20 @@
 package app.suprsend.android.event
 
 import app.suprsend.android.GLOBAL_SUPR_SEND_DATABASE_WRAPPER
+import app.suprsend.android.base.addUpdateJsoObject
+import app.suprsend.android.base.timeInMillis
+import app.suprsend.android.base.uuid
 import app.suprsend.android.database.DBConversion
-import com.squareup.sqldelight.runtime.coroutines.asFlow
-import com.squareup.sqldelight.runtime.coroutines.mapToList
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import kotlinx.serialization.json.JsonElement
 
 internal class EventLocalDatasource : EventDataSourceContract {
 
     private val queries = GLOBAL_SUPR_SEND_DATABASE_WRAPPER.get()!!.suprSendDatabase.eventTableQueries
 
-    override fun track(value: JsonElement?, isDirty: Boolean) {
+    override fun track(eventModel: EventModel, isDirty: Boolean) {
         queries.track(
-            id = null,
-            model = EventModel(value),
+            id = eventModel.id,
+            model = eventModel,
             isDirty = DBConversion.booleanToLong(isDirty)
         )
     }
@@ -28,7 +27,7 @@ internal class EventLocalDatasource : EventDataSourceContract {
             .map { item -> item.model!!.copy(id = item.id) }
     }
 
-    override fun delete(ids: List<Long>) {
+    override fun delete(ids: List<String>) {
         queries.delete(ids)
     }
 
