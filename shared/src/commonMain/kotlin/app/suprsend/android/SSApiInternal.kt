@@ -13,7 +13,6 @@ import app.suprsend.android.event.EventModel
 import app.suprsend.android.event.PayloadCreator
 import app.suprsend.android.network.httpClientEngine
 import app.suprsend.android.sprop.SuperPropertiesLocalDataSource
-import app.suprsend.android.sprop.SuperPropertiesRepository
 import app.suprsend.android.user.UserEventLocalDataSource
 import app.suprsend.android.user.UserLocalDatasource
 import app.suprsend.android.user.UserRepository
@@ -64,7 +63,7 @@ internal object SSApiInternal {
     fun setSuperProperties(propertiesJsonObject: String?) {
         GlobalScope.launch(ioDispatcher()) {
             Logger.i("api", "Setting super properties")
-            val superPropertiesRepository = SuperPropertiesRepository()
+            val superPropertiesRepository = SuperPropertiesLocalDataSource()
             superPropertiesRepository.add(propertiesJsonObject.toKotlinJsonObject())
         }
     }
