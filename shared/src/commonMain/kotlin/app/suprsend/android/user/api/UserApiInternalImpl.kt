@@ -105,10 +105,16 @@ internal class UserApiInternalImpl : UserApiInternalContract {
     }
 
     override fun unSet(key: String) {
-        Logger.i("user", "unSet $key")
+        unSet(listOf(key))
+    }
+
+    override fun unSet(keys: List<String>) {
+        Logger.i("user", "unSet $keys")
         internalOperatorCall(
             buildJsonArray {
-                add(key)
+                keys.forEach { key ->
+                    add(key)
+                }
             },
             operator = "\$unset"
         )
@@ -144,6 +150,7 @@ internal class UserApiInternalImpl : UserApiInternalContract {
         remove("\$whatsapp", mobile)
     }
 
+    //TODO - Create constant
     override fun setAndroidPush(token: String) {
         Logger.i("user", "setAndroidPush : $token")
         append("\$androidpush", token)
@@ -162,7 +169,9 @@ internal class UserApiInternalImpl : UserApiInternalContract {
     }
 
     override fun reset() {
-        UserLocalDatasource().identify(uuid())
+        val newID = uuid()
+        Logger.i("user", "reset : $newID")
+        UserLocalDatasource().identify(newID)
         SSApiInternal.flush()
     }
 

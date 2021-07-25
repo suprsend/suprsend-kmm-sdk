@@ -6,7 +6,7 @@ import kotlinx.serialization.json.JsonElement
 
 @Serializable
 data class EventModel(
-    val value: JsonElement? = null,
+    val value: JsonElement,
     @Transient
     val id: String = ""
 )

@@ -1,11 +1,7 @@
 package app.suprsend.android.event
 
 import app.suprsend.android.GLOBAL_SUPR_SEND_DATABASE_WRAPPER
-import app.suprsend.android.base.addUpdateJsoObject
-import app.suprsend.android.base.timeInMillis
-import app.suprsend.android.base.uuid
 import app.suprsend.android.database.DBConversion
-import kotlinx.serialization.json.JsonElement
 
 internal class EventLocalDatasource : EventDataSourceContract {
 

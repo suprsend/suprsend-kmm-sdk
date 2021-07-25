@@ -18,6 +18,10 @@ class SSUserApi {
         user.unSet(key)
     }
 
+    fun unSet(keys: List<String>) {
+        user.unSet(keys)
+    }
+
     fun setOnce(key: String, value: Any) {
         user.setOnce(key, value)
     }

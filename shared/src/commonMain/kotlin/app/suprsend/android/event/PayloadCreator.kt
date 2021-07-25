@@ -3,9 +3,8 @@ package app.suprsend.android.event
 import app.suprsend.android.SSApiInternal
 import app.suprsend.android.base.SSConstants
 import app.suprsend.android.base.addUpdateJsoObject
-import app.suprsend.android.base.timeInMillis
 import app.suprsend.android.base.uuid
-import kotlinx.serialization.json.JsonBuilder
+import kotlinx.datetime.Clock
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonObjectBuilder
@@ -20,12 +19,12 @@ object PayloadCreator {
         apiKey: String = SSApiInternal.apiKey
     ): JsonObject {
         return buildJsonObject {
+            addCommonEventProperties()
             put(SSConstants.EVENT, JsonPrimitive(SSConstants.IDENTIFY))
             put(SSConstants.ENV, JsonPrimitive(apiKey))
             put(
                 SSConstants.PROPERTIES,
                 buildJsonObject {
-                    addCommonEventProperties()
                     put(SSConstants.IDENTIFIED_ID, JsonPrimitive(identifiedId))
                     put(SSConstants.ANONYMOUS_ID, JsonPrimitive(anonymousId))
                 }
@@ -44,13 +43,8 @@ object PayloadCreator {
         // Add super properties
         val finalPropertiesJsonObject = (userProperties ?: JsonObject(mutableMapOf())).addUpdateJsoObject(superProperties)
 
-        finalPropertiesJsonObject.addUpdateJsoObject(
-            buildJsonObject {
-                addCommonEventProperties()
-            }
-        )
-
         return buildJsonObject {
+            addCommonEventProperties()
             put(SSConstants.EVENT, JsonPrimitive(eventName))
             put(SSConstants.DISTINCT_ID, JsonPrimitive(distinctId))
             put(SSConstants.ENV, JsonPrimitive(apiKey))
@@ -83,5 +77,5 @@ object PayloadCreator {
 
 private fun JsonObjectBuilder.addCommonEventProperties() {
     put(SSConstants.INSERT_ID, JsonPrimitive(uuid()))
-    put(SSConstants.TIME, JsonPrimitive(timeInMillis()))
+    put(SSConstants.TIME, JsonPrimitive(Clock.System.now().toEpochMilliseconds()))
 }

@@ -4,7 +4,6 @@ import app.suprsend.android.base.AndroidCreator
 import app.suprsend.android.SuprSendDatabase
 import com.squareup.sqldelight.android.AndroidSqliteDriver
 import com.squareup.sqldelight.db.SqlDriver
-import kotlinx.serialization.json.Json
 
 actual class DatabaseDriverFactory {
 

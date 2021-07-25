@@ -7,13 +7,17 @@ plugins {
 android {
 
     compileSdkVersion(Deps.Android.compileSdk)
+    buildToolsVersion(Deps.Android.buildToolsVersion)
+
     defaultConfig {
         applicationId = "app.suprsend.android.android"
         minSdkVersion(Deps.Android.minSdk)
         targetSdkVersion(Deps.Android.targetSdk)
-        versionCode = 1
-        versionName = "1.1"
+        versionCode = Deps.SDK_VERSION_CODE
+        versionName = Deps.SDK_VERSION_NAME
         multiDexEnabled = true
+
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     signingConfigs {
         getByName("debug") {
@@ -32,14 +36,28 @@ android {
     buildFeatures {
         dataBinding = true
     }
+
     buildTypes {
+        getByName("debug") {
+            versionNameSuffix = "(d)"
+            isDebuggable = true
+            isCrunchPngs = false
+            isMinifyEnabled = false
+        }
         getByName("release") {
             isMinifyEnabled = false
             signingConfig = signingConfigs.getByName("release")
             isDebuggable = false
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
-
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
     packagingOptions {
         exclude("META-INF/ktor-client-core.kotlin_module")
         exclude("META-INF/ktor-io.kotlin_module")
@@ -54,23 +72,23 @@ android {
 }
 
 dependencies {
-
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:${Deps.JetBrains.Kotlin.VERSION}")
+    implementation(Deps.CORE_KTX)
+    implementation("androidx.appcompat:appcompat:1.3.1")
+    implementation("com.google.android.material:material:1.4.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.0.4")
     implementation(project(":shared"))
 
-    implementation("com.google.android.material:material:1.3.0")
-    implementation("androidx.appcompat:appcompat:1.3.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.0.4")
-
-    val coroutinesAndroidVersion = "1.3.2"
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesAndroidVersion")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesAndroidVersion")
-    implementation("androidx.multidex:multidex:2.0.1")
-
-    //Todo: Figureout bom version support in shared lib
-    //If you are changing bom version please change shared module analytics version manually bom is not supported there
-    implementation(platform("com.google.firebase:firebase-bom:28.1.0"))
-    implementation("com.google.firebase:firebase-analytics")
-    implementation("com.google.firebase:firebase-messaging")
-
-    implementation("com.google.code.gson:gson:2.8.6")
+//    implementation(Deps.JetBrains.Coroutines.core)
+//    implementation(Deps.JetBrains.Coroutines.android)
+//    implementation("androidx.multidex:multidex:2.0.1")
+//
+//    //Todo: Figureout bom version support in shared lib
+//    //If you are changing bom version please change shared module analytics version manually bom is not supported there
+//    implementation(platform("com.google.firebase:firebase-bom:28.1.0"))
+//    implementation("com.google.firebase:firebase-analytics")
+//    implementation("com.google.firebase:firebase-messaging")
+//
+//    implementation("com.google.code.gson:gson:2.8.6")
+//
 }

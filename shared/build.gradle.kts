@@ -6,37 +6,67 @@ plugins {
     id("kotlinx-serialization")
     id("com.squareup.sqldelight")
     id("kotlin-parcelize")
+    id("maven-publish")
 }
-
+//apply {
+//    from("$rootDir/maven.gradle")
+//}
 kotlin {
-    android()
+    group = "app.suprsend.android"
+    version = "0.0.1"
+    android {
+        publishLibraryVariants("release", "debug")
+        publishLibraryVariantsGroupedByFlavor = true
+    }
 
-    val iosTarget: (String, KotlinNativeTarget.() -> Unit) -> KotlinNativeTarget =
-        if (System.getenv("SDK_NAME")?.startsWith("iphoneos") == true)
-            ::iosArm64
-        else
-            ::iosX64
-
-    iosTarget("ios") {
+    val onSimulator = System.getenv("SDK_NAME")?.startsWith("iphonesimulator") ?: false
+    val type = if (onSimulator) {
+        "marker"
+    } else {
+        "bitcode"
+    }
+    ios()
+    ios {
         binaries {
             framework {
-                baseName = "shared"
+                baseName = "ss"
+                isStatic = true
+                embedBitcode(type)
+                freeCompilerArgs = listOf("-Xadd-light-debug=enable")
             }
         }
     }
+
+
+    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+        kotlinOptions {
+            jvmTarget = "1.8"
+            freeCompilerArgs = listOf("-progressive")
+        }
+    }
+    sourceSets {
+        all {
+            languageSettings.apply {
+                useExperimentalAnnotation("kotlin.RequiresOptIn")
+                useExperimentalAnnotation("kotlinx.coroutines.ExperimentalCoroutinesApi")
+            }
+        }
+    }
+
     sourceSets {
         val commonMain by getting {
             dependencies {
                 // Serialization
-                implementation(Deps.JetBrains.Kotlin.serialization)
-                implementation(Deps.JetBrains.Kotlin.datetime)
+                api(Deps.JetBrains.Kotlin.serialization)
+                api(Deps.JetBrains.Kotlin.datetime)
+                //implementation(Deps.JetBrains.Kotlin.datetime)
                 // Ktor
-                implementation(Deps.JetBrains.Ktor.clientCommon)
+                api(Deps.JetBrains.Ktor.clientCommon)
                 // Ktor Features
-                implementation(Deps.JetBrains.Ktor.serialization)
-                implementation(Deps.JetBrains.Ktor.commonLogging)
+                api(Deps.JetBrains.Ktor.serialization)
+                api(Deps.JetBrains.Ktor.commonLogging)
 
-                implementation(Deps.JetBrains.Coroutines.common) {
+                implementation(Deps.JetBrains.Coroutines.core) {
                     version {
                         strictly(Deps.JetBrains.Coroutines.VERSION)
                     }
@@ -51,25 +81,25 @@ kotlin {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
                 api(Deps.JetBrains.Ktor.clientMock)
-                api(Deps.JetBrains.Coroutines.common)
+                api(Deps.JetBrains.Coroutines.core)
             }
         }
         val androidMain by getting {
             dependencies {
 
-                implementation(Deps.JetBrains.Kotlin.testJunit)
+                //implementation(Deps.JetBrains.Kotlin.testJunit)
 
-                implementation(Deps.Squareup.SQLDelight.sqliteDriver)
-                implementation(Deps.Squareup.SQLDelight.androidDriver)
+                api(Deps.Squareup.SQLDelight.sqliteDriver)
+                api(Deps.Squareup.SQLDelight.androidDriver)
 
-                implementation(Deps.JetBrains.Ktor.clientAndroid)
+                api(Deps.JetBrains.Ktor.clientAndroid)
                 implementation(Deps.JetBrains.Coroutines.android)
 
-                implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
-                implementation("androidx.core:core-ktx:1.6.0")
+                //implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
+                implementation(Deps.CORE_KTX)
 
-                implementation("com.google.firebase:firebase-analytics:19.0.0")
-                implementation("com.google.firebase:firebase-messaging:22.0.0")
+                api("com.google.firebase:firebase-analytics:19.0.0")
+                api("com.google.firebase:firebase-messaging:22.0.0")
 
                 implementation("com.google.code.gson:gson:2.8.6")
 
@@ -77,7 +107,6 @@ kotlin {
         }
         val androidTest by getting {
             dependencies {
-
 
                 implementation(Deps.JetBrains.Kotlin.testKotlin)
                 /**/
@@ -99,7 +128,7 @@ kotlin {
             dependencies {
                 implementation(Deps.Squareup.SQLDelight.nativeDriver)
                 implementation(Deps.JetBrains.Ktor.clientIos)
-                implementation(Deps.JetBrains.Coroutines.common) {
+                implementation(Deps.JetBrains.Coroutines.core) {
                     version {
                         strictly(Deps.JetBrains.Coroutines.VERSION)
                     }
@@ -108,13 +137,29 @@ kotlin {
         }
         val iosTest by getting
     }
+
+
 }
 
 sqldelight {
     database("SuprSendDatabase") { // This will be the name of the generated database class.
-        packageName = "app.suprsend.android"
+        packageName = Deps.SDK_PACKAGE_NAME
         schemaOutputDirectory = file("src/commonMain/sqldelight/databases")
         verifyMigrations = true
+    }
+}
+
+publishing {
+    publications {
+        repositories {
+            maven {
+                name = "SS"
+                /** Configure path of your package repository on Github
+                 *  Replace GITHUB_USERID with your/organisation Github userID and REPOSITORY with the repository name on GitHub
+                 */
+                url = uri("https://maven.pkg.github.com/SuprSend/Sdk")
+            }
+        }
     }
 }
 
@@ -124,24 +169,10 @@ android {
     defaultConfig {
         minSdkVersion(Deps.Android.minSdk)
         targetSdkVersion(Deps.Android.targetSdk)
+        multiDexEnabled = true
         versionCode = Deps.SDK_VERSION_CODE
         versionName = Deps.SDK_VERSION_NAME
         buildConfigField("String", "SS_SDK_VERSION_CODE", "\"${versionCode.toString()}\"")
         buildConfigField("String", "SS_SDK_VERSION_NAME", "\"$versionName\"")
     }
 }
-
-val packForXcode by tasks.creating(Sync::class) {
-    val mode = System.getenv("CONFIGURATION") ?: "DEBUG"
-    val framework = kotlin.targets.getByName<KotlinNativeTarget>("ios").binaries.getFramework(mode)
-    val targetDir = File(buildDir, "xcode-frameworks")
-
-    group = "build"
-    dependsOn(framework.linkTask)
-    inputs.property("mode", mode)
-
-    from({ framework.outputDirectory })
-    into(targetDir)
-}
-
-tasks.getByName("build").dependsOn(packForXcode)

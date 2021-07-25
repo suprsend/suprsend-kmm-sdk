@@ -5,6 +5,7 @@ interface UserApiInternalContract {
     fun set(key: String, value: Any)
     fun set(propertiesJson: String)
     fun unSet(key: String)
+    fun unSet(keys: List<String>)
 
     fun setOnce(key: String, value: Any)
     fun setOnce(propertiesJson: String)

@@ -8,21 +8,23 @@ import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
 import kotlinx.serialization.builtins.ListSerializer
+import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonElement
 
 class EventFlushHandler {
     suspend fun flushEvents() {
         val eventLocalDatasource = EventLocalDatasource()
         var eventModelList: List<EventModel> = eventLocalDatasource.getEvents(SSConstants.FLUSH_EVENT_PAYLOAD_SIZE)
         while (eventModelList.isNotEmpty()) {
-            val bodyJsonElement = Json.encodeToJsonElement(ListSerializer(EventModel.serializer()), eventModelList)
+            val requestJson = Json.encodeToString(eventModelList.map { it.value })
             val httpResponse = globalNetwork.get()!!.post<HttpResponse> {
-                url("https://niksdevelop.herokuapp.com/http/http_test.php")
+                url(SSConstants.EVENT_URL)
                 contentType(ContentType.Application.Json)
-                body = bodyJsonElement.toString()
+                body = requestJson
             }
-            Logger.i("flush", httpResponse.readText())
-            eventLocalDatasource.delete(eventModelList.filter { it.id != null }.map { it.id!! })
+            Logger.i("flush", "${httpResponse.status.value} ${httpResponse.readText()} $requestJson")
+            eventLocalDatasource.delete(eventModelList.map { it.id })
             eventModelList = eventLocalDatasource.getEvents(SSConstants.FLUSH_EVENT_PAYLOAD_SIZE)
         }
     }
@@ -31,14 +33,14 @@ class EventFlushHandler {
         val userEventLocalDataSource = UserEventLocalDataSource()
         var eventModelList: List<EventModel> = userEventLocalDataSource.getEvents(SSConstants.FLUSH_EVENT_PAYLOAD_SIZE)
         while (eventModelList.isNotEmpty()) {
-            val bodyJsonElement = Json.encodeToJsonElement(ListSerializer(EventModel.serializer()), eventModelList)
+            val requestJson = Json.encodeToString(eventModelList.map { it.value })
             val httpResponse = globalNetwork.get()!!.post<HttpResponse> {
-                url("https://niksdevelop.herokuapp.com/http/http_test.php")
+                url(SSConstants.IDENTITY_URL)
                 contentType(ContentType.Application.Json)
-                body = bodyJsonElement.toString()
+                body = requestJson
             }
-            Logger.i("flush", httpResponse.readText())
-            userEventLocalDataSource.delete(eventModelList.filter { it.id != null }.map { it.id!! })
+            Logger.i("flush", "${httpResponse.status.value} ${httpResponse.readText()} $requestJson")
+            userEventLocalDataSource.delete(eventModelList.map { it.id })
             eventModelList = userEventLocalDataSource.getEvents(SSConstants.FLUSH_EVENT_PAYLOAD_SIZE)
         }
     }

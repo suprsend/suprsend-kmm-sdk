@@ -1,10 +1,10 @@
 package app.suprsend.android.android
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import app.suprsend.android.Greeting
 import app.suprsend.android.SSApi
 import app.suprsend.android.android.databinding.ActivityMainBinding
 import com.google.firebase.messaging.FirebaseMessaging
@@ -14,14 +14,7 @@ import kotlinx.coroutines.launch
 import org.json.JSONObject
 import java.util.*
 
-
-fun greet(): String {
-    return Greeting().greeting()
-}
-
 class MainActivity : AppCompatActivity() {
-
-    lateinit var suprSendApi: SSApi
 
     lateinit var binding: ActivityMainBinding
 
@@ -60,12 +53,12 @@ class MainActivity : AppCompatActivity() {
 
 
         binding.identify.setOnClickListener {
-            suprSendApi.identify("1234")
+            ssApi.identify("1234")
         }
 
 
         binding.superProperty.setOnClickListener {
-            suprSendApi.setSuperProperties(
+            ssApi.setSuperProperties(
                 JSONObject().apply {
                     put("Super Property String", "123")
                     put("Super Property Int", 123)
@@ -76,11 +69,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.trackEventName.setOnClickListener {
-            suprSendApi.track("Product Viewed")
+            ssApi.track("Product Viewed")
         }
 
         binding.trackEventProperties.setOnClickListener {
-            suprSendApi.track(
+            ssApi.track(
                 "Product Viewed",
                 JSONObject().apply {
                     put("Name", "Super Bike")
@@ -91,8 +84,12 @@ class MainActivity : AppCompatActivity() {
             )
         }
 
+        binding.userEvents.setOnClickListener {
+            startActivity(Intent(this, UserActivity::class.java))
+        }
+
         binding.flush.setOnClickListener {
-            suprSendApi.flush()
+            ssApi.flush()
         }
 
         binding.crash.setOnClickListener {
@@ -102,7 +99,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun initialize() {
         GlobalScope.launch((Dispatchers.IO)) {
-            suprSendApi = SSApi.getInstance(applicationContext, "123")
+            ssApi = SSApi.getInstance(applicationContext, "123")
         }
     }
 }
+
+lateinit var ssApi: SSApi
