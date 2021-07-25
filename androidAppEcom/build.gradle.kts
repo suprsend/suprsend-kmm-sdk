@@ -39,7 +39,7 @@ android {
 
     buildTypes {
         getByName("debug") {
-            versionNameSuffix = "-d"
+            versionNameSuffix = "(d)"
             isDebuggable = true
             isCrunchPngs = false
             isMinifyEnabled = false

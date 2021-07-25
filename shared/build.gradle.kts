@@ -12,8 +12,8 @@ plugins {
 //    from("$rootDir/maven.gradle")
 //}
 kotlin {
-    group = "app.suprsend.android"
-    version = "0.0.1"
+    group = "com.github.suprsend"
+    version = "0.0.3"
     android {
         publishLibraryVariants("release", "debug")
         publishLibraryVariantsGroupedByFlavor = true
@@ -153,11 +153,10 @@ publishing {
     publications {
         repositories {
             maven {
-                name = "SS"
-                /** Configure path of your package repository on Github
-                 *  Replace GITHUB_USERID with your/organisation Github userID and REPOSITORY with the repository name on GitHub
-                 */
-                url = uri("https://maven.pkg.github.com/SuprSend/Sdk")
+                url = uri("https://jitpack.io")
+                credentials {
+                    username = project.property("authToken").toString()
+                }
             }
         }
     }
