@@ -11,4 +11,4 @@ data class EventModel(
     val id: String = ""
 )
 
-//Todo - Export database schema before release
+// Todo - Export database schema before release

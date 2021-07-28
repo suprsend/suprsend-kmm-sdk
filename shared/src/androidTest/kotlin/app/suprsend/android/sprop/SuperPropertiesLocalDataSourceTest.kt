@@ -1,10 +1,10 @@
 package app.suprsend.android.sprop
 
 import app.suprsend.android.base.BaseDatabase
+import kotlin.test.assertEquals
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.buildJsonObject
 import org.junit.Test
-import kotlin.test.assertEquals
 
 internal class SuperPropertiesLocalDataSourceTest : BaseDatabase() {
 

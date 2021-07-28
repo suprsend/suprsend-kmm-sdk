@@ -1,8 +1,8 @@
 package app.suprsend.android.database
 
 import com.squareup.sqldelight.db.SqlDriver
-import kotlinx.serialization.json.Json
 import kotlin.native.concurrent.SharedImmutable
+import kotlinx.serialization.json.Json
 
 expect class DatabaseDriverFactory {
     internal fun createDriver(): SqlDriver

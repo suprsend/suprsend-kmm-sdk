@@ -1,7 +1,6 @@
 package app.suprsend.android
 
 import app.suprsend.android.base.Logger
-import app.suprsend.android.base.SSConstants
 import app.suprsend.android.base.ioDispatcher
 import app.suprsend.android.base.toKotlinJsonObject
 import app.suprsend.android.base.uuid
@@ -21,11 +20,11 @@ import app.suprsend.android.user.api.UserApiInternalImpl
 import com.squareup.sqldelight.internal.Atomic
 import io.ktor.client.*
 import io.ktor.client.features.logging.*
+import kotlin.native.concurrent.SharedImmutable
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.JsonObject
-import kotlin.native.concurrent.SharedImmutable
 
 @SharedImmutable
 internal val GLOBAL_SUPR_SEND_DATABASE_WRAPPER: Atomic<SSDatabaseWrapper?> = Atomic(null)
@@ -40,7 +39,6 @@ internal object SSApiInternal {
     var apiKey: String = ""
     private var flushing: Boolean = false
 
-
     fun identify(uniqueId: String) {
         GlobalScope.launch(ioDispatcher()) {
             Logger.i("api", "identity : $uniqueId")
@@ -51,7 +49,7 @@ internal object SSApiInternal {
                         value = PayloadCreator
                             .buildIdentityEventPayload(
                                 identifiedId = uniqueId,
-                                anonymousId = userRepository.getIdentity(),
+                                anonymousId = userRepository.getIdentity()
                             ),
                         id = uuid()
                     )
@@ -136,6 +134,4 @@ internal object SSApiInternal {
         val database = SSDatabaseWrapper(databaseDriverFactory)
         GLOBAL_SUPR_SEND_DATABASE_WRAPPER.set(database)
     }
-
-
 }

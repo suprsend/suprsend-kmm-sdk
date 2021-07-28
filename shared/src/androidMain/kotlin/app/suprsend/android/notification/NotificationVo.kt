@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 data class RawNotification(
     val id: String,
 
-    //Channel Details
+    // Channel Details
     val channelId: String?,
     val channelName: String?,
     val channelDescription: String?,
@@ -16,7 +16,7 @@ data class RawNotification(
 
     val priority: NotificationPriority?,
 
-    //Notification Details
+    // Notification Details
     val smallIconDrawableName: String? = null,
     val color: String?,
     val notificationTitle: String?,
@@ -41,7 +41,7 @@ data class RawNotification(
 
     val localOnly: Boolean? = null,
 
-    //Actions
+    // Actions
     val actions: List<NotificationActionVo>? = null
 
 ) {
@@ -110,7 +110,6 @@ data class RawNotification(
     }
 }
 
-
 data class NotificationVo(
     val id: String,
     val notificationChannelVo: NotificationChannelVo,
@@ -161,7 +160,7 @@ enum class NotificationPriority {
 data class NotificationBasicVo(
     val priority: NotificationPriority,
     val smallIconDrawableName: String? = null,
-    //#000000
+    // #000000
     val color: String? = null,
     val contentTitle: String,
     val subText: String? = null,
@@ -180,7 +179,6 @@ data class NotificationBasicVo(
 
     val showWhenTimeStamp: Boolean? = null,
     val whenTimeStamp: Long? = null,
-
 
     val localOnly: Boolean? = null
 

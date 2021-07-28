@@ -52,11 +52,11 @@ class NotificationRedirectionActivity : Activity() {
         val notificationActionVo = activityExtras.get(FLOW_PAYLOAD) as? NotificationActionVo
         notificationActionVo ?: return
 
-        //Remove notification
+        // Remove notification
         val notificationManager = getSystemService(NOTIFICATION_SERVICE) as? NotificationManager
         notificationManager?.cancel((notificationActionVo.id ?: "").hashCode())
 
-        //Target intent
+        // Target intent
         val link = notificationActionVo.link
         val notificationActionIntent = if (!link.isNullOrBlank()) {
             Intent(Intent.ACTION_VIEW, Uri.parse(link))
@@ -81,7 +81,7 @@ class NotificationRedirectionActivity : Activity() {
                 .putExtras(
                     bundleOf(
                         FLOW_NAME to NotificationRedirection.NOTIFICATION_ACTION_CLICKED,
-                        FLOW_PAYLOAD to notificationActionVo,
+                        FLOW_PAYLOAD to notificationActionVo
                     )
                 )
         }
@@ -92,12 +92,11 @@ class NotificationRedirectionActivity : Activity() {
                 .putExtras(
                     bundleOf(
                         FLOW_NAME to NotificationRedirection.NOTIFICATION_DISMISS,
-                        FLOW_PAYLOAD to notificationDismissVo,
+                        FLOW_PAYLOAD to notificationDismissVo
                     )
                 )
         }
     }
-
 }
 
 enum class NotificationRedirection {

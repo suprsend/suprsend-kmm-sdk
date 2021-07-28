@@ -5,11 +5,10 @@ import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 
-
 @SuppressLint("StaticFieldLeak")
 internal object AndroidCreator {
 
-    //Keeping only application context here
+    // Keeping only application context here
     lateinit var context: Context
 
     fun isContextInitialized(): Boolean {
@@ -22,5 +21,4 @@ internal object AndroidCreator {
             .setLenient()
             .create()
     }
-
 }

@@ -30,7 +30,6 @@ class SSFirebaseMessagingService : FirebaseMessagingService() {
         Log.d(TAG, "Refreshed token: $token")
     }
 
-
     companion object {
         private const val TAG = "SS_FCM"
     }

@@ -150,7 +150,7 @@ internal class UserApiInternalImpl : UserApiInternalContract {
         remove("\$whatsapp", mobile)
     }
 
-    //TODO - Create constant
+    // TODO - Create constant
     override fun setAndroidPush(token: String) {
         Logger.i("user", "setAndroidPush : $token")
         append("\$androidpush", token)

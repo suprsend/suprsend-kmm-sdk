@@ -1,10 +1,8 @@
 package app.suprsend.android.base
 
-
 actual class LoggerKMM {
 
     actual var logLevel: LogLevel = LogLevel.VERBOSE
-
 
     fun v(tag: String, message: String) {
         if (isLogAllowed(LogLevel.VERBOSE.num)) {
@@ -42,7 +40,6 @@ actual class LoggerKMM {
         }
     }
 
-
     fun e(tag: String, message: String) {
         if (isLogAllowed(LogLevel.ERROR.num)) {
             printLog(tag, message)
@@ -60,7 +57,6 @@ actual class LoggerKMM {
         if (exception != null) {
             println(exception)
         }
-
     }
 
     private fun isLogAllowed(level: Int): Boolean {

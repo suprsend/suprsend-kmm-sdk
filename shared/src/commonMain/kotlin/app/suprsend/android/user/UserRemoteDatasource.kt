@@ -1,6 +1,6 @@
 package app.suprsend.android.user
 
-internal class UserRemoteDatasource :UserRepositoryContract{
+internal class UserRemoteDatasource : UserRepositoryContract {
     override fun identify(uniqueId: String) {
         TODO("Not yet implemented")
     }

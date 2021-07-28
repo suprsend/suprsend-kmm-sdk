@@ -62,7 +62,6 @@ internal class DeviceInfo(
         return "android"
     }
 
-
     companion object {
         const val UNKNOWN = "UNKNOWN"
     }

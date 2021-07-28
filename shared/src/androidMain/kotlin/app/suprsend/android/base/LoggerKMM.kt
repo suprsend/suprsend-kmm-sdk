@@ -6,7 +6,6 @@ actual class LoggerKMM {
 
     actual var logLevel: LogLevel = LogLevel.VERBOSE
 
-
     fun v(tag: String?, message: String?) {
         if (isLogAllowed(LogLevel.VERBOSE.num)) {
             Log.v(tag, message!!)
@@ -42,7 +41,6 @@ actual class LoggerKMM {
             Log.i(tag, message, throwable)
         }
     }
-
 
     fun e(tag: String?, message: String?) {
         if (isLogAllowed(LogLevel.ERROR.num)) {

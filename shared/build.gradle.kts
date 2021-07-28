@@ -8,9 +8,9 @@ plugins {
     id("kotlin-parcelize")
     id("maven-publish")
 }
-//apply {
-//    from("$rootDir/maven.gradle")
-//}
+apply {
+    from("$rootDir/ktlint.gradle")
+}
 kotlin {
     group = "com.github.suprsend"
     version = "0.0.3"

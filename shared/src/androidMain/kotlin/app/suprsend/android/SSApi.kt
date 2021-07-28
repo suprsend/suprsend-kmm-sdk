@@ -32,7 +32,6 @@ private constructor() {
         return ssUserApi
     }
 
-
     fun flush() {
         SSApiInternal.flush()
     }
@@ -49,7 +48,7 @@ private constructor() {
             synchronized(SSApi::class.java) {
                 if (instance == null) {
 
-                    //Setting android context to user everywhere
+                    // Setting android context to user everywhere
                     if (!AndroidCreator.isContextInitialized()) {
                         AndroidCreator.context = context.applicationContext
                     }
@@ -75,18 +74,17 @@ private constructor() {
 
                     val application = context.applicationContext as Application
 
-                    //Flush periodically
+                    // Flush periodically
                     PeriodicFlush(newInstance).start()
 
-                    //Flush on activity lifecycle
+                    // Flush on activity lifecycle
                     application.registerActivityLifecycleCallbacks(ActivityLifecycleCallbackHandler(newInstance))
 
-                    //Flush on Exception
-                    //ExceptionHandler(newInstance).track()
+                    // Flush on Exception
+                    // ExceptionHandler(newInstance).track()
                 }
             }
             return instance!!
         }
-
     }
 }

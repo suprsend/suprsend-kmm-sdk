@@ -7,10 +7,8 @@ import app.suprsend.android.user.UserEventLocalDataSource
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
-import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonElement
 
 class EventFlushHandler {
     suspend fun flushEvents() {

@@ -1,13 +1,13 @@
 package app.suprsend.android.base
 
+import kotlin.test.Test
+import kotlin.test.assertEquals
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.contentOrNull
 import kotlinx.serialization.json.doubleOrNull
 import kotlinx.serialization.json.intOrNull
 import kotlinx.serialization.json.jsonPrimitive
-import kotlin.test.Test
-import kotlin.test.assertEquals
 
 class KotlinExtensionTest {
 
@@ -26,7 +26,6 @@ class KotlinExtensionTest {
             }
         """.trimIndent().toKotlinJsonObject()
 
-
         assertEquals("Product Title", jsonObject["title"]?.jsonPrimitive?.contentOrNull)
         assertEquals(5, jsonObject["quantity"]?.jsonPrimitive?.intOrNull)
         assertEquals(340.45, jsonObject["price"]?.jsonPrimitive?.doubleOrNull)
@@ -42,11 +41,9 @@ class KotlinExtensionTest {
             }
         """.trimIndent().toKotlinJsonObject()
 
-
         assertEquals("Product Title", jsonObject["title"]?.jsonPrimitive?.contentOrNull)
         assertEquals(5, jsonObject["quantity"]?.jsonPrimitive?.intOrNull)
         assertEquals(340.45, jsonObject["price"]?.jsonPrimitive?.doubleOrNull)
-
 
         val updateJsonObject = """
             {
@@ -85,5 +82,4 @@ class KotlinExtensionTest {
         assertEquals(10, getRandomString(10).length)
         assertEquals(100, getRandomString(100).length)
     }
-
 }

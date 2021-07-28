@@ -12,7 +12,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.json.JSONObject
-import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -51,11 +50,9 @@ class MainActivity : AppCompatActivity() {
 
         binding.greet.text = greet()
 
-
         binding.identify.setOnClickListener {
             ssApi.identify("1234")
         }
-
 
         binding.superProperty.setOnClickListener {
             ssApi.setSuperProperties(

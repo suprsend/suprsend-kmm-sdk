@@ -5,4 +5,3 @@ internal interface EventDataSourceContract {
     fun getEvents(limit: Long, isDirty: Boolean = true): List<EventModel>
     fun delete(ids: List<String>)
 }
-

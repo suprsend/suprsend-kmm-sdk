@@ -11,7 +11,6 @@ internal object SSConstants {
 
     const val ANONYMOUS_USER_ID_LENGTH = 36
 
-
     const val IDENTIFIED_ID = "\$identified_id"
     const val ANONYMOUS_ID = "\$anon_id"
     const val DISTINCT_ID = "distinct_id"

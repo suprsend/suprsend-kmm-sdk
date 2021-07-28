@@ -26,5 +26,4 @@ internal class EventLocalDatasource : EventDataSourceContract {
     override fun delete(ids: List<String>) {
         queries.delete(ids)
     }
-
 }
