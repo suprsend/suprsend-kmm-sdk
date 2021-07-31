@@ -29,7 +29,6 @@ kotlin {
     ios {
         binaries {
             framework {
-                baseName = "ss"
                 isStatic = true
                 embedBitcode(type)
                 freeCompilerArgs = listOf("-Xadd-light-debug=enable")
@@ -101,7 +100,7 @@ kotlin {
                 api("com.google.firebase:firebase-analytics:19.0.0")
                 api("com.google.firebase:firebase-messaging:22.0.0")
 
-                implementation("com.google.code.gson:gson:2.8.6")
+                //implementation("com.google.code.gson:gson:2.8.6")
 
             }
         }
@@ -125,15 +124,6 @@ kotlin {
             }
         }
         val iosMain by getting {
-            dependencies {
-                implementation(Deps.Squareup.SQLDelight.nativeDriver)
-                implementation(Deps.JetBrains.Ktor.clientIos)
-                implementation(Deps.JetBrains.Coroutines.core) {
-                    version {
-                        strictly(Deps.JetBrains.Coroutines.VERSION)
-                    }
-                }
-            }
         }
         val iosTest by getting
     }

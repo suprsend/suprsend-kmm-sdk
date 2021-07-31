@@ -15,14 +15,16 @@ import kotlinx.serialization.json.Json
 
 internal object NotificationHelper {
 
-    fun showRawNotification(context: Context, payloadJson: String) {
+    fun showRawNotification(context: Context, rawNotification: RawNotification) {
         try {
-//            val rawNotification = AndroidCreator.gson.fromJson(payloadJson, RawNotification::class.java)
-            val rawNotification = Json.decodeFromString(RawNotification.serializer(), payloadJson)
             showNotificationInternal(context, rawNotification.getNotificationVo())
         } catch (e: Exception) {
             Logger.e("nh", "showRawNotification", e)
         }
+    }
+
+    fun getRawNotification(payloadJson: String): RawNotification {
+        return Json.decodeFromString(RawNotification.serializer(), payloadJson)
     }
 
     private fun showNotificationInternal(context: Context, notificationVo: NotificationVo) {
@@ -140,7 +142,7 @@ internal object NotificationHelper {
         }
 
         // Set the handler in the event that the notification is dismissed.
-        val notificationDeleteIntent = NotificationRedirectionActivity.notificationDismissIntent(context, NotificationDismissVo(notificationVo.id))
+        val notificationDeleteIntent = NotificationRedirectionActivity.notificationDismissIntent(context, NotificationDismissVo(notificationId = notificationVo.id, apiKey = notificationVo.apiKey))
         notificationDeleteIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
         val notificationDeletePI = PendingIntent.getActivity(context, System.currentTimeMillis().toInt(), notificationDeleteIntent, PendingIntent.FLAG_UPDATE_CURRENT)
         notificationBuilder.setDeleteIntent(notificationDeletePI)

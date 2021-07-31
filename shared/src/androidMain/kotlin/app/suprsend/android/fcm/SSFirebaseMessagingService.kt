@@ -1,6 +1,7 @@
 package app.suprsend.android.fcm
 
 import android.util.Log
+import app.suprsend.android.SSApi
 import app.suprsend.android.base.SSConstants
 import app.suprsend.android.notification.NotificationHelper
 import com.google.firebase.messaging.FirebaseMessagingService
@@ -8,6 +9,7 @@ import com.google.firebase.messaging.RemoteMessage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import org.json.JSONObject
 
 class SSFirebaseMessagingService : FirebaseMessagingService() {
 
@@ -20,7 +22,18 @@ class SSFirebaseMessagingService : FirebaseMessagingService() {
             Log.d(TAG, "Message data payload: $data")
             if (data.containsKey(SSConstants.NOTIFICATION_PAYLOAD)) {
                 GlobalScope.launch(Dispatchers.IO) {
-                    NotificationHelper.showRawNotification(applicationContext, data[SSConstants.NOTIFICATION_PAYLOAD] ?: "")
+                    val rawNotification = NotificationHelper.getRawNotification(data[SSConstants.NOTIFICATION_PAYLOAD] ?: "")
+
+                    //Notification Delivered
+                    val instance = SSApi.getInstance(baseContext, rawNotification.apiKey)
+                    instance.track(
+                        SSConstants.S_EVENT_NOTIFICATION_DELIVERED,
+                        JSONObject().apply {
+                            put("id", rawNotification.id)
+                        }
+                    )
+
+                    NotificationHelper.showRawNotification(applicationContext, rawNotification)
                 }
             }
         }
