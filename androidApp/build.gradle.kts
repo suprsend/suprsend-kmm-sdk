@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     kotlin("android")
+    id("com.google.firebase.crashlytics")
     id("com.google.gms.google-services")
 }
 apply {
@@ -79,6 +80,7 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.3.1")
     implementation("com.google.android.material:material:1.4.0")
     implementation("androidx.constraintlayout:constraintlayout:2.0.4")
+    implementation("com.google.firebase:firebase-crashlytics:17.4.1")
     implementation(project(":shared"))
 
     testImplementation("junit:junit:4.13.2")

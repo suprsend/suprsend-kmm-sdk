@@ -1,5 +1,6 @@
 package app.suprsend.android.android
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import app.suprsend.android.android.databinding.ActivityUserBinding
@@ -11,6 +12,7 @@ class UserActivity : AppCompatActivity() {
 
     private val ssUserApi = ssApi.getUser()
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityUserBinding.inflate(layoutInflater)
@@ -105,11 +107,19 @@ class UserActivity : AppCompatActivity() {
         binding.unSetWhatsApp.setOnClickListener {
             ssUserApi.unSetWhatsApp("+918983364103")
         }
-        binding.setAndroidPush.setOnClickListener {
+
+        try {
             FirebaseMessaging.getInstance().token.addOnCompleteListener {
-                ssUserApi.setAndroidPush(it.result ?: "")
+                binding.fcmTokenEt.setText(it.result ?: "")
             }
+        } catch (e: Exception) {
+            binding.fcmTokenEt.setText("${e.message} ${e.cause}")
         }
+
+        binding.setAndroidPush.setOnClickListener {
+            ssUserApi.setAndroidPush(binding.fcmTokenEt.text.toString())
+        }
+
         binding.unSetAndroidPush.setOnClickListener {
             FirebaseMessaging.getInstance().token.addOnCompleteListener {
                 ssUserApi.unSetAndroidPush(it.result ?: "")

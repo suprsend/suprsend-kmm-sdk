@@ -119,6 +119,13 @@
                 android:layout_height="wrap_content"
                 android:text="Un Set Whats App" />
 
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/fcmTokenEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="FCM Token" />
+
             <TextView
                 android:id="@+id/setAndroidPush"
                 style="@style/textFormatInLL"
