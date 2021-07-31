@@ -1,10 +1,10 @@
 package app.suprsend.android.event
 
 import app.suprsend.android.base.toKotlinJsonObject
-import kotlinx.serialization.json.JsonPrimitive
-import kotlinx.serialization.json.buildJsonObject
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.buildJsonObject
 
 class PayloadCreatorTest {
 
@@ -73,7 +73,6 @@ class PayloadCreatorTest {
                     apiKey = "ENV_API_KEY"
                 )
         )
-
     }
 
     @Test

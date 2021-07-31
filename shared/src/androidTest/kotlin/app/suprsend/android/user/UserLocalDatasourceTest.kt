@@ -1,8 +1,8 @@
 package app.suprsend.android.user
 
 import app.suprsend.android.base.BaseDatabase
-import org.junit.Test
 import kotlin.test.assertEquals
+import org.junit.Test
 
 internal class UserLocalDatasourceTest : BaseDatabase() {
 

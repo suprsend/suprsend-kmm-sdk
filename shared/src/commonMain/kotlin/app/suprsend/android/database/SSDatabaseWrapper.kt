@@ -2,8 +2,8 @@ package app.suprsend.android.database
 
 import app.suprsend.android.ConfigTable
 import app.suprsend.android.EventTable
-import app.suprsend.android.SuprSendDatabase
 import app.suprsend.android.GLOBAL_SUPR_SEND_DATABASE_WRAPPER
+import app.suprsend.android.SuprSendDatabase
 import app.suprsend.android.UserEventTable
 import app.suprsend.android.config.ConfigModel
 import app.suprsend.android.event.EventModel

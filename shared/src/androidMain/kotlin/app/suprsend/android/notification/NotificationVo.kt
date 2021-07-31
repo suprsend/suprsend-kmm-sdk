@@ -5,8 +5,9 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class RawNotification(
     val id: String,
+    val apiKey: String,
 
-    //Channel Details
+    // Channel Details
     val channelId: String?,
     val channelName: String?,
     val channelDescription: String?,
@@ -16,7 +17,7 @@ data class RawNotification(
 
     val priority: NotificationPriority?,
 
-    //Notification Details
+    // Notification Details
     val smallIconDrawableName: String? = null,
     val color: String?,
     val notificationTitle: String?,
@@ -41,13 +42,14 @@ data class RawNotification(
 
     val localOnly: Boolean? = null,
 
-    //Actions
+    // Actions
     val actions: List<NotificationActionVo>? = null
 
 ) {
     fun getNotificationVo(): NotificationVo {
         var notificationVo = NotificationVo(
             id = id,
+            apiKey = apiKey,
             notificationChannelVo = NotificationChannelVo(
                 id = channelId ?: "default_channel",
                 name = channelName ?: "Default Channel",
@@ -110,9 +112,9 @@ data class RawNotification(
     }
 }
 
-
 data class NotificationVo(
     val id: String,
+    val apiKey: String,
     val notificationChannelVo: NotificationChannelVo,
     val notificationBasicVo: NotificationBasicVo,
     val bigTextVo: BigTextVo? = null,
@@ -125,13 +127,14 @@ data class NotificationVo(
         return if (deeplink == null)
             null
         else
-            NotificationActionVo(id = id, link = deeplink)
+            NotificationActionVo(id = id, apiKey = apiKey, link = deeplink)
     }
 }
 
 @Serializable
 data class NotificationActionVo(
     val id: String?,
+    val apiKey: String?=null,
     val title: String? = null,
     val link: String? = null,
     val iconDrawableName: String? = null
@@ -161,7 +164,7 @@ enum class NotificationPriority {
 data class NotificationBasicVo(
     val priority: NotificationPriority,
     val smallIconDrawableName: String? = null,
-    //#000000
+    // #000000
     val color: String? = null,
     val contentTitle: String,
     val subText: String? = null,
@@ -180,7 +183,6 @@ data class NotificationBasicVo(
 
     val showWhenTimeStamp: Boolean? = null,
     val whenTimeStamp: Long? = null,
-
 
     val localOnly: Boolean? = null
 

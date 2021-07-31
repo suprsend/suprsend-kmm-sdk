@@ -3,7 +3,9 @@ plugins {
     kotlin("android")
     id("com.google.gms.google-services")
 }
-
+apply {
+    from("$rootDir/ktlint.gradle")
+}
 android {
 
     compileSdkVersion(Deps.Android.compileSdk)
@@ -58,17 +60,17 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    packagingOptions {
-        exclude("META-INF/ktor-client-core.kotlin_module")
-        exclude("META-INF/ktor-io.kotlin_module")
-        exclude("META-INF/ktor-http.kotlin_module")
-        exclude("META-INF/ktor-http-cio.kotlin_module")
-        exclude("META-INF/ktor-utils.kotlin_module")
-        exclude("META-INF/ktor-client-serialization.kotlin_module")
-        exclude("META-INF/ktor-client-logging.kotlin_module")
-        exclude("META-INF/ktor-client-json.kotlin_module")
-        exclude("META-INF/kotlinx-serialization-runtime.kotlin_module")
-    }
+//    packagingOptions {
+//        exclude("META-INF/ktor-client-core.kotlin_module")
+//        exclude("META-INF/ktor-io.kotlin_module")
+//        exclude("META-INF/ktor-http.kotlin_module")
+//        exclude("META-INF/ktor-http-cio.kotlin_module")
+//        exclude("META-INF/ktor-utils.kotlin_module")
+//        exclude("META-INF/ktor-client-serialization.kotlin_module")
+//        exclude("META-INF/ktor-client-logging.kotlin_module")
+//        exclude("META-INF/ktor-client-json.kotlin_module")
+//        exclude("META-INF/kotlinx-serialization-runtime.kotlin_module")
+//    }
 }
 
 dependencies {
@@ -79,16 +81,7 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.0.4")
     implementation(project(":shared"))
 
-//    implementation(Deps.JetBrains.Coroutines.core)
-//    implementation(Deps.JetBrains.Coroutines.android)
-//    implementation("androidx.multidex:multidex:2.0.1")
-//
-//    //Todo: Figureout bom version support in shared lib
-//    //If you are changing bom version please change shared module analytics version manually bom is not supported there
-//    implementation(platform("com.google.firebase:firebase-bom:28.1.0"))
-//    implementation("com.google.firebase:firebase-analytics")
-//    implementation("com.google.firebase:firebase-messaging")
-//
-//    implementation("com.google.code.gson:gson:2.8.6")
-//
+    testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test.ext:junit:1.1.3")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
 }

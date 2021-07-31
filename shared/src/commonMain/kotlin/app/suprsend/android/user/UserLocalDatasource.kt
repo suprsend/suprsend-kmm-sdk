@@ -11,5 +11,4 @@ internal class UserLocalDatasource : UserRepositoryContract {
     override fun getIdentity(): String {
         return ConfigHelper.get(UserRepository.USER_ID) ?: ""
     }
-
 }

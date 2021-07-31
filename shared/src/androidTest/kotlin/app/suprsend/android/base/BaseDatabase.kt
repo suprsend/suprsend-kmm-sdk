@@ -1,9 +1,9 @@
 package app.suprsend.android.base
 
 import app.suprsend.android.GLOBAL_SUPR_SEND_DATABASE_WRAPPER
-import com.squareup.sqldelight.sqlite.driver.JdbcSqliteDriver
 import app.suprsend.android.SuprSendDatabase.Companion.Schema
 import app.suprsend.android.database.SSDatabaseWrapper
+import com.squareup.sqldelight.sqlite.driver.JdbcSqliteDriver
 
 internal open class BaseDatabase {
     init {

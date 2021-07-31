@@ -1,7 +1,6 @@
 package app.suprsend.android.user
 
 import app.suprsend.android.GLOBAL_SUPR_SEND_DATABASE_WRAPPER
-import app.suprsend.android.base.uuid
 import app.suprsend.android.database.DBConversion
 import app.suprsend.android.event.EventModel
 
@@ -17,7 +16,6 @@ internal class UserEventLocalDataSource : UserEventDataSourceContract {
         )
     }
 
-
     override fun getEvents(limit: Long, isDirty: Boolean): List<EventModel> {
         return queries
             .getTrackedEvents(isDirty = DBConversion.booleanToLong(isDirty), limit = limit)
@@ -29,6 +27,4 @@ internal class UserEventLocalDataSource : UserEventDataSourceContract {
     override fun delete(ids: List<String>) {
         queries.delete(ids)
     }
-
-
 }

@@ -30,7 +30,6 @@ class UserActivity : AppCompatActivity() {
             properties.put("JSI", 7653)
             properties.put("JSF", 99.34)
             ssUserApi.set(properties)
-
         }
         binding.unSet.setOnClickListener {
             ssUserApi.unSet("SS")
@@ -75,45 +74,36 @@ class UserActivity : AppCompatActivity() {
             properties.put("JII", 7653)
             properties.put("JIF", 99.34)
             ssUserApi.increment(properties)
-
         }
         binding.append.setOnClickListener {
             ssUserApi.append("AS", "String value")
             ssUserApi.append("AB", true)
             ssUserApi.append("AI", 7653)
             ssUserApi.append("AF", 99.34)
-
         }
         binding.remove.setOnClickListener {
             ssUserApi.remove("RS", "String value")
             ssUserApi.remove("RB", true)
             ssUserApi.remove("RI", 7653)
             ssUserApi.remove("RF", 99.34)
-
         }
         binding.setEmail.setOnClickListener {
             ssUserApi.setEmail("nikhilesh@suprsend.com")
-
         }
         binding.unSetEmail.setOnClickListener {
             ssUserApi.unSetEmail("nikhilesh@suprsend.com")
-
         }
         binding.setSms.setOnClickListener {
             ssUserApi.setSms("+918983364103")
-
         }
         binding.unSetSms.setOnClickListener {
             ssUserApi.unSetSms("+918983364103")
-
         }
         binding.setWhatsApp.setOnClickListener {
             ssUserApi.setWhatsApp("+918983364103")
-
         }
         binding.unSetWhatsApp.setOnClickListener {
             ssUserApi.unSetWhatsApp("+918983364103")
-
         }
         binding.setAndroidPush.setOnClickListener {
             FirebaseMessaging.getInstance().token.addOnCompleteListener {

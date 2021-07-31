@@ -12,7 +12,6 @@ import android.graphics.Rect
 import android.graphics.RectF
 import java.net.URL
 
-
 internal object BitmapHelper {
     fun getBitmapFromUrl(url: String): Bitmap? {
         return try {
@@ -37,7 +36,7 @@ internal object BitmapHelper {
             val dstBmp: Bitmap = if (bitmap.width > bitmap.height) {
                 Bitmap.createBitmap(
                     bitmap,
-                    (bitmap.width - bitmap.height) / 2,  //bitmap.getWidth()/2 - bitmap.getHeight()/2,
+                    (bitmap.width - bitmap.height) / 2, // bitmap.getWidth()/2 - bitmap.getHeight()/2,
                     0,
                     bitmap.height,
                     bitmap.height

@@ -7,6 +7,7 @@ import app.suprsend.android.base.ActivityLifecycleCallbackHandler
 import app.suprsend.android.base.AndroidCreator
 import app.suprsend.android.base.DeviceInfo
 import app.suprsend.android.base.PeriodicFlush
+import app.suprsend.android.base.SSConstants
 import app.suprsend.android.base.uuid
 import app.suprsend.android.database.DatabaseDriverFactory
 import app.suprsend.android.user.UserLocalDatasource
@@ -32,10 +33,18 @@ private constructor() {
         return ssUserApi
     }
 
+    fun login(uniqueId: String) {
+        SSApiInternal.login(uniqueId)
+    }
+
+    fun logout() {
+        SSApiInternal.logout()
+    }
 
     fun flush() {
         SSApiInternal.flush()
     }
+
 
     companion object {
 
@@ -49,7 +58,7 @@ private constructor() {
             synchronized(SSApi::class.java) {
                 if (instance == null) {
 
-                    //Setting android context to user everywhere
+                    // Setting android context to user everywhere
                     if (!AndroidCreator.isContextInitialized()) {
                         AndroidCreator.context = context.applicationContext
                     }
@@ -73,20 +82,27 @@ private constructor() {
                     // Device Properties
                     newInstance.getUser().set(DeviceInfo(context).getDeviceInfoProperties())
 
+                    if (!SSApiInternal.isAppInstalled()) {
+                        // App Launched
+                        newInstance.track(SSConstants.S_EVENT_APP_INSTALLED)
+                        SSApiInternal.setAppLaunched()
+                    }
+
+                    newInstance.track(SSConstants.S_EVENT_APP_LAUNCHED)
+
                     val application = context.applicationContext as Application
 
-                    //Flush periodically
-                    PeriodicFlush(newInstance).start()
+                    // Flush periodically
+                    PeriodicFlush(newInstance).register()
 
-                    //Flush on activity lifecycle
+                    // Flush on activity lifecycle
                     application.registerActivityLifecycleCallbacks(ActivityLifecycleCallbackHandler(newInstance))
 
-                    //Flush on Exception
-                    //ExceptionHandler(newInstance).track()
+                    // Flush on Exception
+                    // ExceptionHandler(newInstance).track()
                 }
             }
             return instance!!
         }
-
     }
 }

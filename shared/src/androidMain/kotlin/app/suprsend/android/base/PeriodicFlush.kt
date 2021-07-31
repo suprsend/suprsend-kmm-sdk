@@ -12,7 +12,7 @@ class PeriodicFlush(
     var handler: Handler = Handler(Looper.getMainLooper())
     var runnable: Runnable? = null
 
-    fun start() {
+    fun register() {
         handler.postDelayed(Runnable {
             Logger.i(TAG, "Periodic flush")
             suprSendApi.flush()

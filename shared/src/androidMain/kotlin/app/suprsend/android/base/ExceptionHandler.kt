@@ -1,8 +1,8 @@
 package app.suprsend.android.base
 
+import android.os.Process
 import app.suprsend.android.SSApi
 import kotlin.system.exitProcess
-import android.os.Process
 
 class ExceptionHandler(
     private val suprSendApi: SSApi
@@ -11,7 +11,7 @@ class ExceptionHandler(
         val defaultHandler = Thread.getDefaultUncaughtExceptionHandler()
         Thread.setDefaultUncaughtExceptionHandler { thread, exc ->
 
-            Logger.i(TAG,"Exception handler flush")
+            Logger.i(TAG, "Exception handler flush")
             suprSendApi.flush()
 
             if (defaultHandler != null) {
@@ -28,9 +28,9 @@ class ExceptionHandler(
             Logger.e(TAG, "", e)
         }
         Process.killProcess(Process.myPid())
-        exitProcess(10);
+        exitProcess(10)
     }
-    companion object{
+    companion object {
         const val TAG = "exc"
     }
 }

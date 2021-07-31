@@ -6,7 +6,6 @@ expect class LoggerKMM constructor() {
 
     fun i(tag: String, message: String)
     fun e(tag: String, message: String, throwable: Throwable?)
-
 }
 
 enum class LogLevel(val num: Int) {

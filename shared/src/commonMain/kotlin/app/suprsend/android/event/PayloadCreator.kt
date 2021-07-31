@@ -61,7 +61,7 @@ object PayloadCreator {
         distinctId: String,
         setProperties: JsonElement,
         operator: String,
-        apiKey: String = SSApiInternal.apiKey,
+        apiKey: String = SSApiInternal.apiKey
     ): JsonObject {
         return buildJsonObject {
             addCommonEventProperties()
