@@ -16,4 +16,22 @@ internal object ConfigHelper {
     fun get(key: String): String? {
         return queries.get(key).executeAsOneOrNull()?.value?.value
     }
+
+    fun addOrUpdate(key: String, value: Boolean) {
+        queries.insert(key, ConfigModel(key, getBooleanToString(value)))
+    }
+
+    fun getBoolean(key: String): Boolean? {
+        return getStringToBoolean(queries.get(key).executeAsOneOrNull()?.value?.value)
+    }
+
+    private fun getStringToBoolean(value: String?): Boolean? {
+        if (value == "1")
+            return true
+        return false
+    }
+
+    private fun getBooleanToString(value: Boolean): String {
+        return if (value) "1" else "0"
+    }
 }

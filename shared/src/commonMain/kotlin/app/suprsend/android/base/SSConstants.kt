@@ -20,4 +20,17 @@ internal object SSConstants {
     const val TIME = "\$time"
     const val PROPERTIES = "properties"
     const val EVENT = "EVENT"
+
+    //System Event
+    const val S_EVENT_APP_INSTALLED = "\$app_installed"
+    const val S_EVENT_APP_LAUNCHED = "\$app_launched"
+    const val S_EVENT_NOTIFICATION_DELIVERED = "\$notification_delivered"
+    const val S_EVENT_NOTIFICATION_CLICKED = "\$notification_clicked"
+    const val S_EVENT_NOTIFICATION_DISMISS = "\$notification_dismiss"
+    const val S_EVENT_USER_LOGIN = "\$user_login"
+    const val S_EVENT_USER_LOGOUT = "\$user_logout"
+    const val S_EVENT_PURCHASE_MADE = "\$purchase_made"
+    const val S_EVENT_NOTIFICATION_SUBSCRIBED = "\$notification_subscribed"
+    const val S_EVENT_NOTIFICATION_UNSUBSCRIBED = "\$notification_unsubscribed"
+    const val S_EVENT_PAGE_VISITED = "\$page_visited"
 }
