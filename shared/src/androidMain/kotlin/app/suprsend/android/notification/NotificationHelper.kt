@@ -9,18 +9,22 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import androidx.core.app.NotificationCompat
-import app.suprsend.android.base.AndroidCreator
 import app.suprsend.android.R
+import app.suprsend.android.base.Logger
+import kotlinx.serialization.json.Json
 
 internal object NotificationHelper {
 
-    fun showRawNotification(context: Context, payloadJson: String) {
+    fun showRawNotification(context: Context, rawNotification: RawNotification) {
         try {
-            val rawNotification = AndroidCreator.gson.fromJson(payloadJson, RawNotification::class.java)
             showNotificationInternal(context, rawNotification.getNotificationVo())
         } catch (e: Exception) {
-            e.printStackTrace()
+            Logger.e("nh", "showRawNotification", e)
         }
+    }
+
+    fun getRawNotification(payloadJson: String): RawNotification {
+        return Json.decodeFromString(RawNotification.serializer(), payloadJson)
     }
 
     private fun showNotificationInternal(context: Context, notificationVo: NotificationVo) {
@@ -67,7 +71,6 @@ internal object NotificationHelper {
         } catch (e: Exception) {
             e.printStackTrace()
         }
-
     }
 
     private fun setBasicVo(context: Context, notificationBuilder: NotificationCompat.Builder, notificationVo: NotificationVo) {
@@ -102,7 +105,6 @@ internal object NotificationHelper {
                 notificationBuilder.setLargeIcon(BitmapHelper.getBitmapFromUrl(largeIconUrl))
         }
 
-
         notificationBasicVo.color?.let { stringColorCode ->
             if (stringColorCode.isNotBlank())
                 notificationBuilder.color = Color.parseColor(stringColorCode)
@@ -124,45 +126,43 @@ internal object NotificationHelper {
             notificationBuilder.setWhen(whenTimeStamp)
         }
 
-
-        //The duration of time after which the notification is automatically dismissed.
+        // The duration of time after which the notification is automatically dismissed.
         notificationBasicVo.timeoutAfter?.let { timeoutAfter ->
             notificationBuilder.setTimeoutAfter(timeoutAfter)
         }
 
-        //Dismiss the notification on click?
+        // Dismiss the notification on click?
         notificationBasicVo.autoCancel?.let { autoCancel ->
             notificationBuilder.setAutoCancel(autoCancel)
         }
 
-        //Set whether this notification is sticky.
+        // Set whether this notification is sticky.
         notificationBasicVo.onGoing?.let { onGoing ->
             notificationBuilder.setOngoing(onGoing)
         }
 
-        //Set the handler in the event that the notification is dismissed.
-        val notificationDeleteIntent = NotificationRedirectionActivity.notificationDismissIntent(context, NotificationDismissVo(notificationVo.id))
+        // Set the handler in the event that the notification is dismissed.
+        val notificationDeleteIntent = NotificationRedirectionActivity.notificationDismissIntent(context, NotificationDismissVo(notificationId = notificationVo.id, apiKey = notificationVo.apiKey))
         notificationDeleteIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
         val notificationDeletePI = PendingIntent.getActivity(context, System.currentTimeMillis().toInt(), notificationDeleteIntent, PendingIntent.FLAG_UPDATE_CURRENT)
         notificationBuilder.setDeleteIntent(notificationDeletePI)
 
-        //The category of the notification which allows android to prioritize the notification as required.
+        // The category of the notification which allows android to prioritize the notification as required.
         notificationBasicVo.category?.let { category ->
             notificationBuilder.setCategory(category)
         }
 
-        //Set the key by which this notification will be grouped.
+        // Set the key by which this notification will be grouped.
         notificationBasicVo.group?.let { group ->
             notificationBuilder.setGroup(group)
         }
 
-        //Set whether or not this notification is only relevant to the current device.
+        // Set whether or not this notification is only relevant to the current device.
         notificationBasicVo.localOnly?.let { localOnly ->
             notificationBuilder.setLocalOnly(localOnly)
         }
 
-
-        //notificationBuilder.setProgress(0,0,true)
+        // notificationBuilder.setProgress(0,0,true)
 
 //        notificationBuilder.addPerson(
 //            Person
@@ -174,7 +174,6 @@ internal object NotificationHelper {
 //                .build()
 //        )
 
-
         try {
             // Todo : set big text / picture notification content intent
             val notificationActionVo = notificationVo.getDeeplinkNotificationActionVo()
@@ -185,7 +184,6 @@ internal object NotificationHelper {
         } catch (e: Exception) {
             e.printStackTrace()
         }
-
     }
 
     private fun setChannel(notificationManager: NotificationManager, notificationChannelVo: NotificationChannelVo): Boolean {
@@ -252,7 +250,7 @@ internal object NotificationHelper {
 
     private fun handleBigPictureVo(notificationVo: NotificationVo, builder: NotificationCompat.Builder) {
         val bigPictureVo = notificationVo.bigPictureVo ?: return
-        //Big Picture
+        // Big Picture
         val bigPictureStyle = NotificationCompat.BigPictureStyle()
 
         bigPictureVo.bigContentTitle?.let { bigContentTitle ->
@@ -313,8 +311,6 @@ internal object NotificationHelper {
 
         builder.setStyle(inboxStyle)
     }
-
-
 }
 
 fun Context.getDrawableIdFromName(drawableName: String?): Int? {

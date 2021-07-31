@@ -2,8 +2,8 @@ package app.suprsend.android.network
 
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.engine.okhttp.OkHttp
-import okhttp3.OkHttpClient
 import java.util.concurrent.TimeUnit
+import okhttp3.OkHttpClient
 
 actual val httpClientEngine: HttpClientEngine by lazy {
     OkHttp.create {

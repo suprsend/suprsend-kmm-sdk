@@ -9,7 +9,10 @@ import android.os.Bundle
 import android.os.Parcelable
 import android.util.Log
 import androidx.core.os.bundleOf
+import app.suprsend.android.SSApi
+import app.suprsend.android.base.SSConstants
 import kotlinx.parcelize.Parcelize
+import org.json.JSONObject
 
 class NotificationRedirectionActivity : Activity() {
 
@@ -36,7 +39,7 @@ class NotificationRedirectionActivity : Activity() {
                     handleNotificationActionClicked(activityExtras)
                 }
                 NotificationRedirection.NOTIFICATION_DISMISS -> {
-                    Log.i(TAG, "Notification dismissed")
+                    handleNotificationDismissClicked(activityExtras)
                 }
                 else -> {
                     // do nothing
@@ -48,15 +51,39 @@ class NotificationRedirectionActivity : Activity() {
         }
     }
 
+    private fun handleNotificationDismissClicked(activityExtras: Bundle) {
+        Log.i(TAG, "Notification dismissed")
+        val notificationDismissVo = getNotificationDismissVo(activityExtras)
+        notificationDismissVo ?: return
+        val apiKey = notificationDismissVo.apiKey
+        if (apiKey != null) {
+            val instance = SSApi.getInstance(this, apiKey)
+            instance.track(
+                eventName = SSConstants.S_EVENT_NOTIFICATION_DISMISS,
+                properties = JSONObject().apply {
+                    put("id", notificationDismissVo.notificationId)
+                }
+            )
+        }
+
+    }
+
     private fun handleNotificationActionClicked(activityExtras: Bundle) {
-        val notificationActionVo = activityExtras.get(FLOW_PAYLOAD) as? NotificationActionVo
+        Log.i(TAG, "Notification Action Clicked")
+        val notificationActionVo = getNotificationActionVo(activityExtras)
         notificationActionVo ?: return
 
-        //Remove notification
+        val apiKey = notificationActionVo.apiKey
+        if (apiKey != null) {
+            val instance = SSApi.getInstance(this, apiKey)
+            instance.track(SSConstants.S_EVENT_NOTIFICATION_CLICKED)
+        }
+
+        // Remove notification
         val notificationManager = getSystemService(NOTIFICATION_SERVICE) as? NotificationManager
         notificationManager?.cancel((notificationActionVo.id ?: "").hashCode())
 
-        //Target intent
+        // Target intent
         val link = notificationActionVo.link
         val notificationActionIntent = if (!link.isNullOrBlank()) {
             Intent(Intent.ACTION_VIEW, Uri.parse(link))
@@ -65,6 +92,14 @@ class NotificationRedirectionActivity : Activity() {
         }
         notificationActionIntent?.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
         startActivity(notificationActionIntent)
+    }
+
+    private fun getNotificationActionVo(activityExtras: Bundle): NotificationActionVo? {
+        return activityExtras.get(FLOW_PAYLOAD) as? NotificationActionVo
+    }
+
+    private fun getNotificationDismissVo(activityExtras: Bundle): NotificationDismissVo? {
+        return activityExtras.get(FLOW_PAYLOAD) as? NotificationDismissVo
     }
 
     companion object {
@@ -81,7 +116,7 @@ class NotificationRedirectionActivity : Activity() {
                 .putExtras(
                     bundleOf(
                         FLOW_NAME to NotificationRedirection.NOTIFICATION_ACTION_CLICKED,
-                        FLOW_PAYLOAD to notificationActionVo,
+                        FLOW_PAYLOAD to notificationActionVo
                     )
                 )
         }
@@ -92,12 +127,11 @@ class NotificationRedirectionActivity : Activity() {
                 .putExtras(
                     bundleOf(
                         FLOW_NAME to NotificationRedirection.NOTIFICATION_DISMISS,
-                        FLOW_PAYLOAD to notificationDismissVo,
+                        FLOW_PAYLOAD to notificationDismissVo
                     )
                 )
         }
     }
-
 }
 
 enum class NotificationRedirection {
@@ -106,5 +140,6 @@ enum class NotificationRedirection {
 
 @Parcelize
 data class NotificationDismissVo(
-    val id: String
+    val notificationId: String,
+    val apiKey: String?
 ) : Parcelable

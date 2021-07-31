@@ -1,11 +1,14 @@
 package app.suprsend.android.event
 
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
+import kotlinx.serialization.json.JsonElement
 
 @Serializable
 data class EventModel(
-    val name: String,
-    val value: String
+    val value: JsonElement,
+    @Transient
+    val id: String = ""
 )
 
-//Todo - Export database schema before release
+// Todo - Export database schema before release

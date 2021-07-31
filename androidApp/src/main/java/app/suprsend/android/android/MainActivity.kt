@@ -1,29 +1,28 @@
 package app.suprsend.android.android
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import app.suprsend.android.Greeting
-import app.suprsend.android.base.SuprSendAndroidApi
-import app.suprsend.android.database.DatabaseDriverFactory
+import app.suprsend.android.SSApi
+import app.suprsend.android.android.databinding.ActivityMainBinding
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-
-
-fun greet(): String {
-    return Greeting().greeting()
-}
+import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
 
+    lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        binding = ActivityMainBinding.inflate(layoutInflater)
+
+        setContentView(binding.root)
 
         initialize()
 
@@ -34,7 +33,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun subscribeToTopic() {
         val topicName = "all_users"
-        FirebaseMessaging.getInstance().subscribeToTopic(topicName)
+        FirebaseMessaging
+            .getInstance()
+            .subscribeToTopic(topicName)
             .addOnCompleteListener { task ->
                 var msg = "Subscribed to topic $topicName"
                 if (!task.isSuccessful) {
@@ -43,42 +44,61 @@ class MainActivity : AppCompatActivity() {
                 Log.d("firebase", msg)
                 Toast.makeText(this@MainActivity, msg, Toast.LENGTH_SHORT).show()
             }
-
     }
 
     private fun addClickListeners() {
-        //Todo : Move to data binding
-        val greet: TextView = findViewById(R.id.greet)
-        greet.text = greet()
 
+        binding.greet.text = greet()
 
-        findViewById<View>(R.id.trackEventName).setOnClickListener {
-            SuprSendAndroidApi.trackEvent("Product Viewed")
+        binding.identify.setOnClickListener {
+            ssApi.identify("1234")
         }
 
-        findViewById<View>(R.id.trackEventProperties).setOnClickListener {
-            SuprSendAndroidApi.trackEvent(
-                "Product Viewed",
-                hashMapOf(
-                    "Name" to "Super Bike",
-                    "Price" to 99.9,
-                    "Quantity" to 45,
-                    "Availability" to true
-                )
+        binding.superProperty.setOnClickListener {
+            ssApi.setSuperProperties(
+                JSONObject().apply {
+                    put("Super Property String", "123")
+                    put("Super Property Int", 123)
+                    put("Super Property Float", 123.43)
+                    put("Super Property Boolean", false)
+                }
             )
         }
 
-        findViewById<View>(R.id.flush).setOnClickListener {
-            SuprSendAndroidApi.flush()
+        binding.trackEventName.setOnClickListener {
+            ssApi.track("Product Viewed")
+        }
+
+        binding.trackEventProperties.setOnClickListener {
+            ssApi.track(
+                "Product Viewed",
+                JSONObject().apply {
+                    put("Name", "Super Bike")
+                    put("Price", 99.9)
+                    put("Quantity", 45)
+                    put("Availability", true)
+                }
+            )
+        }
+
+        binding.userEvents.setOnClickListener {
+            startActivity(Intent(this, UserActivity::class.java))
+        }
+
+        binding.flush.setOnClickListener {
+            ssApi.flush()
+        }
+
+        binding.crash.setOnClickListener {
+            Integer.parseInt("a")
         }
     }
 
     private fun initialize() {
-        GlobalScope.launch((Dispatchers.Main)) {
-            SuprSendAndroidApi.initialize(
-                applicationContext,
-                DatabaseDriverFactory()
-            )
+        GlobalScope.launch((Dispatchers.IO)) {
+            ssApi = SSApi.getInstance(applicationContext, "123")
         }
     }
 }
+
+lateinit var ssApi: SSApi

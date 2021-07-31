@@ -2,10 +2,9 @@ package app.suprsend.android.base
 
 import android.util.Log
 
-internal actual class LoggerKMM {
+actual class LoggerKMM {
 
-    actual var logLevel: LogLevel = LogLevel.OFF
-
+    actual var logLevel: LogLevel = LogLevel.VERBOSE
 
     fun v(tag: String?, message: String?) {
         if (isLogAllowed(LogLevel.VERBOSE.num)) {
@@ -43,14 +42,13 @@ internal actual class LoggerKMM {
         }
     }
 
-
     fun e(tag: String?, message: String?) {
         if (isLogAllowed(LogLevel.ERROR.num)) {
             Log.e(tag, message!!)
         }
     }
 
-    actual fun e(tag: String, message: String, throwable: Throwable) {
+    actual fun e(tag: String, message: String, throwable: Throwable?) {
         if (isLogAllowed(LogLevel.ERROR.num)) {
             Log.e(tag, message, throwable)
         }

@@ -1,5 +1,12 @@
 object Deps {
 
+    //TODO : Flat & Clean all dependencies version
+    const val SDK_PACKAGE_NAME  = "app.suprsend.android"
+    const val SDK_VERSION_CODE = 1
+    const val SDK_VERSION_NAME = "0.0.1 Beta 3"
+    const val CORE_KTX = "androidx.core:core-ktx:1.6.0"
+
+
     object AndroidX {
         const val ANNOTATION = "androidx.annotation:annotation:1.2.0"
 
@@ -17,7 +24,7 @@ object Deps {
         const val minSdk = 19
         const val targetSdk = 30
         const val compileSdk = 30
-
+        const val buildToolsVersion = "30.0.3"
     }
 
     object Squareup {
@@ -36,7 +43,7 @@ object Deps {
     object JetBrains {
         object Kotlin {
             // __KOTLIN_COMPOSE_VERSION__
-            const val VERSION = "1.4.10"
+            const val VERSION = "1.5.10"
             const val gradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$VERSION"
             const val serialization = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1"
             const val datetime = "org.jetbrains.kotlinx:kotlinx-datetime:0.1.1"
@@ -62,7 +69,7 @@ object Deps {
 
         object Coroutines {
             const val VERSION = "1.4.2-native-mt"
-            const val common = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$VERSION"
+            const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$VERSION"
             const val android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$VERSION"
             const val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$VERSION"
         }

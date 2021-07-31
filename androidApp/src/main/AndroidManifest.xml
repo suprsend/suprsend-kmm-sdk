@@ -9,7 +9,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".UserActivity"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -19,8 +19,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <service
-            android:name="app.suprsend.android.fcm.SuprSendFirebaseMessagingService"
+            android:name="app.suprsend.android.fcm.SSFirebaseMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
