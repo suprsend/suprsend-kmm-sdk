@@ -142,7 +142,7 @@ internal object NotificationHelper {
         }
 
         // Set the handler in the event that the notification is dismissed.
-        val notificationDeleteIntent = NotificationRedirectionActivity.notificationDismissIntent(context, NotificationDismissVo(notificationId = notificationVo.id, apiKey = notificationVo.apiKey))
+        val notificationDeleteIntent = NotificationRedirectionActivity.notificationDismissIntent(context, NotificationDismissVo(notificationId = notificationVo.id))
         notificationDeleteIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
         val notificationDeletePI = PendingIntent.getActivity(context, System.currentTimeMillis().toInt(), notificationDeleteIntent, PendingIntent.FLAG_UPDATE_CURRENT)
         notificationBuilder.setDeleteIntent(notificationDeletePI)

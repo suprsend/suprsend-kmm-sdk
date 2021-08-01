@@ -17,6 +17,7 @@ class SSApi
 private constructor() {
 
     private val ssUserApi = SSUserApi()
+
     fun identify(uniqueId: String) {
         SSApiInternal.identify(uniqueId)
     }
@@ -44,7 +45,6 @@ private constructor() {
     fun flush() {
         SSApiInternal.flush()
     }
-
 
     companion object {
 
@@ -103,6 +103,14 @@ private constructor() {
                 }
             }
             return instance!!
+        }
+
+        fun getInstanceIfExist(context: Context): SSApi? {
+            val apiKey = SSApiInternal.getCachedApiKey()
+            if (apiKey != null) {
+                return getInstance(context, apiKey)
+            }
+            return null
         }
     }
 }

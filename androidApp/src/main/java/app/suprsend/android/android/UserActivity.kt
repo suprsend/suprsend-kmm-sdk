@@ -108,16 +108,10 @@ class UserActivity : AppCompatActivity() {
             ssUserApi.unSetWhatsApp("+918983364103")
         }
 
-        try {
-            FirebaseMessaging.getInstance().token.addOnCompleteListener {
-                binding.fcmTokenEt.setText(it.result ?: "")
-            }
-        } catch (e: Exception) {
-            binding.fcmTokenEt.setText("${e.message} ${e.cause}")
-        }
+        binding.fcmTokenEt.setText(ssUserApi.getFcmToken())
 
         binding.setAndroidPush.setOnClickListener {
-            ssUserApi.setAndroidPush(binding.fcmTokenEt.text.toString())
+            ssUserApi.setAndroidPush(ssUserApi.getFcmToken())
         }
 
         binding.unSetAndroidPush.setOnClickListener {

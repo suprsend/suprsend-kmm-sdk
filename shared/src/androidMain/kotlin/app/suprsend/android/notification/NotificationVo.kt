@@ -5,7 +5,6 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class RawNotification(
     val id: String,
-    val apiKey: String,
 
     // Channel Details
     val channelId: String?,
@@ -49,7 +48,6 @@ data class RawNotification(
     fun getNotificationVo(): NotificationVo {
         var notificationVo = NotificationVo(
             id = id,
-            apiKey = apiKey,
             notificationChannelVo = NotificationChannelVo(
                 id = channelId ?: "default_channel",
                 name = channelName ?: "Default Channel",
@@ -114,7 +112,6 @@ data class RawNotification(
 
 data class NotificationVo(
     val id: String,
-    val apiKey: String,
     val notificationChannelVo: NotificationChannelVo,
     val notificationBasicVo: NotificationBasicVo,
     val bigTextVo: BigTextVo? = null,
@@ -127,14 +124,13 @@ data class NotificationVo(
         return if (deeplink == null)
             null
         else
-            NotificationActionVo(id = id, apiKey = apiKey, link = deeplink)
+            NotificationActionVo(id = id, link = deeplink)
     }
 }
 
 @Serializable
 data class NotificationActionVo(
     val id: String?,
-    val apiKey: String?=null,
     val title: String? = null,
     val link: String? = null,
     val iconDrawableName: String? = null

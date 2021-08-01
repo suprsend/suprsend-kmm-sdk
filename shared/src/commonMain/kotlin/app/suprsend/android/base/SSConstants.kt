@@ -11,6 +11,7 @@ internal object SSConstants {
 
     const val ANONYMOUS_USER_ID_LENGTH = 36
 
+    const val API_KEY = "api_key"
     const val IDENTIFIED_ID = "\$identified_id"
     const val ANONYMOUS_ID = "\$anon_id"
     const val DISTINCT_ID = "distinct_id"
@@ -18,10 +19,11 @@ internal object SSConstants {
     const val INSERT_ID = "\$insert_id"
     const val IDENTIFY = "\$identify"
     const val TIME = "\$time"
+    const val FCM_TOKEN_PUSH = "\$androidpush"
     const val PROPERTIES = "properties"
     const val EVENT = "EVENT"
 
-    //System Event
+    // System Event
     const val S_EVENT_APP_INSTALLED = "\$app_installed"
     const val S_EVENT_APP_LAUNCHED = "\$app_launched"
     const val S_EVENT_NOTIFICATION_DELIVERED = "\$notification_delivered"

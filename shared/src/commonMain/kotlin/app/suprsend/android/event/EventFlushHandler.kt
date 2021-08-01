@@ -14,6 +14,10 @@ class EventFlushHandler {
     suspend fun flushEvents() {
         val eventLocalDatasource = EventLocalDatasource()
         var eventModelList: List<EventModel> = eventLocalDatasource.getEvents(SSConstants.FLUSH_EVENT_PAYLOAD_SIZE)
+        if (eventModelList.isEmpty()) {
+            Logger.i("flush", "No events found")
+            return
+        }
         while (eventModelList.isNotEmpty()) {
             val requestJson = Json.encodeToString(eventModelList.map { it.value })
             val httpResponse = globalNetwork.get()!!.post<HttpResponse> {
@@ -30,6 +34,10 @@ class EventFlushHandler {
     suspend fun flushUserEvents() {
         val userEventLocalDataSource = UserEventLocalDataSource()
         var eventModelList: List<EventModel> = userEventLocalDataSource.getEvents(SSConstants.FLUSH_EVENT_PAYLOAD_SIZE)
+        if (eventModelList.isEmpty()) {
+            Logger.i("flush", "No user events found")
+            return
+        }
         while (eventModelList.isNotEmpty()) {
             val requestJson = Json.encodeToString(eventModelList.map { it.value })
             val httpResponse = globalNetwork.get()!!.post<HttpResponse> {

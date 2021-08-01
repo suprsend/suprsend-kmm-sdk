@@ -15,7 +15,7 @@ class SSFirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
 
-        Log.d(TAG, "From: ${remoteMessage.from}")
+        Log.d(TAG, "FCM From : ${remoteMessage.from}")
 
         val data = remoteMessage.data
         if (data.isNotEmpty()) {
@@ -24,9 +24,9 @@ class SSFirebaseMessagingService : FirebaseMessagingService() {
                 GlobalScope.launch(Dispatchers.IO) {
                     val rawNotification = NotificationHelper.getRawNotification(data[SSConstants.NOTIFICATION_PAYLOAD] ?: "")
 
-                    //Notification Delivered
-                    val instance = SSApi.getInstance(baseContext, rawNotification.apiKey)
-                    instance.track(
+                    // Notification Delivered
+                    val instance = SSApi.getInstanceIfExist(baseContext)
+                    instance?.track(
                         SSConstants.S_EVENT_NOTIFICATION_DELIVERED,
                         JSONObject().apply {
                             put("id", rawNotification.id)
@@ -40,7 +40,11 @@ class SSFirebaseMessagingService : FirebaseMessagingService() {
     }
 
     override fun onNewToken(token: String) {
-        Log.d(TAG, "Refreshed token: $token")
+        GlobalScope.launch(Dispatchers.IO) {
+            Log.d(TAG, "FCM Token : $token")
+            val instance = SSApi.getInstanceIfExist(baseContext)
+            instance?.getUser()?.setAndroidPush(token)
+        }
     }
 
     companion object {

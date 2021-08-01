@@ -2,7 +2,6 @@ package app.suprsend.android
 
 import app.suprsend.android.base.Logger
 import app.suprsend.android.base.SSConstants
-import app.suprsend.android.base.addUpdateJsoObject
 import app.suprsend.android.base.ioDispatcher
 import app.suprsend.android.base.toKotlinJsonObject
 import app.suprsend.android.base.uuid
@@ -124,10 +123,6 @@ internal object SSApiInternal {
         }
     }
 
-    fun getId(): String {
-        return UserLocalDatasource().getIdentity()
-    }
-
     fun setSuperProperties(propertiesJsonObject: String?) {
         GlobalScope.launch(ioDispatcher()) {
             Logger.i("api", "Setting super properties")
@@ -170,10 +165,14 @@ internal object SSApiInternal {
     }
 
     fun flush() {
-        if (flushing)
+        if (flushing) {
+            Logger.i("api", "Flush request is ignored as flush is already in progress")
             return
+        }
 
         Logger.i("api", "Trying to flush events")
+
+        flushing = true
 
         GlobalScope.launch(ioDispatcher() + CoroutineExceptionHandler { _, throwable ->
             Logger.e("flush", "", throwable)
@@ -181,6 +180,7 @@ internal object SSApiInternal {
             val eventFlushHandler = EventFlushHandler()
             eventFlushHandler.flushUserEvents()
             eventFlushHandler.flushEvents()
+            flushing = false
         }
     }
 
@@ -196,6 +196,7 @@ internal object SSApiInternal {
         this.apiKey = apiKey
         initializeDatabase(databaseDriverFactory)
         initializeNetworking()
+        ConfigHelper.addOrUpdate(SSConstants.API_KEY, apiKey)
     }
 
     private fun initializeNetworking() {
@@ -213,6 +214,11 @@ internal object SSApiInternal {
         GLOBAL_SUPR_SEND_DATABASE_WRAPPER.set(database)
     }
 
+    // Not included in contract
+
+    fun getCachedApiKey(): String? {
+        return ConfigHelper.get(SSConstants.API_KEY)
+    }
 
     private const val IS_APP_LAUNCHED = "IS_APP_LAUNCHED"
 }

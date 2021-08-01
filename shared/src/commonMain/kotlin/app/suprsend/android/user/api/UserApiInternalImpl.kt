@@ -2,6 +2,7 @@ package app.suprsend.android.user.api
 
 import app.suprsend.android.SSApiInternal
 import app.suprsend.android.base.Logger
+import app.suprsend.android.base.SSConstants
 import app.suprsend.android.base.convertToJsonPrimitive
 import app.suprsend.android.base.ioDispatcher
 import app.suprsend.android.base.toKotlinJsonObject
@@ -153,19 +154,17 @@ internal class UserApiInternalImpl : UserApiInternalContract {
     // TODO - Create constant
     override fun setAndroidPush(token: String) {
         Logger.i("user", "setAndroidPush : $token")
-        append("\$androidpush", token)
-        ConfigHelper.addOrUpdate("\$androidpush", token)
+        append(SSConstants.FCM_TOKEN_PUSH, token)
+        ConfigHelper.addOrUpdate(SSConstants.FCM_TOKEN_PUSH, token)
+    }
+
+    override fun getSdkFcmToken(): String {
+        return ConfigHelper.get(SSConstants.FCM_TOKEN_PUSH) ?: ""
     }
 
     override fun unSetAndroidPush(token: String) {
         Logger.i("user", "unSetAndroidPush : $token")
-        remove("\$androidpush", token)
-    }
-
-    override fun refreshAndroidPush(token: String) {
-        Logger.i("user", "refreshAndroidPush : $token")
-        remove("\$androidpush", ConfigHelper.get("\$androidpush") ?: "")
-        append("\$androidpush", token)
+        remove(SSConstants.FCM_TOKEN_PUSH, token)
     }
 
     override fun reset() {

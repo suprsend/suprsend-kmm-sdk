@@ -1,5 +1,6 @@
 package app.suprsend.android
 
+import app.suprsend.android.user.UserLocalDatasource
 import org.json.JSONObject
 
 class SSUserApi {
@@ -78,11 +79,16 @@ class SSUserApi {
         user.unSetAndroidPush(token)
     }
 
-    fun refreshAndroidPush(token: String) {
-        user.refreshAndroidPush(token)
-    }
-
     fun reset() {
         user.reset()
+    }
+
+    // Not included in contract
+    fun getUserIdentity(): String {
+        return UserLocalDatasource().getIdentity()
+    }
+
+    fun getFcmToken(): String {
+        return user.getSdkFcmToken()
     }
 }
