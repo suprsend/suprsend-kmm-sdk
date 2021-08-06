@@ -21,6 +21,10 @@ class WelcomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (Creator.email.isNotBlank()) {
+            startActivity(Intent(this, HomeActivity::class.java))
+            finish()
+        }
         binding = ActivityWelcomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initializeSdk()

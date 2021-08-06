@@ -1,5 +1,6 @@
 package app.suprsend.android.android
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -25,6 +26,8 @@ class HomeActivity : AppCompatActivity() {
         binding.logoutTv.setOnClickListener {
             ssApi.reset()
             mixpanelAPI.reset()
+            startActivity(Intent(this, LoginActivity::class.java))
+            finishAffinity()
         }
     }
 }
