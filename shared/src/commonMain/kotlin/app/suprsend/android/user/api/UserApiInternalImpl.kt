@@ -1,6 +1,5 @@
 package app.suprsend.android.user.api
 
-import app.suprsend.android.SSApiInternal
 import app.suprsend.android.base.Logger
 import app.suprsend.android.base.SSConstants
 import app.suprsend.android.base.convertToJsonPrimitive
@@ -165,13 +164,6 @@ internal class UserApiInternalImpl : UserApiInternalContract {
     override fun unSetAndroidPush(token: String) {
         Logger.i("user", "unSetAndroidPush : $token")
         remove(SSConstants.FCM_TOKEN_PUSH, token)
-    }
-
-    override fun reset() {
-        val newID = uuid()
-        Logger.i("user", "reset : $newID")
-        UserLocalDatasource().identify(newID)
-        SSApiInternal.flush()
     }
 
     private fun internalOperatorCall(properties: JsonElement, operator: String) {

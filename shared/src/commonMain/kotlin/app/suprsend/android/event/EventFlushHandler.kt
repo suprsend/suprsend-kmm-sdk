@@ -25,7 +25,7 @@ class EventFlushHandler {
                 contentType(ContentType.Application.Json)
                 body = requestJson
             }
-            Logger.i("flush", "${httpResponse.status.value} ${httpResponse.readText()} $requestJson")
+            Logger.i("flush", "$httpResponse $requestJson")
             eventLocalDatasource.delete(eventModelList.map { it.id })
             eventModelList = eventLocalDatasource.getEvents(SSConstants.FLUSH_EVENT_PAYLOAD_SIZE)
         }
@@ -45,7 +45,7 @@ class EventFlushHandler {
                 contentType(ContentType.Application.Json)
                 body = requestJson
             }
-            Logger.i("flush", "${httpResponse.status.value} ${httpResponse.readText()} $requestJson")
+            Logger.i("flush", "$httpResponse $requestJson")
             userEventLocalDataSource.delete(eventModelList.map { it.id })
             eventModelList = userEventLocalDataSource.getEvents(SSConstants.FLUSH_EVENT_PAYLOAD_SIZE)
         }

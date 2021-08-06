@@ -1,5 +1,7 @@
 package app.suprsend.android.notification
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -76,13 +78,17 @@ data class RawNotification(
                 deeplink = deeplink
             ),
             actions = actions
-                ?.map { notificationActionVo ->
+                ?.mapIndexed { index, notificationActionVo ->
                     if (notificationActionVo.id == null)
                         notificationActionVo
                             .copy(
-                                id = id
+                                id = (index + 1).toString(),
+                                notificationId = id
                             )
                     else notificationActionVo
+                        .copy(
+                            notificationId = id
+                        )
                 }
         )
 
@@ -124,17 +130,19 @@ data class NotificationVo(
         return if (deeplink == null)
             null
         else
-            NotificationActionVo(id = id, link = deeplink)
+            NotificationActionVo(id = id, link = deeplink, notificationId = id)
     }
 }
 
+@Parcelize
 @Serializable
 data class NotificationActionVo(
     val id: String?,
     val title: String? = null,
     val link: String? = null,
-    val iconDrawableName: String? = null
-)
+    val iconDrawableName: String? = null,
+    val notificationId: String? = null
+) : Parcelable
 
 data class NotificationChannelVo(
     val id: String,

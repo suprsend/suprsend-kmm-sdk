@@ -29,7 +29,6 @@ internal object SSConstants {
     const val S_EVENT_NOTIFICATION_DELIVERED = "\$notification_delivered"
     const val S_EVENT_NOTIFICATION_CLICKED = "\$notification_clicked"
     const val S_EVENT_NOTIFICATION_DISMISS = "\$notification_dismiss"
-    const val S_EVENT_USER_LOGIN = "\$user_login"
     const val S_EVENT_USER_LOGOUT = "\$user_logout"
     const val S_EVENT_PURCHASE_MADE = "\$purchase_made"
     const val S_EVENT_NOTIFICATION_SUBSCRIBED = "\$notification_subscribed"

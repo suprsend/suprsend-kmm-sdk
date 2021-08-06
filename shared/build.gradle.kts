@@ -13,7 +13,7 @@ apply {
 }
 kotlin {
     group = "com.github.suprsend"
-    version = "0.0.3"
+    version = "0.0.1"
     android {
         publishLibraryVariants("release", "debug")
         publishLibraryVariantsGroupedByFlavor = true

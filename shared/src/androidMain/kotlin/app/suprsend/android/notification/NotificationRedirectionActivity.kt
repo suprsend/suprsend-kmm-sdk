@@ -55,7 +55,7 @@ class NotificationRedirectionActivity : Activity() {
         Log.i(TAG, "Notification dismissed")
         val notificationDismissVo = getNotificationDismissVo(activityExtras)
         notificationDismissVo ?: return
-        val instance = SSApi.getInstanceIfExist(this)
+        val instance = SSApi.getInstanceFromCachedApiKey(this)
         instance?.track(
             eventName = SSConstants.S_EVENT_NOTIFICATION_DISMISS,
             properties = JSONObject().apply {
@@ -69,12 +69,17 @@ class NotificationRedirectionActivity : Activity() {
         val notificationActionVo = getNotificationActionVo(activityExtras)
         notificationActionVo ?: return
 
-        val instance = SSApi.getInstanceIfExist(this)
-        instance?.track(SSConstants.S_EVENT_NOTIFICATION_CLICKED)
+        val instance = SSApi.getInstanceFromCachedApiKey(this)
+        instance?.track(
+            eventName = SSConstants.S_EVENT_NOTIFICATION_CLICKED,
+            properties = JSONObject().apply {
+                put("id", notificationActionVo.id)
+            }
+        )
 
         // Remove notification
         val notificationManager = getSystemService(NOTIFICATION_SERVICE) as? NotificationManager
-        notificationManager?.cancel((notificationActionVo.id ?: "").hashCode())
+        notificationManager?.cancel((notificationActionVo.notificationId ?: "").hashCode())
 
         // Target intent
         val link = notificationActionVo.link

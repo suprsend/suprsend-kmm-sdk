@@ -79,9 +79,14 @@ dependencies {
     implementation(Deps.CORE_KTX)
     implementation("androidx.appcompat:appcompat:1.3.1")
     implementation("com.google.android.material:material:1.4.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.0.4")
-    implementation("com.google.firebase:firebase-crashlytics:17.4.1")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.0")
+    implementation("com.google.firebase:firebase-crashlytics:18.2.0")
     implementation(project(":shared"))
+    //implementation("app.suprsend.android:shared-android:0.0.1")
+    implementation("com.mixpanel.android:mixpanel-android:5.9.1")
+
+    implementation("com.github.bumptech.glide:glide:4.12.0")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.3")

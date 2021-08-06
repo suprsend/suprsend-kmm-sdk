@@ -43,31 +43,6 @@ internal object SSApiInternal {
     var apiKey: String = ""
     private var flushing: Boolean = false
 
-    fun login(uniqueId: String) {
-        GlobalScope.launch(ioDispatcher()) {
-            identify(uniqueId)
-            track(
-                eventName = SSConstants.S_EVENT_USER_LOGIN,
-                propertiesJO = buildJsonObject {
-                    put("id", JsonPrimitive(uniqueId))
-                }
-            )
-        }
-    }
-
-    fun logout() {
-        GlobalScope.launch(ioDispatcher()) {
-            val userId = UserLocalDatasource().getIdentity()
-            userImpl.reset()
-            track(
-                eventName = SSConstants.S_EVENT_USER_LOGOUT,
-                propertiesJO = buildJsonObject {
-                    put("id", JsonPrimitive(userId))
-                }
-            )
-        }
-    }
-
     fun purchaseMade(properties: String) {
         GlobalScope.launch(ioDispatcher()) {
             track(
@@ -176,12 +151,27 @@ internal object SSApiInternal {
 
         GlobalScope.launch(ioDispatcher() + CoroutineExceptionHandler { _, throwable ->
             Logger.e("flush", "", throwable)
+            flushing = false
         }) {
             val eventFlushHandler = EventFlushHandler()
             eventFlushHandler.flushUserEvents()
             eventFlushHandler.flushEvents()
             flushing = false
         }
+    }
+
+    fun reset() {
+        val newID = uuid()
+        val userId = UserLocalDatasource().getIdentity()
+        Logger.i("user", "reset : Current : $userId New : $newID")
+        track(
+            eventName = SSConstants.S_EVENT_USER_LOGOUT,
+            propertiesJO = buildJsonObject {
+                put("id", JsonPrimitive(userId))
+            }
+        )
+        identify(newID)
+        flush()
     }
 
     fun isAppInstalled(): Boolean {
@@ -200,12 +190,7 @@ internal object SSApiInternal {
     }
 
     private fun initializeNetworking() {
-        val httpClient = HttpClient(engine = httpClientEngine) {
-            install(Logging) {
-                logger = io.ktor.client.features.logging.Logger.DEFAULT
-                level = LogLevel.HEADERS
-            }
-        }
+        val httpClient = HttpClient(engine = httpClientEngine)
         globalNetwork.set(httpClient)
     }
 

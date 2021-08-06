@@ -29,6 +29,4 @@ interface UserApiInternalContract {
     fun setAndroidPush(token: String)
     fun getSdkFcmToken(): String
     fun unSetAndroidPush(token: String)
-
-    fun reset()
 }

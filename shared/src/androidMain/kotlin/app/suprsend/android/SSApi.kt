@@ -22,11 +22,11 @@ private constructor() {
         SSApiInternal.identify(uniqueId)
     }
 
-    fun setSuperProperties(jsonObject: JSONObject) {
+    private fun setSuperProperties(jsonObject: JSONObject) {
         SSApiInternal.setSuperProperties(propertiesJsonObject = jsonObject.toString())
     }
 
-    fun track(@NonNull eventName: String, properties: JSONObject? = null) {
+    internal fun track(@NonNull eventName: String, properties: JSONObject? = null) {
         SSApiInternal.track(eventName = eventName, propertiesJsonString = properties?.toString())
     }
 
@@ -34,16 +34,12 @@ private constructor() {
         return ssUserApi
     }
 
-    fun login(uniqueId: String) {
-        SSApiInternal.login(uniqueId)
-    }
-
-    fun logout() {
-        SSApiInternal.logout()
-    }
-
     fun flush() {
         SSApiInternal.flush()
+    }
+
+    fun reset() {
+        SSApiInternal.reset()
     }
 
     companion object {
@@ -105,7 +101,7 @@ private constructor() {
             return instance!!
         }
 
-        fun getInstanceIfExist(context: Context): SSApi? {
+        fun getInstanceFromCachedApiKey(context: Context): SSApi? {
             val apiKey = SSApiInternal.getCachedApiKey()
             if (apiKey != null) {
                 return getInstance(context, apiKey)

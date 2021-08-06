@@ -9,4 +9,3 @@ pluginManagement {
 rootProject.name = "SuprSendKMM"
 include(":androidApp")
 include(":shared")
-include(":androidAppEcom")
