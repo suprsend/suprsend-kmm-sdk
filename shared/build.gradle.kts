@@ -12,8 +12,8 @@ apply {
     from("$rootDir/ktlint.gradle")
 }
 kotlin {
-    group = "com.github.suprsend"
-    version = "0.0.1"
+    group = Deps.Publication.GROUP
+    version = Deps.Publication.VERSION
     android {
         publishLibraryVariants("release", "debug")
         publishLibraryVariantsGroupedByFlavor = true
@@ -139,18 +139,28 @@ sqldelight {
     }
 }
 
-publishing {
-    publications {
-        repositories {
-            maven {
-                url = uri("https://jitpack.io")
-                credentials {
-                    username = project.property("authToken").toString()
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("jitpack") {
+                // Configure the publication here
+                artifactId = Deps.Publication.ARTIFACT_ID
+                group = Deps.Publication.GROUP
+                version = Deps.Publication.VERSION
+                from(components["release"])
+            }
+            repositories {
+                maven {
+                    url = uri("https://jitpack.io")
+                    credentials {
+                        username = project.property("authToken").toString()
+                    }
                 }
             }
         }
     }
 }
+
 
 android {
     compileSdkVersion(Deps.Android.compileSdk)

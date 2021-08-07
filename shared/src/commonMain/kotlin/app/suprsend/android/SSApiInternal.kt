@@ -21,7 +21,6 @@ import app.suprsend.android.user.api.UserApiInternalContract
 import app.suprsend.android.user.api.UserApiInternalImpl
 import com.squareup.sqldelight.internal.Atomic
 import io.ktor.client.*
-import io.ktor.client.features.logging.*
 import kotlin.native.concurrent.SharedImmutable
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.GlobalScope

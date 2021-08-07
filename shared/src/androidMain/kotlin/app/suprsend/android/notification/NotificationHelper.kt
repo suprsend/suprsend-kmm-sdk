@@ -10,13 +10,25 @@ import android.graphics.Color
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import app.suprsend.android.R
+import app.suprsend.android.SSApi
 import app.suprsend.android.base.Logger
+import app.suprsend.android.base.SSConstants
 import kotlinx.serialization.json.Json
+import org.json.JSONObject
 
 internal object NotificationHelper {
 
     fun showRawNotification(context: Context, rawNotification: RawNotification) {
         try {
+            // Notification Delivered
+            val instance = SSApi.getInstanceFromCachedApiKey(context)
+            instance?.track(
+                eventName = SSConstants.S_EVENT_NOTIFICATION_DELIVERED,
+                properties = JSONObject().apply {
+                    put("id", rawNotification.id)
+                }
+            )
+
             showNotificationInternal(context, rawNotification.getNotificationVo())
         } catch (e: Exception) {
             Logger.e("nh", "showRawNotification", e)

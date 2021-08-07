@@ -1,6 +1,5 @@
 package app.suprsend.android
 
-import app.suprsend.android.user.UserLocalDatasource
 import org.json.JSONObject
 
 class SSUserApi {
@@ -73,22 +72,11 @@ class SSUserApi {
 
     fun setAndroidPush(token: String) {
         user.setAndroidPush(token)
+        SSApiInternal.flush()
     }
 
     fun unSetAndroidPush(token: String) {
         user.unSetAndroidPush(token)
-    }
-
-    // Not included in contract
-    private fun getUserIdentity(): String {
-        return UserLocalDatasource().getIdentity()
-    }
-
-    /**
-     * If SSFirebaseMessagingService is registered in your app manifest
-     * then this will return fcm token else this will return blank string
-     */
-    fun getFcmToken(): String {
-        return user.getSdkFcmToken()
+        SSApiInternal.flush()
     }
 }

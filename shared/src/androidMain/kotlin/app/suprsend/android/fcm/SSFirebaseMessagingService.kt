@@ -9,7 +9,6 @@ import com.google.firebase.messaging.RemoteMessage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import org.json.JSONObject
 
 class SSFirebaseMessagingService : FirebaseMessagingService() {
 
@@ -17,23 +16,12 @@ class SSFirebaseMessagingService : FirebaseMessagingService() {
 
         try {
             Log.d(TAG, "FCM From : ${remoteMessage.from}")
-
             val data = remoteMessage.data
             if (data.isNotEmpty()) {
                 Log.d(TAG, "Message data payload: $data")
                 if (data.containsKey(SSConstants.NOTIFICATION_PAYLOAD)) {
                     GlobalScope.launch(Dispatchers.IO) {
                         val rawNotification = NotificationHelper.getRawNotification(payloadJson = data[SSConstants.NOTIFICATION_PAYLOAD] ?: "")
-
-                        // Notification Delivered
-                        val instance = SSApi.getInstanceFromCachedApiKey(baseContext)
-                        instance?.track(
-                            eventName = SSConstants.S_EVENT_NOTIFICATION_DELIVERED,
-                            properties = JSONObject().apply {
-                                put("id", rawNotification.id)
-                            }
-                        )
-
                         NotificationHelper.showRawNotification(context = applicationContext, rawNotification = rawNotification)
                     }
                 }
