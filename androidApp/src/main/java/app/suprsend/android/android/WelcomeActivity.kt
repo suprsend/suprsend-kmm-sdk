@@ -82,9 +82,9 @@ class WelcomeActivity : AppCompatActivity() {
 
     private fun initializeSdk() {
         GlobalScope.launch((Dispatchers.IO)) {
-            ssApi = SSApi.getInstance(applicationContext, "kfWdrPL1nFqs7OUihiBn")
+            ssApi = SSApi.getInstance(applicationContext, "YOUR_KEY")
             ssApi.setLogLevel(LogLevel.VERBOSE)
-            mixpanelAPI = MixpanelAPI.getInstance(applicationContext, "ed91e8fcdae7f6bd2b379a0785a06544")
+            mixpanelAPI = MixpanelAPI.getInstance(applicationContext, "YOUR_KEY")
         }
     }
 }
