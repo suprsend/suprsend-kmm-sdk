@@ -28,7 +28,7 @@ object Creator {
     var email = ""
     var password = ""
 
-    fun getRandomImage(index:Int): String {
+    fun getRandomImage(index: Int): String {
         return when {
             index % 10 == 0 -> "https://niksdevelop.herokuapp.com/images/ecommerce/11461225530026-Antony-Morato-Men-Tshirts-8781461225528839-1.jpg"
             index % 10 == 1 -> "https://niksdevelop.herokuapp.com/images/ecommerce/11461225529845-Antony-Morato-Men-Tshirts-8781461225528839-2.jpg"

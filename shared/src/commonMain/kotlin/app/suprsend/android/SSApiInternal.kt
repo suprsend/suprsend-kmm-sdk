@@ -26,7 +26,6 @@ import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.JsonObject
-import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.buildJsonObject
 
 @SharedImmutable
@@ -164,11 +163,9 @@ internal object SSApiInternal {
         ConfigHelper.addOrUpdate(IS_APP_LAUNCHED, true)
     }
 
-    fun initialize(databaseDriverFactory: DatabaseDriverFactory, apiKey: String) {
-        this.apiKey = apiKey
+    fun initialize(databaseDriverFactory: DatabaseDriverFactory) {
         initializeDatabase(databaseDriverFactory)
         initializeNetworking()
-        ConfigHelper.addOrUpdate(SSConstants.API_KEY, apiKey)
     }
 
     private fun initializeNetworking() {

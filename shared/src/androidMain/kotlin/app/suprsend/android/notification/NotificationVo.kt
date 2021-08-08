@@ -9,24 +9,24 @@ data class RawNotification(
     val id: String,
 
     // Channel Details
-    val channelId: String?,
-    val channelName: String?,
-    val channelDescription: String?,
-    val channelShowBadge: Boolean?,
-    val channelVisibility: NotificationChannelVisibility?,
-    val channelImportance: NotificationChannelImportance?,
+    val channelId: String? = null,
+    val channelName: String? = null,
+    val channelDescription: String? = null,
+    val channelShowBadge: Boolean? = null,
+    val channelVisibility: NotificationChannelVisibility? = null,
+    val channelImportance: NotificationChannelImportance? = null,
 
-    val priority: NotificationPriority?,
+    val priority: NotificationPriority? = null,
 
     // Notification Details
     val smallIconDrawableName: String? = null,
-    val color: String?,
-    val notificationTitle: String?,
-    val subText: String?,
-    val shortDescription: String?,
-    val longDescription: String?,
-    val tickerText: String?,
-    val iconUrl: String?,
+    val color: String? = null,
+    val notificationTitle: String? = null,
+    val subText: String? = null,
+    val shortDescription: String? = null,
+    val longDescription: String? = null,
+    val tickerText: String? = null,
+    val iconUrl: String? = null,
     val imageUrl: String? = null,
     val deeplink: String? = null,
 
