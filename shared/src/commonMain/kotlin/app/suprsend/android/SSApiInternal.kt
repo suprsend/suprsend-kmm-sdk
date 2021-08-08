@@ -44,37 +44,25 @@ internal object SSApiInternal {
 
     fun purchaseMade(properties: String) {
         GlobalScope.launch(ioDispatcher()) {
-            track(
-                eventName = SSConstants.S_EVENT_PURCHASE_MADE,
-                propertiesJO = properties.toKotlinJsonObject()
-            )
+            track(eventName = SSConstants.S_EVENT_PURCHASE_MADE, propertiesJO = properties.toKotlinJsonObject())
         }
     }
 
     fun notificationSubscribed() {
         GlobalScope.launch(ioDispatcher()) {
-            track(
-                eventName = SSConstants.S_EVENT_NOTIFICATION_SUBSCRIBED,
-                propertiesJO = buildJsonObject { }
-            )
+            track(eventName = SSConstants.S_EVENT_NOTIFICATION_SUBSCRIBED, propertiesJO = buildJsonObject { })
         }
     }
 
     fun notificationUnSubscribed() {
         GlobalScope.launch(ioDispatcher()) {
-            track(
-                eventName = SSConstants.S_EVENT_NOTIFICATION_UNSUBSCRIBED,
-                propertiesJO = buildJsonObject { }
-            )
+            track(eventName = SSConstants.S_EVENT_NOTIFICATION_UNSUBSCRIBED, propertiesJO = buildJsonObject { })
         }
     }
 
     fun pageVisited() {
         GlobalScope.launch(ioDispatcher()) {
-            track(
-                eventName = SSConstants.S_EVENT_PAGE_VISITED,
-                propertiesJO = buildJsonObject { }
-            )
+            track(eventName = SSConstants.S_EVENT_PAGE_VISITED, propertiesJO = buildJsonObject { })
         }
     }
 
@@ -163,12 +151,7 @@ internal object SSApiInternal {
         val newID = uuid()
         val userId = UserLocalDatasource().getIdentity()
         Logger.i("user", "reset : Current : $userId New : $newID")
-        track(
-            eventName = SSConstants.S_EVENT_USER_LOGOUT,
-            propertiesJO = buildJsonObject {
-                put("id", JsonPrimitive(userId))
-            }
-        )
+        track(SSConstants.S_EVENT_USER_LOGOUT, buildJsonObject { })
         identify(newID)
         flush()
     }

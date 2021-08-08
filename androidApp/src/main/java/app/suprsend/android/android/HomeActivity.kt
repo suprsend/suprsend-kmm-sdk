@@ -21,14 +21,24 @@ class HomeActivity : AppCompatActivity() {
         setContentView(binding.root)
         binding.gridView.adapter = HomeAdapter(
             layoutInflater,
-            (1..30).map { ProductVo(it.toString(), "https://niksdevelop.herokuapp.com/images/ecommerce/11461226111575-Antony-Morato-Navy-Polo-T-shirt-7711461226111027-3.jpg") }
+            (1..30).map { index ->
+                ProductVo(
+                    id = index.toString(),
+                    url = Creator.getRandomImage(index)
+                )
+            }
         )
+
+        binding.gridView.setOnItemClickListener { parent, view, position, id ->
+            mixpanelAPI.track("Item Clicked $position")
+            mixpanelAPI.people.set("amount_i", position)
+        }
         binding.logoutTv.setOnClickListener {
             ssApi.reset()
             mixpanelAPI.reset()
             Creator.email = ""
             Creator.password = ""
-            startActivity(Intent(this, LoginActivity::class.java))
+            startActivity(Intent(this, WelcomeActivity::class.java))
             finishAffinity()
         }
     }

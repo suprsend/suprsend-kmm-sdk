@@ -80,9 +80,9 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.3.1")
     implementation("com.google.android.material:material:1.4.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.0")
-    implementation("com.google.firebase:firebase-crashlytics:18.2.0")
+    implementation("com.google.firebase:firebase-crashlytics:18.2.1")
 //    implementation(project(":shared"))
-    implementation("com.github.suprsend:suprsend-android-sdk:0.0.0.2")
+    implementation("com.github.suprsend:suprsend-kmm-sdk:0.0.0.2")
     implementation("com.mixpanel.android:mixpanel-android:5.9.1")
 
     implementation("com.github.bumptech.glide:glide:4.12.0")

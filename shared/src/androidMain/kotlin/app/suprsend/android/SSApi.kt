@@ -6,6 +6,8 @@ import androidx.annotation.NonNull
 import app.suprsend.android.base.ActivityLifecycleCallbackHandler
 import app.suprsend.android.base.AndroidCreator
 import app.suprsend.android.base.DeviceInfo
+import app.suprsend.android.base.LogLevel
+import app.suprsend.android.base.Logger
 import app.suprsend.android.base.PeriodicFlush
 import app.suprsend.android.base.SSConstants
 import app.suprsend.android.base.uuid
@@ -40,6 +42,10 @@ private constructor() {
 
     fun reset() {
         SSApiInternal.reset()
+    }
+
+    fun setLogLevel(logLevel: LogLevel) {
+        Logger.logLevel = logLevel
     }
 
     companion object {

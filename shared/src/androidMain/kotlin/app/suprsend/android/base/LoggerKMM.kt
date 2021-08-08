@@ -4,7 +4,7 @@ import android.util.Log
 
 actual class LoggerKMM {
 
-    actual var logLevel: LogLevel = LogLevel.VERBOSE
+    actual var logLevel: LogLevel = LogLevel.OFF
 
     fun v(tag: String?, message: String?) {
         if (isLogAllowed(LogLevel.VERBOSE.num)) {
