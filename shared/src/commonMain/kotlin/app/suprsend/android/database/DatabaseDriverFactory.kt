@@ -10,9 +10,9 @@ expect class DatabaseDriverFactory {
 }
 
 @SharedImmutable
-internal val format = Json {
+internal val json = Json {
     ignoreUnknownKeys = true
     isLenient = true
-    prettyPrint = true
+    prettyPrint = false
     allowStructuredMapKeys = true
 }

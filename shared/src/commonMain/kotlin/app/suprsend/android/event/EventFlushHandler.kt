@@ -2,13 +2,13 @@ package app.suprsend.android.event
 
 import app.suprsend.android.base.Logger
 import app.suprsend.android.base.SSConstants
+import app.suprsend.android.database.json
 import app.suprsend.android.globalNetwork
 import app.suprsend.android.user.UserEventLocalDataSource
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
 import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 
 class EventFlushHandler {
     suspend fun flushEvents() {
@@ -19,7 +19,7 @@ class EventFlushHandler {
             return
         }
         while (eventModelList.isNotEmpty()) {
-            val requestJson = Json.encodeToString(eventModelList.map { it.value })
+            val requestJson = json.encodeToString(eventModelList.map { it.value })
             val httpResponse = globalNetwork.get()!!.post<HttpResponse> {
                 url(SSConstants.EVENT_URL)
                 contentType(ContentType.Application.Json)
@@ -39,7 +39,7 @@ class EventFlushHandler {
             return
         }
         while (eventModelList.isNotEmpty()) {
-            val requestJson = Json.encodeToString(eventModelList.map { it.value })
+            val requestJson = json.encodeToString(eventModelList.map { it.value })
             val httpResponse = globalNetwork.get()!!.post<HttpResponse> {
                 url(SSConstants.IDENTITY_URL)
                 contentType(ContentType.Application.Json)

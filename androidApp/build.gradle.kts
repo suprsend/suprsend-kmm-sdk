@@ -42,12 +42,16 @@ android {
 
     buildTypes {
         getByName("debug") {
+            buildConfigField("String", "SS_TOKEN","\"${project.property("SS_TOKEN").toString()}\"")
+            buildConfigField("String", "MX_TOKEN", "\"${project.property("MX_TOKEN").toString()}\"")
             versionNameSuffix = "(d)"
             isDebuggable = true
             isCrunchPngs = false
             isMinifyEnabled = false
         }
         getByName("release") {
+            buildConfigField("String", "SS_TOKEN","\"${project.property("SS_TOKEN").toString()}\"")
+            buildConfigField("String", "MX_TOKEN", "\"${project.property("MX_TOKEN").toString()}\"")
             isMinifyEnabled = false
             signingConfig = signingConfigs.getByName("release")
             isDebuggable = false

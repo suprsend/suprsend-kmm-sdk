@@ -13,7 +13,7 @@ import app.suprsend.android.R
 import app.suprsend.android.SSApi
 import app.suprsend.android.base.Logger
 import app.suprsend.android.base.SSConstants
-import kotlinx.serialization.json.Json
+import app.suprsend.android.database.json
 import org.json.JSONObject
 
 internal object NotificationHelper {
@@ -36,7 +36,7 @@ internal object NotificationHelper {
     }
 
     fun getRawNotification(payloadJson: String): RawNotification {
-        return Json.decodeFromString(RawNotification.serializer(), payloadJson)
+        return json.decodeFromString(RawNotification.serializer(), payloadJson)
     }
 
     private fun showNotificationInternal(context: Context, notificationVo: NotificationVo) {
@@ -169,6 +169,14 @@ internal object NotificationHelper {
             notificationBuilder.setGroup(group)
         }
 
+        notificationBasicVo.setGroupSummary?.let { setGroupSummary ->
+            notificationBuilder.setGroupSummary(setGroupSummary)
+        }
+
+        notificationBasicVo.sortKey?.let { sortKey ->
+            notificationBuilder.setSortKey(sortKey)
+        }
+
         // Set whether or not this notification is only relevant to the current device.
         notificationBasicVo.localOnly?.let { localOnly ->
             notificationBuilder.setLocalOnly(localOnly)
@@ -205,6 +213,9 @@ internal object NotificationHelper {
         }
 
         notificationManager.getNotificationChannel(notificationChannelVo.id)?.run {
+            name = notificationChannelVo.name
+            description = notificationChannelVo.description
+            notificationManager.createNotificationChannel(this)
             return true
         }
 

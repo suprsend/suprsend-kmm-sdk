@@ -53,6 +53,10 @@ private constructor() {
 
         private var instance: SSApi? = null
 
+        fun getInstance(context: Context, apiKey: String): SSApi {
+            return getInstanceInternal(context, apiKey, true)
+        }
+
         private fun initializeDBNW(context: Context) {
             // Setting android context to user everywhere
             if (!AndroidCreator.isContextInitialized()) {
@@ -62,15 +66,11 @@ private constructor() {
             SSApiInternal.initialize(databaseDriverFactory = DatabaseDriverFactory())
         }
 
-        fun getInstance(context: Context, apiKey: String): SSApi {
-            return getInstanceInternal(context, apiKey, true)
-        }
-
         private fun getInstanceInternal(context: Context, apiKey: String, isStart: Boolean): SSApi {
 
             synchronized(SSApi::class.java) {
                 if (instance == null) {
-                    // Todo - Make sure that for multi instance multiple DatabaseDriverFactory will get initialize this should not happen
+                    // Todo - Make sure that for multi user multiple instance of DatabaseDriverFactory will get initialize this should not happen
                     initializeDBNW(context)
 
                     SSApiInternal.apiKey = apiKey

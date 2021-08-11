@@ -7,7 +7,7 @@ internal class DataModelColumnAdapter<T : Any>(
     private val serializer: KSerializer<T>
 ) : ColumnAdapter<T, String> {
 
-    override fun decode(databaseValue: String) = format.decodeFromString(serializer, databaseValue)
+    override fun decode(databaseValue: String) = json.decodeFromString(serializer, databaseValue)
 
-    override fun encode(value: T) = format.encodeToString(serializer, value)
+    override fun encode(value: T) = json.encodeToString(serializer, value)
 }

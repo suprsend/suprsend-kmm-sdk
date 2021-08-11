@@ -31,7 +31,10 @@ data class RawNotification(
     val deeplink: String? = null,
 
     val category: String? = null,
+
+    val setGroupSummary: Boolean? = null,
     val group: String? = null,
+    val sortKey: String? = null,
 
     val onGoing: Boolean? = null,
     val autoCancel: Boolean? = null,
@@ -72,7 +75,9 @@ data class RawNotification(
                 autoCancel = autoCancel,
                 smallIconDrawableName = smallIconDrawableName,
                 category = category,
+                setGroupSummary = setGroupSummary,
                 group = group,
+                sortKey = sortKey,
                 localOnly = localOnly,
                 timeoutAfter = timeoutAfter,
                 deeplink = deeplink
@@ -83,11 +88,13 @@ data class RawNotification(
                         notificationActionVo
                             .copy(
                                 id = (index + 1).toString(),
-                                notificationId = id
+                                notificationId = id,
+                                notificationActionType = NotificationActionType.BUTTON
                             )
                     else notificationActionVo
                         .copy(
-                            notificationId = id
+                            notificationId = id,
+                            notificationActionType = NotificationActionType.BUTTON
                         )
                 }
         )
@@ -130,7 +137,7 @@ data class NotificationVo(
         return if (deeplink == null)
             null
         else
-            NotificationActionVo(id = id, link = deeplink, notificationId = id)
+            NotificationActionVo(id = id, link = deeplink, notificationId = id, notificationActionType = NotificationActionType.BODY)
     }
 }
 
@@ -141,8 +148,13 @@ data class NotificationActionVo(
     val title: String? = null,
     val link: String? = null,
     val iconDrawableName: String? = null,
-    val notificationId: String? = null
+    val notificationId: String? = null,
+    val notificationActionType: NotificationActionType? = null
 ) : Parcelable
+
+enum class NotificationActionType {
+    BODY, BUTTON
+}
 
 data class NotificationChannelVo(
     val id: String,
@@ -178,7 +190,10 @@ data class NotificationBasicVo(
     val deeplink: String? = null,
 
     val category: String? = null,
+
+    val setGroupSummary: Boolean? = null,
     val group: String? = null,
+    val sortKey: String? = null,
 
     val onGoing: Boolean? = null,
     val autoCancel: Boolean? = null,

@@ -79,7 +79,8 @@ class NotificationRedirectionActivity : Activity() {
 
         // Remove notification
         val notificationManager = getSystemService(NOTIFICATION_SERVICE) as? NotificationManager
-        notificationManager?.cancel((notificationActionVo.notificationId ?: "").hashCode())
+        if (notificationActionVo.notificationActionType == NotificationActionType.BUTTON)
+            notificationManager?.cancel((notificationActionVo.notificationId ?: "").hashCode())
 
         // Target intent
         val link = notificationActionVo.link
