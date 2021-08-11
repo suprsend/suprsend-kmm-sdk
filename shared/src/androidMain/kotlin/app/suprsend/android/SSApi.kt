@@ -6,9 +6,12 @@ import androidx.annotation.NonNull
 import app.suprsend.android.base.ActivityLifecycleCallbackHandler
 import app.suprsend.android.base.AndroidCreator
 import app.suprsend.android.base.DeviceInfo
+import app.suprsend.android.base.LogLevel
+import app.suprsend.android.base.Logger
 import app.suprsend.android.base.PeriodicFlush
 import app.suprsend.android.base.SSConstants
 import app.suprsend.android.base.uuid
+import app.suprsend.android.config.ConfigHelper
 import app.suprsend.android.database.DatabaseDriverFactory
 import app.suprsend.android.user.UserLocalDatasource
 import org.json.JSONObject
@@ -17,15 +20,16 @@ class SSApi
 private constructor() {
 
     private val ssUserApi = SSUserApi()
+
     fun identify(uniqueId: String) {
         SSApiInternal.identify(uniqueId)
     }
 
-    fun setSuperProperties(jsonObject: JSONObject) {
+    private fun setSuperProperties(jsonObject: JSONObject) {
         SSApiInternal.setSuperProperties(propertiesJsonObject = jsonObject.toString())
     }
 
-    fun track(@NonNull eventName: String, properties: JSONObject? = null) {
+    internal fun track(@NonNull eventName: String, properties: JSONObject? = null) {
         SSApiInternal.track(eventName = eventName, propertiesJsonString = properties?.toString())
     }
 
@@ -33,41 +37,44 @@ private constructor() {
         return ssUserApi
     }
 
-    fun login(uniqueId: String) {
-        SSApiInternal.login(uniqueId)
-    }
-
-    fun logout() {
-        SSApiInternal.logout()
-    }
-
     fun flush() {
         SSApiInternal.flush()
     }
 
+    fun reset() {
+        SSApiInternal.reset()
+    }
+
+    fun setLogLevel(logLevel: LogLevel) {
+        Logger.logLevel = logLevel
+    }
 
     companion object {
 
         private var instance: SSApi? = null
 
-        fun getInstance(
-            context: Context,
-            apiKey: String
-        ): SSApi {
+        fun getInstance(context: Context, apiKey: String): SSApi {
+            return getInstanceInternal(context, apiKey, true)
+        }
+
+        private fun initializeDBNW(context: Context) {
+            // Setting android context to user everywhere
+            if (!AndroidCreator.isContextInitialized()) {
+                AndroidCreator.context = context.applicationContext
+            }
+            // Initialize nw and db
+            SSApiInternal.initialize(databaseDriverFactory = DatabaseDriverFactory())
+        }
+
+        private fun getInstanceInternal(context: Context, apiKey: String, isStart: Boolean): SSApi {
 
             synchronized(SSApi::class.java) {
                 if (instance == null) {
+                    // Todo - Make sure that for multi user multiple instance of DatabaseDriverFactory will get initialize this should not happen
+                    initializeDBNW(context)
 
-                    // Setting android context to user everywhere
-                    if (!AndroidCreator.isContextInitialized()) {
-                        AndroidCreator.context = context.applicationContext
-                    }
-
-                    // Initialize nw and db
-                    SSApiInternal.initialize(
-                        databaseDriverFactory = DatabaseDriverFactory(),
-                        apiKey = apiKey
-                    )
+                    SSApiInternal.apiKey = apiKey
+                    ConfigHelper.addOrUpdate(SSConstants.API_KEY, SSApiInternal.apiKey)
 
                     // Anynomous user id generation
                     val userLocalDatasource = UserLocalDatasource()
@@ -82,13 +89,14 @@ private constructor() {
                     // Device Properties
                     newInstance.getUser().set(DeviceInfo(context).getDeviceInfoProperties())
 
-                    if (!SSApiInternal.isAppInstalled()) {
+                    if (isStart && !SSApiInternal.isAppInstalled()) {
                         // App Launched
                         newInstance.track(SSConstants.S_EVENT_APP_INSTALLED)
                         SSApiInternal.setAppLaunched()
                     }
 
-                    newInstance.track(SSConstants.S_EVENT_APP_LAUNCHED)
+                    if (isStart)
+                        newInstance.track(SSConstants.S_EVENT_APP_LAUNCHED)
 
                     val application = context.applicationContext as Application
 
@@ -103,6 +111,15 @@ private constructor() {
                 }
             }
             return instance!!
+        }
+
+        fun getInstanceFromCachedApiKey(context: Context): SSApi? {
+            initializeDBNW(context)
+            val apiKey = SSApiInternal.getCachedApiKey()
+            if (apiKey != null) {
+                return getInstanceInternal(context, apiKey, false)
+            }
+            return null
         }
     }
 }

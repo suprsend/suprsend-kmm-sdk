@@ -1,11 +1,16 @@
 object Deps {
 
     //TODO : Flat & Clean all dependencies version
-    const val SDK_PACKAGE_NAME  = "app.suprsend.android"
+    const val SDK_PACKAGE_NAME = "app.suprsend.android"
     const val SDK_VERSION_CODE = 1
-    const val SDK_VERSION_NAME = "0.0.1 Beta 3"
+    const val SDK_VERSION_NAME = "0.0.1 Beta 6"
     const val CORE_KTX = "androidx.core:core-ktx:1.6.0"
 
+    object Publication {
+        const val ARTIFACT_ID = "suprsend-kmm-sdk"
+        const val GROUP = "com.github.suprsend"
+        const val VERSION = "0.0.0.3"
+    }
 
     object AndroidX {
         const val ANNOTATION = "androidx.annotation:annotation:1.2.0"

@@ -2,8 +2,8 @@ package app.suprsend.android.base
 
 import android.annotation.SuppressLint
 import android.content.Context
-//import com.google.gson.Gson
-//import com.google.gson.GsonBuilder
+// import com.google.gson.Gson
+// import com.google.gson.GsonBuilder
 
 @SuppressLint("StaticFieldLeak")
 internal object AndroidCreator {

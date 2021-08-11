@@ -1,36 +1,40 @@
 package app.suprsend.android.notification
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class RawNotification(
     val id: String,
-    val apiKey: String,
 
     // Channel Details
-    val channelId: String?,
-    val channelName: String?,
-    val channelDescription: String?,
-    val channelShowBadge: Boolean?,
-    val channelVisibility: NotificationChannelVisibility?,
-    val channelImportance: NotificationChannelImportance?,
+    val channelId: String? = null,
+    val channelName: String? = null,
+    val channelDescription: String? = null,
+    val channelShowBadge: Boolean? = null,
+    val channelVisibility: NotificationChannelVisibility? = null,
+    val channelImportance: NotificationChannelImportance? = null,
 
-    val priority: NotificationPriority?,
+    val priority: NotificationPriority? = null,
 
     // Notification Details
     val smallIconDrawableName: String? = null,
-    val color: String?,
-    val notificationTitle: String?,
-    val subText: String?,
-    val shortDescription: String?,
-    val longDescription: String?,
-    val tickerText: String?,
-    val iconUrl: String?,
+    val color: String? = null,
+    val notificationTitle: String? = null,
+    val subText: String? = null,
+    val shortDescription: String? = null,
+    val longDescription: String? = null,
+    val tickerText: String? = null,
+    val iconUrl: String? = null,
     val imageUrl: String? = null,
     val deeplink: String? = null,
 
     val category: String? = null,
+
+    val setGroupSummary: Boolean? = null,
     val group: String? = null,
+    val sortKey: String? = null,
 
     val onGoing: Boolean? = null,
     val autoCancel: Boolean? = null,
@@ -49,7 +53,6 @@ data class RawNotification(
     fun getNotificationVo(): NotificationVo {
         var notificationVo = NotificationVo(
             id = id,
-            apiKey = apiKey,
             notificationChannelVo = NotificationChannelVo(
                 id = channelId ?: "default_channel",
                 name = channelName ?: "Default Channel",
@@ -72,19 +75,27 @@ data class RawNotification(
                 autoCancel = autoCancel,
                 smallIconDrawableName = smallIconDrawableName,
                 category = category,
+                setGroupSummary = setGroupSummary,
                 group = group,
+                sortKey = sortKey,
                 localOnly = localOnly,
                 timeoutAfter = timeoutAfter,
                 deeplink = deeplink
             ),
             actions = actions
-                ?.map { notificationActionVo ->
+                ?.mapIndexed { index, notificationActionVo ->
                     if (notificationActionVo.id == null)
                         notificationActionVo
                             .copy(
-                                id = id
+                                id = (index + 1).toString(),
+                                notificationId = id,
+                                notificationActionType = NotificationActionType.BUTTON
                             )
                     else notificationActionVo
+                        .copy(
+                            notificationId = id,
+                            notificationActionType = NotificationActionType.BUTTON
+                        )
                 }
         )
 
@@ -114,7 +125,6 @@ data class RawNotification(
 
 data class NotificationVo(
     val id: String,
-    val apiKey: String,
     val notificationChannelVo: NotificationChannelVo,
     val notificationBasicVo: NotificationBasicVo,
     val bigTextVo: BigTextVo? = null,
@@ -127,18 +137,24 @@ data class NotificationVo(
         return if (deeplink == null)
             null
         else
-            NotificationActionVo(id = id, apiKey = apiKey, link = deeplink)
+            NotificationActionVo(id = id, link = deeplink, notificationId = id, notificationActionType = NotificationActionType.BODY)
     }
 }
 
+@Parcelize
 @Serializable
 data class NotificationActionVo(
     val id: String?,
-    val apiKey: String?=null,
     val title: String? = null,
     val link: String? = null,
-    val iconDrawableName: String? = null
-)
+    val iconDrawableName: String? = null,
+    val notificationId: String? = null,
+    val notificationActionType: NotificationActionType? = null
+) : Parcelable
+
+enum class NotificationActionType {
+    BODY, BUTTON
+}
 
 data class NotificationChannelVo(
     val id: String,
@@ -174,7 +190,10 @@ data class NotificationBasicVo(
     val deeplink: String? = null,
 
     val category: String? = null,
+
+    val setGroupSummary: Boolean? = null,
     val group: String? = null,
+    val sortKey: String? = null,
 
     val onGoing: Boolean? = null,
     val autoCancel: Boolean? = null,

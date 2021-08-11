@@ -6,6 +6,7 @@ buildscript {
         mavenCentral()
         maven(url = "https://kotlin.bintray.com/kotlinx")
         maven(url = "https://jitpack.io")
+        maven(url = "https://maven.google.com")
     }
     dependencies {
         classpath(Deps.JetBrains.Kotlin.gradlePlugin)
@@ -13,6 +14,7 @@ buildscript {
         classpath("org.jetbrains.kotlin:kotlin-serialization:${Deps.JetBrains.Kotlin.VERSION}")
         classpath(Deps.Squareup.SQLDelight.gradlePlugin)
         classpath ("com.google.gms:google-services:4.3.8")
+        classpath ("com.google.firebase:firebase-crashlytics-gradle:2.7.1")
     }
 }
 
@@ -22,6 +24,7 @@ allprojects {
         google()
         mavenCentral()
         maven(url ="https://jitpack.io")
+        maven(url = "https://maven.google.com")
     }
 }
 

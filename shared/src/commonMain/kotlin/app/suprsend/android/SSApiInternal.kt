@@ -2,7 +2,6 @@ package app.suprsend.android
 
 import app.suprsend.android.base.Logger
 import app.suprsend.android.base.SSConstants
-import app.suprsend.android.base.addUpdateJsoObject
 import app.suprsend.android.base.ioDispatcher
 import app.suprsend.android.base.toKotlinJsonObject
 import app.suprsend.android.base.uuid
@@ -22,13 +21,11 @@ import app.suprsend.android.user.api.UserApiInternalContract
 import app.suprsend.android.user.api.UserApiInternalImpl
 import com.squareup.sqldelight.internal.Atomic
 import io.ktor.client.*
-import io.ktor.client.features.logging.*
 import kotlin.native.concurrent.SharedImmutable
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.JsonObject
-import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.buildJsonObject
 
 @SharedImmutable
@@ -44,64 +41,27 @@ internal object SSApiInternal {
     var apiKey: String = ""
     private var flushing: Boolean = false
 
-    fun login(uniqueId: String) {
-        GlobalScope.launch(ioDispatcher()) {
-            identify(uniqueId)
-            track(
-                eventName = SSConstants.S_EVENT_USER_LOGIN,
-                propertiesJO = buildJsonObject {
-                    put("id", JsonPrimitive(uniqueId))
-                }
-            )
-        }
-    }
-
-    fun logout() {
-        GlobalScope.launch(ioDispatcher()) {
-            val userId = UserLocalDatasource().getIdentity()
-            userImpl.reset()
-            track(
-                eventName = SSConstants.S_EVENT_USER_LOGOUT,
-                propertiesJO = buildJsonObject {
-                    put("id", JsonPrimitive(userId))
-                }
-            )
-        }
-    }
-
     fun purchaseMade(properties: String) {
         GlobalScope.launch(ioDispatcher()) {
-            track(
-                eventName = SSConstants.S_EVENT_PURCHASE_MADE,
-                propertiesJO = properties.toKotlinJsonObject()
-            )
+            track(eventName = SSConstants.S_EVENT_PURCHASE_MADE, propertiesJO = properties.toKotlinJsonObject())
         }
     }
 
     fun notificationSubscribed() {
         GlobalScope.launch(ioDispatcher()) {
-            track(
-                eventName = SSConstants.S_EVENT_NOTIFICATION_SUBSCRIBED,
-                propertiesJO = buildJsonObject { }
-            )
+            track(eventName = SSConstants.S_EVENT_NOTIFICATION_SUBSCRIBED, propertiesJO = buildJsonObject { })
         }
     }
 
     fun notificationUnSubscribed() {
         GlobalScope.launch(ioDispatcher()) {
-            track(
-                eventName = SSConstants.S_EVENT_NOTIFICATION_UNSUBSCRIBED,
-                propertiesJO = buildJsonObject { }
-            )
+            track(eventName = SSConstants.S_EVENT_NOTIFICATION_UNSUBSCRIBED, propertiesJO = buildJsonObject { })
         }
     }
 
     fun pageVisited() {
         GlobalScope.launch(ioDispatcher()) {
-            track(
-                eventName = SSConstants.S_EVENT_PAGE_VISITED,
-                propertiesJO = buildJsonObject { }
-            )
+            track(eventName = SSConstants.S_EVENT_PAGE_VISITED, propertiesJO = buildJsonObject { })
         }
     }
 
@@ -122,10 +82,6 @@ internal object SSApiInternal {
                 )
             userRepository.identify(uniqueId)
         }
-    }
-
-    fun getId(): String {
-        return UserLocalDatasource().getIdentity()
     }
 
     fun setSuperProperties(propertiesJsonObject: String?) {
@@ -170,18 +126,33 @@ internal object SSApiInternal {
     }
 
     fun flush() {
-        if (flushing)
+        if (flushing) {
+            Logger.i("api", "Flush request is ignored as flush is already in progress")
             return
+        }
 
         Logger.i("api", "Trying to flush events")
 
+        flushing = true
+
         GlobalScope.launch(ioDispatcher() + CoroutineExceptionHandler { _, throwable ->
             Logger.e("flush", "", throwable)
+            flushing = false
         }) {
             val eventFlushHandler = EventFlushHandler()
             eventFlushHandler.flushUserEvents()
             eventFlushHandler.flushEvents()
+            flushing = false
         }
+    }
+
+    fun reset() {
+        val newID = uuid()
+        val userId = UserLocalDatasource().getIdentity()
+        Logger.i("user", "reset : Current : $userId New : $newID")
+        track(SSConstants.S_EVENT_USER_LOGOUT, buildJsonObject { })
+        identify(newID)
+        flush()
     }
 
     fun isAppInstalled(): Boolean {
@@ -192,19 +163,13 @@ internal object SSApiInternal {
         ConfigHelper.addOrUpdate(IS_APP_LAUNCHED, true)
     }
 
-    fun initialize(databaseDriverFactory: DatabaseDriverFactory, apiKey: String) {
-        this.apiKey = apiKey
+    fun initialize(databaseDriverFactory: DatabaseDriverFactory) {
         initializeDatabase(databaseDriverFactory)
         initializeNetworking()
     }
 
     private fun initializeNetworking() {
-        val httpClient = HttpClient(engine = httpClientEngine) {
-            install(Logging) {
-                logger = io.ktor.client.features.logging.Logger.DEFAULT
-                level = LogLevel.HEADERS
-            }
-        }
+        val httpClient = HttpClient(engine = httpClientEngine)
         globalNetwork.set(httpClient)
     }
 
@@ -213,6 +178,11 @@ internal object SSApiInternal {
         GLOBAL_SUPR_SEND_DATABASE_WRAPPER.set(database)
     }
 
+    // Not included in contract
+
+    fun getCachedApiKey(): String? {
+        return ConfigHelper.get(SSConstants.API_KEY)
+    }
 
     private const val IS_APP_LAUNCHED = "IS_APP_LAUNCHED"
 }

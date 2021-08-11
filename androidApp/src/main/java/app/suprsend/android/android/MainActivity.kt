@@ -8,10 +8,10 @@ import androidx.appcompat.app.AppCompatActivity
 import app.suprsend.android.SSApi
 import app.suprsend.android.android.databinding.ActivityMainBinding
 import com.google.firebase.messaging.FirebaseMessaging
+import com.mixpanel.android.mpmetrics.MixpanelAPI
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
 
@@ -51,34 +51,34 @@ class MainActivity : AppCompatActivity() {
         binding.greet.text = greet()
 
         binding.identify.setOnClickListener {
-            ssApi.identify("1234")
+            // ssApi.identify("1234")
         }
 
         binding.superProperty.setOnClickListener {
-            ssApi.setSuperProperties(
-                JSONObject().apply {
-                    put("Super Property String", "123")
-                    put("Super Property Int", 123)
-                    put("Super Property Float", 123.43)
-                    put("Super Property Boolean", false)
-                }
-            )
+//            ssApi.setSuperProperties(
+//                JSONObject().apply {
+//                    put("Super Property String", "123")
+//                    put("Super Property Int", 123)
+//                    put("Super Property Float", 123.43)
+//                    put("Super Property Boolean", false)
+//                }
+//            )
         }
 
         binding.trackEventName.setOnClickListener {
-            ssApi.track("Product Viewed")
+//            ssApi.track("Product Viewed")
         }
 
         binding.trackEventProperties.setOnClickListener {
-            ssApi.track(
-                "Product Viewed",
-                JSONObject().apply {
-                    put("Name", "Super Bike")
-                    put("Price", 99.9)
-                    put("Quantity", 45)
-                    put("Availability", true)
-                }
-            )
+//            ssApi.track(
+//                "Product Viewed",
+//                JSONObject().apply {
+//                    put("Name", "Super Bike")
+//                    put("Price", 99.9)
+//                    put("Quantity", 45)
+//                    put("Availability", true)
+//                }
+//            )
         }
 
         binding.userEvents.setOnClickListener {
@@ -86,7 +86,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.flush.setOnClickListener {
-            ssApi.flush()
+//            ssApi.flush()
         }
 
         binding.crash.setOnClickListener {
@@ -96,9 +96,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun initialize() {
         GlobalScope.launch((Dispatchers.IO)) {
-            ssApi = SSApi.getInstance(applicationContext, "123")
+            ssApi = SSApi.getInstance(applicationContext, "kfWdrPL1nFqs7OUihiBn")
+            mixpanelAPI = MixpanelAPI.getInstance(applicationContext, "ed91e8fcdae7f6bd2b379a0785a06544")
         }
     }
 }
-
-lateinit var ssApi: SSApi

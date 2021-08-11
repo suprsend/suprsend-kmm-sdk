@@ -2,26 +2,47 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="app.suprsend.android.android">
 
+    <!--
+This permission is required to allow the application to send
+events and properties to Mixpanel.
+-->
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <!--
+      This permission is optional but recommended so we can be smart
+      about when to send data.
+     -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!--
+      This permission is optional but recommended so events will
+      contain information about bluetooth state
+    -->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+
 
     <application
         android:allowBackup="false"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".UserActivity"/>
-        <activity
-            android:name=".MainActivity"
-            android:exported="true">
+        <activity android:name=".HomeActivity" />
+        <activity android:name=".WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".LoginActivity" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true" />
+        <activity android:name=".UserActivity" />
 
         <service
             android:name="app.suprsend.android.fcm.SSFirebaseMessagingService"
+            android:enabled="true"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
