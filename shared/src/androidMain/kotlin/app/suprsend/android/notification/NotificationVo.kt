@@ -13,7 +13,7 @@ data class RawNotification(
     val channelName: String? = null,
     val channelDescription: String? = null,
     val channelShowBadge: Boolean? = null,
-    val channelVisibility: NotificationChannelVisibility? = null,
+    val channelLockScreenVisibility: NotificationChannelVisibility? = null,
     val channelImportance: NotificationChannelImportance? = null,
 
     val priority: NotificationPriority? = null,
@@ -54,12 +54,12 @@ data class RawNotification(
         var notificationVo = NotificationVo(
             id = id,
             notificationChannelVo = NotificationChannelVo(
-                id = channelId ?: "default_channel",
-                name = channelName ?: "Default Channel",
+                id = channelId ?: "main",
+                name = channelName ?: "Main",
                 description = channelDescription ?: "",
                 showBadge = channelShowBadge ?: true,
-                visibility = channelVisibility ?: NotificationChannelVisibility.PUBLIC,
-                importance = channelImportance ?: NotificationChannelImportance.HIGH
+                channelLockScreenVisibility = channelLockScreenVisibility ?: NotificationChannelVisibility.PUBLIC,
+                channelImportance = channelImportance ?: NotificationChannelImportance.HIGH
             ),
             notificationBasicVo = NotificationBasicVo(
                 priority = priority ?: NotificationPriority.DEFAULT,
@@ -161,8 +161,8 @@ data class NotificationChannelVo(
     val name: String,
     val description: String,
     val showBadge: Boolean,
-    val visibility: NotificationChannelVisibility = NotificationChannelVisibility.PUBLIC,
-    val importance: NotificationChannelImportance = NotificationChannelImportance.HIGH
+    val channelLockScreenVisibility: NotificationChannelVisibility = NotificationChannelVisibility.PUBLIC,
+    val channelImportance: NotificationChannelImportance = NotificationChannelImportance.HIGH
 )
 
 enum class NotificationChannelVisibility {

@@ -42,31 +42,31 @@ internal object SSApiInternal {
     private var flushing: Boolean = false
 
     fun purchaseMade(properties: String) {
-        GlobalScope.launch(ioDispatcher()) {
+        GlobalScope.launch(ioDispatcher() + coroutineExceptionHandler) {
             track(eventName = SSConstants.S_EVENT_PURCHASE_MADE, propertiesJO = properties.toKotlinJsonObject())
         }
     }
 
     fun notificationSubscribed() {
-        GlobalScope.launch(ioDispatcher()) {
+        GlobalScope.launch(ioDispatcher() + coroutineExceptionHandler) {
             track(eventName = SSConstants.S_EVENT_NOTIFICATION_SUBSCRIBED, propertiesJO = buildJsonObject { })
         }
     }
 
     fun notificationUnSubscribed() {
-        GlobalScope.launch(ioDispatcher()) {
+        GlobalScope.launch(ioDispatcher() + coroutineExceptionHandler) {
             track(eventName = SSConstants.S_EVENT_NOTIFICATION_UNSUBSCRIBED, propertiesJO = buildJsonObject { })
         }
     }
 
     fun pageVisited() {
-        GlobalScope.launch(ioDispatcher()) {
+        GlobalScope.launch(ioDispatcher() + coroutineExceptionHandler) {
             track(eventName = SSConstants.S_EVENT_PAGE_VISITED, propertiesJO = buildJsonObject { })
         }
     }
 
     fun identify(uniqueId: String) {
-        GlobalScope.launch(ioDispatcher()) {
+        GlobalScope.launch(ioDispatcher() + coroutineExceptionHandler) {
             Logger.i("api", "identity : $uniqueId")
             val userRepository = UserRepository()
             UserEventLocalDataSource()
@@ -85,7 +85,7 @@ internal object SSApiInternal {
     }
 
     fun setSuperProperties(propertiesJsonObject: String?) {
-        GlobalScope.launch(ioDispatcher()) {
+        GlobalScope.launch(ioDispatcher() + coroutineExceptionHandler) {
             Logger.i("api", "Setting super properties")
             val superPropertiesRepository = SuperPropertiesLocalDataSource()
             superPropertiesRepository.add(propertiesJsonObject.toKotlinJsonObject())
@@ -93,32 +93,36 @@ internal object SSApiInternal {
     }
 
     fun track(eventName: String, propertiesJsonString: String?) {
-        GlobalScope.launch(ioDispatcher()) {
+        GlobalScope.launch(ioDispatcher() + coroutineExceptionHandler) {
             track(eventName, propertiesJsonString.toKotlinJsonObject())
         }
     }
 
     fun track(eventName: String, propertiesJO: JsonObject?) {
-        Logger.i("api", "Track Event : $eventName")
-        if (eventName.isBlank()) {
-            Logger.i("", "event name cannot be blank")
-            return
-        }
+        try {
+            Logger.i("api", "Track Event : $eventName")
+            if (eventName.isBlank()) {
+                Logger.i("", "event name cannot be blank")
+                return
+            }
 
-        val userLocalDatasource = UserLocalDatasource()
-        val superPropertiesLocalDataSource = SuperPropertiesLocalDataSource()
-        EventLocalDatasource()
-            .track(
-                EventModel(
-                    value = PayloadCreator.buildTrackEventPayload(
-                        eventName = eventName,
-                        distinctId = userLocalDatasource.getIdentity(),
-                        superProperties = superPropertiesLocalDataSource.getAll(),
-                        userProperties = propertiesJO
-                    ),
-                    id = uuid()
+            val userLocalDatasource = UserLocalDatasource()
+            val superPropertiesLocalDataSource = SuperPropertiesLocalDataSource()
+            EventLocalDatasource()
+                .track(
+                    EventModel(
+                        value = PayloadCreator.buildTrackEventPayload(
+                            eventName = eventName,
+                            distinctId = userLocalDatasource.getIdentity(),
+                            superProperties = superPropertiesLocalDataSource.getAll(),
+                            userProperties = propertiesJO
+                        ),
+                        id = uuid()
+                    )
                 )
-            )
+        } catch (e: Exception) {
+            Logger.e(TAG, "", e)
+        }
     }
 
     fun getUser(): UserApiInternalContract {
@@ -147,25 +151,33 @@ internal object SSApiInternal {
     }
 
     fun reset() {
-        val newID = uuid()
-        val userId = UserLocalDatasource().getIdentity()
-        Logger.i("user", "reset : Current : $userId New : $newID")
-        track(SSConstants.S_EVENT_USER_LOGOUT, buildJsonObject { })
-        identify(newID)
-        flush()
+        try {
+            val newID = uuid()
+            val userId = UserLocalDatasource().getIdentity()
+            Logger.i("user", "reset : Current : $userId New : $newID")
+            track(SSConstants.S_EVENT_USER_LOGOUT, buildJsonObject { })
+            identify(newID)
+            flush()
+        } catch (e: Exception) {
+            Logger.e(TAG, "", e)
+        }
     }
 
     fun isAppInstalled(): Boolean {
-        return ConfigHelper.getBoolean(IS_APP_LAUNCHED) ?: false
+        return ConfigHelper.getBoolean(SSConstants.IS_APP_LAUNCHED) ?: false
     }
 
     fun setAppLaunched() {
-        ConfigHelper.addOrUpdate(IS_APP_LAUNCHED, true)
+        ConfigHelper.addOrUpdate(SSConstants.IS_APP_LAUNCHED, true)
     }
 
     fun initialize(databaseDriverFactory: DatabaseDriverFactory) {
-        initializeDatabase(databaseDriverFactory)
-        initializeNetworking()
+        try {
+            initializeDatabase(databaseDriverFactory)
+            initializeNetworking()
+        } catch (e: Exception) {
+            Logger.e(TAG, "", e)
+        }
     }
 
     private fun initializeNetworking() {
@@ -184,5 +196,9 @@ internal object SSApiInternal {
         return ConfigHelper.get(SSConstants.API_KEY)
     }
 
-    private const val IS_APP_LAUNCHED = "IS_APP_LAUNCHED"
+    private const val TAG = "ssint"
+}
+
+internal val coroutineExceptionHandler = CoroutineExceptionHandler { _, exception ->
+    Logger.e("exception", "", exception)
 }

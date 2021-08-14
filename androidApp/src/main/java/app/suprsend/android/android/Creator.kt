@@ -5,15 +5,9 @@ import android.content.Context
 import android.widget.ImageView
 import app.suprsend.android.SSApi
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.mixpanel.android.mpmetrics.MixpanelAPI
 
 object Creator {
-
-    private var options: RequestOptions = RequestOptions()
-        .centerCrop()
-        .placeholder(R.drawable.ic_alarm)
-        .error(R.drawable.ic_alarm)
 
     fun loadUrl(context: Context, url: String, imageView: ImageView) {
         Glide.with(context)
@@ -42,5 +36,6 @@ object Creator {
 }
 
 lateinit var ssApi: SSApi
+
 @SuppressLint("StaticFieldLeak")
 lateinit var mixpanelAPI: MixpanelAPI

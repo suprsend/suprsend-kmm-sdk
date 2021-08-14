@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import app.suprsend.android.android.databinding.ActivityHomeBinding
 import app.suprsend.android.android.databinding.GridProductImageBinding
@@ -29,7 +28,7 @@ class HomeActivity : AppCompatActivity() {
             }
         )
 
-        binding.gridView.setOnItemClickListener { parent, view, position, id ->
+        binding.gridView.setOnItemClickListener { _, _, position, _ ->
             mixpanelAPI.track("Item Clicked $position")
             mixpanelAPI.people.set("amount_i", position)
         }
@@ -64,21 +63,20 @@ constructor(
     }
 
     // 4
-    override fun getItem(position: Int): Any? {
+    override fun getItem(position: Int): Any {
         return list[position]
     }
 
     // 5
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View? {
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         var view = convertView
         if (view == null) {
             view = GridProductImageBinding.inflate(layoutInflater, null, false).root
         }
-        view!!
         Creator.loadUrl(
             view.context,
             list[position].url,
-            view.findViewById<ImageView>(R.id.imageIV)
+            view.findViewById(R.id.imageIV)
         )
 
         return view

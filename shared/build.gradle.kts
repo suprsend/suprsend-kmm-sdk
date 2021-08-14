@@ -120,6 +120,7 @@ kotlin {
 //                implementation("junit:junit:4.13.2")
 
                 implementation(Deps.Squareup.mockServer)
+                implementation("io.mockk:mockk:1.12.0")
                 implementation(Deps.Squareup.SQLDelight.sqliteDriver)
             }
         }
@@ -168,6 +169,7 @@ android {
     defaultConfig {
         minSdkVersion(Deps.Android.minSdk)
         targetSdkVersion(Deps.Android.targetSdk)
+        consumerProguardFiles("consumer-rules.pro")
         multiDexEnabled = true
         versionCode = Deps.SDK_VERSION_CODE
         versionName = Deps.SDK_VERSION_NAME

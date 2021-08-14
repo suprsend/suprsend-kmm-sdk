@@ -11,6 +11,8 @@ internal object SSConstants {
 
     const val ANONYMOUS_USER_ID_LENGTH = 36
 
+    const val IS_APP_LAUNCHED = "IS_APP_LAUNCHED"
+
     const val API_KEY = "api_key"
     const val IDENTIFIED_ID = "\$identified_id"
     const val ANONYMOUS_ID = "\$anon_id"

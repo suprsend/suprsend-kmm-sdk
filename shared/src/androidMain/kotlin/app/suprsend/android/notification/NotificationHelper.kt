@@ -11,8 +11,10 @@ import android.os.Build
 import androidx.core.app.NotificationCompat
 import app.suprsend.android.R
 import app.suprsend.android.SSApi
+import app.suprsend.android.base.AndroidCreator
 import app.suprsend.android.base.Logger
 import app.suprsend.android.base.SSConstants
+import app.suprsend.android.base.UrlUtils
 import app.suprsend.android.database.json
 import org.json.JSONObject
 
@@ -112,9 +114,11 @@ internal object NotificationHelper {
             notificationBuilder.setTicker(tickerText)
         }
 
-        notificationBasicVo.largeIconUrl?.let { largeIconUrl ->
-            if (largeIconUrl.isNotBlank())
-                notificationBuilder.setLargeIcon(BitmapHelper.getBitmapFromUrl(largeIconUrl))
+        if (notificationVo.bigPictureVo == null) {
+            notificationBasicVo.largeIconUrl?.let { largeIconUrl ->
+                if (largeIconUrl.isNotBlank())
+                    notificationBuilder.setLargeIcon(BitmapHelper.getBitmapFromUrl(UrlUtils.createNotificationLogoImage(largeIconUrl, 200)))
+            }
         }
 
         notificationBasicVo.color?.let { stringColorCode ->
@@ -219,7 +223,7 @@ internal object NotificationHelper {
             return true
         }
 
-        val importance = when (notificationChannelVo.importance) {
+        val importance = when (notificationChannelVo.channelImportance) {
             NotificationChannelImportance.HIGH -> NotificationManager.IMPORTANCE_HIGH
             NotificationChannelImportance.LOW -> NotificationManager.IMPORTANCE_LOW
             NotificationChannelImportance.MAX -> NotificationManager.IMPORTANCE_MAX
@@ -229,7 +233,7 @@ internal object NotificationHelper {
 
         val notificationChannel = NotificationChannel(notificationChannelVo.id, notificationChannelVo.name, importance).apply {
             description = notificationChannelVo.description
-            lockscreenVisibility = when (notificationChannelVo.visibility) {
+            lockscreenVisibility = when (notificationChannelVo.channelLockScreenVisibility) {
                 NotificationChannelVisibility.PUBLIC -> {
                     Notification.VISIBILITY_PUBLIC
                 }
@@ -285,11 +289,11 @@ internal object NotificationHelper {
         }
 
         bigPictureVo.bigPictureUrl?.let { bigPictureUrl ->
-            bigPictureStyle.bigPicture(BitmapHelper.getBitmapFromUrl(bigPictureUrl))
+            bigPictureStyle.bigPicture(BitmapHelper.getBitmapFromUrl(UrlUtils.createNotificationBannerImage(bigPictureUrl, AndroidCreator.deviceInfo.getDeviceWidthPixel())))
         }
 
         bigPictureVo.largeIconUrl?.let { largeIconUrl ->
-            bigPictureStyle.bigLargeIcon(BitmapHelper.getBitmapFromUrl(largeIconUrl))
+            bigPictureStyle.bigLargeIcon(BitmapHelper.getBitmapFromUrl(UrlUtils.createNotificationLogoImage(largeIconUrl, 200)))
         }
 
         builder.setStyle(bigPictureStyle)

@@ -1,8 +1,8 @@
 plugins {
     id("com.android.application")
     kotlin("android")
-    id("com.google.firebase.crashlytics")
     id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 apply {
     from("$rootDir/ktlint.gradle")
@@ -42,7 +42,7 @@ android {
 
     buildTypes {
         getByName("debug") {
-            buildConfigField("String", "SS_TOKEN","\"${project.property("SS_TOKEN").toString()}\"")
+            buildConfigField("String", "SS_TOKEN", "\"${project.property("SS_TOKEN").toString()}\"")
             buildConfigField("String", "MX_TOKEN", "\"${project.property("MX_TOKEN").toString()}\"")
             versionNameSuffix = "(d)"
             isDebuggable = true
@@ -50,11 +50,11 @@ android {
             isMinifyEnabled = false
         }
         getByName("release") {
-            buildConfigField("String", "SS_TOKEN","\"${project.property("SS_TOKEN").toString()}\"")
+            buildConfigField("String", "SS_TOKEN", "\"${project.property("SS_TOKEN").toString()}\"")
             buildConfigField("String", "MX_TOKEN", "\"${project.property("MX_TOKEN").toString()}\"")
-            isMinifyEnabled = false
             signingConfig = signingConfigs.getByName("release")
             isDebuggable = false
+            isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
@@ -85,8 +85,10 @@ dependencies {
     implementation("com.google.android.material:material:1.4.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.0")
     implementation("com.google.firebase:firebase-crashlytics:18.2.1")
+
 //    implementation(project(":shared"))
-    implementation("com.github.suprsend:suprsend-kmm-sdk:0.0.0.2")
+    implementation("com.github.suprsend:suprsend-kmm-sdk:0.0.0.10")
+
     implementation("com.mixpanel.android:mixpanel-android:5.9.1")
 
     implementation("com.github.bumptech.glide:glide:4.12.0")

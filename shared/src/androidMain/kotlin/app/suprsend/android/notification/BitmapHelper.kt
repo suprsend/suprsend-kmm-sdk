@@ -13,6 +13,7 @@ import android.graphics.RectF
 import java.net.URL
 
 internal object BitmapHelper {
+
     fun getBitmapFromUrl(url: String): Bitmap? {
         return try {
             BitmapFactory.decodeStream(URL(url).openConnection().getInputStream())

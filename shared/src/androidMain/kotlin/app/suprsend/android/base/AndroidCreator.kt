@@ -2,6 +2,7 @@ package app.suprsend.android.base
 
 import android.annotation.SuppressLint
 import android.content.Context
+
 // import com.google.gson.Gson
 // import com.google.gson.GsonBuilder
 
@@ -13,6 +14,10 @@ internal object AndroidCreator {
 
     fun isContextInitialized(): Boolean {
         return this::context.isInitialized
+    }
+
+    val deviceInfo: DeviceInfo by lazy {
+        DeviceInfo()
     }
 
 //    val gson: Gson by lazy {

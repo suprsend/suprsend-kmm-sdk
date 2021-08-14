@@ -5,7 +5,6 @@ import android.content.Context
 import androidx.annotation.NonNull
 import app.suprsend.android.base.ActivityLifecycleCallbackHandler
 import app.suprsend.android.base.AndroidCreator
-import app.suprsend.android.base.DeviceInfo
 import app.suprsend.android.base.LogLevel
 import app.suprsend.android.base.Logger
 import app.suprsend.android.base.PeriodicFlush
@@ -62,6 +61,7 @@ private constructor() {
             if (!AndroidCreator.isContextInitialized()) {
                 AndroidCreator.context = context.applicationContext
             }
+
             // Initialize nw and db
             SSApiInternal.initialize(databaseDriverFactory = DatabaseDriverFactory())
         }
@@ -87,7 +87,7 @@ private constructor() {
                     instance = newInstance
 
                     // Device Properties
-                    newInstance.getUser().set(DeviceInfo(context).getDeviceInfoProperties())
+                    newInstance.getUser().set(AndroidCreator.deviceInfo.getDeviceInfoProperties())
 
                     if (isStart && !SSApiInternal.isAppInstalled()) {
                         // App Launched

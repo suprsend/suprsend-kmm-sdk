@@ -7,6 +7,7 @@ import app.suprsend.android.base.ioDispatcher
 import app.suprsend.android.base.toKotlinJsonObject
 import app.suprsend.android.base.uuid
 import app.suprsend.android.config.ConfigHelper
+import app.suprsend.android.coroutineExceptionHandler
 import app.suprsend.android.event.EventModel
 import app.suprsend.android.event.PayloadCreator
 import app.suprsend.android.user.UserEventLocalDataSource
@@ -167,7 +168,7 @@ internal class UserApiInternalImpl : UserApiInternalContract {
     }
 
     private fun internalOperatorCall(properties: JsonElement, operator: String) {
-        GlobalScope.launch(ioDispatcher()) {
+        GlobalScope.launch(ioDispatcher() + coroutineExceptionHandler) {
             val userLocalDatasource = UserLocalDatasource()
             UserEventLocalDataSource()
                 .track(
