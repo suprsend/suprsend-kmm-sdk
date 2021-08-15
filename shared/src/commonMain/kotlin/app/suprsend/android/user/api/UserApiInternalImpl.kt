@@ -163,13 +163,13 @@ internal class UserApiInternalImpl : UserApiInternalContract {
 
     // TODO - Create constant
     override fun setAndroidPush(newToken: String) {
-        val oldToken = getSdkFcmToken()
+        val oldToken = SSApiInternal.getFcmToken()
         Logger.i("user", "Old token : $oldToken")
         if (oldToken == newToken) {
             Logger.i("user", "Ignored token : $newToken as this is already pushed for this device")
             return
         }
-        ConfigHelper.addOrUpdate(SSConstants.CONFIG_FCM_PUSH_TOKEN, newToken)
+        SSApiInternal.setFcmToken(newToken)
 
         Logger.i("user", "setAndroidPush : $newToken")
         append(buildJsonObject {
@@ -178,9 +178,6 @@ internal class UserApiInternalImpl : UserApiInternalContract {
         }.toString())
     }
 
-    override fun getSdkFcmToken(): String {
-        return ConfigHelper.get(SSConstants.CONFIG_FCM_PUSH_TOKEN) ?: ""
-    }
 
     override fun unSetAndroidPush(token: String) {
         Logger.i("user", "unSetAndroidPush : $token")

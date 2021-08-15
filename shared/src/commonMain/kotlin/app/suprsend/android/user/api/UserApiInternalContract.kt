@@ -27,7 +27,6 @@ interface UserApiInternalContract {
     fun setWhatsApp(mobile: String)
     fun unSetWhatsApp(mobile: String)
 
-    fun setAndroidPush(token: String)
-    fun getSdkFcmToken(): String
+    fun setAndroidPush(newToken: String)
     fun unSetAndroidPush(token: String)
 }

@@ -74,12 +74,14 @@ internal object SSApiInternal {
                         value = PayloadCreator
                             .buildIdentityEventPayload(
                                 identifiedId = uniqueId,
-                                anonymousId = userLocalDatasource.getIdentity()
+                                anonymousId = userLocalDatasource.getIdentity(),
+                                fcmToken = getFcmToken()
                             ),
                         id = uuid()
                     )
                 )
             userLocalDatasource.identify(uniqueId)
+            track(SSConstants.S_EVENT_USER_LOGIN, buildJsonObject {  }.toString())
             flush()
         }
     }
@@ -177,6 +179,14 @@ internal object SSApiInternal {
 
     fun getDeviceID(): String {
         return ConfigHelper.get(SSConstants.CONFIG_DEVICE_ID) ?: ""
+    }
+
+    fun setFcmToken(deviceId: String) {
+        ConfigHelper.addOrUpdate(SSConstants.CONFIG_FCM_PUSH_TOKEN, deviceId)
+    }
+
+    fun getFcmToken(): String {
+        return ConfigHelper.get(SSConstants.CONFIG_FCM_PUSH_TOKEN) ?: ""
     }
 
     fun setAppLaunched() {

@@ -3,6 +3,7 @@ package app.suprsend.android.android
 import android.annotation.SuppressLint
 import android.content.Context
 import android.widget.ImageView
+import androidx.core.content.edit
 import app.suprsend.android.SSApi
 import com.bumptech.glide.Glide
 import com.mixpanel.android.mpmetrics.MixpanelAPI
@@ -19,8 +20,18 @@ object Creator {
             .into(imageView)
     }
 
-    var email = ""
-    var password = ""
+    fun setEmail(context: Context, email: String) {
+        val sp = context.getSharedPreferences("main", 0)
+        sp.edit {
+            putString("email", email)
+            commit()
+        }
+    }
+
+    fun getEmail(context: Context): String {
+        val sp = context.getSharedPreferences("main", 0)
+        return sp.getString("email", "") ?: ""
+    }
 
     fun getRandomImage(index: Int): String {
         return when {

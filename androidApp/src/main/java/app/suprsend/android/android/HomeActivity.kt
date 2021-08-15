@@ -35,8 +35,7 @@ class HomeActivity : AppCompatActivity() {
         binding.logoutTv.setOnClickListener {
             ssApi.reset()
             mixpanelAPI.reset()
-            Creator.email = ""
-            Creator.password = ""
+            Creator.setEmail(this,"")
             startActivity(Intent(this, WelcomeActivity::class.java))
             finishAffinity()
         }

@@ -26,7 +26,8 @@ class WelcomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (Creator.email.isNotBlank()) {
+        val email = Creator.getEmail(this)
+        if (email.isNotBlank()) {
             startActivity(Intent(this, HomeActivity::class.java))
             finish()
         }

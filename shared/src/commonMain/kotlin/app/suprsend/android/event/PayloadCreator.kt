@@ -16,6 +16,7 @@ object PayloadCreator {
     fun buildIdentityEventPayload(
         identifiedId: String,
         anonymousId: String,
+        fcmToken: String,
         apiKey: String = SSApiInternal.apiKey
     ): JsonObject {
         return buildJsonObject {
@@ -27,6 +28,7 @@ object PayloadCreator {
                 buildJsonObject {
                     put(SSConstants.IDENTIFIED_ID, JsonPrimitive(identifiedId))
                     put(SSConstants.ANONYMOUS_ID, JsonPrimitive(anonymousId))
+                    put(SSConstants.FCM_TOKEN_PUSH, JsonPrimitive(fcmToken))
                 }
             )
         }
