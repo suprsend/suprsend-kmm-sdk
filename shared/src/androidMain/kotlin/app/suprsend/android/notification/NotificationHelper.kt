@@ -117,7 +117,18 @@ internal object NotificationHelper {
         if (notificationVo.bigPictureVo == null) {
             notificationBasicVo.largeIconUrl?.let { largeIconUrl ->
                 if (largeIconUrl.isNotBlank())
-                    notificationBuilder.setLargeIcon(BitmapHelper.getBitmapFromUrl(UrlUtils.createNotificationLogoImage(largeIconUrl, 200)))
+                    notificationBuilder
+                        .setLargeIcon(
+                            BitmapHelper
+                                .getBitmapFromUrl(
+                                    UrlUtils
+                                        .createNotificationLogoImage(
+                                            largeIconUrl,
+                                            200,
+                                            UrlUtils.calculateQuality(AndroidCreator.networkInfo.getNetworkType())
+                                        )
+                                )
+                        )
             }
         }
 
@@ -289,11 +300,33 @@ internal object NotificationHelper {
         }
 
         bigPictureVo.bigPictureUrl?.let { bigPictureUrl ->
-            bigPictureStyle.bigPicture(BitmapHelper.getBitmapFromUrl(UrlUtils.createNotificationBannerImage(bigPictureUrl, AndroidCreator.deviceInfo.getDeviceWidthPixel())))
+            bigPictureStyle
+                .bigPicture(
+                    BitmapHelper
+                        .getBitmapFromUrl(
+                            UrlUtils
+                                .createNotificationBannerImage(
+                                    bigPictureUrl,
+                                    AndroidCreator.deviceInfo.getDeviceWidthPixel(),
+                                    UrlUtils.calculateQuality(AndroidCreator.networkInfo.getNetworkType())
+                                )
+                        )
+                )
         }
 
         bigPictureVo.largeIconUrl?.let { largeIconUrl ->
-            bigPictureStyle.bigLargeIcon(BitmapHelper.getBitmapFromUrl(UrlUtils.createNotificationLogoImage(largeIconUrl, 200)))
+            bigPictureStyle
+                .bigLargeIcon(
+                    BitmapHelper
+                        .getBitmapFromUrl(
+                            UrlUtils
+                                .createNotificationLogoImage(
+                                    largeIconUrl,
+                                    200,
+                                    UrlUtils.calculateQuality(AndroidCreator.networkInfo.getNetworkType())
+                                )
+                        )
+                )
         }
 
         builder.setStyle(bigPictureStyle)

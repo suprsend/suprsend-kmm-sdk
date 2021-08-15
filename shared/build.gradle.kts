@@ -100,8 +100,6 @@ kotlin {
                 api("com.google.firebase:firebase-analytics:19.0.0")
                 api("com.google.firebase:firebase-messaging:22.0.0")
 
-                //implementation("com.google.code.gson:gson:2.8.6")
-
             }
         }
         val androidTest by getting {

@@ -1,8 +1,10 @@
 package app.suprsend.android.base
 
+import android.annotation.SuppressLint
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.os.Build
+import android.provider.Settings
 import app.suprsend.android.BuildConfig
 import org.json.JSONObject
 
@@ -15,10 +17,11 @@ internal class DeviceInfo {
         jsonObject.put("\$manufacturer", manufacturer())
         jsonObject.put("\$model", model())
         jsonObject.put("\$os", os())
+        jsonObject.put("\$deviceId", getDeviceId())
         jsonObject.put("\$ss_sdk_version", BuildConfig.SS_SDK_VERSION_NAME)
 
-        val networkInfo = NetworkInfo(AndroidCreator.context)
-        jsonObject.put("\$carrier", networkInfo.getNetworkOperatorName())
+        val networkInfo = AndroidCreator.networkInfo
+        jsonObject.put("\$network", networkInfo.getNetworkType().readableName)
         jsonObject.put("\$connected", networkInfo.isConnected().toString())
         return jsonObject
     }
@@ -29,6 +32,11 @@ internal class DeviceInfo {
 
     fun getDeviceHeightPixels(): Int {
         return AndroidCreator.context.resources.displayMetrics.heightPixels
+    }
+
+    @SuppressLint("HardwareIds")
+    fun getDeviceId(): String {
+        return Settings.Secure.getString(AndroidCreator.context.contentResolver, Settings.Secure.ANDROID_ID)
     }
 
     private fun versionName(): String {

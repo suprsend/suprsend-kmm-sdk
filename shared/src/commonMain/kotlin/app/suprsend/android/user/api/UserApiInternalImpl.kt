@@ -1,5 +1,6 @@
 package app.suprsend.android.user.api
 
+import app.suprsend.android.SSApiInternal
 import app.suprsend.android.base.Logger
 import app.suprsend.android.base.SSConstants
 import app.suprsend.android.base.convertToJsonPrimitive
@@ -15,6 +16,7 @@ import app.suprsend.android.user.UserLocalDatasource
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.add
 import kotlinx.serialization.json.buildJsonArray
 import kotlinx.serialization.json.buildJsonObject
@@ -93,6 +95,14 @@ internal class UserApiInternalImpl : UserApiInternalContract {
         )
     }
 
+    override fun append(propertiesJson: String) {
+        Logger.i("user", "append properties")
+        internalOperatorCall(
+            propertiesJson.toKotlinJsonObject(),
+            operator = "\$append"
+        )
+    }
+
     override fun remove(key: String, value: Any) {
         Logger.i("user", "remove $key")
         val valuePrimitive = value.convertToJsonPrimitive(key)
@@ -152,14 +162,24 @@ internal class UserApiInternalImpl : UserApiInternalContract {
     }
 
     // TODO - Create constant
-    override fun setAndroidPush(token: String) {
-        Logger.i("user", "setAndroidPush : $token")
-        append(SSConstants.FCM_TOKEN_PUSH, token)
-        ConfigHelper.addOrUpdate(SSConstants.FCM_TOKEN_PUSH, token)
+    override fun setAndroidPush(newToken: String) {
+        val oldToken = getSdkFcmToken()
+        Logger.i("user", "Old token : $oldToken")
+        if (oldToken == newToken) {
+            Logger.i("user", "Ignored token : $newToken as this is already pushed for this device")
+            return
+        }
+        ConfigHelper.addOrUpdate(SSConstants.CONFIG_FCM_PUSH_TOKEN, newToken)
+
+        Logger.i("user", "setAndroidPush : $newToken")
+        append(buildJsonObject {
+            put(SSConstants.FCM_TOKEN_PUSH, JsonPrimitive(newToken))
+            put(SSConstants.DEVICE_ID, JsonPrimitive(SSApiInternal.getDeviceID()))
+        }.toString())
     }
 
     override fun getSdkFcmToken(): String {
-        return ConfigHelper.get(SSConstants.FCM_TOKEN_PUSH) ?: ""
+        return ConfigHelper.get(SSConstants.CONFIG_FCM_PUSH_TOKEN) ?: ""
     }
 
     override fun unSetAndroidPush(token: String) {

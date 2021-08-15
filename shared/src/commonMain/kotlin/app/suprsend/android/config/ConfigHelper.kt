@@ -10,7 +10,7 @@ internal object ConfigHelper {
     private val queries = GLOBAL_SUPR_SEND_DATABASE_WRAPPER.get()!!.suprSendDatabase.configTableQueries
 
     fun addOrUpdate(key: String, value: String) {
-        queries.insert(key, ConfigModel(key, value))
+        queries.insert(key, ConfigModel(value))
     }
 
     fun get(key: String): String? {
@@ -18,7 +18,7 @@ internal object ConfigHelper {
     }
 
     fun addOrUpdate(key: String, value: Boolean) {
-        queries.insert(key, ConfigModel(key, getBooleanToString(value)))
+        queries.insert(key, ConfigModel(getBooleanToString(value)))
     }
 
     fun getBoolean(key: String): Boolean? {

@@ -74,7 +74,7 @@ private constructor() {
                     initializeDBNW(context)
 
                     SSApiInternal.apiKey = apiKey
-                    ConfigHelper.addOrUpdate(SSConstants.API_KEY, SSApiInternal.apiKey)
+                    ConfigHelper.addOrUpdate(SSConstants.CONFIG_API_KEY, SSApiInternal.apiKey)
 
                     // Anynomous user id generation
                     val userLocalDatasource = UserLocalDatasource()
@@ -87,6 +87,7 @@ private constructor() {
                     instance = newInstance
 
                     // Device Properties
+                    SSApiInternal.setDeviceId(AndroidCreator.deviceInfo.getDeviceId())
                     newInstance.getUser().set(AndroidCreator.deviceInfo.getDeviceInfoProperties())
 
                     if (isStart && !SSApiInternal.isAppInstalled()) {

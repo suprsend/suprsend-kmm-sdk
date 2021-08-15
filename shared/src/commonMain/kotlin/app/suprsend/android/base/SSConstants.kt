@@ -4,16 +4,21 @@ internal object SSConstants {
     const val BASE_URL = "https://collector.suprsend.workers.dev"
     const val EVENT_URL = "$BASE_URL/event"
     const val IDENTITY_URL = "$BASE_URL/identity"
+    const val IMAGE_KIT_BASE_PATH = "https://ik.imagekit.io/l0quatz6utm"
+
     const val NOTIFICATION_PAYLOAD = "supr_send_n_pl"
     const val EVENT_KEY_MAX_LENGTH = 120
     const val EVENT_VALUE_MAX_LENGTH = 512
     const val FLUSH_EVENT_PAYLOAD_SIZE = 20L
 
-    const val ANONYMOUS_USER_ID_LENGTH = 36
+    // Config Helper Keys
+    const val CONFIG_API_KEY = "api_key"
+    const val CONFIG_USER_ID = "user_id"
+    const val CONFIG_IS_APP_LAUNCHED = "is_app_launched"
+    const val CONFIG_FCM_PUSH_TOKEN = "fcm_push_token"
+    const val CONFIG_DEVICE_ID = "device_id"
 
-    const val IS_APP_LAUNCHED = "IS_APP_LAUNCHED"
-
-    const val API_KEY = "api_key"
+    // Properties
     const val IDENTIFIED_ID = "\$identified_id"
     const val ANONYMOUS_ID = "\$anon_id"
     const val DISTINCT_ID = "distinct_id"
@@ -22,6 +27,7 @@ internal object SSConstants {
     const val IDENTIFY = "\$identify"
     const val TIME = "\$time"
     const val FCM_TOKEN_PUSH = "\$androidpush"
+    const val DEVICE_ID = "\$deviceId"
     const val PROPERTIES = "properties"
     const val EVENT = "EVENT"
 

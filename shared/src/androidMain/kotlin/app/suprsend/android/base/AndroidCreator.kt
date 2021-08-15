@@ -3,9 +3,6 @@ package app.suprsend.android.base
 import android.annotation.SuppressLint
 import android.content.Context
 
-// import com.google.gson.Gson
-// import com.google.gson.GsonBuilder
-
 @SuppressLint("StaticFieldLeak")
 internal object AndroidCreator {
 
@@ -16,14 +13,7 @@ internal object AndroidCreator {
         return this::context.isInitialized
     }
 
-    val deviceInfo: DeviceInfo by lazy {
-        DeviceInfo()
-    }
+    val deviceInfo: DeviceInfo by lazy { DeviceInfo() }
 
-//    val gson: Gson by lazy {
-//        GsonBuilder()
-//            .setDateFormat("yyyy-MM-dd HH:mm:ss")
-//            .setLenient()
-//            .create()
-//    }
+    val networkInfo: NetworkInfo by lazy { NetworkInfo() }
 }

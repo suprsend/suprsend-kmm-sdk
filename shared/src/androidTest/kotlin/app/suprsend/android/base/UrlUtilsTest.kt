@@ -10,13 +10,13 @@ internal class UrlUtilsTest : TestCase() {
     fun testCreateNotificationBannerImage() {
         Assert.assertEquals(
             "https://niksdevelop.herokuapp.com/images/346kb.jpg",
-            UrlUtils.createNotificationBannerImage("https://niksdevelop.herokuapp.com/images/346kb.jpg", 200)
+            UrlUtils.createNotificationBannerImage("https://niksdevelop.herokuapp.com/images/346kb.jpg", 200, 20)
         )
 
         Assert
             .assertEquals(
-                "https://ik.imagekit.io/l0quatz6utm/tr:w-200,h-100/suprsend/staging/media/suprsend-only-logo_c8aa27faef118418e8c5bd7b31a1cafc74e09200.png",
-                UrlUtils.createNotificationBannerImage("/suprsend/staging/media/suprsend-only-logo_c8aa27faef118418e8c5bd7b31a1cafc74e09200.png", 200)
+                "https://ik.imagekit.io/l0quatz6utm/tr:ar-2-1,q-20,fo-auto,w-200/suprsend/staging/media/suprsend-only-logo_c8aa27faef118418e8c5bd7b31a1cafc74e09200.png",
+                UrlUtils.createNotificationBannerImage("suprsend/staging/media/suprsend-only-logo_c8aa27faef118418e8c5bd7b31a1cafc74e09200.png", 200, 20)
             )
     }
 
@@ -24,13 +24,13 @@ internal class UrlUtilsTest : TestCase() {
     fun testCreateNotificationLogoImage() {
         Assert.assertEquals(
             "https://niksdevelop.herokuapp.com/images/346kb.jpg",
-            UrlUtils.createNotificationBannerImage("https://niksdevelop.herokuapp.com/images/346kb.jpg", 200)
+            UrlUtils.createNotificationBannerImage("https://niksdevelop.herokuapp.com/images/346kb.jpg", 200, 20)
         )
 
         Assert
             .assertEquals(
-                "https://ik.imagekit.io/l0quatz6utm/tr:w-200,h-200/suprsend/staging/media/suprsend-only-logo_c8aa27faef118418e8c5bd7b31a1cafc74e09200.png",
-                UrlUtils.createNotificationLogoImage("/suprsend/staging/media/suprsend-only-logo_c8aa27faef118418e8c5bd7b31a1cafc74e09200.png", 200)
+                "https://ik.imagekit.io/l0quatz6utm/tr:ar-1-1,q-20,r-max,w-200/suprsend/staging/media/suprsend-only-logo_c8aa27faef118418e8c5bd7b31a1cafc74e09200.png",
+                UrlUtils.createNotificationLogoImage("suprsend/staging/media/suprsend-only-logo_c8aa27faef118418e8c5bd7b31a1cafc74e09200.png", 200, 20)
             )
     }
 }

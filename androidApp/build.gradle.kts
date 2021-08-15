@@ -16,8 +16,8 @@ android {
         applicationId = "app.suprsend.android.android"
         minSdkVersion(Deps.Android.minSdk)
         targetSdkVersion(Deps.Android.targetSdk)
-        versionCode = Deps.SDK_VERSION_CODE
-        versionName = Deps.SDK_VERSION_NAME
+        versionCode = Deps.APP_VERSION_CODE
+        versionName = Deps.APP_VERSION_NAME
         multiDexEnabled = true
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -86,8 +86,13 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.0")
     implementation("com.google.firebase:firebase-crashlytics:18.2.1")
 
-//    implementation(project(":shared"))
-    implementation("com.github.suprsend:suprsend-kmm-sdk:0.0.0.10")
+    if (Deps.RUN_LIB) {
+        implementation(project(":shared"))
+        println("Using shared library")
+    }else{
+        implementation("com.github.suprsend:suprsend-kmm-sdk:${Deps.Publication.VERSION}")
+        println("Using remote library")
+    }
 
     implementation("com.mixpanel.android:mixpanel-android:5.9.1")
 

@@ -14,6 +14,7 @@ interface UserApiInternalContract {
     fun increment(propertiesJson: String)
 
     fun append(key: String, value: Any)
+    fun append(propertiesJson: String)
 
     fun remove(key: String, value: Any)
 
