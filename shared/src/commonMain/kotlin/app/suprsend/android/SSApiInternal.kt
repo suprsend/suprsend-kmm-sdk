@@ -75,12 +75,12 @@ internal object SSApiInternal {
                             .buildIdentityEventPayload(
                                 identifiedId = uniqueId,
                                 anonymousId = userLocalDatasource.getIdentity(),
-                                fcmToken = getFcmToken()
                             ),
                         id = uuid()
                     )
                 )
             userLocalDatasource.identify(uniqueId)
+            userImpl.setAndroidPush(getFcmToken())
             track(SSConstants.S_EVENT_USER_LOGIN, buildJsonObject {  }.toString())
             flush()
         }
