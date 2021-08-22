@@ -10,7 +10,7 @@ interface UserApiInternalContract {
     fun setOnce(key: String, value: Any)
     fun setOnce(propertiesJson: String)
 
-    fun increment(key: String, value: Any)
+    fun increment(key: String, value: Number)
     fun increment(propertiesJson: String)
 
     fun append(key: String, value: Any)

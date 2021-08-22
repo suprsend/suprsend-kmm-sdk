@@ -7,7 +7,6 @@ import app.suprsend.android.base.convertToJsonPrimitive
 import app.suprsend.android.base.ioDispatcher
 import app.suprsend.android.base.toKotlinJsonObject
 import app.suprsend.android.base.uuid
-import app.suprsend.android.config.ConfigHelper
 import app.suprsend.android.coroutineExceptionHandler
 import app.suprsend.android.event.EventModel
 import app.suprsend.android.event.PayloadCreator
@@ -63,7 +62,7 @@ internal class UserApiInternalImpl : UserApiInternalContract {
         )
     }
 
-    override fun increment(key: String, value: Any) {
+    override fun increment(key: String, value: Number) {
         Logger.i("user", "increment $key")
         val valuePrimitive = value.convertToJsonPrimitive(key)
         valuePrimitive ?: return
@@ -177,7 +176,6 @@ internal class UserApiInternalImpl : UserApiInternalContract {
             put(SSConstants.DEVICE_ID, JsonPrimitive(SSApiInternal.getDeviceID()))
         }.toString())
     }
-
 
     override fun unSetAndroidPush(token: String) {
         Logger.i("user", "unSetAndroidPush : $token")

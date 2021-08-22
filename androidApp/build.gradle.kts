@@ -1,8 +1,11 @@
 plugins {
     id("com.android.application")
     kotlin("android")
+    kotlin("kapt")
     id("com.google.gms.google-services")
     id("com.google.firebase.crashlytics")
+    id("kotlin-android")
+    id("kotlin-parcelize")
 }
 apply {
     from("$rootDir/ktlint.gradle")

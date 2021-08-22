@@ -6,67 +6,67 @@ class SSUserApi {
 
     private val user = SSApiInternal.getUser()
 
-    private fun set(key: String, value: Any) {
+    fun set(key: String, value: Any) {
         user.set(key, value)
     }
 
-    internal fun set(properties: JSONObject) {
+    fun set(properties: JSONObject) {
         user.set(properties.toString())
     }
 
-    private fun unSet(key: String) {
+    fun unSet(key: String) {
         user.unSet(key)
     }
 
-    private fun unSet(keys: List<String>) {
+    fun unSet(keys: List<String>) {
         user.unSet(keys)
     }
 
-    private fun setOnce(key: String, value: Any) {
+    fun setOnce(key: String, value: Any) {
         user.setOnce(key, value)
     }
 
-    private fun setOnce(properties: JSONObject) {
+    fun setOnce(properties: JSONObject) {
         user.setOnce(properties.toString())
     }
 
-    private fun increment(key: String, value: Any) {
+    fun increment(key: String, value: Number) {
         user.increment(key, value)
     }
 
-    private fun increment(properties: JSONObject) {
-        user.increment(properties.toString())
+    fun increment(properties: Map<String, Number>) {
+        user.increment(JSONObject(properties).toString())
     }
 
-    private fun append(key: String, value: Any) {
+    fun append(key: String, value: Any) {
         user.append(key, value)
     }
 
-    private fun remove(key: String, value: Any) {
+    fun remove(key: String, value: Any) {
         user.remove(key, value)
     }
 
-    private fun setEmail(email: String) {
+    fun setEmail(email: String) {
         user.setEmail(email)
     }
 
-    private fun unSetEmail(email: String) {
+    fun unSetEmail(email: String) {
         user.unSetEmail(email)
     }
 
-    private fun setSms(mobile: String) {
+    fun setSms(mobile: String) {
         user.setSms(mobile)
     }
 
-    private fun unSetSms(mobile: String) {
+    fun unSetSms(mobile: String) {
         user.unSetSms(mobile)
     }
 
-    private fun setWhatsApp(mobile: String) {
+    fun setWhatsApp(mobile: String) {
         user.setWhatsApp(mobile)
     }
 
-    private fun unSetWhatsApp(mobile: String) {
+    fun unSetWhatsApp(mobile: String) {
         user.unSetWhatsApp(mobile)
     }
 

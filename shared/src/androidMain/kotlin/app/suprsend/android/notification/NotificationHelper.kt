@@ -11,9 +11,9 @@ import android.os.Build
 import androidx.core.app.NotificationCompat
 import app.suprsend.android.R
 import app.suprsend.android.SSApi
-import app.suprsend.android.base.AndroidCreator
 import app.suprsend.android.base.Logger
 import app.suprsend.android.base.SSConstants
+import app.suprsend.android.base.SdkAndroidCreator
 import app.suprsend.android.base.UrlUtils
 import app.suprsend.android.database.json
 import org.json.JSONObject
@@ -125,7 +125,7 @@ internal object NotificationHelper {
                                         .createNotificationLogoImage(
                                             largeIconUrl,
                                             200,
-                                            UrlUtils.calculateQuality(AndroidCreator.networkInfo.getNetworkType())
+                                            UrlUtils.calculateQuality(SdkAndroidCreator.networkInfo.getNetworkType())
                                         )
                                 )
                         )
@@ -307,8 +307,8 @@ internal object NotificationHelper {
                             UrlUtils
                                 .createNotificationBannerImage(
                                     bigPictureUrl,
-                                    AndroidCreator.deviceInfo.getDeviceWidthPixel(),
-                                    UrlUtils.calculateQuality(AndroidCreator.networkInfo.getNetworkType())
+                                    SdkAndroidCreator.deviceInfo.getDeviceWidthPixel(),
+                                    UrlUtils.calculateQuality(SdkAndroidCreator.networkInfo.getNetworkType())
                                 )
                         )
                 )
@@ -323,7 +323,7 @@ internal object NotificationHelper {
                                 .createNotificationLogoImage(
                                     largeIconUrl,
                                     200,
-                                    UrlUtils.calculateQuality(AndroidCreator.networkInfo.getNetworkType())
+                                    UrlUtils.calculateQuality(SdkAndroidCreator.networkInfo.getNetworkType())
                                 )
                         )
                 )

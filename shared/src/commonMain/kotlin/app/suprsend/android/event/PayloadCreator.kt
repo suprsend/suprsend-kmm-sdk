@@ -36,12 +36,14 @@ object PayloadCreator {
         eventName: String,
         distinctId: String,
         superProperties: JsonObject,
+        defaultProperties: JsonObject,
         userProperties: JsonObject?,
         apiKey: String = SSApiInternal.apiKey
     ): JsonObject {
 
         // Add super properties
         val finalPropertiesJsonObject = (userProperties ?: JsonObject(mutableMapOf())).addUpdateJsoObject(superProperties)
+        finalPropertiesJsonObject.addUpdateJsoObject(defaultProperties)
 
         return buildJsonObject {
             addCommonEventProperties()

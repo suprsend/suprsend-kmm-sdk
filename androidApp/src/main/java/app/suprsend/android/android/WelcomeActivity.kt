@@ -1,21 +1,14 @@
 package app.suprsend.android.android
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
-import app.suprsend.android.SSApi
 import app.suprsend.android.android.databinding.ActivityWelcomeBinding
-import app.suprsend.android.android.databinding.ItemImageBinding
-import app.suprsend.android.base.LogLevel
 import com.google.firebase.messaging.FirebaseMessaging
-import com.mixpanel.android.mpmetrics.MixpanelAPI
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -26,7 +19,7 @@ class WelcomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val email = Creator.getEmail(this)
+        val email = AppCreator.getEmail(this)
         if (email.isNotBlank()) {
             startActivity(Intent(this, HomeActivity::class.java))
             finish()
@@ -39,7 +32,7 @@ class WelcomeActivity : AppCompatActivity() {
             layoutInflater, (1..10).map { index ->
                 WelcomeVo(
                     id = index.toString(),
-                    url = Creator.getRandomImage(index)
+                    url = AppCreator.getProductImage()
                 )
             }
         )
@@ -48,10 +41,12 @@ class WelcomeActivity : AppCompatActivity() {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
             }
 
+            @SuppressLint("SetTextI18n")
             override fun onPageSelected(position: Int) {
-                binding.pageNumTv.text = "Page $position"
-                mixpanelAPI.track("Walk Through Viewed $position")
-                mixpanelAPI.people.set("amount_o", position)
+                val analyticsPos = position + 1
+                binding.pageNumTv.text = "Page $analyticsPos"
+                CommonAnalyticsHandler.track("Walk Through Viewed $analyticsPos")
+                CommonAnalyticsHandler.set("welcome_page_position", "$analyticsPos")
             }
 
             override fun onPageScrollStateChanged(state: Int) {
@@ -83,42 +78,7 @@ class WelcomeActivity : AppCompatActivity() {
 
     private fun initializeSdk() {
         GlobalScope.launch((Dispatchers.IO)) {
-            ssApi = SSApi.getInstance(applicationContext, BuildConfig.SS_TOKEN)
-            ssApi.setLogLevel(LogLevel.VERBOSE)
-            mixpanelAPI = MixpanelAPI.getInstance(applicationContext, BuildConfig.MX_TOKEN)
+            CommonAnalyticsHandler.initialize(applicationContext)
         }
-    }
-}
-
-data class WelcomeVo(
-    val id: String,
-    val url: String
-)
-
-class WelcomeAdapter(
-    private val layoutInflater: LayoutInflater,
-    private val list: List<WelcomeVo>
-) : PagerAdapter() {
-    override fun getCount(): Int {
-        return list.size
-    }
-
-    override fun isViewFromObject(view: View, `object`: Any): Boolean {
-        return view === `object` as View
-    }
-
-    override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        val itemView = ItemImageBinding.inflate(layoutInflater)
-        Creator.loadUrl(
-            container.context,
-            list[position].url,
-            itemView.imageIV
-        )
-        container.addView(itemView.root)
-        return itemView.root
-    }
-
-    override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
-        container.removeView(`object` as View)
     }
 }

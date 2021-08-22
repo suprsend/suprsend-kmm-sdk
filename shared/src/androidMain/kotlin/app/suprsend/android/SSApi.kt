@@ -4,11 +4,11 @@ import android.app.Application
 import android.content.Context
 import androidx.annotation.NonNull
 import app.suprsend.android.base.ActivityLifecycleCallbackHandler
-import app.suprsend.android.base.AndroidCreator
 import app.suprsend.android.base.LogLevel
 import app.suprsend.android.base.Logger
 import app.suprsend.android.base.PeriodicFlush
 import app.suprsend.android.base.SSConstants
+import app.suprsend.android.base.SdkAndroidCreator
 import app.suprsend.android.base.uuid
 import app.suprsend.android.config.ConfigHelper
 import app.suprsend.android.database.DatabaseDriverFactory
@@ -24,12 +24,16 @@ private constructor() {
         SSApiInternal.identify(uniqueId)
     }
 
-    private fun setSuperProperties(jsonObject: JSONObject) {
+    fun setSuperProperties(jsonObject: JSONObject) {
         SSApiInternal.setSuperProperties(propertiesJsonObject = jsonObject.toString())
     }
 
-    internal fun track(@NonNull eventName: String, properties: JSONObject? = null) {
+    fun track(@NonNull eventName: String, properties: JSONObject? = null) {
         SSApiInternal.track(eventName = eventName, propertiesJsonString = properties?.toString())
+    }
+
+    fun purchaseMade(properties: JSONObject) {
+        SSApiInternal.purchaseMade(properties = properties.toString())
     }
 
     fun getUser(): SSUserApi {
@@ -58,8 +62,8 @@ private constructor() {
 
         private fun initializeDBNW(context: Context) {
             // Setting android context to user everywhere
-            if (!AndroidCreator.isContextInitialized()) {
-                AndroidCreator.context = context.applicationContext
+            if (!SdkAndroidCreator.isContextInitialized()) {
+                SdkAndroidCreator.context = context.applicationContext
             }
 
             // Initialize nw and db
@@ -87,8 +91,7 @@ private constructor() {
                     instance = newInstance
 
                     // Device Properties
-                    SSApiInternal.setDeviceId(AndroidCreator.deviceInfo.getDeviceId())
-                    newInstance.getUser().set(AndroidCreator.deviceInfo.getDeviceInfoProperties())
+                    SSApiInternal.setDeviceId(SdkAndroidCreator.deviceInfo.getDeviceId())
 
                     if (isStart && !SSApiInternal.isAppInstalled()) {
                         // App Launched

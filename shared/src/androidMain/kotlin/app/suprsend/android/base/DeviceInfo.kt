@@ -20,28 +20,28 @@ internal class DeviceInfo {
         jsonObject.put("\$deviceId", getDeviceId())
         jsonObject.put("\$ss_sdk_version", BuildConfig.SS_SDK_VERSION_NAME)
 
-        val networkInfo = AndroidCreator.networkInfo
+        val networkInfo = SdkAndroidCreator.networkInfo
         jsonObject.put("\$network", networkInfo.getNetworkType().readableName)
         jsonObject.put("\$connected", networkInfo.isConnected().toString())
         return jsonObject
     }
 
     fun getDeviceWidthPixel(): Int {
-        return AndroidCreator.context.resources.displayMetrics.widthPixels
+        return SdkAndroidCreator.context.resources.displayMetrics.widthPixels
     }
 
     fun getDeviceHeightPixels(): Int {
-        return AndroidCreator.context.resources.displayMetrics.heightPixels
+        return SdkAndroidCreator.context.resources.displayMetrics.heightPixels
     }
 
     @SuppressLint("HardwareIds")
     fun getDeviceId(): String {
-        return Settings.Secure.getString(AndroidCreator.context.contentResolver, Settings.Secure.ANDROID_ID)
+        return Settings.Secure.getString(SdkAndroidCreator.context.contentResolver, Settings.Secure.ANDROID_ID)
     }
 
     private fun versionName(): String {
         return try {
-            val info: PackageInfo = AndroidCreator.context.packageManager.getPackageInfo(AndroidCreator.context.packageName, 0)
+            val info: PackageInfo = SdkAndroidCreator.context.packageManager.getPackageInfo(SdkAndroidCreator.context.packageName, 0)
             info.versionName
         } catch (e: PackageManager.NameNotFoundException) {
             Logger.i("init", "Unable to get app version details")
@@ -51,7 +51,7 @@ internal class DeviceInfo {
 
     private fun versionCode(): String {
         return try {
-            val info: PackageInfo = AndroidCreator.context.packageManager.getPackageInfo(AndroidCreator.context.packageName, 0)
+            val info: PackageInfo = SdkAndroidCreator.context.packageManager.getPackageInfo(SdkAndroidCreator.context.packageName, 0)
             info.versionCode.toString()
         } catch (e: PackageManager.NameNotFoundException) {
             Logger.i("init", "Unable to get app version details")

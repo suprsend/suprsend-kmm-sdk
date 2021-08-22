@@ -2,30 +2,44 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="app.suprsend.android.android">
 
-    <!--
-This permission is required to allow the application to send
-events and properties to Mixpanel.
--->
+    <!-- This permission is required to allow the application to send events and properties to Mixpanel. -->
     <uses-permission android:name="android.permission.INTERNET" />
-
-    <!--
-      This permission is optional but recommended so we can be smart
-      about when to send data.
-     -->
+    <!-- This permission is optional but recommended so we can be smart about when to send data. -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
-    <!--
-      This permission is optional but recommended so events will
-      contain information about bluetooth state
-    -->
+    <!--  This permission is optional but recommended so events will contain information about bluetooth state -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
-
 
     <application
         android:allowBackup="false"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".OrderSuccessFullActivity" />
+        <activity android:name=".PlaceOrderActivity" />
+        <activity android:name=".ProductDetailsActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="suprsend.in"
+                    android:path="/product"
+                    android:scheme="http" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="suprsend.in"
+                    android:path="/product"
+                    android:scheme="https" />
+            </intent-filter>
+        </activity>
         <activity android:name=".HomeActivity" />
         <activity android:name=".WelcomeActivity">
             <intent-filter>
@@ -34,11 +48,8 @@ events and properties to Mixpanel.
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".LoginActivity" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="true" />
-        <activity android:name=".UserActivity" />
 
         <service
             android:name="app.suprsend.android.fcm.SSFirebaseMessagingService"

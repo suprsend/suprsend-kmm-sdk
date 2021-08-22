@@ -2,6 +2,7 @@ package app.suprsend.android
 
 import app.suprsend.android.base.Logger
 import app.suprsend.android.base.SSConstants
+import app.suprsend.android.base.SdkCreator
 import app.suprsend.android.base.ioDispatcher
 import app.suprsend.android.base.toKotlinJsonObject
 import app.suprsend.android.base.uuid
@@ -74,14 +75,14 @@ internal object SSApiInternal {
                         value = PayloadCreator
                             .buildIdentityEventPayload(
                                 identifiedId = uniqueId,
-                                anonymousId = userLocalDatasource.getIdentity(),
+                                anonymousId = userLocalDatasource.getIdentity()
                             ),
                         id = uuid()
                     )
                 )
             userLocalDatasource.identify(uniqueId)
             userImpl.setAndroidPush(getFcmToken())
-            track(SSConstants.S_EVENT_USER_LOGIN, buildJsonObject {  }.toString())
+            track(SSConstants.S_EVENT_USER_LOGIN, buildJsonObject { })
             flush()
         }
     }
@@ -117,6 +118,7 @@ internal object SSApiInternal {
                             eventName = eventName,
                             distinctId = userLocalDatasource.getIdentity(),
                             superProperties = superPropertiesLocalDataSource.getAll(),
+                            defaultProperties = SdkCreator.information.getDefaultProperties().toKotlinJsonObject(),
                             userProperties = propertiesJO
                         ),
                         id = uuid()
