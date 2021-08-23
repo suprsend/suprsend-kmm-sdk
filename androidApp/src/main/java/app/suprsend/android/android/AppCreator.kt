@@ -59,7 +59,7 @@ object AppCreator {
         }))
         list.addAll((1..30).map { value ->
             ProductVo(
-                id = "P${value}",
+                id = "P$value",
                 url = getProductImage(),
                 title = "Product $value",
                 amount = (value * 100).toDouble()

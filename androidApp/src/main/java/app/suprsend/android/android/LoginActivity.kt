@@ -6,7 +6,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import app.suprsend.android.android.databinding.ActivityLoginBinding
 import app.suprsend.android.base.getReadableDate
-import org.json.JSONObject
 
 class LoginActivity : AppCompatActivity() {
 
@@ -24,9 +23,7 @@ class LoginActivity : AppCompatActivity() {
             CommonAnalyticsHandler.identify(email)
             CommonAnalyticsHandler.increment("login_count", 1)
             CommonAnalyticsHandler.setOnce("first_login_at", getReadableDate())
-            CommonAnalyticsHandler.setSuperProperties(JSONObject().apply {
-                put("user_type", binding.userTypeSp.selectedItem.toString())
-            })
+            CommonAnalyticsHandler.setSuperProperties("user_type", binding.userTypeSp.selectedItem.toString())
             val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
             finish()

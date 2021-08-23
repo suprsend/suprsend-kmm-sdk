@@ -27,11 +27,14 @@ class HomeActivity : AppCompatActivity() {
         binding.logoutTv.setOnClickListener {
             CommonAnalyticsHandler.unset("choices")
             CommonAnalyticsHandler.reset()
+            CommonAnalyticsHandler.unSetSuperProperties("user_type")
             startActivity(Intent(this, WelcomeActivity::class.java))
             finishAffinity()
 
             AppCreator.setEmail(this, "")
         }
+
+        CommonAnalyticsHandler.track("home_screen_viewed")
     }
 
     private fun getSpanCount(position: Int): Int {

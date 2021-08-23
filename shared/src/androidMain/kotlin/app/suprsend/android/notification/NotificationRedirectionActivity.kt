@@ -73,7 +73,10 @@ class NotificationRedirectionActivity : Activity() {
         instance?.track(
             eventName = SSConstants.S_EVENT_NOTIFICATION_CLICKED,
             properties = JSONObject().apply {
-                put("id", notificationActionVo.id)
+                put("id", notificationActionVo.notificationId)
+                if (notificationActionVo.notificationId != notificationActionVo.id) {
+                    put("label_id", notificationActionVo.id)
+                }
             }
         )
 

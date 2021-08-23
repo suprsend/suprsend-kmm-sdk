@@ -41,9 +41,15 @@ object PayloadCreator {
         apiKey: String = SSApiInternal.apiKey
     ): JsonObject {
 
+        var finalProperties = defaultProperties
+
         // Add super properties
-        val finalPropertiesJsonObject = (userProperties ?: JsonObject(mutableMapOf())).addUpdateJsoObject(superProperties)
-        finalPropertiesJsonObject.addUpdateJsoObject(defaultProperties)
+        if (superProperties.isNotEmpty())
+            finalProperties = finalProperties.addUpdateJsoObject(superProperties)
+
+        // Add user properties
+        if (userProperties?.isNotEmpty() == true)
+            finalProperties = finalProperties.addUpdateJsoObject(userProperties)
 
         return buildJsonObject {
             addCommonEventProperties()
@@ -51,7 +57,7 @@ object PayloadCreator {
             put(SSConstants.DISTINCT_ID, JsonPrimitive(distinctId))
             put(SSConstants.ENV, JsonPrimitive(apiKey))
 
-            put(SSConstants.PROPERTIES, finalPropertiesJsonObject)
+            put(SSConstants.PROPERTIES, finalProperties)
         }
     }
 

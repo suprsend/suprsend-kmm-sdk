@@ -9,9 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import app.suprsend.android.android.databinding.ActivityWelcomeBinding
 import com.google.firebase.messaging.FirebaseMessaging
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import org.json.JSONObject
 
 class WelcomeActivity : AppCompatActivity() {
 
@@ -26,7 +24,6 @@ class WelcomeActivity : AppCompatActivity() {
         }
         binding = ActivityWelcomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        initializeSdk()
 
         binding.viewPager.adapter = WelcomeAdapter(
             layoutInflater, (1..10).map { index ->
@@ -45,7 +42,9 @@ class WelcomeActivity : AppCompatActivity() {
             override fun onPageSelected(position: Int) {
                 val analyticsPos = position + 1
                 binding.pageNumTv.text = "Page $analyticsPos"
-                CommonAnalyticsHandler.track("Walk Through Viewed $analyticsPos")
+                CommonAnalyticsHandler.track("walkthrough_viewed", JSONObject().apply {
+                    put("position", analyticsPos)
+                })
                 CommonAnalyticsHandler.set("welcome_page_position", "$analyticsPos")
             }
 
@@ -61,6 +60,12 @@ class WelcomeActivity : AppCompatActivity() {
         subscribeToTopic()
     }
 
+    override fun onStart() {
+        super.onStart()
+
+        CommonAnalyticsHandler.track("welcome_screen_viewed")
+    }
+
     private fun subscribeToTopic() {
         val topicName = "all_users"
         FirebaseMessaging
@@ -74,11 +79,5 @@ class WelcomeActivity : AppCompatActivity() {
                 Log.d("firebase", msg)
                 Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
             }
-    }
-
-    private fun initializeSdk() {
-        GlobalScope.launch((Dispatchers.IO)) {
-            CommonAnalyticsHandler.initialize(applicationContext)
-        }
     }
 }

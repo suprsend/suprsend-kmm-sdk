@@ -87,11 +87,27 @@ internal object SSApiInternal {
         }
     }
 
+    fun setSuperProperty(key: String, value: Any) {
+        GlobalScope.launch(ioDispatcher() + coroutineExceptionHandler) {
+            Logger.i(TAG, "Setting super properties $key")
+            val superPropertiesRepository = SuperPropertiesLocalDataSource()
+            superPropertiesRepository.add(key, value)
+        }
+    }
+
     fun setSuperProperties(propertiesJsonObject: String?) {
         GlobalScope.launch(ioDispatcher() + coroutineExceptionHandler) {
             Logger.i(TAG, "Setting super properties")
             val superPropertiesRepository = SuperPropertiesLocalDataSource()
             superPropertiesRepository.add(propertiesJsonObject.toKotlinJsonObject())
+        }
+    }
+
+    fun removeSuperProperty(key: String) {
+        GlobalScope.launch(ioDispatcher() + coroutineExceptionHandler) {
+            Logger.i(TAG, "Remove super properties $key")
+            val superPropertiesRepository = SuperPropertiesLocalDataSource()
+            superPropertiesRepository.remove(key)
         }
     }
 

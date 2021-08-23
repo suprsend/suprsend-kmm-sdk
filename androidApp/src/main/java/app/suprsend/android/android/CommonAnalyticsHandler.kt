@@ -15,6 +15,8 @@ object CommonAnalyticsHandler {
     private lateinit var mixpanelAPI: MixpanelAPI
 
     fun initialize(context: Context) {
+        if (this::ssApi.isInitialized)
+            return
         ssApi = SSApi.getInstance(context, BuildConfig.SS_TOKEN)
         ssApi.setLogLevel(LogLevel.VERBOSE)
         mixpanelAPI = MixpanelAPI.getInstance(context, BuildConfig.MX_TOKEN)
@@ -85,9 +87,19 @@ object CommonAnalyticsHandler {
         mixpanelAPI.people.setOnce(properties)
     }
 
+    fun setSuperProperties(key: String, value: Any) {
+        ssApi.setSuperProperty(key, value)
+        mixpanelAPI.registerSuperPropertiesMap(hashMapOf(key to value))
+    }
+
     fun setSuperProperties(jsonObject: JSONObject) {
         ssApi.setSuperProperties(jsonObject)
         mixpanelAPI.registerSuperProperties(jsonObject)
+    }
+
+    fun unSetSuperProperties(key: String) {
+        ssApi.unSetSuperProperty(key)
+        mixpanelAPI.unregisterSuperProperty(key)
     }
 
     fun purchaseMade(properties: JSONObject) {

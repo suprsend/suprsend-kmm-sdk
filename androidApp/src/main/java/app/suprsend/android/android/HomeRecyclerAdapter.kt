@@ -50,7 +50,7 @@ class HomeRecyclerAdapter(private val list: List<BaseItem>) : RecyclerView.Adapt
                 val itemBinding = BannerItemBinding.inflate(LayoutInflater.from(root.context))
                 AppCreator.loadUrl(root.context, bannerVo.url, itemBinding.imageView)
                 itemBinding.root.setOnClickListener {
-                    CommonAnalyticsHandler.track("Banner Clicked ${bannerVo.id}")
+                    CommonAnalyticsHandler.track("banner_clicked ${bannerVo.id}")
                     Toast.makeText(container.context, "Banner Clicked ${bannerVo.id}", Toast.LENGTH_SHORT).show()
                 }
                 container.addView(itemBinding.root)

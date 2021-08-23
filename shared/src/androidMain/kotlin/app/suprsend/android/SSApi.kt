@@ -24,8 +24,16 @@ private constructor() {
         SSApiInternal.identify(uniqueId)
     }
 
+    fun setSuperProperty(key: String, value: Any) {
+        SSApiInternal.setSuperProperty(key, value)
+    }
+
     fun setSuperProperties(jsonObject: JSONObject) {
         SSApiInternal.setSuperProperties(propertiesJsonObject = jsonObject.toString())
+    }
+
+    fun unSetSuperProperty(key: String) {
+        SSApiInternal.removeSuperProperty(key)
     }
 
     fun track(@NonNull eventName: String, properties: JSONObject? = null) {

@@ -48,4 +48,9 @@ class OrderSuccessFullActivity : AppCompatActivity() {
             put("first_ordered_product_name", productVo.title)
         })
     }
+
+    override fun onStart() {
+        super.onStart()
+        CommonAnalyticsHandler.track("order_success_screen_viewed")
+    }
 }

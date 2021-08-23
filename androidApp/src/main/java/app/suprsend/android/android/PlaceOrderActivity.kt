@@ -44,4 +44,9 @@ class PlaceOrderActivity : AppCompatActivity() {
             finishAffinity()
         }
     }
+
+    override fun onStart() {
+        super.onStart()
+        CommonAnalyticsHandler.track("place_order_screen_viewed")
+    }
 }
