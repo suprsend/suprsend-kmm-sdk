@@ -15,7 +15,7 @@ class EventFlushHandler {
         val eventLocalDatasource = EventLocalDatasource()
         var eventModelList: List<EventModel> = eventLocalDatasource.getEvents(SSConstants.FLUSH_EVENT_PAYLOAD_SIZE)
         if (eventModelList.isEmpty()) {
-            Logger.i("flush", "No events found")
+            Logger.i(TAG, "No events found")
             return
         }
         while (eventModelList.isNotEmpty()) {
@@ -25,7 +25,7 @@ class EventFlushHandler {
                 contentType(ContentType.Application.Json)
                 body = requestJson
             }
-            Logger.i("flush", "$httpResponse $requestJson")
+            Logger.i(TAG, "$httpResponse $requestJson")
             eventLocalDatasource.delete(eventModelList.map { it.id })
             eventModelList = eventLocalDatasource.getEvents(SSConstants.FLUSH_EVENT_PAYLOAD_SIZE)
         }
@@ -35,7 +35,7 @@ class EventFlushHandler {
         val userEventLocalDataSource = UserEventLocalDataSource()
         var eventModelList: List<EventModel> = userEventLocalDataSource.getEvents(SSConstants.FLUSH_EVENT_PAYLOAD_SIZE)
         if (eventModelList.isEmpty()) {
-            Logger.i("flush", "No user events found")
+            Logger.i(TAG, "No user events found")
             return
         }
         while (eventModelList.isNotEmpty()) {
@@ -45,9 +45,13 @@ class EventFlushHandler {
                 contentType(ContentType.Application.Json)
                 body = requestJson
             }
-            Logger.i("flush", "$httpResponse $requestJson")
+            Logger.i(TAG, "$httpResponse $requestJson")
             userEventLocalDataSource.delete(eventModelList.map { it.id })
             eventModelList = userEventLocalDataSource.getEvents(SSConstants.FLUSH_EVENT_PAYLOAD_SIZE)
         }
+    }
+
+    companion object {
+        const val TAG = "flush"
     }
 }

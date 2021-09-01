@@ -95,9 +95,8 @@ kotlin {
                 implementation(Deps.JetBrains.Coroutines.android)
 
                 //implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
-                implementation(Deps.CORE_KTX)
+                implementation(Deps.AndroidX.CORE_KTX)
 
-                api("com.google.firebase:firebase-analytics:19.0.0")
                 api("com.google.firebase:firebase-messaging:22.0.0")
 
             }
@@ -110,10 +109,10 @@ kotlin {
                 implementation(Deps.JetBrains.Kotlin.serialization)
                 implementation(Deps.JetBrains.Coroutines.test)
                 /**/
-                implementation(Deps.AndroidX.Test.core)
-                implementation(Deps.AndroidX.Test.junit)
-                implementation(Deps.AndroidX.Test.runner)
-                implementation(Deps.AndroidX.Test.rules)
+                implementation(Deps.AndroidX.core)
+                implementation(Deps.AndroidX.junit)
+                implementation(Deps.AndroidX.runner)
+                implementation(Deps.AndroidX.rules)
 //                implementation(kotlin("test-junit"))
 //                implementation("junit:junit:4.13.2")
 

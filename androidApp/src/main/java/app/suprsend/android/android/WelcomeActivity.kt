@@ -52,18 +52,20 @@ class WelcomeActivity : AppCompatActivity() {
             }
         })
 
+        CommonAnalyticsHandler.track("welcome_screen_viewed")
+
+        val analyticsPos = 1
+
+        CommonAnalyticsHandler.track("walkthrough_viewed", JSONObject().apply {
+            put("position", analyticsPos)
+        })
+        CommonAnalyticsHandler.set("welcome_page_position", "$analyticsPos")
+
         binding.loginTv.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
-            finish()
         }
         subscribeToTopic()
-    }
-
-    override fun onStart() {
-        super.onStart()
-
-        CommonAnalyticsHandler.track("welcome_screen_viewed")
     }
 
     private fun subscribeToTopic() {

@@ -3,6 +3,7 @@ package app.suprsend.android.user
 import app.suprsend.android.GLOBAL_SUPR_SEND_DATABASE_WRAPPER
 import app.suprsend.android.database.DBConversion
 import app.suprsend.android.event.EventModel
+import kotlinx.datetime.Clock
 
 internal class UserEventLocalDataSource : UserEventDataSourceContract {
 
@@ -12,7 +13,8 @@ internal class UserEventLocalDataSource : UserEventDataSourceContract {
         queries.track(
             id = eventModel.id,
             model = eventModel,
-            isDirty = DBConversion.booleanToLong(isDirty)
+            isDirty = DBConversion.booleanToLong(isDirty),
+            timeStamp = Clock.System.now().toEpochMilliseconds()
         )
     }
 

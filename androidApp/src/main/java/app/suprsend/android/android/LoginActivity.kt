@@ -26,7 +26,9 @@ class LoginActivity : AppCompatActivity() {
             CommonAnalyticsHandler.setSuperProperties("user_type", binding.userTypeSp.selectedItem.toString())
             val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
-            finish()
+            finishAffinity()
         }
+
+        CommonAnalyticsHandler.track("login_screen_viewed")
     }
 }

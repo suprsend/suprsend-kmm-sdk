@@ -37,7 +37,7 @@ private constructor() {
     }
 
     fun track(@NonNull eventName: String, properties: JSONObject? = null) {
-        SSApiInternal.track(eventName = eventName, propertiesJsonString = properties?.toString())
+        SSApiInternal.trackOp(eventName = eventName, propertiesJsonString = properties?.toString())
     }
 
     fun purchaseMade(properties: JSONObject) {

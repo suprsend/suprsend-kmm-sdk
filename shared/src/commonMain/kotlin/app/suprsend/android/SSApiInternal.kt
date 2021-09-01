@@ -4,6 +4,7 @@ import app.suprsend.android.base.Logger
 import app.suprsend.android.base.SSConstants
 import app.suprsend.android.base.SdkCreator
 import app.suprsend.android.base.ioDispatcher
+import app.suprsend.android.base.singleThreadDispatcher
 import app.suprsend.android.base.toKotlinJsonObject
 import app.suprsend.android.base.uuid
 import app.suprsend.android.config.ConfigHelper
@@ -26,6 +27,7 @@ import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.buildJsonObject
 
 @SharedImmutable
@@ -42,32 +44,31 @@ internal object SSApiInternal {
     private var flushing: Boolean = false
 
     fun purchaseMade(properties: String) {
-        GlobalScope.launch(ioDispatcher() + coroutineExceptionHandler) {
-            track(eventName = SSConstants.S_EVENT_PURCHASE_MADE, propertiesJO = properties.toKotlinJsonObject())
+        GlobalScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
+            trackOp(eventName = SSConstants.S_EVENT_PURCHASE_MADE, propertiesJO = properties.toKotlinJsonObject())
         }
     }
 
     fun notificationSubscribed() {
-        GlobalScope.launch(ioDispatcher() + coroutineExceptionHandler) {
-            track(eventName = SSConstants.S_EVENT_NOTIFICATION_SUBSCRIBED, propertiesJO = buildJsonObject { })
+        GlobalScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
+            trackOp(eventName = SSConstants.S_EVENT_NOTIFICATION_SUBSCRIBED, propertiesJO = buildJsonObject { })
         }
     }
 
     fun notificationUnSubscribed() {
-        GlobalScope.launch(ioDispatcher() + coroutineExceptionHandler) {
-            track(eventName = SSConstants.S_EVENT_NOTIFICATION_UNSUBSCRIBED, propertiesJO = buildJsonObject { })
+        GlobalScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
+            trackOp(eventName = SSConstants.S_EVENT_NOTIFICATION_UNSUBSCRIBED, propertiesJO = buildJsonObject { })
         }
     }
 
     fun pageVisited() {
-        GlobalScope.launch(ioDispatcher() + coroutineExceptionHandler) {
-            track(eventName = SSConstants.S_EVENT_PAGE_VISITED, propertiesJO = buildJsonObject { })
+        GlobalScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
+            trackOp(eventName = SSConstants.S_EVENT_PAGE_VISITED, propertiesJO = buildJsonObject { })
         }
     }
 
     fun identify(uniqueId: String) {
-        GlobalScope.launch(ioDispatcher() + coroutineExceptionHandler) {
-            Logger.i(TAG, "identity : $uniqueId")
+        GlobalScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
             val userLocalDatasource = UserLocalDatasource()
             UserEventLocalDataSource()
                 .track(
@@ -81,45 +82,47 @@ internal object SSApiInternal {
                     )
                 )
             userLocalDatasource.identify(uniqueId)
-            userImpl.setAndroidPush(getFcmToken())
-            track(SSConstants.S_EVENT_USER_LOGIN, buildJsonObject { })
+            userImpl.internalOperatorCallOp(buildJsonObject {
+                put(SSConstants.FCM_TOKEN_PUSH, JsonPrimitive(getFcmToken()))
+                put(SSConstants.DEVICE_ID, JsonPrimitive(getDeviceID()))
+            }, SSConstants.APPEND)
+            trackOp(SSConstants.S_EVENT_USER_LOGIN, buildJsonObject { })
             flush()
         }
     }
 
     fun setSuperProperty(key: String, value: Any) {
-        GlobalScope.launch(ioDispatcher() + coroutineExceptionHandler) {
-            Logger.i(TAG, "Setting super properties $key")
+        GlobalScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
+            Logger.i(TAG, "Setting super properties $key $value")
             val superPropertiesRepository = SuperPropertiesLocalDataSource()
             superPropertiesRepository.add(key, value)
         }
     }
 
     fun setSuperProperties(propertiesJsonObject: String?) {
-        GlobalScope.launch(ioDispatcher() + coroutineExceptionHandler) {
-            Logger.i(TAG, "Setting super properties")
+        GlobalScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
+            Logger.i(TAG, "Setting super properties $propertiesJsonObject")
             val superPropertiesRepository = SuperPropertiesLocalDataSource()
             superPropertiesRepository.add(propertiesJsonObject.toKotlinJsonObject())
         }
     }
 
     fun removeSuperProperty(key: String) {
-        GlobalScope.launch(ioDispatcher() + coroutineExceptionHandler) {
+        GlobalScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
             Logger.i(TAG, "Remove super properties $key")
             val superPropertiesRepository = SuperPropertiesLocalDataSource()
             superPropertiesRepository.remove(key)
         }
     }
 
-    fun track(eventName: String, propertiesJsonString: String?) {
-        GlobalScope.launch(ioDispatcher() + coroutineExceptionHandler) {
-            track(eventName, propertiesJsonString.toKotlinJsonObject())
+    fun trackOp(eventName: String, propertiesJsonString: String?) {
+        GlobalScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
+            trackOp(eventName, propertiesJsonString.toKotlinJsonObject())
         }
     }
 
-    fun track(eventName: String, propertiesJO: JsonObject?) {
+    private fun trackOp(eventName: String, propertiesJO: JsonObject?) {
         try {
-            Logger.i(TAG, "Track Event : $eventName")
             if (eventName.isBlank()) {
                 Logger.i(TAG, "event name cannot be blank")
                 return
@@ -151,35 +154,39 @@ internal object SSApiInternal {
 
     fun flush() {
         if (flushing) {
-            Logger.i(TAG, "Flush request is ignored as flush is already in progress")
+            Logger.i(EventFlushHandler.TAG, "Flush request is ignored as flush is already in progress")
             return
         }
 
-        Logger.i(TAG, "Trying to flush events")
+        Logger.i(EventFlushHandler.TAG, "Trying to flush events")
 
         flushing = true
 
         GlobalScope.launch(ioDispatcher() + CoroutineExceptionHandler { _, throwable ->
-            Logger.e(TAG, "Exception", throwable)
+            Logger.e(EventFlushHandler.TAG, "Exception", throwable)
             flushing = false
         }) {
-            Logger.i(TAG, "Flush event started")
+            Logger.i(EventFlushHandler.TAG, "Flush event started")
             val eventFlushHandler = EventFlushHandler()
             eventFlushHandler.flushUserEvents()
             eventFlushHandler.flushEvents()
             flushing = false
-            Logger.i(TAG, "Flush event completed")
+            Logger.i(EventFlushHandler.TAG, "Flush event completed")
         }
     }
 
     fun reset() {
-        GlobalScope.launch(ioDispatcher() + coroutineExceptionHandler) {
+        GlobalScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
             val newID = uuid()
             val userLocalDatasource = UserLocalDatasource()
             val userId = userLocalDatasource.getIdentity()
             Logger.i(TAG, "reset : Current : $userId New : $newID")
-            track(SSConstants.S_EVENT_USER_LOGOUT, buildJsonObject { })
+            trackOp(SSConstants.S_EVENT_USER_LOGOUT, buildJsonObject { })
             userLocalDatasource.identify(newID)
+            userImpl.internalOperatorCallOp(buildJsonObject {
+                put(SSConstants.FCM_TOKEN_PUSH, JsonPrimitive(getFcmToken()))
+                put(SSConstants.DEVICE_ID, JsonPrimitive(getDeviceID()))
+            }, SSConstants.APPEND)
             flush()
         }
     }
@@ -236,7 +243,7 @@ internal object SSApiInternal {
         return ConfigHelper.get(SSConstants.CONFIG_API_KEY)
     }
 
-    private const val TAG = "ssint"
+    const val TAG = "ssinternal"
 }
 
 internal val coroutineExceptionHandler = CoroutineExceptionHandler { _, exception ->

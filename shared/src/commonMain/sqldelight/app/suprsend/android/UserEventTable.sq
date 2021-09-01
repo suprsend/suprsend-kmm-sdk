@@ -3,16 +3,17 @@ import app.suprsend.android.event.EventModel;
 CREATE TABLE UserEventTable (
     id TEXT PRIMARY KEY NOT NULL,
     model   TEXT as EventModel,
-    isDirty INTEGER NOT NULL
+    isDirty INTEGER NOT NULL,
+    timeStamp INTEGER NOT NULL
 );
 
 track:
-INSERT OR FAIL INTO UserEventTable(id,model,isDirty) VALUES (?,?,?);
+INSERT OR FAIL INTO UserEventTable(id,model,isDirty,timeStamp) VALUES (?,?,?,?);
 
 
 getTrackedEvents:
 SELECT *
-FROM UserEventTable WHERE isDirty =? LIMIT :limit;
+FROM UserEventTable WHERE isDirty =? ORDER BY timeStamp  LIMIT :limit;
 
 delete:
 DELETE FROM UserEventTable WHERE id IN ?;

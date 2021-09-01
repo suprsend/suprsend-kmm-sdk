@@ -1,10 +1,9 @@
 package app.suprsend.android.user.api
 
 import app.suprsend.android.SSApiInternal
-import app.suprsend.android.base.Logger
 import app.suprsend.android.base.SSConstants
 import app.suprsend.android.base.convertToJsonPrimitive
-import app.suprsend.android.base.ioDispatcher
+import app.suprsend.android.base.singleThreadDispatcher
 import app.suprsend.android.base.toKotlinJsonObject
 import app.suprsend.android.base.uuid
 import app.suprsend.android.coroutineExceptionHandler
@@ -23,94 +22,85 @@ import kotlinx.serialization.json.buildJsonObject
 internal class UserApiInternalImpl : UserApiInternalContract {
 
     override fun set(key: String, value: Any) {
-        Logger.i("user", "set $key ")
         val valuePrimitive = value.convertToJsonPrimitive(key)
         valuePrimitive ?: return
         internalOperatorCall(
             buildJsonObject {
                 put(key, valuePrimitive)
             },
-            operator = "\$set"
+            operator = SSConstants.SET
         )
     }
 
     override fun set(propertiesJson: String) {
-        Logger.i("user", "set properties")
         internalOperatorCall(
             propertiesJson.toKotlinJsonObject(),
-            operator = "\$set"
+            operator = SSConstants.SET
         )
     }
 
     override fun setOnce(key: String, value: Any) {
-        Logger.i("user", "setOnce $key")
         val valuePrimitive = value.convertToJsonPrimitive(key)
         valuePrimitive ?: return
         internalOperatorCall(
             buildJsonObject {
                 put(key, valuePrimitive)
             },
-            operator = "\$set_once"
+            operator = SSConstants.SET_ONCE
         )
     }
 
     override fun setOnce(propertiesJson: String) {
-        Logger.i("user", "setOnce properties")
         internalOperatorCall(
             propertiesJson.toKotlinJsonObject(),
-            operator = "\$set_once"
+            operator = SSConstants.SET_ONCE
         )
     }
 
     override fun increment(key: String, value: Number) {
-        Logger.i("user", "increment $key")
         val valuePrimitive = value.convertToJsonPrimitive(key)
         valuePrimitive ?: return
         internalOperatorCall(
             buildJsonObject {
                 put(key, valuePrimitive)
             },
-            operator = "\$add"
+            operator = SSConstants.ADD
         )
     }
 
     override fun increment(propertiesJson: String) {
-        Logger.i("user", "increment properties")
         internalOperatorCall(
             propertiesJson.toKotlinJsonObject(),
-            operator = "\$add"
+            operator = SSConstants.ADD
         )
     }
 
     override fun append(key: String, value: Any) {
-        Logger.i("user", "append $key")
         val valuePrimitive = value.convertToJsonPrimitive(key)
         valuePrimitive ?: return
         internalOperatorCall(
             buildJsonObject {
                 put(key, valuePrimitive)
             },
-            operator = "\$append"
+            operator = SSConstants.APPEND
         )
     }
 
     override fun append(propertiesJson: String) {
-        Logger.i("user", "append properties")
         internalOperatorCall(
             propertiesJson.toKotlinJsonObject(),
-            operator = "\$append"
+            operator = SSConstants.APPEND
         )
     }
 
     override fun remove(key: String, value: Any) {
-        Logger.i("user", "remove $key")
         val valuePrimitive = value.convertToJsonPrimitive(key)
         valuePrimitive ?: return
         internalOperatorCall(
             buildJsonObject {
                 put(key, valuePrimitive)
             },
-            operator = "\$remove"
+            operator = SSConstants.REMOVE
         )
     }
 
@@ -119,55 +109,46 @@ internal class UserApiInternalImpl : UserApiInternalContract {
     }
 
     override fun unSet(keys: List<String>) {
-        Logger.i("user", "unSet $keys")
         internalOperatorCall(
             buildJsonArray {
                 keys.forEach { key ->
                     add(key)
                 }
             },
-            operator = "\$unset"
+            operator = SSConstants.UNSET
         )
     }
 
     override fun setEmail(email: String) {
-        Logger.i("user", "setEmail : $email")
-        append("\$email", email)
+        append(SSConstants.EMAIL, email)
     }
 
     override fun unSetEmail(email: String) {
-        Logger.i("user", "UnSetEmail : $email")
-        remove("\$email", email)
+        remove(SSConstants.EMAIL, email)
     }
 
     override fun setSms(mobile: String) {
-        Logger.i("user", "setSms : $mobile")
-        append("\$sms", mobile)
+        append(SSConstants.SMS, mobile)
     }
 
     override fun unSetSms(mobile: String) {
-        Logger.i("user", "unSetSms : $mobile")
-        remove("\$sms", mobile)
+        remove(SSConstants.SMS, mobile)
     }
 
     override fun setWhatsApp(mobile: String) {
-        Logger.i("user", "setWhatsApp : $mobile")
-        append("\$whatsapp", mobile)
+        append(SSConstants.WHATS_APP, mobile)
     }
 
     override fun unSetWhatsApp(mobile: String) {
-        Logger.i("user", "unSetWhatsApp : $mobile")
-        remove("\$whatsapp", mobile)
+        remove(SSConstants.WHATS_APP, mobile)
     }
 
     // TODO - Create constant
     override fun setAndroidPush(newToken: String) {
         val oldToken = SSApiInternal.getFcmToken()
-        Logger.i("user", "Old token : $oldToken")
         if (oldToken != newToken) {
             SSApiInternal.setFcmToken(newToken)
         }
-        Logger.i("user", "setAndroidPush : $newToken")
         append(buildJsonObject {
             put(SSConstants.FCM_TOKEN_PUSH, JsonPrimitive(newToken))
             put(SSConstants.DEVICE_ID, JsonPrimitive(SSApiInternal.getDeviceID()))
@@ -175,25 +156,32 @@ internal class UserApiInternalImpl : UserApiInternalContract {
     }
 
     override fun unSetAndroidPush(token: String) {
-        Logger.i("user", "unSetAndroidPush : $token")
         remove(SSConstants.FCM_TOKEN_PUSH, token)
     }
 
     private fun internalOperatorCall(properties: JsonElement, operator: String) {
-        GlobalScope.launch(ioDispatcher() + coroutineExceptionHandler) {
-            val userLocalDatasource = UserLocalDatasource()
-            UserEventLocalDataSource()
-                .track(
-                    EventModel(
-                        value = PayloadCreator
-                            .buildUserOperatorPayload(
-                                distinctId = userLocalDatasource.getIdentity(),
-                                setProperties = properties,
-                                operator = operator
-                            ),
-                        id = uuid()
-                    )
-                )
+        GlobalScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
+            internalOperatorCallOp(properties, operator)
         }
+    }
+
+    fun internalOperatorCallOp(properties: JsonElement, operator: String) {
+        val userLocalDatasource = UserLocalDatasource()
+        UserEventLocalDataSource()
+            .track(
+                EventModel(
+                    value = PayloadCreator
+                        .buildUserOperatorPayload(
+                            distinctId = userLocalDatasource.getIdentity(),
+                            setProperties = properties,
+                            operator = operator
+                        ),
+                    id = uuid()
+                )
+            )
+    }
+
+    companion object {
+        const val TAG = SSApiInternal.TAG
     }
 }

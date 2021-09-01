@@ -2,6 +2,7 @@ package app.suprsend.android.event
 
 import app.suprsend.android.GLOBAL_SUPR_SEND_DATABASE_WRAPPER
 import app.suprsend.android.database.DBConversion
+import kotlinx.datetime.Clock
 
 internal class EventLocalDatasource : EventDataSourceContract {
 
@@ -11,7 +12,8 @@ internal class EventLocalDatasource : EventDataSourceContract {
         queries.track(
             id = eventModel.id,
             model = eventModel,
-            isDirty = DBConversion.booleanToLong(isDirty)
+            isDirty = DBConversion.booleanToLong(isDirty),
+            timeStamp = Clock.System.now().toEpochMilliseconds()
         )
     }
 
