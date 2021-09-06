@@ -1,5 +1,6 @@
 package app.suprsend.android.base
 
+import app.suprsend.android.database.json
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
@@ -11,7 +12,7 @@ fun String?.toKotlinJsonObject(): JsonObject {
     return try {
         if (this.isNullOrBlank())
             return JsonObject(mutableMapOf())
-        Json.parseToJsonElement(this).jsonObject
+        json.parseToJsonElement(this).jsonObject
     } catch (e: Exception) {
         JsonObject(mutableMapOf())
     }

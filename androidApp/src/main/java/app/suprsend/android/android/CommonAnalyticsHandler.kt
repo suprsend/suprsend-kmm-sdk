@@ -24,6 +24,7 @@ object CommonAnalyticsHandler {
 
     fun identify(identity: String) {
         ssApi.identify(identity)
+        ssApi.getUser().setEmail(identity)
         mixpanelAPI.identify(identity)
     }
 
