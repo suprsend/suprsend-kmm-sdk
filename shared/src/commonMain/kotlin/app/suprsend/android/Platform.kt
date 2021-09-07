@@ -6,4 +6,6 @@ expect class Platform() {
 
 expect class Information() {
     fun getDefaultProperties(): String
+    fun isFlushing(): Boolean
+    fun setFlushing(value: Boolean)
 }

@@ -11,12 +11,10 @@ import app.suprsend.android.config.ConfigHelper
 import app.suprsend.android.database.DatabaseDriverFactory
 import app.suprsend.android.database.SSDatabaseWrapper
 import app.suprsend.android.event.EventFlushHandler
-import app.suprsend.android.event.EventLocalDatasource
 import app.suprsend.android.event.EventModel
 import app.suprsend.android.event.PayloadCreator
 import app.suprsend.android.network.httpClientEngine
 import app.suprsend.android.sprop.SuperPropertiesLocalDataSource
-import app.suprsend.android.user.UserEventLocalDataSource
 import app.suprsend.android.user.UserLocalDatasource
 import app.suprsend.android.user.api.UserApiInternalContract
 import app.suprsend.android.user.api.UserApiInternalImpl
@@ -41,7 +39,6 @@ internal object SSApiInternal {
     private val userImpl = UserApiInternalImpl()
 
     var apiKey: String = ""
-    private var flushing: Boolean = false
 
     fun purchaseMade(properties: String) {
         GlobalScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
@@ -70,7 +67,8 @@ internal object SSApiInternal {
     fun identify(uniqueId: String) {
         GlobalScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
             val userLocalDatasource = UserLocalDatasource()
-            UserEventLocalDataSource()
+            SdkCreator
+                .eventLocalDatasource
                 .track(
                     EventModel(
                         value = PayloadCreator
@@ -130,7 +128,8 @@ internal object SSApiInternal {
 
             val userLocalDatasource = UserLocalDatasource()
             val superPropertiesLocalDataSource = SuperPropertiesLocalDataSource()
-            EventLocalDatasource()
+            SdkCreator
+                .eventLocalDatasource
                 .track(
                     EventModel(
                         value = PayloadCreator.buildTrackEventPayload(
@@ -153,24 +152,23 @@ internal object SSApiInternal {
     }
 
     fun flush() {
-        if (flushing) {
+        if (SdkCreator.information.isFlushing()) {
             Logger.i(EventFlushHandler.TAG, "Flush request is ignored as flush is already in progress")
             return
         }
 
         Logger.i(EventFlushHandler.TAG, "Trying to flush events")
 
-        flushing = true
+        SdkCreator.information.setFlushing(true)
 
         GlobalScope.launch(ioDispatcher() + CoroutineExceptionHandler { _, throwable ->
             Logger.e(EventFlushHandler.TAG, "Exception", throwable)
-            flushing = false
+            SdkCreator.information.setFlushing(false)
         }) {
             Logger.i(EventFlushHandler.TAG, "Flush event started")
             val eventFlushHandler = EventFlushHandler()
-            eventFlushHandler.flushUserEvents()
             eventFlushHandler.flushEvents()
-            flushing = false
+            SdkCreator.information.setFlushing(false)
             Logger.i(EventFlushHandler.TAG, "Flush event completed")
         }
     }
