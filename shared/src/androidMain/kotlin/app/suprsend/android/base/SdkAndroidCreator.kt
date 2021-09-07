@@ -18,6 +18,8 @@ internal object SdkAndroidCreator {
     val deviceInfo: DeviceInfo by lazy { DeviceInfo() }
 
     val networkInfo: NetworkInfo by lazy { NetworkInfo() }
+
+    var flushing: Boolean = false
 }
 
 @SuppressLint("SimpleDateFormat")

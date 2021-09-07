@@ -5,14 +5,14 @@ import app.suprsend.android.base.Logger
 import app.suprsend.android.base.SSConstants
 import app.suprsend.android.config.ConfigHelper
 
-internal class UserLocalDatasource : UserRepositoryContract {
+internal class UserLocalDatasource {
 
-    override fun identify(uniqueId: String) {
+    fun identify(uniqueId: String) {
         Logger.i(TAG, "Identity : $uniqueId")
         ConfigHelper.addOrUpdate(SSConstants.CONFIG_USER_ID, uniqueId)
     }
 
-    override fun getIdentity(): String {
+    fun getIdentity(): String {
         return ConfigHelper.get(SSConstants.CONFIG_USER_ID) ?: ""
     }
 

@@ -2,6 +2,7 @@ package app.suprsend.android.user.api
 
 import app.suprsend.android.SSApiInternal
 import app.suprsend.android.base.SSConstants
+import app.suprsend.android.base.SdkCreator
 import app.suprsend.android.base.convertToJsonPrimitive
 import app.suprsend.android.base.singleThreadDispatcher
 import app.suprsend.android.base.toKotlinJsonObject
@@ -9,7 +10,6 @@ import app.suprsend.android.base.uuid
 import app.suprsend.android.coroutineExceptionHandler
 import app.suprsend.android.event.EventModel
 import app.suprsend.android.event.PayloadCreator
-import app.suprsend.android.user.UserEventLocalDataSource
 import app.suprsend.android.user.UserLocalDatasource
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -167,7 +167,8 @@ internal class UserApiInternalImpl : UserApiInternalContract {
 
     fun internalOperatorCallOp(properties: JsonElement, operator: String) {
         val userLocalDatasource = UserLocalDatasource()
-        UserEventLocalDataSource()
+        SdkCreator
+            .eventLocalDatasource
             .track(
                 EventModel(
                     value = PayloadCreator
