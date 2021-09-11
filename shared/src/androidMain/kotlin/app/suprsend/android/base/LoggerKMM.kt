@@ -32,7 +32,7 @@ actual class LoggerKMM {
 
     actual fun i(tag: String, message: String) {
         if (isLogAllowed(LogLevel.INFO.num)) {
-            Log.i(tag, message!!)
+            Log.i(tag, message)
         }
     }
 
