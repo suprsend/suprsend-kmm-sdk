@@ -19,19 +19,16 @@ kotlin {
         publishLibraryVariantsGroupedByFlavor = true
     }
 
-    val onSimulator = System.getenv("SDK_NAME")?.startsWith("iphonesimulator") ?: false
-    val type = if (onSimulator) {
-        "marker"
-    } else {
-        "bitcode"
-    }
-    ios()
-    ios {
+    val iosTarget: (String, KotlinNativeTarget.() -> Unit) -> KotlinNativeTarget =
+        if (System.getenv("SDK_NAME")?.startsWith("iphoneos") == true)
+            ::iosArm64
+        else
+            ::iosX64
+
+    iosTarget("ios") {
         binaries {
             framework {
-                isStatic = true
-                embedBitcode(type)
-                freeCompilerArgs = listOf("-Xadd-light-debug=enable")
+                baseName = "shared"
             }
         }
     }
@@ -122,6 +119,15 @@ kotlin {
             }
         }
         val iosMain by getting {
+            dependencies {
+                implementation(Deps.Squareup.SQLDelight.nativeDriver)
+                implementation(Deps.JetBrains.Ktor.clientIos)
+                implementation(Deps.JetBrains.Coroutines.core) {
+                    version {
+                        strictly(Deps.JetBrains.Coroutines.VERSION)
+                    }
+                }
+            }
         }
         val iosTest by getting
     }
@@ -174,3 +180,18 @@ android {
         buildConfigField("String", "SS_SDK_VERSION_NAME", "\"$versionName\"")
     }
 }
+
+val packForXcode by tasks.creating(Sync::class) {
+    val mode = System.getenv("CONFIGURATION") ?: "DEBUG"
+    val framework = kotlin.targets.getByName<KotlinNativeTarget>("ios").binaries.getFramework(mode)
+    val targetDir = File(buildDir, "xcode-frameworks")
+
+    group = "build"
+    dependsOn(framework.linkTask)
+    inputs.property("mode", mode)
+
+    from({ framework.outputDirectory })
+    into(targetDir)
+}
+
+tasks.getByName("build").dependsOn(packForXcode)
