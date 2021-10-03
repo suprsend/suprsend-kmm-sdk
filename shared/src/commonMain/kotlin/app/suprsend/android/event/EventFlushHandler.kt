@@ -3,6 +3,7 @@ package app.suprsend.android.event
 import app.suprsend.android.base.Logger
 import app.suprsend.android.base.SSConstants
 import app.suprsend.android.base.SdkCreator
+import app.suprsend.android.config.ConfigHelper
 import app.suprsend.android.database.json
 import app.suprsend.android.globalNetwork
 import io.ktor.client.request.*
@@ -18,10 +19,11 @@ class EventFlushHandler {
             Logger.i(TAG, "No events found")
             return
         }
+        val baseUrl = ConfigHelper.get(SSConstants.CONFIG_API_BASE_URL) ?: SSConstants.DEFAULT_BASE_API_URL
         while (eventModelList.isNotEmpty()) {
             val requestJson = json.encodeToString(eventModelList.map { it.value })
             val httpResponse = globalNetwork.get()!!.post<HttpResponse> {
-                url(SSConstants.EVENT_URL)
+                url("$baseUrl/event")
                 contentType(ContentType.Application.Json)
                 body = requestJson
             }
