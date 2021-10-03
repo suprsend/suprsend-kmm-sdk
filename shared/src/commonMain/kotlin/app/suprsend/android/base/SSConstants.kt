@@ -2,7 +2,7 @@ package app.suprsend.android.base
 
 internal object SSConstants {
 
-    //Staging Env
+    // Staging Env
 //    private const val BASE_URL = "https://collector-staging.suprsend.workers.dev/"
 
     // Prod Env
