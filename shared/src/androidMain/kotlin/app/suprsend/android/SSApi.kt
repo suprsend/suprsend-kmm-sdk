@@ -64,7 +64,24 @@ private constructor() {
 
         private var instance: SSApi? = null
 
-        fun getInstance(context: Context, apiKey: String): SSApi {
+        /**
+         * Should be called before Application super.onCreate()
+         */
+        fun init(context: Context, apiBaseUrl: String) {
+
+            initializeDBNW(context)
+
+            var processedBaseUrl = apiBaseUrl
+            if (processedBaseUrl.endsWith("/"))
+                processedBaseUrl = processedBaseUrl.removeSuffix("/")
+
+            ConfigHelper.addOrUpdate(SSConstants.CONFIG_API_BASE_URL, processedBaseUrl)
+        }
+
+        fun getInstance(
+            context: Context,
+            apiKey: String
+        ): SSApi {
             return getInstanceInternal(context, apiKey, true)
         }
 
@@ -78,7 +95,11 @@ private constructor() {
             SSApiInternal.initialize(databaseDriverFactory = DatabaseDriverFactory())
         }
 
-        private fun getInstanceInternal(context: Context, apiKey: String, isStart: Boolean): SSApi {
+        private fun getInstanceInternal(
+            context: Context,
+            apiKey: String,
+            isStart: Boolean
+        ): SSApi {
 
             synchronized(SSApi::class.java) {
                 if (instance == null) {
@@ -86,7 +107,8 @@ private constructor() {
                     initializeDBNW(context)
 
                     SSApiInternal.apiKey = apiKey
-                    ConfigHelper.addOrUpdate(SSConstants.CONFIG_API_KEY, SSApiInternal.apiKey)
+
+                    ConfigHelper.addOrUpdate(SSConstants.CONFIG_API_KEY, apiKey)
 
                     // Anynomous user id generation
                     val userLocalDatasource = UserLocalDatasource()

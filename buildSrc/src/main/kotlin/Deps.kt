@@ -4,7 +4,7 @@ object Deps {
     const val APP_VERSION_CODE = 2
     const val APP_VERSION_NAME = "0.0.1 Stag Beta $NUM"
 //    const val APP_VERSION_NAME = "0.0.1 Prod Beta $NUM"
-    const val RUN_LIB = false
+    const val RUN_LIB = true
 
     const val SDK_PACKAGE_NAME = "app.suprsend.android"
     const val SDK_VERSION_CODE = 1
