@@ -3,10 +3,10 @@ package app.suprsend.android.base
 internal object SSConstants {
 
     // Staging Env
-//    private const val BASE_URL = "https://collector-staging.suprsend.workers.dev/"
+    private const val BASE_URL = "https://collector-staging.suprsend.workers.dev/"
 
     // Prod Env
-    private const val BASE_URL = "https://hub.suprsend.com/"
+//    private const val BASE_URL = "https://hub.suprsend.com/"
 
     const val EVENT_URL = "$BASE_URL/event"
     const val IMAGE_KIT_BASE_PATH = "https://ik.imagekit.io/l0quatz6utm"
