@@ -46,6 +46,7 @@ android {
     buildTypes {
         getByName("debug") {
             buildConfigField("String", "SS_TOKEN", "\"${project.property("SS_TOKEN").toString()}\"")
+            buildConfigField("String", "SS_SECRET", "\"${project.property("SS_SECRET").toString()}\"")
             buildConfigField("String", "MX_TOKEN", "\"${project.property("MX_TOKEN").toString()}\"")
             buildConfigField("String", "SS_API_BASE_URL", "\"${project.property("SS_API_BASE_URL").toString()}\"")
             versionNameSuffix = "(d)"
@@ -55,6 +56,7 @@ android {
         }
         getByName("release") {
             buildConfigField("String", "SS_TOKEN", "\"${project.property("SS_TOKEN").toString()}\"")
+            buildConfigField("String", "SS_SECRET", "\"${project.property("SS_SECRET").toString()}\"")
             buildConfigField("String", "MX_TOKEN", "\"${project.property("MX_TOKEN").toString()}\"")
             buildConfigField("String", "SS_API_BASE_URL", "\"${project.property("SS_API_BASE_URL").toString()}\"")
             signingConfig = signingConfigs.getByName("release")

@@ -80,9 +80,10 @@ private constructor() {
 
         fun getInstance(
             context: Context,
-            apiKey: String
+            apiKey: String,
+            secret: String
         ): SSApi {
-            return getInstanceInternal(context, apiKey, true)
+            return getInstanceInternal(context, apiKey, secret, true)
         }
 
         private fun initializeDBNW(context: Context) {
@@ -98,6 +99,7 @@ private constructor() {
         private fun getInstanceInternal(
             context: Context,
             apiKey: String,
+            secret: String,
             isStart: Boolean
         ): SSApi {
 
@@ -109,6 +111,7 @@ private constructor() {
                     SSApiInternal.apiKey = apiKey
 
                     ConfigHelper.addOrUpdate(SSConstants.CONFIG_API_KEY, apiKey)
+                    ConfigHelper.addOrUpdate(SSConstants.CONFIG_SECRET, secret)
 
                     // Anynomous user id generation
                     val userLocalDatasource = UserLocalDatasource()
@@ -149,9 +152,10 @@ private constructor() {
 
         fun getInstanceFromCachedApiKey(context: Context): SSApi? {
             initializeDBNW(context)
-            val apiKey = SSApiInternal.getCachedApiKey()
+            val apiKey = ConfigHelper.get(SSConstants.CONFIG_API_KEY)
+            val secret = ConfigHelper.get(SSConstants.CONFIG_SECRET) ?: ""
             if (apiKey != null) {
-                return getInstanceInternal(context, apiKey, false)
+                return getInstanceInternal(context, apiKey, secret, false)
             }
             return null
         }
