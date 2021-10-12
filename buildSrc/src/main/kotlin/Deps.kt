@@ -1,9 +1,9 @@
 object Deps {
 
-
-    const val NUM = 22
+    const val NUM = 29
     const val APP_VERSION_CODE = 2
-    const val APP_VERSION_NAME = "0.0.1 Beta $NUM"
+    const val APP_VERSION_NAME = "0.0.1 Stag Beta $NUM"
+//    const val APP_VERSION_NAME = "0.0.1 Prod Beta $NUM"
     const val RUN_LIB = true
 
     const val SDK_PACKAGE_NAME = "app.suprsend.android"
@@ -52,7 +52,7 @@ object Deps {
 
     object JetBrains {
         object Kotlin {
-            const val VERSION = "1.5.10"
+            const val VERSION = "1.5.20"
             const val gradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$VERSION"
             const val serialization = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1"
             const val datetime = "org.jetbrains.kotlinx:kotlinx-datetime:0.1.1"
@@ -64,7 +64,7 @@ object Deps {
 
 
         object Ktor {
-            private const val VERSION = "1.5.0"
+            private const val VERSION = "1.6.1"
             const val clientCommon = "io.ktor:ktor-client-core:$VERSION"
             const val clientAndroid = "io.ktor:ktor-client-okhttp:$VERSION"
             const val clientIos = "io.ktor:ktor-client-ios:$VERSION"
@@ -76,7 +76,7 @@ object Deps {
         }
 
         object Coroutines {
-            const val VERSION = "1.4.2-native-mt"
+            const val VERSION = "1.5.0-native-mt"
             const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$VERSION"
             const val android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$VERSION"
             const val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$VERSION"

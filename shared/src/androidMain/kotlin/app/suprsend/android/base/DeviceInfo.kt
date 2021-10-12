@@ -13,10 +13,10 @@ internal class DeviceInfo {
         val jsonObject = JSONObject()
         jsonObject.put("\$app_version_string", versionName())
         jsonObject.put("\$app_build_number", versionCode())
-        jsonObject.put("\$brand", brand())
-        jsonObject.put("\$manufacturer", manufacturer())
-        jsonObject.put("\$model", model())
         jsonObject.put("\$os", os())
+        jsonObject.put("\$manufacturer", manufacturer())
+        jsonObject.put("\$brand", brand())
+        jsonObject.put("\$model", model())
         jsonObject.put("\$deviceId", getDeviceId())
         jsonObject.put("\$ss_sdk_version", BuildConfig.SS_SDK_VERSION_NAME)
 

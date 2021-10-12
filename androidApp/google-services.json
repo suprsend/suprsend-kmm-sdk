@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "207011119900",
+    "firebase_url": "https://remoteconfigtest-439e0.firebaseio.com",
+    "project_id": "remoteconfigtest-439e0",
+    "storage_bucket": "remoteconfigtest-439e0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:207011119900:android:1b8e661635d3a3367bf0d9",
+        "android_client_info": {
+          "package_name": "app.suprsend.android.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "207011119900-mba3895dbrs4ss08moh5hrl796pccuc1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACLAam4O5JJF1WJm4x9VX14PW-EyXt_Y0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "207011119900-mba3895dbrs4ss08moh5hrl796pccuc1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -18,7 +18,7 @@ object PayloadCreator {
     fun buildIdentityEventPayload(
         identifiedId: String,
         anonymousId: String,
-        apiKey: String = SSApiInternal.apiKey
+        apiKey: String = SSApiInternal.getCachedApiKey()
     ): JsonObject {
         val identifyPayload = buildJsonObject {
             addCommonEventProperties()
@@ -42,7 +42,7 @@ object PayloadCreator {
         superProperties: JsonObject,
         defaultProperties: JsonObject,
         userProperties: JsonObject?,
-        apiKey: String = SSApiInternal.apiKey
+        apiKey: String = SSApiInternal.getCachedApiKey()
     ): JsonObject {
 
         var finalProperties = defaultProperties
@@ -75,7 +75,7 @@ object PayloadCreator {
         distinctId: String,
         setProperties: JsonElement,
         operator: String,
-        apiKey: String = SSApiInternal.apiKey
+        apiKey: String = SSApiInternal.getCachedApiKey()
     ): JsonObject {
         val operatorPayload = buildJsonObject {
             addCommonEventProperties()

@@ -1,3 +1,5 @@
 package app.suprsend.android.base
 
-actual fun uuid(): String = getRandomString(36)
+import platform.Foundation.NSUUID
+
+actual fun uuid(): String = NSUUID().UUIDString()

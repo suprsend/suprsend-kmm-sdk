@@ -38,8 +38,6 @@ internal object SSApiInternal {
 
     private val userImpl = UserApiInternalImpl()
 
-    var apiKey: String = ""
-
     fun purchaseMade(properties: String) {
         GlobalScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
             trackOp(eventName = SSConstants.S_EVENT_PURCHASE_MADE, propertiesJO = properties.toKotlinJsonObject())
@@ -152,23 +150,23 @@ internal object SSApiInternal {
     }
 
     fun flush() {
-        if (SdkCreator.information.isFlushing()) {
+        if (isFlushing()) {
             Logger.i(EventFlushHandler.TAG, "Flush request is ignored as flush is already in progress")
             return
         }
 
         Logger.i(EventFlushHandler.TAG, "Trying to flush events")
 
-        SdkCreator.information.setFlushing(true)
+        setFlushing(true)
 
         GlobalScope.launch(ioDispatcher() + CoroutineExceptionHandler { _, throwable ->
             Logger.e(EventFlushHandler.TAG, "Exception", throwable)
-            SdkCreator.information.setFlushing(false)
+            setFlushing(false)
         }) {
             Logger.i(EventFlushHandler.TAG, "Flush event started")
             val eventFlushHandler = EventFlushHandler()
             eventFlushHandler.flushEvents()
-            SdkCreator.information.setFlushing(false)
+            setFlushing(false)
             Logger.i(EventFlushHandler.TAG, "Flush event completed")
         }
     }
@@ -235,12 +233,16 @@ internal object SSApiInternal {
         GLOBAL_SUPR_SEND_DATABASE_WRAPPER.set(database)
     }
 
-    // Not included in contract
-
-    fun getCachedApiKey(): String? {
-        return ConfigHelper.get(SSConstants.CONFIG_API_KEY)
+    private fun setFlushing(flushing: Boolean) {
+        ConfigHelper.addOrUpdate(SSConstants.CONFIG_FLUSHING, flushing)
     }
 
+    private fun isFlushing(): Boolean {
+        return ConfigHelper.getBoolean(SSConstants.CONFIG_FLUSHING) ?: false
+    }
+    fun getCachedApiKey(): String {
+        return ConfigHelper.get(SSConstants.CONFIG_API_KEY)?:""
+    }
     const val TAG = "ssinternal"
 }
 

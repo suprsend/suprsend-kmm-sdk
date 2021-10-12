@@ -1,6 +1,7 @@
 package app.suprsend.android.base
 
-@ThreadLocal
 internal object SdkIosCreator {
-    var flushing: Boolean = false
+
+    val deviceInfo: DeviceInfo by lazy { DeviceInfo() }
+    val networkInfo: NetworkInfo by lazy { NetworkInfo() }
 }

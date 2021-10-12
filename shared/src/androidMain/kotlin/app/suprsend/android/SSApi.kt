@@ -64,8 +64,26 @@ private constructor() {
 
         private var instance: SSApi? = null
 
-        fun getInstance(context: Context, apiKey: String): SSApi {
-            return getInstanceInternal(context, apiKey, true)
+        /**
+         * Should be called before Application super.onCreate()
+         */
+        fun init(context: Context, apiBaseUrl: String) {
+
+            initializeDBNW(context)
+
+            var processedBaseUrl = apiBaseUrl
+            if (processedBaseUrl.endsWith("/"))
+                processedBaseUrl = processedBaseUrl.removeSuffix("/")
+
+            ConfigHelper.addOrUpdate(SSConstants.CONFIG_API_BASE_URL, processedBaseUrl)
+        }
+
+        fun getInstance(
+            context: Context,
+            apiKey: String,
+            secret: String
+        ): SSApi {
+            return getInstanceInternal(context, apiKey, secret, true)
         }
 
         private fun initializeDBNW(context: Context) {
@@ -78,15 +96,20 @@ private constructor() {
             SSApiInternal.initialize(databaseDriverFactory = DatabaseDriverFactory())
         }
 
-        private fun getInstanceInternal(context: Context, apiKey: String, isStart: Boolean): SSApi {
+        private fun getInstanceInternal(
+            context: Context,
+            apiKey: String,
+            secret: String,
+            isStart: Boolean
+        ): SSApi {
 
             synchronized(SSApi::class.java) {
                 if (instance == null) {
                     // Todo - Make sure that for multi user multiple instance of DatabaseDriverFactory will get initialize this should not happen
                     initializeDBNW(context)
 
-                    SSApiInternal.apiKey = apiKey
-                    ConfigHelper.addOrUpdate(SSConstants.CONFIG_API_KEY, SSApiInternal.apiKey)
+                    ConfigHelper.addOrUpdate(SSConstants.CONFIG_API_KEY, apiKey)
+                    ConfigHelper.addOrUpdate(SSConstants.CONFIG_SECRET, secret)
 
                     // Anynomous user id generation
                     val userLocalDatasource = UserLocalDatasource()
@@ -127,9 +150,10 @@ private constructor() {
 
         fun getInstanceFromCachedApiKey(context: Context): SSApi? {
             initializeDBNW(context)
-            val apiKey = SSApiInternal.getCachedApiKey()
-            if (apiKey != null) {
-                return getInstanceInternal(context, apiKey, false)
+            val apiKey = ConfigHelper.get(SSConstants.CONFIG_API_KEY)?:return null
+            val secret = ConfigHelper.get(SSConstants.CONFIG_SECRET) ?: return null
+            if (apiKey.isNotBlank()) {
+                return getInstanceInternal(context, apiKey, secret, false)
             }
             return null
         }
