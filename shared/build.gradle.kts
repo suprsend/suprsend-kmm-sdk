@@ -72,6 +72,7 @@ kotlin {
                 }
                 implementation(Deps.Squareup.SQLDelight.coroutinesExtension)
                 implementation(Deps.AndroidX.ANNOTATION)
+                implementation("com.soywiz.korlibs.krypto:krypto:2.2.0")
                 //Todo version constants
             }
         }

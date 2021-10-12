@@ -235,12 +235,6 @@ internal object SSApiInternal {
         GLOBAL_SUPR_SEND_DATABASE_WRAPPER.set(database)
     }
 
-    // Not included in contract
-
-    fun getCachedApiKey(): String? {
-        return ConfigHelper.get(SSConstants.CONFIG_API_KEY)
-    }
-
     const val TAG = "ssinternal"
 }
 
