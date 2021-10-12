@@ -10,6 +10,13 @@ object Deps {
     const val SDK_VERSION_CODE = 1
     const val SDK_VERSION_NAME = "0.0.0.$NUM"
 
+    const val SS_API_BASE_URL="XXXX"
+    const val SS_TOKEN="XXXX"
+    const val SS_SECRET="XXXX"
+
+    const val MX_TOKEN="XXXX"
+    const val JITPACK_TOKEN="XXXX"
+
     object Android {
         const val minSdk = 19
         const val targetSdk = 30
