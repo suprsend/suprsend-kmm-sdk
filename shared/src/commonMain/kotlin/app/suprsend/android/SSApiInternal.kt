@@ -22,7 +22,8 @@ import com.squareup.sqldelight.internal.Atomic
 import io.ktor.client.*
 import kotlin.native.concurrent.SharedImmutable
 import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
@@ -37,33 +38,34 @@ internal val globalNetwork: Atomic<HttpClient?> = Atomic(null)
 internal object SSApiInternal {
 
     private val userImpl = UserApiInternalImpl()
+    private val coroutineScope = CoroutineScope(SupervisorJob())
 
     fun purchaseMade(properties: String) {
-        GlobalScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
+        coroutineScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
             trackOp(eventName = SSConstants.S_EVENT_PURCHASE_MADE, propertiesJO = properties.toKotlinJsonObject())
         }
     }
 
     fun notificationSubscribed() {
-        GlobalScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
+        coroutineScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
             trackOp(eventName = SSConstants.S_EVENT_NOTIFICATION_SUBSCRIBED, propertiesJO = buildJsonObject { })
         }
     }
 
     fun notificationUnSubscribed() {
-        GlobalScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
+        coroutineScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
             trackOp(eventName = SSConstants.S_EVENT_NOTIFICATION_UNSUBSCRIBED, propertiesJO = buildJsonObject { })
         }
     }
 
     fun pageVisited() {
-        GlobalScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
+        coroutineScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
             trackOp(eventName = SSConstants.S_EVENT_PAGE_VISITED, propertiesJO = buildJsonObject { })
         }
     }
 
     fun identify(uniqueId: String) {
-        GlobalScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
+        coroutineScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
             val userLocalDatasource = UserLocalDatasource()
             SdkCreator
                 .eventLocalDatasource
@@ -88,7 +90,7 @@ internal object SSApiInternal {
     }
 
     fun setSuperProperty(key: String, value: Any) {
-        GlobalScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
+        coroutineScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
             Logger.i(TAG, "Setting super properties $key $value")
             val superPropertiesRepository = SuperPropertiesLocalDataSource()
             superPropertiesRepository.add(key, value)
@@ -96,7 +98,7 @@ internal object SSApiInternal {
     }
 
     fun setSuperProperties(propertiesJsonObject: String?) {
-        GlobalScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
+        coroutineScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
             Logger.i(TAG, "Setting super properties $propertiesJsonObject")
             val superPropertiesRepository = SuperPropertiesLocalDataSource()
             superPropertiesRepository.add(propertiesJsonObject.toKotlinJsonObject())
@@ -104,7 +106,7 @@ internal object SSApiInternal {
     }
 
     fun removeSuperProperty(key: String) {
-        GlobalScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
+        coroutineScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
             Logger.i(TAG, "Remove super properties $key")
             val superPropertiesRepository = SuperPropertiesLocalDataSource()
             superPropertiesRepository.remove(key)
@@ -112,7 +114,7 @@ internal object SSApiInternal {
     }
 
     fun trackOp(eventName: String, propertiesJsonString: String?) {
-        GlobalScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
+        coroutineScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
             trackOp(eventName, propertiesJsonString.toKotlinJsonObject())
         }
     }
@@ -159,7 +161,7 @@ internal object SSApiInternal {
 
         setFlushing(true)
 
-        GlobalScope.launch(ioDispatcher() + CoroutineExceptionHandler { _, throwable ->
+        coroutineScope.launch(ioDispatcher() + CoroutineExceptionHandler { _, throwable ->
             Logger.e(EventFlushHandler.TAG, "Exception", throwable)
             setFlushing(false)
         }) {
@@ -172,7 +174,7 @@ internal object SSApiInternal {
     }
 
     fun reset() {
-        GlobalScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
+        coroutineScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
             val newID = uuid()
             val userLocalDatasource = UserLocalDatasource()
             val userId = userLocalDatasource.getIdentity()
@@ -241,7 +243,7 @@ internal object SSApiInternal {
         return ConfigHelper.getBoolean(SSConstants.CONFIG_FLUSHING) ?: false
     }
     fun getCachedApiKey(): String {
-        return ConfigHelper.get(SSConstants.CONFIG_API_KEY)?:""
+        return ConfigHelper.get(SSConstants.CONFIG_API_KEY) ?: ""
     }
     const val TAG = "ssinternal"
 }

@@ -45,20 +45,20 @@ android {
 
     buildTypes {
         getByName("debug") {
-            buildConfigField("String", "SS_TOKEN", "\"${project.property("SS_TOKEN").toString()}\"")
-            buildConfigField("String", "SS_SECRET", "\"${project.property("SS_SECRET").toString()}\"")
-            buildConfigField("String", "MX_TOKEN", "\"${project.property("MX_TOKEN").toString()}\"")
-            buildConfigField("String", "SS_API_BASE_URL", "\"${project.property("SS_API_BASE_URL").toString()}\"")
+            buildConfigField("String", "SS_TOKEN", "\"${Deps.SS_TOKEN}\"")
+            buildConfigField("String", "SS_SECRET", "\"${Deps.SS_SECRET}\"")
+            buildConfigField("String", "MX_TOKEN", "\"${Deps.MX_TOKEN}\"")
+            buildConfigField("String", "SS_API_BASE_URL", "\"${Deps.SS_API_BASE_URL}\"")
             versionNameSuffix = "(d)"
             isDebuggable = true
             isCrunchPngs = false
             isMinifyEnabled = false
         }
         getByName("release") {
-            buildConfigField("String", "SS_TOKEN", "\"${project.property("SS_TOKEN").toString()}\"")
-            buildConfigField("String", "SS_SECRET", "\"${project.property("SS_SECRET").toString()}\"")
-            buildConfigField("String", "MX_TOKEN", "\"${project.property("MX_TOKEN").toString()}\"")
-            buildConfigField("String", "SS_API_BASE_URL", "\"${project.property("SS_API_BASE_URL").toString()}\"")
+            buildConfigField("String", "SS_TOKEN", "\"${Deps.SS_TOKEN}\"")
+            buildConfigField("String", "SS_SECRET", "\"${Deps.SS_SECRET}\"")
+            buildConfigField("String", "MX_TOKEN", "\"${Deps.MX_TOKEN}\"")
+            buildConfigField("String", "SS_API_BASE_URL", "\"${Deps.SS_API_BASE_URL}\"")
             signingConfig = signingConfigs.getByName("release")
             isDebuggable = false
             isMinifyEnabled = true

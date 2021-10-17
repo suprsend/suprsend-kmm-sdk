@@ -1,6 +1,6 @@
 package app.suprsend.android.base
 
-//import app.suprsend.android.BuildConfig
+// import app.suprsend.android.BuildConfig
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.buildJsonObject
 import platform.Foundation.NSBundle
@@ -18,11 +18,9 @@ internal class DeviceInfo {
             put("\$deviceId", JsonPrimitive(getDeviceId()))
 //            put("\$ss_sdk_version", JsonPrimitive(BuildConfig.SS_SDK_VERSION_NAME))
 
-
 //            val networkInfo = SdkIosCreator.networkInfo
 //            put("\$network", JsonPrimitive(networkInfo.getNetworkType().readableName))
 //            put("\$connected", JsonPrimitive(networkInfo.isConnected().toString()))
-
         }.toString()
     }
 

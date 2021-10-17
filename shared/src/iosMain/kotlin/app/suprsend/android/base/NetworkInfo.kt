@@ -17,18 +17,18 @@ internal class NetworkInfo {
 
     fun getNetworkType(): NetworkType {
 
-        when(CTTelephonyNetworkInfo().currentRadioAccessTechnology){
+        when (CTTelephonyNetworkInfo().currentRadioAccessTechnology) {
             CTRadioAccessTechnologyGPRS,
             CTRadioAccessTechnologyEdge,
-            CTRadioAccessTechnologyCDMA1x->NetworkType.G2
+            CTRadioAccessTechnologyCDMA1x -> NetworkType.G2
             CTRadioAccessTechnologyWCDMA,
             CTRadioAccessTechnologyHSDPA,
             CTRadioAccessTechnologyHSUPA,
             CTRadioAccessTechnologyCDMAEVDORev0,
             CTRadioAccessTechnologyCDMAEVDORevA,
             CTRadioAccessTechnologyCDMAEVDORevB,
-            CTRadioAccessTechnologyeHRPD-> NetworkType.G3
-            CTRadioAccessTechnologyLTE->NetworkType.G4
+            CTRadioAccessTechnologyeHRPD -> NetworkType.G3
+            CTRadioAccessTechnologyLTE -> NetworkType.G4
         }
         return NetworkType.UNKNOWN
     }

@@ -150,7 +150,7 @@ private constructor() {
 
         fun getInstanceFromCachedApiKey(context: Context): SSApi? {
             initializeDBNW(context)
-            val apiKey = ConfigHelper.get(SSConstants.CONFIG_API_KEY)?:return null
+            val apiKey = ConfigHelper.get(SSConstants.CONFIG_API_KEY) ?: return null
             val secret = ConfigHelper.get(SSConstants.CONFIG_SECRET) ?: return null
             if (apiKey.isNotBlank()) {
                 return getInstanceInternal(context, apiKey, secret, false)

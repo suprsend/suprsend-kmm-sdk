@@ -2,7 +2,6 @@ package app.suprsend.android
 
 import app.suprsend.android.base.toJsonObject
 
-
 class SSUserApi {
 
     private val user = SSApiInternal.getUser()
@@ -11,7 +10,7 @@ class SSUserApi {
         user.set(key, value)
     }
 
-    fun set(properties: Map<String,Any>) {
+    fun set(properties: Map<String, Any>) {
         user.set(properties.toJsonObject().toString())
     }
 
@@ -27,7 +26,7 @@ class SSUserApi {
         user.setOnce(key, value)
     }
 
-    fun setOnce(properties: Map<String,Any>) {
+    fun setOnce(properties: Map<String, Any>) {
         user.setOnce(properties.toJsonObject().toString())
     }
 
