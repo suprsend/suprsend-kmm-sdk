@@ -10,13 +10,27 @@ import android.graphics.Color
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import app.suprsend.android.R
+import app.suprsend.android.SSApi
 import app.suprsend.android.base.Logger
-import kotlinx.serialization.json.Json
+import app.suprsend.android.base.SSConstants
+import app.suprsend.android.base.SdkAndroidCreator
+import app.suprsend.android.base.UrlUtils
+import app.suprsend.android.database.json
+import org.json.JSONObject
 
 internal object NotificationHelper {
 
     fun showRawNotification(context: Context, rawNotification: RawNotification) {
         try {
+            // Notification Delivered
+            val instance = SSApi.getInstanceFromCachedApiKey(context)
+            instance?.track(
+                eventName = SSConstants.S_EVENT_NOTIFICATION_DELIVERED,
+                properties = JSONObject().apply {
+                    put("id", rawNotification.id)
+                }
+            )
+
             showNotificationInternal(context, rawNotification.getNotificationVo())
         } catch (e: Exception) {
             Logger.e("nh", "showRawNotification", e)
@@ -24,7 +38,7 @@ internal object NotificationHelper {
     }
 
     fun getRawNotification(payloadJson: String): RawNotification {
-        return Json.decodeFromString(RawNotification.serializer(), payloadJson)
+        return json.decodeFromString(RawNotification.serializer(), payloadJson)
     }
 
     private fun showNotificationInternal(context: Context, notificationVo: NotificationVo) {
@@ -100,9 +114,22 @@ internal object NotificationHelper {
             notificationBuilder.setTicker(tickerText)
         }
 
-        notificationBasicVo.largeIconUrl?.let { largeIconUrl ->
-            if (largeIconUrl.isNotBlank())
-                notificationBuilder.setLargeIcon(BitmapHelper.getBitmapFromUrl(largeIconUrl))
+        if (notificationVo.bigPictureVo == null) {
+            notificationBasicVo.largeIconUrl?.let { largeIconUrl ->
+                if (largeIconUrl.isNotBlank())
+                    notificationBuilder
+                        .setLargeIcon(
+                            BitmapHelper
+                                .getBitmapFromUrl(
+                                    UrlUtils
+                                        .createNotificationLogoImage(
+                                            largeIconUrl,
+                                            200,
+                                            UrlUtils.calculateQuality(SdkAndroidCreator.networkInfo.getNetworkType())
+                                        )
+                                )
+                        )
+            }
         }
 
         notificationBasicVo.color?.let { stringColorCode ->
@@ -142,7 +169,7 @@ internal object NotificationHelper {
         }
 
         // Set the handler in the event that the notification is dismissed.
-        val notificationDeleteIntent = NotificationRedirectionActivity.notificationDismissIntent(context, NotificationDismissVo(notificationId = notificationVo.id, apiKey = notificationVo.apiKey))
+        val notificationDeleteIntent = NotificationRedirectionActivity.notificationDismissIntent(context, NotificationDismissVo(notificationId = notificationVo.id))
         notificationDeleteIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
         val notificationDeletePI = PendingIntent.getActivity(context, System.currentTimeMillis().toInt(), notificationDeleteIntent, PendingIntent.FLAG_UPDATE_CURRENT)
         notificationBuilder.setDeleteIntent(notificationDeletePI)
@@ -155,6 +182,14 @@ internal object NotificationHelper {
         // Set the key by which this notification will be grouped.
         notificationBasicVo.group?.let { group ->
             notificationBuilder.setGroup(group)
+        }
+
+        notificationBasicVo.setGroupSummary?.let { setGroupSummary ->
+            notificationBuilder.setGroupSummary(setGroupSummary)
+        }
+
+        notificationBasicVo.sortKey?.let { sortKey ->
+            notificationBuilder.setSortKey(sortKey)
         }
 
         // Set whether or not this notification is only relevant to the current device.
@@ -193,10 +228,13 @@ internal object NotificationHelper {
         }
 
         notificationManager.getNotificationChannel(notificationChannelVo.id)?.run {
+            name = notificationChannelVo.name
+            description = notificationChannelVo.description
+            notificationManager.createNotificationChannel(this)
             return true
         }
 
-        val importance = when (notificationChannelVo.importance) {
+        val importance = when (notificationChannelVo.channelImportance) {
             NotificationChannelImportance.HIGH -> NotificationManager.IMPORTANCE_HIGH
             NotificationChannelImportance.LOW -> NotificationManager.IMPORTANCE_LOW
             NotificationChannelImportance.MAX -> NotificationManager.IMPORTANCE_MAX
@@ -206,7 +244,7 @@ internal object NotificationHelper {
 
         val notificationChannel = NotificationChannel(notificationChannelVo.id, notificationChannelVo.name, importance).apply {
             description = notificationChannelVo.description
-            lockscreenVisibility = when (notificationChannelVo.visibility) {
+            lockscreenVisibility = when (notificationChannelVo.channelLockScreenVisibility) {
                 NotificationChannelVisibility.PUBLIC -> {
                     Notification.VISIBILITY_PUBLIC
                 }
@@ -262,11 +300,33 @@ internal object NotificationHelper {
         }
 
         bigPictureVo.bigPictureUrl?.let { bigPictureUrl ->
-            bigPictureStyle.bigPicture(BitmapHelper.getBitmapFromUrl(bigPictureUrl))
+            bigPictureStyle
+                .bigPicture(
+                    BitmapHelper
+                        .getBitmapFromUrl(
+                            UrlUtils
+                                .createNotificationBannerImage(
+                                    bigPictureUrl,
+                                    SdkAndroidCreator.deviceInfo.getDeviceWidthPixel(),
+                                    UrlUtils.calculateQuality(SdkAndroidCreator.networkInfo.getNetworkType())
+                                )
+                        )
+                )
         }
 
         bigPictureVo.largeIconUrl?.let { largeIconUrl ->
-            bigPictureStyle.bigLargeIcon(BitmapHelper.getBitmapFromUrl(largeIconUrl))
+            bigPictureStyle
+                .bigLargeIcon(
+                    BitmapHelper
+                        .getBitmapFromUrl(
+                            UrlUtils
+                                .createNotificationLogoImage(
+                                    largeIconUrl,
+                                    200,
+                                    UrlUtils.calculateQuality(SdkAndroidCreator.networkInfo.getNetworkType())
+                                )
+                        )
+                )
         }
 
         builder.setStyle(bigPictureStyle)

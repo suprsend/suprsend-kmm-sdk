@@ -1,14 +1,22 @@
 package app.suprsend.android.user
 
+import app.suprsend.android.SSApiInternal
+import app.suprsend.android.base.Logger
+import app.suprsend.android.base.SSConstants
 import app.suprsend.android.config.ConfigHelper
 
-internal class UserLocalDatasource : UserRepositoryContract {
+internal class UserLocalDatasource {
 
-    override fun identify(uniqueId: String) {
-        ConfigHelper.addOrUpdate(UserRepository.USER_ID, uniqueId)
+    fun identify(uniqueId: String) {
+        Logger.i(TAG, "Identity : $uniqueId")
+        ConfigHelper.addOrUpdate(SSConstants.CONFIG_USER_ID, uniqueId)
     }
 
-    override fun getIdentity(): String {
-        return ConfigHelper.get(UserRepository.USER_ID) ?: ""
+    fun getIdentity(): String {
+        return ConfigHelper.get(SSConstants.CONFIG_USER_ID) ?: ""
+    }
+
+    companion object {
+        const val TAG = SSApiInternal.TAG
     }
 }

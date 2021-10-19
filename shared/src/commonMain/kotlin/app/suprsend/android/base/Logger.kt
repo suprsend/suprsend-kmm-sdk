@@ -1,7 +1,7 @@
 package app.suprsend.android.base
 
 internal object Logger {
-    // Todo : Also pick value from network
+
     private val loggerKMM = LoggerKMM()
 
     var logLevel

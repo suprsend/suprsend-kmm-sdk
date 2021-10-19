@@ -1,9 +1,11 @@
 package app.suprsend.android.event
 
 import app.suprsend.android.SSApiInternal
+import app.suprsend.android.base.Logger
 import app.suprsend.android.base.SSConstants
 import app.suprsend.android.base.addUpdateJsoObject
 import app.suprsend.android.base.uuid
+import app.suprsend.android.user.api.UserApiInternalImpl
 import kotlinx.datetime.Clock
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
@@ -18,7 +20,7 @@ object PayloadCreator {
         anonymousId: String,
         apiKey: String = SSApiInternal.apiKey
     ): JsonObject {
-        return buildJsonObject {
+        val identifyPayload = buildJsonObject {
             addCommonEventProperties()
             put(SSConstants.EVENT, JsonPrimitive(SSConstants.IDENTIFY))
             put(SSConstants.ENV, JsonPrimitive(apiKey))
@@ -30,27 +32,39 @@ object PayloadCreator {
                 }
             )
         }
+        Logger.i(SSApiInternal.TAG, "identity : $identifiedId $identifyPayload")
+        return identifyPayload
     }
 
     fun buildTrackEventPayload(
         eventName: String,
         distinctId: String,
         superProperties: JsonObject,
+        defaultProperties: JsonObject,
         userProperties: JsonObject?,
         apiKey: String = SSApiInternal.apiKey
     ): JsonObject {
 
-        // Add super properties
-        val finalPropertiesJsonObject = (userProperties ?: JsonObject(mutableMapOf())).addUpdateJsoObject(superProperties)
+        var finalProperties = defaultProperties
 
-        return buildJsonObject {
+        // Add super properties
+        if (superProperties.isNotEmpty())
+            finalProperties = finalProperties.addUpdateJsoObject(superProperties)
+
+        // Add user properties
+        if (userProperties?.isNotEmpty() == true)
+            finalProperties = finalProperties.addUpdateJsoObject(userProperties)
+
+        val eventPayload = buildJsonObject {
             addCommonEventProperties()
             put(SSConstants.EVENT, JsonPrimitive(eventName))
             put(SSConstants.DISTINCT_ID, JsonPrimitive(distinctId))
             put(SSConstants.ENV, JsonPrimitive(apiKey))
 
-            put(SSConstants.PROPERTIES, finalPropertiesJsonObject)
+            put(SSConstants.PROPERTIES, finalProperties)
         }
+        Logger.i(SSApiInternal.TAG, "Event Payload : $eventName $userProperties $eventPayload")
+        return eventPayload
     }
 
     /**
@@ -63,7 +77,7 @@ object PayloadCreator {
         operator: String,
         apiKey: String = SSApiInternal.apiKey
     ): JsonObject {
-        return buildJsonObject {
+        val operatorPayload = buildJsonObject {
             addCommonEventProperties()
             put(SSConstants.DISTINCT_ID, JsonPrimitive(distinctId))
             put(SSConstants.ENV, JsonPrimitive(apiKey))
@@ -72,6 +86,8 @@ object PayloadCreator {
                 setProperties
             )
         }
+        Logger.i(UserApiInternalImpl.TAG, "Operator Payload : $operator $setProperties $operatorPayload")
+        return operatorPayload
     }
 }
 

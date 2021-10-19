@@ -55,17 +55,13 @@ class NotificationRedirectionActivity : Activity() {
         Log.i(TAG, "Notification dismissed")
         val notificationDismissVo = getNotificationDismissVo(activityExtras)
         notificationDismissVo ?: return
-        val apiKey = notificationDismissVo.apiKey
-        if (apiKey != null) {
-            val instance = SSApi.getInstance(this, apiKey)
-            instance.track(
-                eventName = SSConstants.S_EVENT_NOTIFICATION_DISMISS,
-                properties = JSONObject().apply {
-                    put("id", notificationDismissVo.notificationId)
-                }
-            )
-        }
-
+        val instance = SSApi.getInstanceFromCachedApiKey(this)
+        instance?.track(
+            eventName = SSConstants.S_EVENT_NOTIFICATION_DISMISS,
+            properties = JSONObject().apply {
+                put("id", notificationDismissVo.notificationId)
+            }
+        )
     }
 
     private fun handleNotificationActionClicked(activityExtras: Bundle) {
@@ -73,15 +69,21 @@ class NotificationRedirectionActivity : Activity() {
         val notificationActionVo = getNotificationActionVo(activityExtras)
         notificationActionVo ?: return
 
-        val apiKey = notificationActionVo.apiKey
-        if (apiKey != null) {
-            val instance = SSApi.getInstance(this, apiKey)
-            instance.track(SSConstants.S_EVENT_NOTIFICATION_CLICKED)
-        }
+        val instance = SSApi.getInstanceFromCachedApiKey(this)
+        instance?.track(
+            eventName = SSConstants.S_EVENT_NOTIFICATION_CLICKED,
+            properties = JSONObject().apply {
+                put("id", notificationActionVo.notificationId)
+                if (notificationActionVo.notificationId != notificationActionVo.id) {
+                    put("label_id", notificationActionVo.id)
+                }
+            }
+        )
 
         // Remove notification
         val notificationManager = getSystemService(NOTIFICATION_SERVICE) as? NotificationManager
-        notificationManager?.cancel((notificationActionVo.id ?: "").hashCode())
+        if (notificationActionVo.notificationActionType == NotificationActionType.BUTTON)
+            notificationManager?.cancel((notificationActionVo.notificationId ?: "").hashCode())
 
         // Target intent
         val link = notificationActionVo.link
@@ -140,6 +142,5 @@ enum class NotificationRedirection {
 
 @Parcelize
 data class NotificationDismissVo(
-    val notificationId: String,
-    val apiKey: String?
+    val notificationId: String
 ) : Parcelable

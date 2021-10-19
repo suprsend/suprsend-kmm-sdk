@@ -30,12 +30,12 @@ class SSUserApi {
         user.setOnce(properties.toString())
     }
 
-    fun increment(key: String, value: Any) {
+    fun increment(key: String, value: Number) {
         user.increment(key, value)
     }
 
-    fun increment(properties: JSONObject) {
-        user.increment(properties.toString())
+    fun increment(properties: Map<String, Number>) {
+        user.increment(JSONObject(properties).toString())
     }
 
     fun append(key: String, value: Any) {
@@ -72,17 +72,11 @@ class SSUserApi {
 
     fun setAndroidPush(token: String) {
         user.setAndroidPush(token)
+        SSApiInternal.flush()
     }
 
     fun unSetAndroidPush(token: String) {
         user.unSetAndroidPush(token)
-    }
-
-    fun refreshAndroidPush(token: String) {
-        user.refreshAndroidPush(token)
-    }
-
-    fun reset() {
-        user.reset()
+        SSApiInternal.flush()
     }
 }

@@ -4,7 +4,7 @@ import android.util.Log
 
 actual class LoggerKMM {
 
-    actual var logLevel: LogLevel = LogLevel.VERBOSE
+    actual var logLevel: LogLevel = LogLevel.OFF
 
     fun v(tag: String?, message: String?) {
         if (isLogAllowed(LogLevel.VERBOSE.num)) {
@@ -32,7 +32,7 @@ actual class LoggerKMM {
 
     actual fun i(tag: String, message: String) {
         if (isLogAllowed(LogLevel.INFO.num)) {
-            Log.i(tag, message!!)
+            Log.i(tag, message)
         }
     }
 
@@ -50,7 +50,7 @@ actual class LoggerKMM {
 
     actual fun e(tag: String, message: String, throwable: Throwable?) {
         if (isLogAllowed(LogLevel.ERROR.num)) {
-            Log.e(tag, message, throwable)
+            Log.e(tag, throwable?.message ?: message, throwable)
         }
     }
 

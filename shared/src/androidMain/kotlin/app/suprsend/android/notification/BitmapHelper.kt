@@ -10,14 +10,17 @@ import android.graphics.PorterDuff
 import android.graphics.PorterDuffXfermode
 import android.graphics.Rect
 import android.graphics.RectF
+import app.suprsend.android.base.Logger
 import java.net.URL
 
 internal object BitmapHelper {
+
     fun getBitmapFromUrl(url: String): Bitmap? {
+        Logger.i("bitmap", "Image Url : $url")
         return try {
             BitmapFactory.decodeStream(URL(url).openConnection().getInputStream())
         } catch (e: Exception) {
-            e.printStackTrace()
+            Logger.e("bitmap", "Image Url : $url", e)
             null
         }
     }
@@ -26,7 +29,7 @@ internal object BitmapHelper {
         return try {
             BitmapFactory.decodeResource(context.resources, res)
         } catch (e: Exception) {
-            e.printStackTrace()
+            Logger.e("bitmap", "Resource Loading : $res", e)
             null
         }
     }
@@ -67,7 +70,7 @@ internal object BitmapHelper {
             canvas.drawBitmap(dstBmp, rect, rect, paint)
             output
         } catch (e: Exception) {
-            e.printStackTrace()
+            Logger.e("bitmap", "Bitmap Failed", e)
             null
         }
     }

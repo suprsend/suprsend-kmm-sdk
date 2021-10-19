@@ -1,7 +1,11 @@
 plugins {
     id("com.android.application")
     kotlin("android")
+    kotlin("kapt")
     id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
+    id("kotlin-android")
+    id("kotlin-parcelize")
 }
 apply {
     from("$rootDir/ktlint.gradle")
@@ -15,8 +19,8 @@ android {
         applicationId = "app.suprsend.android.android"
         minSdkVersion(Deps.Android.minSdk)
         targetSdkVersion(Deps.Android.targetSdk)
-        versionCode = Deps.SDK_VERSION_CODE
-        versionName = Deps.SDK_VERSION_NAME
+        versionCode = Deps.APP_VERSION_CODE
+        versionName = Deps.APP_VERSION_NAME
         multiDexEnabled = true
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -41,15 +45,23 @@ android {
 
     buildTypes {
         getByName("debug") {
+            buildConfigField("String", "SS_TOKEN", "\"${Deps.SS_TOKEN}\"")
+            buildConfigField("String", "SS_SECRET", "\"${Deps.SS_SECRET}\"")
+            buildConfigField("String", "MX_TOKEN", "\"${Deps.MX_TOKEN}\"")
+            buildConfigField("String", "SS_API_BASE_URL", "\"${Deps.SS_API_BASE_URL}\"")
             versionNameSuffix = "(d)"
             isDebuggable = true
             isCrunchPngs = false
             isMinifyEnabled = false
         }
         getByName("release") {
-            isMinifyEnabled = false
+            buildConfigField("String", "SS_TOKEN", "\"${Deps.SS_TOKEN}\"")
+            buildConfigField("String", "SS_SECRET", "\"${Deps.SS_SECRET}\"")
+            buildConfigField("String", "MX_TOKEN", "\"${Deps.MX_TOKEN}\"")
+            buildConfigField("String", "SS_API_BASE_URL", "\"${Deps.SS_API_BASE_URL}\"")
             signingConfig = signingConfigs.getByName("release")
             isDebuggable = false
+            isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
@@ -75,11 +87,24 @@ android {
 
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib:${Deps.JetBrains.Kotlin.VERSION}")
-    implementation(Deps.CORE_KTX)
+    implementation(Deps.AndroidX.CORE_KTX)
     implementation("androidx.appcompat:appcompat:1.3.1")
     implementation("com.google.android.material:material:1.4.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.0.4")
-    implementation(project(":shared"))
+    implementation("androidx.constraintlayout:constraintlayout:2.1.0")
+    implementation("com.google.firebase:firebase-crashlytics:18.2.1")
+
+    if (Deps.RUN_LIB) {
+        implementation(project(":shared"))
+        println("Using shared library")
+    }else{
+        implementation("com.github.suprsend:suprsend-kmm-sdk:${Deps.Publication.VERSION}")
+        println("Using remote library")
+    }
+
+    implementation("com.mixpanel.android:mixpanel-android:5.9.1")
+
+    implementation("com.github.bumptech.glide:glide:4.12.0")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.3")

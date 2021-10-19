@@ -10,10 +10,11 @@ interface UserApiInternalContract {
     fun setOnce(key: String, value: Any)
     fun setOnce(propertiesJson: String)
 
-    fun increment(key: String, value: Any)
+    fun increment(key: String, value: Number)
     fun increment(propertiesJson: String)
 
     fun append(key: String, value: Any)
+    fun append(propertiesJson: String)
 
     fun remove(key: String, value: Any)
 
@@ -26,8 +27,6 @@ interface UserApiInternalContract {
     fun setWhatsApp(mobile: String)
     fun unSetWhatsApp(mobile: String)
 
-    fun setAndroidPush(token: String)
+    fun setAndroidPush(newToken: String)
     fun unSetAndroidPush(token: String)
-    fun refreshAndroidPush(token: String)
-    fun reset()
 }
