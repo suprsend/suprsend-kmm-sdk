@@ -158,7 +158,7 @@ afterEvaluate {
                 maven {
                     url = uri("https://jitpack.io")
                     credentials {
-                        username = project.property("JITPACK_TOKEN").toString()
+                        username = Deps.JITPACK_TOKEN
                     }
                 }
             }
