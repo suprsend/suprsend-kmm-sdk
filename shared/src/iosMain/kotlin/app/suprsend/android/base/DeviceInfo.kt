@@ -8,7 +8,7 @@ import platform.UIKit.UIDevice
 
 internal class DeviceInfo {
     fun getDeviceInfoProperties(): String {
-      return buildJsonObject {
+        return buildJsonObject {
 
             put("\$app_version_string", JsonPrimitive(versionName()))
             put("\$app_build_number", JsonPrimitive(versionCode()))
