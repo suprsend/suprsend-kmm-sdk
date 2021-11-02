@@ -10,6 +10,7 @@ import app.suprsend.android.base.PeriodicFlush
 import app.suprsend.android.base.SSConstants
 import app.suprsend.android.base.SdkAndroidCreator
 import app.suprsend.android.base.SdkCreator
+import app.suprsend.android.base.logLevel
 import app.suprsend.android.base.uuid
 import app.suprsend.android.config.ConfigHelper
 import app.suprsend.android.database.DatabaseDriverFactory
@@ -100,8 +101,8 @@ private constructor(
         SSApiInternal.reset(mutationHandler)
     }
 
-    fun setLogLevel(logLevel: LogLevel) {
-        SdkCreator.logLevel.set(logLevel)
+    fun setLogLevel(level: LogLevel) {
+        logLevel.set(level)
     }
 
     companion object {

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import shared
+import sdk
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,8 +15,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         print("app : App init")
-        SSApiHelper.Companion.init().doInit(apiBaseUrl: "https://collector-staging.suprsend.workers.dev")
-        //SSApiHelper.Companion.init().setLogLevel(logLevel: LogLevel.verbose)
+        let ssApi = SSAPI()
+        ssApi.enableLogging()
+        ssApi.initialize()
         return true
     }
     

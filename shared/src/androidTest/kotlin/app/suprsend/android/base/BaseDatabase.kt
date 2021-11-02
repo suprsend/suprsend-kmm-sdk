@@ -6,7 +6,7 @@ import com.squareup.sqldelight.sqlite.driver.JdbcSqliteDriver
 
 internal open class BaseDatabase {
     init {
-        SdkCreator.database.set(
+        database.set(
             SSDatabaseWrapper(
                 JdbcSqliteDriver(JdbcSqliteDriver.IN_MEMORY).apply {
                     Schema.create(this)

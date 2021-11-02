@@ -140,22 +140,22 @@ internal object SSApiInternal {
     }
 
     fun flush(mutationHandler: MutationHandler) {
-        if (mutationHandler.isFlushing) {
+        if (mutationHandler.isFlushing()) {
             Logger.i(EventFlushHandler.TAG, "Flush request is ignored as flush is already in progress")
             return
         }
 
         Logger.i(EventFlushHandler.TAG, "Trying to flush events")
 
-        mutationHandler.isFlushing = true
+        mutationHandler.setFlushing(true)
 
         coroutineScope.launch(ioDispatcher() + CoroutineExceptionHandler { _, throwable ->
             Logger.e(EventFlushHandler.TAG, "Exception", throwable)
-            mutationHandler.isFlushing = false
+            mutationHandler.setFlushing(false)
         }) {
             Logger.i(EventFlushHandler.TAG, "Flush event started")
             EventFlushHandler.flushEvents()
-            mutationHandler.isFlushing = false
+            mutationHandler.setFlushing(false)
             Logger.i(EventFlushHandler.TAG, "Flush event completed")
         }
     }

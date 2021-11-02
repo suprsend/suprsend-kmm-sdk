@@ -19,7 +19,6 @@ internal object SdkAndroidCreator {
 
     val networkInfo: NetworkInfo by lazy { NetworkInfo() }
 
-    var logLevel: LogLevel = LogLevel.OFF
 }
 
 @SuppressLint("SimpleDateFormat")

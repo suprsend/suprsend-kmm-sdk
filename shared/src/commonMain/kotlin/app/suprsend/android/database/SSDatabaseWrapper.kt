@@ -4,6 +4,7 @@ import app.suprsend.android.ConfigTable
 import app.suprsend.android.EventTable
 import app.suprsend.android.SuprSendDatabase
 import app.suprsend.android.base.SdkCreator
+import app.suprsend.android.base.database
 import app.suprsend.android.config.ConfigModel
 import app.suprsend.android.event.EventModel
 import com.squareup.sqldelight.db.SqlDriver
@@ -38,4 +39,4 @@ internal class SSDatabaseWrapper {
     }
 }
 
-internal inline fun <T> databaseScope(block: SuprSendDatabase.() -> T) = block(SdkCreator.database.get()?.suprSendDatabase!!)
+internal inline fun <T> databaseScope(block: SuprSendDatabase.() -> T) = block(database.get()?.suprSendDatabase!!)

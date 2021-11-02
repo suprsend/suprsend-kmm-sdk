@@ -1,13 +1,14 @@
 package app.suprsend.android.config
 
 import app.suprsend.android.base.SdkCreator
+import app.suprsend.android.base.database
 
 /**
  * This will only save key and value(string)
  */
 internal object ConfigHelper {
 
-    private val queries = SdkCreator.database.get()!!.suprSendDatabase.configTableQueries
+    private val queries = database.get()!!.suprSendDatabase.configTableQueries
 
     fun addOrUpdate(key: String, value: String) {
         queries.insert(key, ConfigModel(value))

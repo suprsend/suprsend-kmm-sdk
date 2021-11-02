@@ -51,7 +51,7 @@ struct HomeView: View {
                     .aspectRatio(contentMode: .fill)
                     .frame(width: UIScreen.main.bounds.width, height: 210)
                     .onTapGesture {
-                        
+                        //AppConstants.ssApi.setLogLevel(level: LogLevel.VERBOSE)
                         AppConstants.ssApi.track(eventName: "baner_tap", properties: ["position":"\(index)"])
                         
                         AppConstants.ssApi.getUser().set(key: "banner_tap_position", value: "\(index)")

@@ -4,13 +4,14 @@ import app.suprsend.android.base.BasicDetails
 import app.suprsend.android.base.LogLevel
 import app.suprsend.android.base.SSConstants
 import app.suprsend.android.base.SdkCreator
+import app.suprsend.android.base.logLevel
 import app.suprsend.android.base.toJsonObject
 import app.suprsend.android.base.uuid
 import app.suprsend.android.config.ConfigHelper
 import app.suprsend.android.database.DatabaseDriverFactory
 import app.suprsend.android.user.UserLocalDatasource
 
-class SSApi
+class IOSSSApi
 private constructor(
     private val apiKey: String,
     private val apiSecret: String,
@@ -80,25 +81,25 @@ private constructor(
         SSApiInternal.reset(mutationHandler)
     }
 
-    fun setLogLevel(logLevel: LogLevel) {
-        SdkCreator.logLevel.set(logLevel)
-    }
-
     companion object {
         /**
          * Should be called before Application super.onCreate()
          */
-        fun init() {
+        fun initialize() {
 
             // Initialize nw and db
             SdkInitializer.initialize(databaseDriverFactory = DatabaseDriverFactory())
         }
 
-        fun getInstance(apiKey: String, apiSecret: String, apiBaseUrl: String? = null, mutationHandler: MutationHandler): SSApi {
-            return SSApi(apiKey, apiSecret, apiBaseUrl, mutationHandler)
+        fun enableLogging() {
+            logLevel.set(LogLevel.VERBOSE)
         }
 
-        fun getInstanceFromCachedApiKey(mutationHandler: MutationHandler): SSApi? {
+        fun getInstance(apiKey: String, apiSecret: String, apiBaseUrl: String? = null, mutationHandler: MutationHandler): IOSSSApi {
+            return IOSSSApi(apiKey, apiSecret, apiBaseUrl, mutationHandler)
+        }
+
+        fun getInstanceFromCachedApiKey(mutationHandler: MutationHandler): IOSSSApi? {
             val apiKey = ConfigHelper.get(SSConstants.CONFIG_API_KEY) ?: return null
             val secret = ConfigHelper.get(SSConstants.CONFIG_API_SECRET) ?: return null
             val apiBaseUrl = ConfigHelper.get(SSConstants.CONFIG_API_BASE_URL) ?: return null

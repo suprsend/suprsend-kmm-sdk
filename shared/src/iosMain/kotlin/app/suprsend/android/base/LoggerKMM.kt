@@ -58,6 +58,6 @@ actual class LoggerKMM {
     }
 
     private fun isLogAllowed(level: Int): Boolean {
-        return SdkCreator.logLevel.get()?.num ?: LogLevel.OFF.num <= level
+        return logLevel.get()?.num ?: LogLevel.OFF.num <= level
     }
 }

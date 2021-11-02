@@ -3,6 +3,7 @@ package app.suprsend.android.event
 import app.suprsend.android.base.Logger
 import app.suprsend.android.base.SSConstants
 import app.suprsend.android.base.SdkCreator
+import app.suprsend.android.base.network
 import app.suprsend.android.config.ConfigHelper
 import app.suprsend.android.database.json
 import com.soywiz.krypto.HMAC
@@ -47,7 +48,7 @@ object EventFlushHandler {
 
             // Logger.i(TAG, "stringToSign : $stringToSign Signature : $signature")
 
-            val httpResponse = SdkCreator.network.get()!!.post<HttpResponse> {
+            val httpResponse = network.get()!!.post<HttpResponse> {
                 url("$baseUrl$requestURI")
                 contentType(ContentType.Application.Json)
                 headers {
