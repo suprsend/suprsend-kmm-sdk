@@ -12,13 +12,12 @@ internal object SSConstants {
 
     // Config Helper Keys
     const val CONFIG_API_KEY = "api_key"
-    const val CONFIG_SECRET = "app_secret"
+    const val CONFIG_API_SECRET = "app_secret"
+    const val CONFIG_API_BASE_URL = "api_base_url"
     const val CONFIG_USER_ID = "user_id"
     const val CONFIG_IS_APP_LAUNCHED = "is_app_launched"
     const val CONFIG_FCM_PUSH_TOKEN = "fcm_push_token"
     const val CONFIG_DEVICE_ID = "device_id"
-    const val CONFIG_API_BASE_URL = "api_url"
-    const val CONFIG_FLUSHING = "flushing"
 
     // Properties
     const val IDENTIFIED_ID = "\$identified_id"

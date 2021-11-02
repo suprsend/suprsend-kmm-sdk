@@ -2,8 +2,6 @@ package app.suprsend.android.base
 
 actual class LoggerKMM {
 
-    actual var logLevel: LogLevel = LogLevel.OFF
-
     fun v(tag: String, message: String) {
         if (isLogAllowed(LogLevel.VERBOSE.num)) {
             printLog(tag, message)
@@ -60,6 +58,6 @@ actual class LoggerKMM {
     }
 
     private fun isLogAllowed(level: Int): Boolean {
-        return logLevel.num <= level
+        return SdkCreator.logLevel.get()?.num ?: LogLevel.OFF.num <= level
     }
 }

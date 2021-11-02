@@ -8,19 +8,13 @@ import app.suprsend.android.base.singleThreadDispatcher
 import app.suprsend.android.base.toKotlinJsonObject
 import app.suprsend.android.base.uuid
 import app.suprsend.android.config.ConfigHelper
-import app.suprsend.android.database.DatabaseDriverFactory
-import app.suprsend.android.database.SSDatabaseWrapper
 import app.suprsend.android.event.EventFlushHandler
 import app.suprsend.android.event.EventModel
 import app.suprsend.android.event.PayloadCreator
-import app.suprsend.android.network.httpClientEngine
 import app.suprsend.android.sprop.SuperPropertiesLocalDataSource
 import app.suprsend.android.user.UserLocalDatasource
 import app.suprsend.android.user.api.UserApiInternalContract
 import app.suprsend.android.user.api.UserApiInternalImpl
-import com.squareup.sqldelight.internal.Atomic
-import io.ktor.client.*
-import kotlin.native.concurrent.SharedImmutable
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
@@ -28,12 +22,6 @@ import kotlinx.coroutines.launch
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.buildJsonObject
-
-@SharedImmutable
-internal val GLOBAL_SUPR_SEND_DATABASE_WRAPPER: Atomic<SSDatabaseWrapper?> = Atomic(null)
-
-@SharedImmutable
-internal val globalNetwork: Atomic<HttpClient?> = Atomic(null)
 
 internal object SSApiInternal {
 
@@ -64,7 +52,7 @@ internal object SSApiInternal {
         }
     }
 
-    fun identify(uniqueId: String) {
+    fun identify(uniqueId: String, mutationHandler: MutationHandler) {
         coroutineScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
             val userLocalDatasource = UserLocalDatasource()
             SdkCreator
@@ -85,7 +73,7 @@ internal object SSApiInternal {
                 put(SSConstants.DEVICE_ID, JsonPrimitive(getDeviceID()))
             }, SSConstants.APPEND)
             trackOp(SSConstants.S_EVENT_USER_LOGIN, buildJsonObject { })
-            flush()
+            flush(mutationHandler)
         }
     }
 
@@ -151,29 +139,28 @@ internal object SSApiInternal {
         return userImpl
     }
 
-    fun flush() {
-        if (isFlushing()) {
+    fun flush(mutationHandler: MutationHandler) {
+        if (mutationHandler.isFlushing) {
             Logger.i(EventFlushHandler.TAG, "Flush request is ignored as flush is already in progress")
             return
         }
 
         Logger.i(EventFlushHandler.TAG, "Trying to flush events")
 
-        setFlushing(true)
+        mutationHandler.isFlushing = true
 
         coroutineScope.launch(ioDispatcher() + CoroutineExceptionHandler { _, throwable ->
             Logger.e(EventFlushHandler.TAG, "Exception", throwable)
-            setFlushing(false)
+            mutationHandler.isFlushing = false
         }) {
             Logger.i(EventFlushHandler.TAG, "Flush event started")
-            val eventFlushHandler = EventFlushHandler()
-            eventFlushHandler.flushEvents()
-            setFlushing(false)
+            EventFlushHandler.flushEvents()
+            mutationHandler.isFlushing = false
             Logger.i(EventFlushHandler.TAG, "Flush event completed")
         }
     }
 
-    fun reset() {
+    fun reset(mutationHandler: MutationHandler) {
         coroutineScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
             val newID = uuid()
             val userLocalDatasource = UserLocalDatasource()
@@ -185,7 +172,7 @@ internal object SSApiInternal {
                 put(SSConstants.FCM_TOKEN_PUSH, JsonPrimitive(getFcmToken()))
                 put(SSConstants.DEVICE_ID, JsonPrimitive(getDeviceID()))
             }, SSConstants.APPEND)
-            flush()
+            flush(mutationHandler)
         }
     }
 
@@ -216,35 +203,10 @@ internal object SSApiInternal {
         ConfigHelper.addOrUpdate(SSConstants.CONFIG_IS_APP_LAUNCHED, true)
     }
 
-    fun initialize(databaseDriverFactory: DatabaseDriverFactory) {
-        try {
-            initializeDatabase(databaseDriverFactory)
-            initializeNetworking()
-        } catch (e: Exception) {
-            Logger.e(TAG, "", e)
-        }
-    }
-
-    private fun initializeNetworking() {
-        val httpClient = HttpClient(engine = httpClientEngine)
-        globalNetwork.set(httpClient)
-    }
-
-    private fun initializeDatabase(databaseDriverFactory: DatabaseDriverFactory) {
-        val database = SSDatabaseWrapper(databaseDriverFactory)
-        GLOBAL_SUPR_SEND_DATABASE_WRAPPER.set(database)
-    }
-
-    private fun setFlushing(flushing: Boolean) {
-        ConfigHelper.addOrUpdate(SSConstants.CONFIG_FLUSHING, flushing)
-    }
-
-    private fun isFlushing(): Boolean {
-        return ConfigHelper.getBoolean(SSConstants.CONFIG_FLUSHING) ?: false
-    }
     fun getCachedApiKey(): String {
         return ConfigHelper.get(SSConstants.CONFIG_API_KEY) ?: ""
     }
+
     const val TAG = "ssinternal"
 }
 

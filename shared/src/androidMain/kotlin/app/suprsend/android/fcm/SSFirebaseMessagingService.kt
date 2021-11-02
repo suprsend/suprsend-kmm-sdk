@@ -34,7 +34,7 @@ class SSFirebaseMessagingService : FirebaseMessagingService() {
     override fun onNewToken(token: String) {
         GlobalScope.launch(Dispatchers.IO + coroutineExceptionHandler) {
             Log.d(TAG, "FCM Token : $token")
-            val instance = SSApi.getInstanceFromCachedApiKey(baseContext)
+            val instance = SSApi.getInstanceFromCachedApiKey()
             instance?.getUser()?.setAndroidPush(token)
         }
     }

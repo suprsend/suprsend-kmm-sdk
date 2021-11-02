@@ -2,8 +2,8 @@ package app.suprsend.android.database
 
 import app.suprsend.android.ConfigTable
 import app.suprsend.android.EventTable
-import app.suprsend.android.GLOBAL_SUPR_SEND_DATABASE_WRAPPER
 import app.suprsend.android.SuprSendDatabase
+import app.suprsend.android.base.SdkCreator
 import app.suprsend.android.config.ConfigModel
 import app.suprsend.android.event.EventModel
 import com.squareup.sqldelight.db.SqlDriver
@@ -11,8 +11,6 @@ import com.squareup.sqldelight.db.SqlDriver
 internal class SSDatabaseWrapper {
 
     val suprSendDatabase: SuprSendDatabase
-
-    lateinit var driver: SqlDriver
 
     constructor(databaseDriver: SqlDriver) {
         suprSendDatabase = createDatabase(databaseDriver = databaseDriver)
@@ -28,10 +26,8 @@ internal class SSDatabaseWrapper {
     }
 
     private fun createDatabase(databaseDriver: SqlDriver): SuprSendDatabase {
-        driver = databaseDriver
-
         return SuprSendDatabase(
-            driver = driver,
+            driver = databaseDriver,
             EventTableAdapter = EventTable.Adapter(
                 modelAdapter = DataModelColumnAdapter(serializer = EventModel.serializer())
             ),
@@ -42,4 +38,4 @@ internal class SSDatabaseWrapper {
     }
 }
 
-internal inline fun <T> databaseScope(block: SuprSendDatabase.() -> T) = block(GLOBAL_SUPR_SEND_DATABASE_WRAPPER.get()?.suprSendDatabase!!)
+internal inline fun <T> databaseScope(block: SuprSendDatabase.() -> T) = block(SdkCreator.database.get()?.suprSendDatabase!!)

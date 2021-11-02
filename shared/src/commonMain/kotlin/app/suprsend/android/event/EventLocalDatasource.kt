@@ -1,12 +1,12 @@
 package app.suprsend.android.event
 
-import app.suprsend.android.GLOBAL_SUPR_SEND_DATABASE_WRAPPER
+import app.suprsend.android.base.SdkCreator
 import app.suprsend.android.database.DBConversion
 import kotlinx.datetime.Clock
 
 internal class EventLocalDatasource : EventDataSourceContract {
 
-    private val queries = GLOBAL_SUPR_SEND_DATABASE_WRAPPER.get()!!.suprSendDatabase.eventTableQueries
+    private val queries = SdkCreator.database.get()!!.suprSendDatabase.eventTableQueries
 
     override fun track(eventModel: EventModel, isDirty: Boolean) {
         queries.track(

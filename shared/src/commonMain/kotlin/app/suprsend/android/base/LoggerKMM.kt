@@ -1,9 +1,6 @@
 package app.suprsend.android.base
 
 expect class LoggerKMM constructor() {
-
-    actual var logLevel: LogLevel
-
     fun i(tag: String, message: String)
     fun e(tag: String, message: String, throwable: Throwable?)
 }

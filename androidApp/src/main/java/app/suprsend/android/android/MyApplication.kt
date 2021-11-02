@@ -6,7 +6,7 @@ import app.suprsend.android.SSApi
 class MyApplication : Application() {
 
     override fun onCreate() {
-        SSApi.init(this, BuildConfig.SS_API_BASE_URL)
+        SSApi.init(this)
         super.onCreate()
         initializeSdk()
     }

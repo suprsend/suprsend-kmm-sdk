@@ -5,7 +5,6 @@ import app.suprsend.android.base.SSConstants
 import app.suprsend.android.base.SdkCreator
 import app.suprsend.android.config.ConfigHelper
 import app.suprsend.android.database.json
-import app.suprsend.android.globalNetwork
 import com.soywiz.krypto.HMAC
 import com.soywiz.krypto.md5
 import io.ktor.client.request.*
@@ -16,7 +15,9 @@ import io.ktor.utils.io.core.toByteArray
 import kotlinx.datetime.Clock
 import kotlinx.serialization.encodeToString
 
-class EventFlushHandler {
+object EventFlushHandler {
+    const val TAG = "flush"
+
     suspend fun flushEvents() {
         val eventLocalDatasource = SdkCreator.eventLocalDatasource
         var eventModelList: List<EventModel> = eventLocalDatasource.getEvents(SSConstants.FLUSH_EVENT_PAYLOAD_SIZE)
@@ -34,7 +35,7 @@ class EventFlushHandler {
             val date = Clock.System.now().toString()
             val requestURI = "/event"
             val envKey = ConfigHelper.get(SSConstants.CONFIG_API_KEY) ?: ""
-            val secret = ConfigHelper.get(SSConstants.CONFIG_SECRET) ?: ""
+            val secret = ConfigHelper.get(SSConstants.CONFIG_API_SECRET) ?: ""
 
             val stringToSign = httpVerb + "\n" +
                 contentMd5 + "\n" +
@@ -46,7 +47,7 @@ class EventFlushHandler {
 
             // Logger.i(TAG, "stringToSign : $stringToSign Signature : $signature")
 
-            val httpResponse = globalNetwork.get()!!.post<HttpResponse> {
+            val httpResponse = SdkCreator.network.get()!!.post<HttpResponse> {
                 url("$baseUrl$requestURI")
                 contentType(ContentType.Application.Json)
                 headers {
@@ -67,9 +68,5 @@ class EventFlushHandler {
                 break
             }
         }
-    }
-
-    companion object {
-        const val TAG = "flush"
     }
 }

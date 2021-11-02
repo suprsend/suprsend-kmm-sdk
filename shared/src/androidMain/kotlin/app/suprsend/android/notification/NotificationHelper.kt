@@ -23,7 +23,7 @@ internal object NotificationHelper {
     fun showRawNotification(context: Context, rawNotification: RawNotification) {
         try {
             // Notification Delivered
-            val instance = SSApi.getInstanceFromCachedApiKey(context)
+            val instance = SSApi.getInstanceFromCachedApiKey()
             instance?.track(
                 eventName = SSConstants.S_EVENT_NOTIFICATION_DELIVERED,
                 properties = JSONObject().apply {

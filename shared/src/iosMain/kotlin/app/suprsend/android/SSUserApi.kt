@@ -2,7 +2,10 @@ package app.suprsend.android
 
 import app.suprsend.android.base.toJsonObject
 
-class SSUserApi {
+class SSUserApi
+constructor(
+    private val mutationHandler: MutationHandler
+) {
 
     private val user = SSApiInternal.getUser()
 
@@ -72,11 +75,11 @@ class SSUserApi {
 
     fun setAndroidPush(token: String) {
         user.setAndroidPush(token)
-        SSApiInternal.flush()
+        SSApiInternal.flush(mutationHandler)
     }
 
     fun unSetAndroidPush(token: String) {
         user.unSetAndroidPush(token)
-        SSApiInternal.flush()
+        SSApiInternal.flush(mutationHandler)
     }
 }

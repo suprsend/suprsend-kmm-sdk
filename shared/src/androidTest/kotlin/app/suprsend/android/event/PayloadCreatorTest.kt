@@ -3,6 +3,7 @@ package app.suprsend.android.event
 import app.suprsend.android.base.toKotlinJsonObject
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.buildJsonObject
 
@@ -18,7 +19,7 @@ class PayloadCreatorTest {
             """
                 {
                   "event": "$eventName",
-                  "ENV": "ENV_API_KEY",
+                  "env": "ENV_API_KEY",
                   "properties": {
                     "$identifiedId": "unique_id",
                     "$anonId": "old_anonymous_id"
@@ -34,6 +35,7 @@ class PayloadCreatorTest {
                     anonymousId = "old_anonymous_id",
                     apiKey = "ENV_API_KEY"
                 )
+                .keepKeys(arrayListOf("event", "env", "properties"))
         )
     }
 
@@ -44,7 +46,7 @@ class PayloadCreatorTest {
                 {
                   "event": "Product Delete",
                   "distinct_id": "13793",
-                  "ENV": "ENV_API_KEY",
+                  "env": "ENV_API_KEY",
                   "properties": {
                     "Product Title": "Book 121",
                     "Quantity": 30,
@@ -70,8 +72,11 @@ class PayloadCreatorTest {
                         put("Product Title", JsonPrimitive("Book 121"))
                         put("Quantity", JsonPrimitive(30))
                     },
+                    defaultProperties = buildJsonObject { },
                     apiKey = "ENV_API_KEY"
                 )
+                .keepKeys(arrayListOf("event", "distinct_id", "env", "properties"))
+
         )
     }
 
@@ -83,7 +88,7 @@ class PayloadCreatorTest {
             """
                 {
                   "distinct_id": "13793",
-                  "ENV": "ENV_API_KEY",
+                  "env": "ENV_API_KEY",
                   "$set": {
                     "Privileged Customer": true,
                     "Bought Super Coin": 4567.87
@@ -103,6 +108,16 @@ class PayloadCreatorTest {
                     operator = "\$set",
                     apiKey = "ENV_API_KEY"
                 )
+                .keepKeys(arrayListOf("distinct_id", "env", "\$set"))
         )
+    }
+}
+
+private fun JsonObject.keepKeys(keys: List<String>): JsonObject {
+    val mainJo = this
+    return buildJsonObject {
+        keys.forEach { key ->
+            put(key, mainJo[key]!!)
+        }
     }
 }
