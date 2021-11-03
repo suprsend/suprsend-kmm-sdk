@@ -128,8 +128,6 @@
 		599FD16F26C9223E00DFCF64 /* LineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineView.swift; sourceTree = "<group>"; };
 		59BBEADB262F45B600102A61 /* ItemRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemRow.swift; sourceTree = "<group>"; };
 		A7528EED27112BED00DD09EC /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
-		A7528EEF2711602100DD09EC /* shared.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = shared.framework; path = "../shared/build/xcode-frameworks/shared.framework"; sourceTree = "<group>"; };
-		A7B37F41270B5C3400F7859E /* shared.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = shared.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -407,8 +405,6 @@
 			isa = PBXGroup;
 			children = (
 				2DAB6EC12731B25000630827 /* sdk.framework */,
-				A7528EEF2711602100DD09EC /* shared.framework */,
-				A7B37F41270B5C3400F7859E /* shared.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
