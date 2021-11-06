@@ -18,6 +18,12 @@ import app.suprsend.android.user.api.UserApiInternalImpl
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
@@ -205,6 +211,20 @@ internal object SSApiInternal {
 
     fun getCachedApiKey(): String {
         return ConfigHelper.get(SSConstants.CONFIG_API_KEY) ?: ""
+    }
+
+    fun startPeriodicFlush(mutationHandler: MutationHandler) {
+        flow {
+            while (true) {
+                emit(true)
+                delay(60 * 1000L)
+            }
+        }
+            .onEach {
+                Logger.i("flush", "Periodic flush")
+                flush(mutationHandler)
+            }
+            .launchIn(coroutineScope)
     }
 
     const val TAG = "ssinternal"

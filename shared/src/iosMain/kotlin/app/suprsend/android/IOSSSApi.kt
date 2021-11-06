@@ -45,6 +45,12 @@ private constructor(
         }
 
         track(SSConstants.S_EVENT_APP_LAUNCHED)
+
+        SSApiInternal.startPeriodicFlush(mutationHandler)
+
+        // Flush on lifecycle
+
+        // Flush on Exception
     }
 
     fun identify(uniqueId: String) {

@@ -18,7 +18,7 @@ internal class ActivityLifecycleCallbackHandler(
     }
 
     override fun onActivityPaused(activity: Activity) {
-        Logger.i(TAG, "Lifecycle flush")
+        Logger.i("flush", "Lifecycle flush")
         suprSendApi.flush()
     }
 
@@ -32,6 +32,5 @@ internal class ActivityLifecycleCallbackHandler(
     }
 
     companion object {
-        const val TAG = "lc"
     }
 }

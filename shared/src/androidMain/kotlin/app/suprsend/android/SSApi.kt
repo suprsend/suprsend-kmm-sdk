@@ -6,10 +6,8 @@ import androidx.annotation.NonNull
 import app.suprsend.android.base.ActivityLifecycleCallbackHandler
 import app.suprsend.android.base.BasicDetails
 import app.suprsend.android.base.LogLevel
-import app.suprsend.android.base.PeriodicFlush
 import app.suprsend.android.base.SSConstants
 import app.suprsend.android.base.SdkAndroidCreator
-import app.suprsend.android.base.SdkCreator
 import app.suprsend.android.base.logLevel
 import app.suprsend.android.base.uuid
 import app.suprsend.android.config.ConfigHelper
@@ -56,7 +54,7 @@ private constructor(
         val application = SdkAndroidCreator.context.applicationContext as Application
 
         // Flush periodically
-        PeriodicFlush(this).register()
+        SSApiInternal.startPeriodicFlush(mutationHandler)
 
         // Flush on activity lifecycle
         application.registerActivityLifecycleCallbacks(ActivityLifecycleCallbackHandler(this))
