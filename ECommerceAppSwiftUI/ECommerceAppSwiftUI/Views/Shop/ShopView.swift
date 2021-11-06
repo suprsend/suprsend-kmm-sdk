@@ -193,7 +193,7 @@ struct ItemCellTypeTwo: View {
                     }
                     
                     HStack {
-                        Text("$\(cloth.price)")
+                        Text("₹\(cloth.price)")
                             .font(.headline)
                             .foregroundColor(Color.black)
                             .bold()

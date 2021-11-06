@@ -4,6 +4,7 @@ import app.suprsend.android.base.BasicDetails
 import app.suprsend.android.base.LogLevel
 import app.suprsend.android.base.SSConstants
 import app.suprsend.android.base.SdkCreator
+import app.suprsend.android.base.SdkIosCreator
 import app.suprsend.android.base.logLevel
 import app.suprsend.android.base.toJsonObject
 import app.suprsend.android.base.uuid
@@ -35,7 +36,8 @@ private constructor(
         }
 
         // Device Properties
-//            SSApiInternal.setDeviceId(SdkAndroidCreator.deviceInfo.getDeviceId())
+        SSApiInternal.setDeviceId(SdkIosCreator.deviceInfo.getDeviceId())
+
         if (!SSApiInternal.isAppInstalled()) {
             // App Launched
             track(SSConstants.S_EVENT_APP_INSTALLED)
@@ -63,6 +65,10 @@ private constructor(
 
     fun track(eventName: String, properties: Map<String, Any>? = null) {
         SSApiInternal.trackOp(eventName = eventName, propertiesJsonString = properties?.toJsonObject()?.toString())
+    }
+
+    fun track(eventName: String) {
+        SSApiInternal.trackOp(eventName = eventName, propertiesJsonString = null)
     }
 
     fun purchaseMade(properties: Map<String, Any>) {

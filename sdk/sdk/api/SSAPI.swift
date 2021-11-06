@@ -8,23 +8,17 @@
 import Foundation
 import shared
 
-class IosMutation : MutationHandler {
-    var flush = false
-    func isFlushing() -> Bool {
-        flush
-    }
-    func setFlushing(value: Bool) {
-        flush = value
-    }
-    
-}
-
-
 public class SSAPI {
-    public init() {
+    
+    private init() {
         
     }
-    public func getInstance(
+    
+    public static func initialize(){
+        IOSSSApi.Companion.init().initialize()
+    }
+    
+    public static func getInstance(
         apiKey:String,
         apiSecret:String,
         apiBaseUrl:String
@@ -36,14 +30,11 @@ public class SSAPI {
                 apiKey: apiKey,
                 apiSecret: apiSecret,
                 apiBaseUrl: apiBaseUrl,
-                mutationHandler: IosMutation()
+                mutationHandler: IosMutationHandler()
             )
     }
-    public func initialize(){
-        IOSSSApi.Companion.init().initialize()
-    }
     
-    public func enableLogging(){
+    public static func enableLogging(){
         IOSSSApi.Companion.init().enableLogging()
     }
 }

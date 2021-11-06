@@ -21,6 +21,9 @@ struct Cloth: Identifiable {
     let color: String
     let size: String
     let discount: Int
+    func getBagModel(color: String,size: String) -> BagModel {
+        BagModel(name: name, description: description, imageURL: imageURL, price: price, company: company, rating: rating, type: type, isFavorite: isFavorite, color: color, size: size, discount: discount)
+    }
 }
 
 extension Cloth {

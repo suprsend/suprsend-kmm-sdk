@@ -11,7 +11,9 @@ import app.suprsend.android.coroutineExceptionHandler
 import app.suprsend.android.event.EventModel
 import app.suprsend.android.event.PayloadCreator
 import app.suprsend.android.user.UserLocalDatasource
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonPrimitive
@@ -20,6 +22,8 @@ import kotlinx.serialization.json.buildJsonArray
 import kotlinx.serialization.json.buildJsonObject
 
 internal class UserApiInternalImpl : UserApiInternalContract {
+
+    private val coroutineScope = CoroutineScope(SupervisorJob())
 
     override fun set(key: String, value: Any) {
         val valuePrimitive = value.convertToJsonPrimitive(key)
@@ -160,7 +164,7 @@ internal class UserApiInternalImpl : UserApiInternalContract {
     }
 
     private fun internalOperatorCall(properties: JsonElement, operator: String) {
-        GlobalScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
+        coroutineScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
             internalOperatorCallOp(properties, operator)
         }
     }

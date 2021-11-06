@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2DA33B932736559900ED968A /* IosMutationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA33B922736559900ED968A /* IosMutationHandler.swift */; };
 		2DAB6EB92731AC4200630827 /* SSAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAB6EB82731AC4200630827 /* SSAPI.swift */; };
 		2DAB6EBD2731ACC000630827 /* shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DAB6EBC2731ACC000630827 /* shared.framework */; platformFilter = ios; };
 		2DAB6EBE2731ACC000630827 /* shared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2DAB6EBC2731ACC000630827 /* shared.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -40,6 +41,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2DA33B922736559900ED968A /* IosMutationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IosMutationHandler.swift; sourceTree = "<group>"; };
 		2DAB6EB82731AC4200630827 /* SSAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSAPI.swift; sourceTree = "<group>"; };
 		2DAB6EBC2731ACC000630827 /* shared.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = shared.framework; path = "../shared/build/xcode-frameworks/shared.framework"; sourceTree = "<group>"; };
 		2DE46BA82731A751001C41FF /* sdk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = sdk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -70,6 +72,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2DA33B8F273653D100ED968A /* mutation */ = {
+			isa = PBXGroup;
+			children = (
+				2DA33B922736559900ED968A /* IosMutationHandler.swift */,
+			);
+			path = mutation;
+			sourceTree = "<group>";
+		};
+		2DA33B94273655C900ED968A /* api */ = {
+			isa = PBXGroup;
+			children = (
+				2DAB6EB82731AC4200630827 /* SSAPI.swift */,
+			);
+			path = api;
+			sourceTree = "<group>";
+		};
 		2DAB6EBA2731AC6F00630827 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -100,9 +118,10 @@
 		2DE46BAA2731A751001C41FF /* sdk */ = {
 			isa = PBXGroup;
 			children = (
+				2DA33B94273655C900ED968A /* api */,
+				2DA33B8F273653D100ED968A /* mutation */,
 				2DE46BAB2731A751001C41FF /* sdk.h */,
 				2DE46BAC2731A751001C41FF /* Info.plist */,
-				2DAB6EB82731AC4200630827 /* SSAPI.swift */,
 			);
 			path = sdk;
 			sourceTree = "<group>";
@@ -238,7 +257,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home\ncd \"$PROJECT_DIR/..\"\n./gradlew :shared:packForXCode -PXCODE_CONFIGURATION=${CONFIGURATION}\n";
+			shellScript = "export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home\n\ncd \"$PROJECT_DIR/..\"\n./gradlew :shared:packForXCode -PXCODE_CONFIGURATION=${CONFIGURATION}\n\nrm -Rf ECommerceAppSwiftUI/sdk.framework\n\ncp -R ~/Library/Developer/Xcode/DerivedData/sdk-gcimjwuxweokqsgunttqfukmdstr/Build/Products/Debug-iphonesimulator/sdk.framework ECommerceAppSwiftUI/\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -248,6 +267,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2DAB6EB92731AC4200630827 /* SSAPI.swift in Sources */,
+				2DA33B932736559900ED968A /* IosMutationHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

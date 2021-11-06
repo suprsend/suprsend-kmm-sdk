@@ -10,9 +10,14 @@ import SwiftUI
 
 struct CheckOutView: View {
     
+    @State var show = false
+    
+    @AppStorage("email")
+    var storeageEmail: String = ""
+    
     fileprivate func SubmitButton() -> some View {
         Button(action: {
-            
+            self.show.toggle()
         }) {
             Text("Submit Order")
                 .fontWeight(.bold)
@@ -45,6 +50,9 @@ struct CheckOutView: View {
                 Color.init(hex: "f9f9f9")
                     .edgesIgnoringSafeArea(.all)
                 VStack {
+                    NavigationLink(destination: SuccessView(), isActive: self.$show) {
+                        Text("")
+                    }
                     NavigationBarView()
                     ScrollView {
                         VStack(alignment: .leading) {
@@ -67,9 +75,9 @@ struct CheckOutView: View {
                                     .cornerRadius(5)
                                     .shadow(color: Color.init(hex: "dddddd"), radius: 2, x: 0.8, y: 0.8)
                                 VStack(alignment: .leading) {
-                                    Text("Ayush Gupta")
+                                    Text(storeageEmail)
                                         .padding(.top, 15)
-                                    Text("Medini Partment, Maruthi Nagar, BTM Stage 1, Bnagalore KA")
+                                    Text("Flat No - 1001, Abc Society, Shivajinagar, Pune, MH Pin - 411034")
                                         .padding(.top, 10)
                                         .padding(.bottom, 10)
                                         .lineLimit(nil)
@@ -107,7 +115,7 @@ struct CheckOutView: View {
                                 Text("Order:")
                                     .foregroundColor(.gray)
                                 Spacer()
-                                Text("$112")
+                                Text("₹\(AppConstants.cartList.reduce(0, { $0 + $1.price }))")
                                     .bold()
                             }.padding(.top, 30)
                             
@@ -115,7 +123,7 @@ struct CheckOutView: View {
                                 Text("Delivery Charges:")
                                     .foregroundColor(.gray)
                                 Spacer()
-                                Text("$10")
+                                Text("₹0")
                                     .bold()
                             }.padding(.top, 15)
                             
@@ -123,7 +131,7 @@ struct CheckOutView: View {
                                 Text("Total:")
                                     .foregroundColor(.gray)
                                 Spacer()
-                                Text("$122")
+                                Text("₹\(AppConstants.cartList.reduce(0, { $0 + ($1.price - ($1.price * $1.discount)/100)}))")
                                     .bold()
                             }.padding(.top, 15)
                             Spacer()
@@ -135,6 +143,9 @@ struct CheckOutView: View {
             .navigationBarTitle(Text(""), displayMode: .inline)
             .navigationBarHidden(true)
             .navigationBarBackButtonHidden(true)
+            .onAppear{
+                CommonAnalyticsHandler.track(eventName: "place_order_screen_viewed")
+            }
         }
     }
 }

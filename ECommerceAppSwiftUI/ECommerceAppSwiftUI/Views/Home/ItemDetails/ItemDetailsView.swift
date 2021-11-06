@@ -13,8 +13,8 @@ struct ItemDetailsView: View {
     @State var index = 0
     @State private var isModalPresentedForColor: Bool = false
     @State private var isModalPresentedForSize: Bool = false
-    @State private var color: String = ""
-    @State private var size: String = ""
+    @State private var color: String = "800000"
+    @State private var size: String = "S"
     @Binding var show : Bool
     
     var arrImage = ["greenDressCover", "greenDressCover", "greenDressCover", "greenDressCover"]
@@ -29,7 +29,6 @@ struct ItemDetailsView: View {
     fileprivate func NavigationBarView() -> some View {
         return HStack(alignment: .center) {
             Button(action: {
-                //                self.presentationMode.wrappedValue.dismiss()
                 self.show.toggle()
             }) {
                 Image(systemName: "arrow.left")
@@ -117,6 +116,7 @@ struct ItemDetailsView: View {
                     "price":"\(cloth.price)"
                 ]
             )
+            AppConstants.cartList.append(cloth.getBagModel(color: color, size: size))
         }) {
             Text("")
                 .frame(height: 65)
@@ -256,6 +256,35 @@ struct ItemDetailsView: View {
                         SelectSizeView()
                         
                         SelectColorView()
+                            .padding(.top,5)
+                        AddToCartButton()
+                            .padding(.top, 8)
+                        
+                        HStack{
+                            Button(action: {
+                                CommonAnalyticsHandler.append(key: "choices", value: cloth.name)
+                            }) {
+                                Text("+")
+                                    .font(.custom(Constants.AppFont.semiBoldFont, size: 13))
+                                    .foregroundColor(Constants.AppColor.secondaryRed)
+                                    .frame(width: 40, height: 30)
+                            }
+                            .overlay(RoundedRectangle(cornerRadius: 5)
+                                        .stroke(Constants.AppColor.secondaryBlack, lineWidth: 4.0))
+                            
+                            Button(action: {
+                                CommonAnalyticsHandler.remove(key: "choices", value: cloth.name)
+                            }) {
+                                Text("-")
+                                    .font(.custom(Constants.AppFont.semiBoldFont, size: 13))
+                                    .foregroundColor(Constants.AppColor.secondaryRed)
+                                    .frame(width: 40, height: 30)
+                            }
+                            .overlay(RoundedRectangle(cornerRadius: 5)
+                                        .stroke(Constants.AppColor.secondaryBlack, lineWidth: 4.0))
+                        }
+                        .padding(.top, 5)
+                        .padding(.leading,5)
                         
                         VStack(alignment: .leading) {
                             Text("Product Details")
@@ -274,13 +303,7 @@ struct ItemDetailsView: View {
                         .frame(minWidth: 0, maxWidth: .infinity)
                         .background(Color.white)
                         
-                        
                         SimilerProduct()
-                        
-                        AddToCartButton()
-                            .padding(.top, 8)
-                            .padding(.bottom,100)
-                        
                         
                     }
                 }
@@ -290,6 +313,17 @@ struct ItemDetailsView: View {
         .navigationBarTitle(Text(""), displayMode: .inline)
         .navigationBarHidden(true)
         .navigationBarBackButtonHidden(true)
+        .onAppear{
+            CommonAnalyticsHandler
+                .track(
+                    eventName: "product_viewed",
+                    properties: [
+                        "Product ID": "\(cloth.id)",
+                        "Product Name": cloth.name,
+                        "Amount" : cloth.price
+                    ]
+                )
+        }
     }
 }
 

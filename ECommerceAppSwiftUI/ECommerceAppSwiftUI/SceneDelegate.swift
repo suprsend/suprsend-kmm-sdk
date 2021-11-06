@@ -22,7 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         print("demo : configure scene")
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
-            window.rootViewController = UIHostingController(rootView: TabBarView())
+            window.rootViewController = UIHostingController(rootView: DecideView())
             self.window = window
             window.makeKeyAndVisible()
         }

@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import shared
 
 struct HomeView: View {
     
@@ -146,7 +145,7 @@ struct HomeView: View {
             .navigationBarHidden(true)
             .navigationBarBackButtonHidden(true)
             .onAppear{
-                AppConstants.ssApi.track(eventName: "Home Page Viewed", properties:nil)
+                CommonAnalyticsHandler.track(eventName: "home_screen_viewed")
             }
         }
     }

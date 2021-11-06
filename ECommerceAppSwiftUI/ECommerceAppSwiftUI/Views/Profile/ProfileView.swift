@@ -11,6 +11,9 @@ import Combine
 
 struct ProfileView: View {
     
+    @AppStorage("email")
+    var storeageEmail: String = ""
+    
     @State var selection: Int? = nil
     let arrProfile = ProfileModel.all()
     
@@ -38,10 +41,10 @@ struct ProfileView: View {
                         .clipShape(Circle())
                         .padding(.leading, 15)
                     VStack(alignment: .leading) {
-                        Text("Your Name")
+                        Text(storeageEmail)
                             .font(.headline)
                             .bold()
-                        Text("youremail@gmail.com")
+                        Text("")
                             .font(.caption)
                             .foregroundColor(.secondary)
                     }.padding(.horizontal, 5)
@@ -74,6 +77,9 @@ struct ProfileView_Previews: PreviewProvider {
 
 struct ProfileRow: View {
     
+    @AppStorage("isLoggedIn")
+    var isLoggedIn: Bool = false
+    
     let profile: ProfileModel
     
     var body: some View {
@@ -90,6 +96,12 @@ struct ProfileRow: View {
                 Text(profile.subtitle)
                     .font(.caption)
                     .foregroundColor(.secondary)
+            }
+            .onTapGesture {
+                CommonAnalyticsHandler.unset(key: "choices")
+                CommonAnalyticsHandler.reset()
+                CommonAnalyticsHandler.unSetSuperProperties(key: "user_type")
+                self.isLoggedIn.toggle()
             }
             .padding(15)
             Spacer()

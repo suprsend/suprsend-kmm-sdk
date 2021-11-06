@@ -108,7 +108,7 @@ struct OrderRow: View {
                     .foregroundColor(.gray)
                 Spacer()
                 Text("Total Amount:")
-                Text("$\(order.totalAmount)")
+                Text("₹\(order.totalAmount)")
                     .foregroundColor(.gray)
             }.padding([.top], 2)
             

@@ -28,6 +28,8 @@ class OrderSuccessFullActivity : AppCompatActivity() {
             finish()
         }
 
+        CommonAnalyticsHandler.track("order_success_screen_viewed")
+
         CommonAnalyticsHandler.increment(
             mutableMapOf(
                 "order_count" to 1,
@@ -49,8 +51,4 @@ class OrderSuccessFullActivity : AppCompatActivity() {
         })
     }
 
-    override fun onStart() {
-        super.onStart()
-        CommonAnalyticsHandler.track("order_success_screen_viewed")
-    }
 }

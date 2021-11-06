@@ -32,7 +32,7 @@ internal class DeviceInfo {
 //        return SdkAndroidCreator.context.resources.displayMetrics.heightPixels
 //    }
 
-    private fun getDeviceId(): String {
+    fun getDeviceId(): String {
         return UIDevice.currentDevice.identifierForVendor?.UUIDString ?: ""
     }
 

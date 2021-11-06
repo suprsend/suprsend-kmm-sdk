@@ -10,7 +10,10 @@ import SwiftUI
 
 struct BagView: View {
     
-    let arrCloth = BagModel.all()
+    @State var show = false
+    
+    @State var cartList : [BagModel] = []
+    
     @State var isShowPromoCodeView : Bool = false
     var discount = 0
     var deliveryCharges = 0
@@ -31,14 +34,8 @@ struct BagView: View {
     
     fileprivate func CheckOutButton() -> some View {
         Button(action: {
-            var placeOrderCloth = self.arrCloth[0]
-            AppConstants.ssApi.purchaseMade(
-                properties: [
-                    "product_id":"\(placeOrderCloth.id)",
-                    "product_name":"\(placeOrderCloth.name)",
-                    "amount":"\(placeOrderCloth.price)"
-                ]
-            )
+            let placeOrderCloth = cartList[0]
+            self.show.toggle()
         }) {
             Text("CHECKOUT")
                 .font(.custom(Constants.AppFont.boldFont, size: 15))
@@ -83,91 +80,108 @@ struct BagView: View {
         }
     }
     
+    func updateItems(){
+        self.cartList = AppConstants.cartList
+    }
     var body: some View {
-        VStack {
-            NavigationBarView()
-            ScrollView {
-                ZStack(alignment: .top) {
-                    VStack {
-                        ScrollView(.vertical, showsIndicators: false, content: {
-                            VStack(spacing: 10) {
-                                ForEach(self.arrCloth, id: \.id) { cloth in
-                                    ItemCellTypeThree(cloth: cloth)
-                                }
-                            }
-                            .padding(.horizontal, 15)
-                        })
-                        .disabled(false)
-                        .frame(height: (CGFloat(self.arrCloth.count) * 130) + 20) // It should be dynamic...
-                        
-                        LineView()
-                            .padding(.top, 5)
-                            .padding(.horizontal, 15)
-                        ApplyCoupon()
-                        LineView()
-                            .padding(.horizontal, 15)
-                        
-                        VStack {
-                            HStack {
-                                Text("Item Total")
-                                    .font(.custom(Constants.AppFont.regularFont, size: 13))
-                                    .foregroundColor(Constants.AppColor.secondaryBlack)
-                                Spacer()
-                                Text("₹\(self.arrCloth.reduce(0, { $0 + $1.price }))")
-                                    .font(.custom(Constants.AppFont.boldFont, size: 13))
-                                    .foregroundColor(Constants.AppColor.secondaryBlack)
-                            }
-                            .padding(.top, 10)
-                            .padding(.horizontal, 15)
-                            
-                            HStack {
-                                Text("Delivery Charges")
-                                    .font(.custom(Constants.AppFont.regularFont, size: 13))
-                                    .foregroundColor(Constants.AppColor.secondaryBlack)
-                                Spacer()
-                                Text("₹\(self.deliveryCharges)")
-                                    .font(.custom(Constants.AppFont.boldFont, size: 13))
-                                    .foregroundColor(Constants.AppColor.secondaryBlack)
-                            }
-                            .padding(.top, 5)
-                            .padding(.horizontal, 15)
-                            
-                            HStack {
-                                Text("Discount")
-                                    .font(.custom(Constants.AppFont.regularFont, size: 13))
-                                    .foregroundColor(Constants.AppColor.secondaryBlack)
-                                Spacer()
-                                Text("- ₹\(self.arrCloth.reduce(0, { $0 + ($1.price * $1.discount)/100}))")
-                                    .font(.custom(Constants.AppFont.boldFont, size: 13))
-                                    .foregroundColor(Color.init(hex: "036440"))
-                            }
-                            .padding(.top, 5)
-                            .padding(.horizontal, 15)
-                            
-                            LineView()
-                                .padding(.vertical, 5)
-                            
-                            HStack {
-                                Text("Total Amount")
-                                    .font(.custom(Constants.AppFont.boldFont, size: 16))
-                                    .foregroundColor(Constants.AppColor.secondaryBlack)
-                                Spacer()
-                                Text("₹\(self.arrCloth.reduce(0, { $0 + ($1.price - ($1.price * $1.discount)/100)}))")
-                                    .font(.custom(Constants.AppFont.boldFont, size: 16))
-                                    .foregroundColor(Constants.AppColor.secondaryBlack)
-                            }
-                            .padding(.horizontal, 15)
-                            .padding(.bottom, 5)
-                            
-                            Spacer()
-                        }
-                        .padding(.top, 2)
+        NavigationView {
+            ZStack {
+                VStack {
+                    NavigationLink(destination: CheckOutView(), isActive: self.$show) {
+                        Text("")
                     }
+                    NavigationBarView()
+                    ScrollView {
+                        ZStack(alignment: .top) {
+                            VStack {
+                                ScrollView(.vertical, showsIndicators: false, content: {
+                                    VStack(spacing: 10) {
+                                        ForEach(cartList, id: \.id) { cloth in
+                                            ItemCellTypeThree(cloth: cloth,bagView: self)
+                                        }
+                                    }
+                                    .padding(.horizontal, 15)
+                                })
+                                .disabled(false)
+                                .frame(height: (CGFloat(cartList.count) * 130) + 20) // It should be dynamic...
+                                
+                                LineView()
+                                    .padding(.top, 5)
+                                    .padding(.horizontal, 15)
+                                ApplyCoupon()
+                                LineView()
+                                    .padding(.horizontal, 15)
+                                
+                                VStack {
+                                    HStack {
+                                        Text("Item Total")
+                                            .font(.custom(Constants.AppFont.regularFont, size: 13))
+                                            .foregroundColor(Constants.AppColor.secondaryBlack)
+                                        Spacer()
+                                        Text("₹\(cartList.reduce(0, { $0 + $1.price }))")
+                                            .font(.custom(Constants.AppFont.boldFont, size: 13))
+                                            .foregroundColor(Constants.AppColor.secondaryBlack)
+                                    }
+                                    .padding(.top, 10)
+                                    .padding(.horizontal, 15)
+                                    
+                                    HStack {
+                                        Text("Delivery Charges")
+                                            .font(.custom(Constants.AppFont.regularFont, size: 13))
+                                            .foregroundColor(Constants.AppColor.secondaryBlack)
+                                        Spacer()
+                                        Text("₹\(self.deliveryCharges)")
+                                            .font(.custom(Constants.AppFont.boldFont, size: 13))
+                                            .foregroundColor(Constants.AppColor.secondaryBlack)
+                                    }
+                                    .padding(.top, 5)
+                                    .padding(.horizontal, 15)
+                                    
+                                    HStack {
+                                        Text("Discount")
+                                            .font(.custom(Constants.AppFont.regularFont, size: 13))
+                                            .foregroundColor(Constants.AppColor.secondaryBlack)
+                                        Spacer()
+                                        Text("- ₹\(cartList.reduce(0, { $0 + ($1.price * $1.discount)/100}))")
+                                            .font(.custom(Constants.AppFont.boldFont, size: 13))
+                                            .foregroundColor(Color.init(hex: "036440"))
+                                    }
+                                    .padding(.top, 5)
+                                    .padding(.horizontal, 15)
+                                    
+                                    LineView()
+                                        .padding(.vertical, 5)
+                                    
+                                    HStack {
+                                        Text("Total Amount")
+                                            .font(.custom(Constants.AppFont.boldFont, size: 16))
+                                            .foregroundColor(Constants.AppColor.secondaryBlack)
+                                        Spacer()
+                                        Text("₹\(cartList.reduce(0, { $0 + ($1.price - ($1.price * $1.discount)/100)}))")
+                                            .font(.custom(Constants.AppFont.boldFont, size: 16))
+                                            .foregroundColor(Constants.AppColor.secondaryBlack)
+                                    }
+                                    .padding(.horizontal, 15)
+                                    .padding(.bottom, 5)
+                                    
+                                    Spacer()
+                                }
+                                .padding(.top, 2)
+                            }
+                        }
+                    }
+                    .padding(.top, 5)
+                    Spacer()
+                    CheckOutButton()
                 }
             }
-            .padding(.top, 5)
-            Spacer()
-            CheckOutButton()
+            .navigationBarTitle("", displayMode: .inline)
+            .navigationBarHidden(true)
+            .navigationBarBackButtonHidden(true)
+            .onAppear{
+                updateItems()
+                CommonAnalyticsHandler.track(eventName: "cart_screen_viewed")
+            }
         }
     }
 }
@@ -181,6 +195,7 @@ struct BagView_Previews: PreviewProvider {
 struct ItemCellTypeThree: View {
     
     let cloth: BagModel
+    let bagView:BagView
     
     fileprivate func plusButton() -> some View {
         return Button(action: {}) {
@@ -214,7 +229,8 @@ struct ItemCellTypeThree: View {
                             .lineLimit(1)
                         Spacer()
                         Button(action: {
-                            
+                            AppConstants.cartList = AppConstants.cartList.filter{$0.id != cloth.id}
+                            bagView.updateItems()
                         }) {
                             Image(systemName: "trash")
                                 .foregroundColor(Color.init(hex: "bbbbbb"))
