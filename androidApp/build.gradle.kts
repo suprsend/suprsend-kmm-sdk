@@ -16,7 +16,7 @@ android {
     buildToolsVersion(Deps.Android.buildToolsVersion)
 
     defaultConfig {
-        applicationId = "app.suprsend.android.android"
+        applicationId = "${Deps.SDK_PACKAGE_NAME}.android"
         minSdkVersion(Deps.Android.minSdk)
         targetSdkVersion(Deps.Android.targetSdk)
         versionCode = Deps.APP_VERSION_CODE

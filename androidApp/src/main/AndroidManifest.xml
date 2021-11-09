@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="app.suprsend.android.android">
+    package="app.suprsend.android">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -50,7 +50,7 @@
         <activity android:name=".LoginActivity" />
 
         <service
-            android:name="app.suprsend.android.fcm.SSFirebaseMessagingService"
+            android:name="app.suprsend.fcm.SSFirebaseMessagingService"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
