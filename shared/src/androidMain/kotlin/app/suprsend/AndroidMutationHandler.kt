@@ -7,5 +7,4 @@ class AndroidMutationHandler : MutationHandler {
     override fun setFlushing(value: Boolean) {
         flush = value
     }
-
 }

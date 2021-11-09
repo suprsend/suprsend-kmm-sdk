@@ -1,7 +1,6 @@
 package app.suprsend
 
 import app.suprsend.base.Logger
-import app.suprsend.base.SdkCreator
 import app.suprsend.base.database
 import app.suprsend.base.network
 import app.suprsend.database.DatabaseDriverFactory

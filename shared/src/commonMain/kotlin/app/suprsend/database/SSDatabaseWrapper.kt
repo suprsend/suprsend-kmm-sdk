@@ -3,7 +3,6 @@ package app.suprsend.database
 import app.suprsend.ConfigTable
 import app.suprsend.EventTable
 import app.suprsend.SuprSendDatabase
-import app.suprsend.base.SdkCreator
 import app.suprsend.base.database
 import app.suprsend.config.ConfigModel
 import app.suprsend.event.EventModel

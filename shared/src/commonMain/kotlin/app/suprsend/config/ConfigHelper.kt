@@ -1,6 +1,5 @@
 package app.suprsend.config
 
-import app.suprsend.base.SdkCreator
 import app.suprsend.base.database
 
 /**

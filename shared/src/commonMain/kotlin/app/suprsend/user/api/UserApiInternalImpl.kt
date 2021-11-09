@@ -12,7 +12,6 @@ import app.suprsend.event.EventModel
 import app.suprsend.event.PayloadCreator
 import app.suprsend.user.UserLocalDatasource
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.JsonElement

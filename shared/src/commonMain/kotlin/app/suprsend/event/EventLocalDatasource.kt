@@ -1,6 +1,5 @@
 package app.suprsend.event
 
-import app.suprsend.base.SdkCreator
 import app.suprsend.base.database
 import app.suprsend.database.DBConversion
 import kotlinx.datetime.Clock

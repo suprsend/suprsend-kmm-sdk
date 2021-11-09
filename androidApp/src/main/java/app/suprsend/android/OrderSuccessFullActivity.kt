@@ -50,5 +50,4 @@ class OrderSuccessFullActivity : AppCompatActivity() {
             put("first_ordered_product_name", productVo.title)
         })
     }
-
 }

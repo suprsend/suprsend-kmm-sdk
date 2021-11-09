@@ -3,7 +3,6 @@ package app.suprsend
 import app.suprsend.base.BasicDetails
 import app.suprsend.base.LogLevel
 import app.suprsend.base.SSConstants
-import app.suprsend.base.SdkCreator
 import app.suprsend.base.SdkIosCreator
 import app.suprsend.base.logLevel
 import app.suprsend.base.toJsonObject

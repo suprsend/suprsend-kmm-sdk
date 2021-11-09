@@ -1,6 +1,6 @@
 package app.suprsend
 
 interface MutationHandler {
-    fun isFlushing():Boolean
-    fun setFlushing(value:Boolean)
+    fun isFlushing(): Boolean
+    fun setFlushing(value: Boolean)
 }
