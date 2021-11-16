@@ -105,6 +105,8 @@ private constructor(
 
     companion object {
 
+        val instancesMap = hashMapOf<String, SSApi>()
+
         /**
          * Should be called before Application super.onCreate()
          */
@@ -120,7 +122,13 @@ private constructor(
         }
 
         fun getInstance(apiKey: String, apiSecret: String, apiBaseUrl: String? = null): SSApi {
-            return SSApi(apiKey, apiSecret, apiBaseUrl)
+            val uniqueId = "$apiKey-$apiSecret"
+            if (instancesMap.containsKey(uniqueId)) {
+                return instancesMap[uniqueId]!!
+            }
+            val instance = SSApi(apiKey, apiSecret, apiBaseUrl)
+            instancesMap[uniqueId] = instance
+            return instance
         }
 
         fun getInstanceFromCachedApiKey(): SSApi? {

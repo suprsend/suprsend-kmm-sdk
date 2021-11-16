@@ -8,6 +8,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Build
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import app.suprsend.R
 import app.suprsend.SSApi
@@ -15,12 +16,35 @@ import app.suprsend.base.Logger
 import app.suprsend.base.SSConstants
 import app.suprsend.base.SdkAndroidCreator
 import app.suprsend.base.UrlUtils
+import app.suprsend.coroutineExceptionHandler
 import app.suprsend.database.json
+import app.suprsend.fcm.SSFirebaseMessagingService
+import com.google.firebase.messaging.RemoteMessage
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.json.JSONObject
 
-internal object NotificationHelper {
+object SSNotificationHelper {
 
-    fun showRawNotification(context: Context, rawNotification: RawNotification) {
+    fun showFCMNotification(context: Context, remoteMessage: RemoteMessage) {
+        try {
+            val data = remoteMessage.data
+            if (data.isNotEmpty()) {
+                Logger.i("fcm", "Message data payload: $data")
+                if (data.containsKey(SSConstants.NOTIFICATION_PAYLOAD)) {
+                    GlobalScope.launch(Dispatchers.IO + coroutineExceptionHandler) {
+                        val rawNotification = getRawNotification(payloadJson = data[SSConstants.NOTIFICATION_PAYLOAD] ?: "")
+                        showRawNotification(context = context.applicationContext, rawNotification = rawNotification)
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            Logger.e("fcm", "Message data payload exception ", e)
+        }
+    }
+
+    private fun showRawNotification(context: Context, rawNotification: RawNotification) {
         try {
             // Notification Delivered
             val instance = SSApi.getInstanceFromCachedApiKey()
@@ -37,7 +61,7 @@ internal object NotificationHelper {
         }
     }
 
-    fun getRawNotification(payloadJson: String): RawNotification {
+    private fun getRawNotification(payloadJson: String): RawNotification {
         return json.decodeFromString(RawNotification.serializer(), payloadJson)
     }
 
