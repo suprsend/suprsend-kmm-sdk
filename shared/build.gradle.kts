@@ -19,19 +19,42 @@ kotlin {
         publishLibraryVariantsGroupedByFlavor = true
     }
 
-    val iosTarget: (String, KotlinNativeTarget.() -> Unit) -> KotlinNativeTarget =
-        if (System.getenv("SDK_NAME")?.startsWith("iphoneos") == true)
-            ::iosArm64
-        else
-            ::iosX64
-
-    iosTarget("ios") {
+    val onSimulator = System.getenv("SDK_NAME")?.startsWith("iphonesimulator") ?: false
+    val type = if (onSimulator) {
+        "marker"
+    } else {
+        "bitcode"
+    }
+    ios()
+    ios {
         binaries {
             framework {
                 baseName = "shared"
+                isStatic = true
+                embedBitcode(type)
+                freeCompilerArgs = listOf("-Xadd-light-debug=enable")
             }
         }
     }
+    if (onSimulator) {
+        iosArm64("ios") {
+            mavenPublication {
+                artifactId = "${project.name}-iosArm64"
+            }
+        }
+    } else {
+        iosX64("ios") {
+            mavenPublication {
+                artifactId = "${project.name}-iosx64"
+            }
+        }
+    }
+
+    //macosX64
+    //macosArm64
+    //iosArm32 - iOS ARM 32
+    //iosArm64 - iOS ARM 64
+    //iosX64 - iOS Simulator (x86_64)
 
 
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
@@ -134,6 +157,23 @@ kotlin {
     }
 
 
+    tasks.register<org.jetbrains.kotlin.gradle.tasks.FatFrameworkTask>("debugFatFramework") {
+        baseName = "shared"
+        destinationDir = buildDir.resolve("xcode-frameworks")
+        from(
+//            kotlin.targets.getByName<KotlinNativeTarget>("iosArm64").binaries.getFramework("DEBUG"),
+            kotlin.targets.getByName<KotlinNativeTarget>("iosX64").binaries.getFramework("DEBUG")
+        )
+    }
+
+    tasks.register<org.jetbrains.kotlin.gradle.tasks.FatFrameworkTask>("releaseFatFramework") {
+        baseName = "shared"
+        destinationDir = buildDir.resolve("xcode-frameworks")
+        from(
+            kotlin.targets.getByName<KotlinNativeTarget>("iosArm64").binaries.getFramework("RELEASE"),
+//            kotlin.targets.getByName<KotlinNativeTarget>("iosX64").binaries.getFramework("RELEASE"),
+        )
+    }
 }
 
 sqldelight {
@@ -144,6 +184,10 @@ sqldelight {
     }
 }
 
+fun getIosTarget(): String {
+    val sdkName = System.getenv("SDK_NAME") ?: "iphonesimulator"
+    return if (sdkName.startsWith("iphoneos")) "iosArm64" else "iosX64"
+}
 afterEvaluate {
     publishing {
         publications {
@@ -183,15 +227,15 @@ android {
 }
 
 val packForXcode by tasks.creating(Sync::class) {
-    val mode = System.getenv("CONFIGURATION") ?: "DEBUG"
-    val framework = kotlin.targets.getByName<KotlinNativeTarget>("ios").binaries.getFramework(mode)
-    val targetDir = File(buildDir, "xcode-frameworks")
-
     group = "build"
-    dependsOn(framework.linkTask)
+    val mode = System.getenv("CONFIGURATION") ?: "DEBUG"
+    val targetName = getIosTarget()
+    val framework =
+        kotlin.targets.getByName<KotlinNativeTarget>(targetName).binaries.getFramework(mode)
     inputs.property("mode", mode)
-
-    from({ framework.outputDirectory })
+    dependsOn(framework.linkTask)
+    val targetDir = File(buildDir, "xcode-frameworks")
+    from(framework.outputDirectory)
     into(targetDir)
 }
 

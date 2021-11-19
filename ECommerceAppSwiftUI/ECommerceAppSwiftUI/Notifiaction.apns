@@ -1,0 +1,13 @@
+{
+    "aps" : {
+        "alert" : {
+            "title" : "Game Request",
+            "body" : "Bob wants to play poker",
+            "action-loc-key" : "PLAY"
+        },
+        "badge" : 1
+    },
+    "acme1" : "bar",
+    "acme2" : [ "bang",  "whiz" ],
+    "Simulator Target Bundle": "suprsend.ecommerce"
+}

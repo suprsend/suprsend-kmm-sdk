@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D595E8427468E4900BA6F0E /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DFBFC8B27468E0E00F62BF5 /* libsqlite3.tbd */; platformFilter = ios; };
 		2DA33B932736559900ED968A /* IosMutationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA33B922736559900ED968A /* IosMutationHandler.swift */; };
 		2DAB6EB92731AC4200630827 /* SSAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAB6EB82731AC4200630827 /* SSAPI.swift */; };
 		2DAB6EBD2731ACC000630827 /* shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DAB6EBC2731ACC000630827 /* shared.framework */; platformFilter = ios; };
@@ -50,6 +51,7 @@
 		2DE46BB12731A751001C41FF /* sdkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = sdkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DE46BB62731A751001C41FF /* sdkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sdkTests.swift; sourceTree = "<group>"; };
 		2DE46BB82731A751001C41FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2DFBFC8B27468E0E00F62BF5 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/usr/lib/libsqlite3.tbd; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2D595E8427468E4900BA6F0E /* libsqlite3.tbd in Frameworks */,
 				2DAB6EBD2731ACC000630827 /* shared.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -91,6 +94,7 @@
 		2DAB6EBA2731AC6F00630827 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2DFBFC8B27468E0E00F62BF5 /* libsqlite3.tbd */,
 				2DAB6EBC2731ACC000630827 /* shared.framework */,
 			);
 			name = Frameworks;
@@ -257,7 +261,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home\n\ncd \"$PROJECT_DIR/..\"\n./gradlew :shared:packForXCode -PXCODE_CONFIGURATION=${CONFIGURATION}\n\nrm -Rf ECommerceAppSwiftUI/sdk.framework\n\ncp -R ~/Library/Developer/Xcode/DerivedData/sdk-gcimjwuxweokqsgunttqfukmdstr/Build/Products/Debug-iphonesimulator/sdk.framework ECommerceAppSwiftUI/\n";
+			shellScript = "export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home\n\ncd \"$PROJECT_DIR/..\"\n\n#./gradlew :shared:packForXCode -PXCODE_CONFIGURATION=${CONFIGURATION}\n\n./gradlew releaseFatFramework\n\n#./gradlew debugFatFramework\n\nrm -Rf ECommerceAppSwiftUI/sdk.framework\n\ncp -R ~/Library/Developer/Xcode/DerivedData/sdk-gcimjwuxweokqsgunttqfukmdstr/Build/Products/Debug-iphonesimulator/sdk.framework ECommerceAppSwiftUI/\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -416,8 +420,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = G7DJURR5RJ;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -443,8 +449,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = G7DJURR5RJ;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
