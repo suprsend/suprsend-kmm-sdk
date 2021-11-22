@@ -59,7 +59,6 @@
 		2DAAAA902735B86300DAF147 /* Other.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAAAA8F2735B86300DAF147 /* Other.swift */; };
 		2DAAAA932735BBCF00DAF147 /* CommonAnalyticsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAAAA922735BBCF00DAF147 /* CommonAnalyticsHandler.swift */; };
 		2DAB6EC22731B25000630827 /* sdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DAB6EC12731B25000630827 /* sdk.framework */; };
-		2DAB6EC32731B25000630827 /* sdk.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2DAB6EC12731B25000630827 /* sdk.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2DFBFC8627436C1A00F62BF5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2DFBFC8527436C1A00F62BF5 /* GoogleService-Info.plist */; };
 		2DFBFC882743F3F000F62BF5 /* Notifiaction.apns in Resources */ = {isa = PBXBuildFile; fileRef = 2DFBFC872743F3F000F62BF5 /* Notifiaction.apns */; };
 		599FD17026C9223E00DFCF64 /* LineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 599FD16F26C9223E00DFCF64 /* LineView.swift */; };
@@ -67,20 +66,6 @@
 		68C7136E6AF2394AA0F7A840 /* Pods_ECommerceAppSwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A69F658A88CF16FBFFFF1408 /* Pods_ECommerceAppSwiftUI.framework */; };
 		A7528EEE27112BED00DD09EC /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7528EED27112BED00DD09EC /* AppConstants.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		2DAB6EC42731B25000630827 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				2DAB6EC32731B25000630827 /* sdk.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		11BD72C644F8FDEB10FAD0FD /* Pods-ECommerceAppSwiftUI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ECommerceAppSwiftUI.release.xcconfig"; path = "Target Support Files/Pods-ECommerceAppSwiftUI/Pods-ECommerceAppSwiftUI.release.xcconfig"; sourceTree = "<group>"; };
@@ -480,7 +465,6 @@
 				2A087185238D4CA6002F1E61 /* Sources */,
 				2A087186238D4CA6002F1E61 /* Frameworks */,
 				2A087187238D4CA6002F1E61 /* Resources */,
-				2DAB6EC42731B25000630827 /* Embed Frameworks */,
 				5ADF7DD0C7A9A65E4894AFE9 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
@@ -503,7 +487,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 1130;
 				LastUpgradeCheck = 1130;
-				ORGANIZATIONNAME = "Ayush Gupta";
+				ORGANIZATIONNAME = Suprsend;
 				TargetAttributes = {
 					2A087188238D4CA6002F1E61 = {
 						CreatedOnToolsVersion = 11.3;
@@ -783,6 +767,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"ECommerceAppSwiftUI/Preview Content\"";
 				DEVELOPMENT_TEAM = G7DJURR5RJ;
+				ENABLE_BITCODE = NO;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -810,6 +795,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"ECommerceAppSwiftUI/Preview Content\"";
 				DEVELOPMENT_TEAM = G7DJURR5RJ;
+				ENABLE_BITCODE = NO;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

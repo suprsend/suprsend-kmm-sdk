@@ -261,7 +261,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home\n\ncd \"$PROJECT_DIR/..\"\n\n#./gradlew :shared:packForXCode -PXCODE_CONFIGURATION=${CONFIGURATION}\n\n./gradlew releaseFatFramework\n\n#./gradlew debugFatFramework\n\nrm -Rf ECommerceAppSwiftUI/sdk.framework\n\ncp -R ~/Library/Developer/Xcode/DerivedData/sdk-gcimjwuxweokqsgunttqfukmdstr/Build/Products/Debug-iphonesimulator/sdk.framework ECommerceAppSwiftUI/\n";
+			shellScript = "export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home\n\ncd \"$PROJECT_DIR/..\"\n\n#./gradlew :shared:packForXCode -PXCODE_CONFIGURATION=${CONFIGURATION}\n\nrm -Rf ECommerceAppSwiftUI/sdk.framework\n\n#./gradlew releaseFatFramework\n#cp -R ~/Library/Developer/Xcode/DerivedData/sdk-gcimjwuxweokqsgunttqfukmdstr/Build/Products/Debug-iphoneos/sdk.framework ECommerceAppSwiftUI/\n\n./gradlew debugFatFramework\ncp -R ~/Library/Developer/Xcode/DerivedData/sdk-gcimjwuxweokqsgunttqfukmdstr/Build/Products/Debug-iphonesimulator/sdk.framework ECommerceAppSwiftUI/\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
