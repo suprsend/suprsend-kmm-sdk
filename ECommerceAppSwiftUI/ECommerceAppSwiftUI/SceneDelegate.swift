@@ -27,6 +27,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             window.makeKeyAndVisible()
         }
     }
+    func scene(_ scene: UIScene, openURLContexts urlContexts: Set<UIOpenURLContext>) {
+        
+        let urllink = urlContexts.first {
+            
+            return $0.url.scheme == "supr"
+        }
+        
+        print("Url : \(urllink?.url)")
+        
+    }
     
     func sceneDidDisconnect(_ scene: UIScene) {
         print("demo : sceneDidDisconnect")
