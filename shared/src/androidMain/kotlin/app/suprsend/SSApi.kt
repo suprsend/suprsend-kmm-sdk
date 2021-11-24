@@ -17,10 +17,10 @@ import org.json.JSONObject
 
 class SSApi
 private constructor(
-    private val apiKey: String,
-    private val apiSecret: String,
-    private val apiBaseUrl: String? = null // If null data will be directed to prod server,
-
+    apiKey: String,
+    apiSecret: String,
+    apiBaseUrl: String? = null, // If null data will be directed to prod server
+    isFromCache: Boolean = false
 ) {
 
     private val basicDetails: BasicDetails = BasicDetails(apiKey, apiSecret, apiBaseUrl)
@@ -49,7 +49,8 @@ private constructor(
             SSApiInternal.setAppLaunched()
         }
 
-        track(SSConstants.S_EVENT_APP_LAUNCHED)
+        if (!isFromCache)
+            track(SSConstants.S_EVENT_APP_LAUNCHED)
 
         val application = SdkAndroidCreator.context.applicationContext as Application
 
@@ -122,20 +123,24 @@ private constructor(
         }
 
         fun getInstance(apiKey: String, apiSecret: String, apiBaseUrl: String? = null): SSApi {
-            val uniqueId = "$apiKey-$apiSecret"
-            if (instancesMap.containsKey(uniqueId)) {
-                return instancesMap[uniqueId]!!
-            }
-            val instance = SSApi(apiKey, apiSecret, apiBaseUrl)
-            instancesMap[uniqueId] = instance
-            return instance
+            return getInstanceInternal(apiKey = apiKey, apiSecret = apiSecret, apiBaseUrl = apiBaseUrl)
         }
 
         fun getInstanceFromCachedApiKey(): SSApi? {
             val apiKey = ConfigHelper.get(SSConstants.CONFIG_API_KEY) ?: return null
             val secret = ConfigHelper.get(SSConstants.CONFIG_API_SECRET) ?: return null
             val apiBaseUrl = ConfigHelper.get(SSConstants.CONFIG_API_BASE_URL) ?: return null
-            return getInstance(apiKey, secret, apiBaseUrl)
+            return getInstanceInternal(apiKey = apiKey, apiSecret = secret, apiBaseUrl = apiBaseUrl, isFromCache = true)
+        }
+
+        private fun getInstanceInternal(apiKey: String, apiSecret: String, apiBaseUrl: String? = null, isFromCache: Boolean= false): SSApi {
+            val uniqueId = "$apiKey-$apiSecret"
+            if (instancesMap.containsKey(uniqueId)) {
+                return instancesMap[uniqueId]!!
+            }
+            val instance = SSApi(apiKey, apiSecret, apiBaseUrl, isFromCache)
+            instancesMap[uniqueId] = instance
+            return instance
         }
     }
 }
