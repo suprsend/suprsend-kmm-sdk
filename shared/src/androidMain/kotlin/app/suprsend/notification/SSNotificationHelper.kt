@@ -30,7 +30,7 @@ object SSNotificationHelper {
             val data = remoteMessage.data
             if (data.isNotEmpty()) {
                 Logger.i("fcm", "Message data payload: $data")
-                if (data.containsKey(SSConstants.NOTIFICATION_PAYLOAD)) {
+                if (remoteMessage.isSuprSendRemoteMessage()) {
                     GlobalScope.launch(Dispatchers.IO + coroutineExceptionHandler) {
                         val rawNotification = getRawNotification(payloadJson = data[SSConstants.NOTIFICATION_PAYLOAD] ?: "")
                         showRawNotification(context = context.applicationContext, rawNotification = rawNotification)
@@ -395,11 +395,15 @@ object SSNotificationHelper {
     }
 }
 
-fun Context.getDrawableIdFromName(drawableName: String?): Int? {
+private fun Context.getDrawableIdFromName(drawableName: String?): Int? {
     drawableName ?: return null
     return try {
         resources.getIdentifier(drawableName, "drawable", packageName)
     } catch (e: Exception) {
         null
     }
+}
+
+fun RemoteMessage.isSuprSendRemoteMessage(): Boolean {
+    return data.containsKey(SSConstants.NOTIFICATION_PAYLOAD)
 }
