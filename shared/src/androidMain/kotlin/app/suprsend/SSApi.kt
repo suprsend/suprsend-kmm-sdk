@@ -133,7 +133,7 @@ private constructor(
             return getInstanceInternal(apiKey = apiKey, apiSecret = secret, apiBaseUrl = apiBaseUrl, isFromCache = true)
         }
 
-        private fun getInstanceInternal(apiKey: String, apiSecret: String, apiBaseUrl: String? = null, isFromCache: Boolean= false): SSApi {
+        private fun getInstanceInternal(apiKey: String, apiSecret: String, apiBaseUrl: String? = null, isFromCache: Boolean = false): SSApi {
             val uniqueId = "$apiKey-$apiSecret"
             if (instancesMap.containsKey(uniqueId)) {
                 return instancesMap[uniqueId]!!

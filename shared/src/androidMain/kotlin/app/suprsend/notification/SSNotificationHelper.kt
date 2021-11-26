@@ -8,7 +8,6 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Build
-import android.util.Log
 import androidx.core.app.NotificationCompat
 import app.suprsend.R
 import app.suprsend.SSApi
@@ -18,7 +17,6 @@ import app.suprsend.base.SdkAndroidCreator
 import app.suprsend.base.UrlUtils
 import app.suprsend.coroutineExceptionHandler
 import app.suprsend.database.json
-import app.suprsend.fcm.SSFirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
