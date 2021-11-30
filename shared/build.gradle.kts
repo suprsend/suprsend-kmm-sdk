@@ -93,7 +93,6 @@ kotlin {
                 implementation(Deps.Squareup.SQLDelight.coroutinesExtension)
                 implementation(Deps.AndroidX.ANNOTATION)
                 implementation("com.soywiz.korlibs.krypto:krypto:2.2.0")
-                //Todo version constants
             }
         }
         val commonTest by getting {
@@ -140,6 +139,7 @@ kotlin {
                 implementation(Deps.Squareup.mockServer)
                 implementation("io.mockk:mockk:1.12.0")
                 implementation(Deps.Squareup.SQLDelight.sqliteDriver)
+                implementation("com.googlecode.libphonenumber:libphonenumber:8.12.38")
             }
         }
         val iosMain by getting {

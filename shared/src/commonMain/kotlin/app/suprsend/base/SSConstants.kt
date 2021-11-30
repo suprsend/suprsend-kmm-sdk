@@ -9,6 +9,7 @@ internal object SSConstants {
     const val EVENT_KEY_MAX_LENGTH = 120
     const val EVENT_VALUE_MAX_LENGTH = 512
     const val FLUSH_EVENT_PAYLOAD_SIZE = 20L
+    const val PERIODIC_FLUSH_EVENT_IN_SEC = 60
 
     // Config Helper Keys
     const val CONFIG_API_KEY = "api_key"

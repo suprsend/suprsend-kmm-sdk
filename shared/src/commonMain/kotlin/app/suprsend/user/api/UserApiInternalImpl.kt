@@ -1,9 +1,11 @@
 package app.suprsend.user.api
 
 import app.suprsend.SSApiInternal
+import app.suprsend.base.Logger
 import app.suprsend.base.SSConstants
 import app.suprsend.base.SdkCreator
 import app.suprsend.base.convertToJsonPrimitive
+import app.suprsend.base.isMobileNumberValid
 import app.suprsend.base.singleThreadDispatcher
 import app.suprsend.base.toKotlinJsonObject
 import app.suprsend.base.uuid
@@ -131,19 +133,36 @@ internal class UserApiInternalImpl : UserApiInternalContract {
     }
 
     override fun setSms(mobile: String) {
-        append(SSConstants.SMS, mobile)
+        if (isMobileNumberValid(mobile)) {
+            append(SSConstants.SMS, mobile)
+        } else {
+            Logger.e("serror", "Mobile number is not valid : $mobile")
+        }
+
     }
 
     override fun unSetSms(mobile: String) {
-        remove(SSConstants.SMS, mobile)
+        if (isMobileNumberValid(mobile)) {
+            remove(SSConstants.SMS, mobile)
+        } else {
+            Logger.e("serror", "Mobile number is not valid : $mobile")
+        }
     }
 
     override fun setWhatsApp(mobile: String) {
-        append(SSConstants.WHATS_APP, mobile)
+        if (isMobileNumberValid(mobile)) {
+            append(SSConstants.WHATS_APP, mobile)
+        } else {
+            Logger.e("serror", "Mobile number is not valid : $mobile")
+        }
     }
 
     override fun unSetWhatsApp(mobile: String) {
-        remove(SSConstants.WHATS_APP, mobile)
+        if (isMobileNumberValid(mobile)) {
+            remove(SSConstants.WHATS_APP, mobile)
+        } else {
+            Logger.e("serror", "Mobile number is not valid : $mobile")
+        }
     }
 
     // TODO - Create constant

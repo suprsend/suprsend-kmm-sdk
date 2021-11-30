@@ -215,7 +215,7 @@ internal object SSApiInternal {
         flow {
             while (true) {
                 emit(true)
-                delay(60 * 1000L)
+                delay(SSConstants.PERIODIC_FLUSH_EVENT_IN_SEC * 1000L)
             }
         }
             .onEach {
