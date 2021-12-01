@@ -2,6 +2,9 @@
 -dontwarn app.suprsend.**
 -keep class app.suprsend.**{*;}
 
+# Xiaomi
+-keep class com.xiaomi.mipush.**{*;}
+
 # Kotlin Serialization
 -keepattributes *Annotation*, InnerClasses
 -dontnote kotlinx.serialization.AnnotationsKt # core serialization annotations
