@@ -27,6 +27,12 @@ interface UserApiInternalContract {
     fun setWhatsApp(mobile: String)
     fun unSetWhatsApp(mobile: String)
 
-    fun setAndroidPush(newToken: String)
-    fun unSetAndroidPush(token: String)
+    fun setAndroidFcmPush(newToken: String)
+    fun unSetAndroidFcmPush(token: String)
+
+    fun setAndroidXiaomiPush(newToken: String)
+    fun unSetAndroidXiaomiPush(token: String)
+
+    fun setIOSPush(newToken: String)
+    fun unSetIOSPush(token: String)
 }

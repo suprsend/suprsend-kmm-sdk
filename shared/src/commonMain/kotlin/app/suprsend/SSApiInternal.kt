@@ -195,12 +195,28 @@ internal object SSApiInternal {
         return ConfigHelper.get(SSConstants.CONFIG_DEVICE_ID) ?: ""
     }
 
-    fun setFcmToken(deviceId: String) {
-        ConfigHelper.addOrUpdate(SSConstants.CONFIG_FCM_PUSH_TOKEN, deviceId)
+    fun setFcmToken(token: String) {
+        ConfigHelper.addOrUpdate(SSConstants.CONFIG_FCM_PUSH_TOKEN, token)
     }
 
     fun getFcmToken(): String {
         return ConfigHelper.get(SSConstants.CONFIG_FCM_PUSH_TOKEN) ?: ""
+    }
+
+    fun setXiaomiToken(token: String) {
+        ConfigHelper.addOrUpdate(SSConstants.CONFIG_XIAOMI_PUSH_TOKEN, token)
+    }
+
+    fun getXiaomiToken(): String {
+        return ConfigHelper.get(SSConstants.CONFIG_XIAOMI_PUSH_TOKEN) ?: ""
+    }
+
+    fun setIOSToken(token: String) {
+        ConfigHelper.addOrUpdate(SSConstants.CONFIG_IOS_PUSH_TOKEN, token)
+    }
+
+    fun getIOSToken(): String {
+        return ConfigHelper.get(SSConstants.CONFIG_IOS_PUSH_TOKEN) ?: ""
     }
 
     fun setAppLaunched() {

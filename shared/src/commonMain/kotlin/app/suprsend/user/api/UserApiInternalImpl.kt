@@ -138,7 +138,6 @@ internal class UserApiInternalImpl : UserApiInternalContract {
         } else {
             Logger.e("serror", "Mobile number is not valid : $mobile")
         }
-
     }
 
     override fun unSetSms(mobile: String) {
@@ -166,7 +165,7 @@ internal class UserApiInternalImpl : UserApiInternalContract {
     }
 
     // TODO - Create constant
-    override fun setAndroidPush(newToken: String) {
+    override fun setAndroidFcmPush(newToken: String) {
         val oldToken = SSApiInternal.getFcmToken()
         if (oldToken != newToken) {
             SSApiInternal.setFcmToken(newToken)
@@ -177,8 +176,38 @@ internal class UserApiInternalImpl : UserApiInternalContract {
         }.toString())
     }
 
-    override fun unSetAndroidPush(token: String) {
+    override fun unSetAndroidFcmPush(token: String) {
         remove(SSConstants.FCM_TOKEN_PUSH, token)
+    }
+
+    override fun setAndroidXiaomiPush(newToken: String) {
+        val oldToken = SSApiInternal.getXiaomiToken()
+        if (oldToken != newToken) {
+            SSApiInternal.setXiaomiToken(newToken)
+        }
+        append(buildJsonObject {
+            put(SSConstants.XIAOMI_TOKEN_PUSH, JsonPrimitive(newToken))
+            put(SSConstants.DEVICE_ID, JsonPrimitive(SSApiInternal.getDeviceID()))
+        }.toString())
+    }
+
+    override fun unSetAndroidXiaomiPush(token: String) {
+        remove(SSConstants.XIAOMI_TOKEN_PUSH, token)
+    }
+
+    override fun setIOSPush(newToken: String) {
+        val oldToken = SSApiInternal.getIOSToken()
+        if (oldToken != newToken) {
+            SSApiInternal.setIOSToken(newToken)
+        }
+        append(buildJsonObject {
+            put(SSConstants.IOS_TOKEN_PUSH, JsonPrimitive(newToken))
+            put(SSConstants.DEVICE_ID, JsonPrimitive(SSApiInternal.getDeviceID()))
+        }.toString())
+    }
+
+    override fun unSetIOSPush(token: String) {
+        remove(SSConstants.IOS_TOKEN_PUSH, token)
     }
 
     private fun internalOperatorCall(properties: JsonElement, operator: String) {

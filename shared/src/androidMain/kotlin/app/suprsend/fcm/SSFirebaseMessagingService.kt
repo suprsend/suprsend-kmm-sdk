@@ -21,11 +21,11 @@ class SSFirebaseMessagingService : FirebaseMessagingService() {
         GlobalScope.launch(Dispatchers.IO + coroutineExceptionHandler) {
             Log.d(TAG, "FCM Token : $token")
             val instance = SSApi.getInstanceFromCachedApiKey()
-            instance?.getUser()?.setAndroidPush(token)
+            instance?.getUser()?.setAndroidFcmPush(token)
         }
     }
 
     companion object {
-        private const val TAG = "SS_FCM"
+        const val TAG = "ss_fcm"
     }
 }

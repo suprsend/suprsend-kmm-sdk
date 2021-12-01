@@ -18,6 +18,8 @@ internal object SSConstants {
     const val CONFIG_USER_ID = "user_id"
     const val CONFIG_IS_APP_LAUNCHED = "is_app_launched"
     const val CONFIG_FCM_PUSH_TOKEN = "fcm_push_token"
+    const val CONFIG_XIAOMI_PUSH_TOKEN = "xiaomi_push_token"
+    const val CONFIG_IOS_PUSH_TOKEN = "ios_push_token"
     const val CONFIG_DEVICE_ID = "device_id"
 
     // Properties
@@ -28,6 +30,8 @@ internal object SSConstants {
     const val IDENTIFY = "\$identify"
     const val TIME = "\$time"
     const val FCM_TOKEN_PUSH = "\$androidpush"
+    const val XIAOMI_TOKEN_PUSH = "\$androidXiaomipush"
+    const val IOS_TOKEN_PUSH = "\$iospush"
     const val DEVICE_ID = "\$deviceId"
     const val SET = "\$set"
     const val SET_ONCE = "\$set_once"

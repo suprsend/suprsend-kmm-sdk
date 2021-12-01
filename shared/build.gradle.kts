@@ -117,8 +117,10 @@ kotlin {
                 //implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1")
                 implementation(Deps.AndroidX.CORE_KTX)
 
-                api("com.google.firebase:firebase-messaging:22.0.0")
+                api("com.google.firebase:firebase-messaging:23.0.0")
 
+                implementation("com.googlecode.libphonenumber:libphonenumber:8.12.38")
+                implementation(files("libs/MiPush_SDK_Client_4_8_3.jar"))
             }
         }
         val androidTest by getting {
@@ -139,7 +141,7 @@ kotlin {
                 implementation(Deps.Squareup.mockServer)
                 implementation("io.mockk:mockk:1.12.0")
                 implementation(Deps.Squareup.SQLDelight.sqliteDriver)
-                implementation("com.googlecode.libphonenumber:libphonenumber:8.12.38")
+
             }
         }
         val iosMain by getting {
