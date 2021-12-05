@@ -5,6 +5,7 @@ import app.suprsend.base.Logger
 import app.suprsend.base.SSConstants
 import app.suprsend.base.SdkCreator
 import app.suprsend.base.convertToJsonPrimitive
+import app.suprsend.base.filterSSReservedKeys
 import app.suprsend.base.isMobileNumberValid
 import app.suprsend.base.singleThreadDispatcher
 import app.suprsend.base.toKotlinJsonObject
@@ -39,7 +40,7 @@ internal class UserApiInternalImpl : UserApiInternalContract {
 
     override fun set(propertiesJson: String) {
         internalOperatorCall(
-            propertiesJson.toKotlinJsonObject(),
+            propertiesJson.toKotlinJsonObject().filterSSReservedKeys(),
             operator = SSConstants.SET
         )
     }
@@ -57,7 +58,7 @@ internal class UserApiInternalImpl : UserApiInternalContract {
 
     override fun setOnce(propertiesJson: String) {
         internalOperatorCall(
-            propertiesJson.toKotlinJsonObject(),
+            propertiesJson.toKotlinJsonObject().filterSSReservedKeys(),
             operator = SSConstants.SET_ONCE
         )
     }
@@ -75,7 +76,7 @@ internal class UserApiInternalImpl : UserApiInternalContract {
 
     override fun increment(propertiesJson: String) {
         internalOperatorCall(
-            propertiesJson.toKotlinJsonObject(),
+            propertiesJson.toKotlinJsonObject().filterSSReservedKeys(),
             operator = SSConstants.ADD
         )
     }
@@ -93,7 +94,7 @@ internal class UserApiInternalImpl : UserApiInternalContract {
 
     override fun append(propertiesJson: String) {
         internalOperatorCall(
-            propertiesJson.toKotlinJsonObject(),
+            propertiesJson.toKotlinJsonObject().filterSSReservedKeys(),
             operator = SSConstants.APPEND
         )
     }

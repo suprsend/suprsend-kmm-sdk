@@ -3,6 +3,7 @@ package app.suprsend
 import app.suprsend.base.Logger
 import app.suprsend.base.SSConstants
 import app.suprsend.base.SdkCreator
+import app.suprsend.base.filterSSReservedKeys
 import app.suprsend.base.ioDispatcher
 import app.suprsend.base.singleThreadDispatcher
 import app.suprsend.base.toKotlinJsonObject
@@ -34,7 +35,7 @@ internal object SSApiInternal {
 
     fun purchaseMade(properties: String) {
         coroutineScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
-            trackOp(eventName = SSConstants.S_EVENT_PURCHASE_MADE, propertiesJO = properties.toKotlinJsonObject())
+            trackOp(eventName = SSConstants.S_EVENT_PURCHASE_MADE, propertiesJO = properties.toKotlinJsonObject().filterSSReservedKeys())
         }
     }
 
@@ -93,7 +94,7 @@ internal object SSApiInternal {
         coroutineScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
             Logger.i(TAG, "Setting super properties $propertiesJsonObject")
             val superPropertiesRepository = SuperPropertiesLocalDataSource()
-            superPropertiesRepository.add(propertiesJsonObject.toKotlinJsonObject())
+            superPropertiesRepository.add(propertiesJsonObject.toKotlinJsonObject().filterSSReservedKeys())
         }
     }
 
@@ -107,7 +108,7 @@ internal object SSApiInternal {
 
     fun trackOp(eventName: String, propertiesJsonString: String?) {
         coroutineScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
-            trackOp(eventName, propertiesJsonString.toKotlinJsonObject())
+            trackOp(eventName, propertiesJsonString.toKotlinJsonObject().filterSSReservedKeys())
         }
     }
 
