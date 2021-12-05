@@ -11,7 +11,6 @@ import kotlinx.serialization.json.doubleOrNull
 import kotlinx.serialization.json.int
 import kotlinx.serialization.json.intOrNull
 import kotlinx.serialization.json.jsonPrimitive
-import org.junit.Assert
 
 class KotlinExtensionTest {
 
