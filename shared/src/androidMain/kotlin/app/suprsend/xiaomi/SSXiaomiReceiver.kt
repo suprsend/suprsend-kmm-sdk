@@ -56,6 +56,6 @@ class SSXiaomiReceiver : PushMessageReceiver() {
     }
 
     companion object {
-        const val TAG = "ss_x"
+        const val TAG = "push_xio"
     }
 }

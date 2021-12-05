@@ -26,6 +26,6 @@ class SSFirebaseMessagingService : FirebaseMessagingService() {
     }
 
     companion object {
-        const val TAG = "ss_fcm"
+        const val TAG = "push_fcm"
     }
 }
