@@ -17,6 +17,7 @@ interface UserApiInternalContract {
     fun append(propertiesJson: String)
 
     fun remove(key: String, value: Any)
+    fun remove(propertiesJson: String)
 
     fun setEmail(email: String)
     fun unSetEmail(email: String)

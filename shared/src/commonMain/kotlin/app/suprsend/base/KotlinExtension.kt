@@ -24,9 +24,8 @@ internal fun JsonObject.filterSSReservedKeys(): JsonObject {
     return buildJsonObject {
         receivedJo.forEach { (key, jsonElement) ->
             when {
-                key.contains("$") ||
-                    key.contains("ss_") -> {
-                    Logger.i("validation", "Key should not start with $ or ss_ this events property will not be sent to suprsend - Key - $key")
+                key.isInValidKey() -> {
+                    Logger.i(SSConstants.TAG_VALIDATION, "Key should not start with $ or ss_ this events property will not be sent to suprsend - Key - $key")
                 }
                 else -> {
                     put(key, jsonElement)
@@ -34,6 +33,10 @@ internal fun JsonObject.filterSSReservedKeys(): JsonObject {
             }
         }
     }
+}
+
+fun String.isInValidKey(): Boolean {
+    return contains("$") || contains("ss_")
 }
 
 fun JsonElement?.addUpdateJsoObject(updateJsonObject: JsonObject): JsonElement? {

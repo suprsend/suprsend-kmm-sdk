@@ -73,10 +73,7 @@ internal object SSApiInternal {
                     )
                 )
             userLocalDatasource.identify(uniqueId)
-            userImpl.internalOperatorCallOp(buildJsonObject {
-                put(SSConstants.FCM_TOKEN_PUSH, JsonPrimitive(getFcmToken()))
-                put(SSConstants.DEVICE_ID, JsonPrimitive(getDeviceID()))
-            }, SSConstants.APPEND)
+            appendNotificationToken()
             trackOp(SSConstants.S_EVENT_USER_LOGIN, buildJsonObject { })
             flush(mutationHandler)
         }
@@ -173,14 +170,30 @@ internal object SSApiInternal {
             Logger.i(TAG, "reset : Current : $userId New : $newID")
             trackOp(SSConstants.S_EVENT_USER_LOGOUT, buildJsonObject { })
             userLocalDatasource.identify(newID)
-            userImpl.internalOperatorCallOp(buildJsonObject {
-                put(SSConstants.FCM_TOKEN_PUSH, JsonPrimitive(getFcmToken()))
-                put(SSConstants.DEVICE_ID, JsonPrimitive(getDeviceID()))
-            }, SSConstants.APPEND)
+            appendNotificationToken()
             flush(mutationHandler)
         }
     }
 
+    private fun appendNotificationToken() {
+        val fcmToken = getXiaomiToken()
+        if (fcmToken.isNotBlank()) {
+            userImpl.internalOperatorCallOp(buildJsonObject {
+                put(SSConstants.PUSH_ANDROID_TOKEN, JsonPrimitive(fcmToken))
+                put(SSConstants.PUSH_VENDOR, JsonPrimitive(SSConstants.PUSH_VENDOR_FCM))
+                put(SSConstants.DEVICE_ID, JsonPrimitive(getDeviceID()))
+            }, SSConstants.APPEND)
+        }
+
+        val xiaomiToken = getXiaomiToken()
+        if (xiaomiToken.isNotBlank()) {
+            userImpl.internalOperatorCallOp(buildJsonObject {
+                put(SSConstants.PUSH_ANDROID_TOKEN, JsonPrimitive(xiaomiToken))
+                put(SSConstants.PUSH_VENDOR, JsonPrimitive(SSConstants.PUSH_VENDOR_XIAOMI))
+                put(SSConstants.DEVICE_ID, JsonPrimitive(getDeviceID()))
+            }, SSConstants.APPEND)
+        }
+    }
     fun isAppInstalled(): Boolean {
         return ConfigHelper.getBoolean(SSConstants.CONFIG_IS_APP_LAUNCHED) ?: false
     }

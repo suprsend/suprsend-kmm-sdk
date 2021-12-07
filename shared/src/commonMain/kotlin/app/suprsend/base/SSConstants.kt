@@ -29,9 +29,12 @@ internal object SSConstants {
     const val INSERT_ID = "\$insert_id"
     const val IDENTIFY = "\$identify"
     const val TIME = "\$time"
-    const val FCM_TOKEN_PUSH = "\$androidpush"
-    const val XIAOMI_TOKEN_PUSH = "\$androidXiaomipush"
-    const val IOS_TOKEN_PUSH = "\$iospush"
+    const val PUSH_ANDROID_TOKEN = "\$androidpush"
+    const val PUSH_IOS_TOKEN = "\$iospush"
+    const val PUSH_VENDOR = "\$pushvendor"
+    const val PUSH_VENDOR_FCM = "fcm"
+    const val PUSH_VENDOR_XIAOMI = "xiaomi"
+    const val PUSH_VENDOR_APNS = "apns"
     const val DEVICE_ID = "\$deviceId"
     const val SET = "\$set"
     const val SET_ONCE = "\$set_once"
@@ -59,4 +62,6 @@ internal object SSConstants {
     const val S_EVENT_NOTIFICATION_SUBSCRIBED = "\$notification_subscribed"
     const val S_EVENT_NOTIFICATION_UNSUBSCRIBED = "\$notification_unsubscribed"
     const val S_EVENT_PAGE_VISITED = "\$page_visited"
+
+    const val TAG_VALIDATION = "validation"
 }

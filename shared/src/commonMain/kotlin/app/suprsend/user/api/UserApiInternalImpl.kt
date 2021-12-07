@@ -6,6 +6,7 @@ import app.suprsend.base.SSConstants
 import app.suprsend.base.SdkCreator
 import app.suprsend.base.convertToJsonPrimitive
 import app.suprsend.base.filterSSReservedKeys
+import app.suprsend.base.isInValidKey
 import app.suprsend.base.isMobileNumberValid
 import app.suprsend.base.singleThreadDispatcher
 import app.suprsend.base.toKotlinJsonObject
@@ -18,6 +19,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.add
 import kotlinx.serialization.json.buildJsonArray
@@ -40,7 +42,7 @@ internal class UserApiInternalImpl : UserApiInternalContract {
 
     override fun set(propertiesJson: String) {
         internalOperatorCall(
-            propertiesJson.toKotlinJsonObject().filterSSReservedKeys(),
+            propertiesJson.toKotlinJsonObject(),
             operator = SSConstants.SET
         )
     }
@@ -58,7 +60,7 @@ internal class UserApiInternalImpl : UserApiInternalContract {
 
     override fun setOnce(propertiesJson: String) {
         internalOperatorCall(
-            propertiesJson.toKotlinJsonObject().filterSSReservedKeys(),
+            propertiesJson.toKotlinJsonObject(),
             operator = SSConstants.SET_ONCE
         )
     }
@@ -76,7 +78,7 @@ internal class UserApiInternalImpl : UserApiInternalContract {
 
     override fun increment(propertiesJson: String) {
         internalOperatorCall(
-            propertiesJson.toKotlinJsonObject().filterSSReservedKeys(),
+            propertiesJson.toKotlinJsonObject(),
             operator = SSConstants.ADD
         )
     }
@@ -94,7 +96,7 @@ internal class UserApiInternalImpl : UserApiInternalContract {
 
     override fun append(propertiesJson: String) {
         internalOperatorCall(
-            propertiesJson.toKotlinJsonObject().filterSSReservedKeys(),
+            propertiesJson.toKotlinJsonObject(),
             operator = SSConstants.APPEND
         )
     }
@@ -110,19 +112,33 @@ internal class UserApiInternalImpl : UserApiInternalContract {
         )
     }
 
+    override fun remove(propertiesJson: String) {
+        internalOperatorCall(
+            propertiesJson.toKotlinJsonObject(),
+            operator = SSConstants.REMOVE
+        )
+    }
+
     override fun unSet(key: String) {
         unSet(listOf(key))
     }
 
     override fun unSet(keys: List<String>) {
-        internalOperatorCall(
-            buildJsonArray {
-                keys.forEach { key ->
-                    add(key)
-                }
-            },
-            operator = SSConstants.UNSET
-        )
+        coroutineScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
+            val filteredValidKeys = keys.filter { key -> !key.isInValidKey() }
+            if (filteredValidKeys.isNotEmpty()) {
+                internalOperatorCallOp(
+                    properties = buildJsonArray {
+                        keys.forEach { key ->
+                            add(key)
+                        }
+                    },
+                    operator = SSConstants.UNSET
+                )
+            } else {
+                Logger.i(SSConstants.TAG_VALIDATION, "Payload ignored as none keys are valid after filtering reserved keys for unset operator $keys")
+            }
+        }
     }
 
     override fun setEmail(email: String) {
@@ -172,13 +188,19 @@ internal class UserApiInternalImpl : UserApiInternalContract {
             SSApiInternal.setFcmToken(newToken)
         }
         append(buildJsonObject {
-            put(SSConstants.FCM_TOKEN_PUSH, JsonPrimitive(newToken))
+            put(SSConstants.PUSH_ANDROID_TOKEN, JsonPrimitive(newToken))
+            put(SSConstants.PUSH_VENDOR, JsonPrimitive(SSConstants.PUSH_VENDOR_FCM))
             put(SSConstants.DEVICE_ID, JsonPrimitive(SSApiInternal.getDeviceID()))
         }.toString())
     }
 
     override fun unSetAndroidFcmPush(token: String) {
-        remove(SSConstants.FCM_TOKEN_PUSH, token)
+        remove(
+            buildJsonObject {
+                put(SSConstants.PUSH_ANDROID_TOKEN, JsonPrimitive(token))
+                put(SSConstants.PUSH_VENDOR, JsonPrimitive(SSConstants.PUSH_VENDOR_FCM))
+            }.toString()
+        )
     }
 
     override fun setAndroidXiaomiPush(newToken: String) {
@@ -187,13 +209,19 @@ internal class UserApiInternalImpl : UserApiInternalContract {
             SSApiInternal.setXiaomiToken(newToken)
         }
         append(buildJsonObject {
-            put(SSConstants.XIAOMI_TOKEN_PUSH, JsonPrimitive(newToken))
+            put(SSConstants.PUSH_ANDROID_TOKEN, JsonPrimitive(newToken))
+            put(SSConstants.PUSH_VENDOR, JsonPrimitive(SSConstants.PUSH_VENDOR_XIAOMI))
             put(SSConstants.DEVICE_ID, JsonPrimitive(SSApiInternal.getDeviceID()))
         }.toString())
     }
 
     override fun unSetAndroidXiaomiPush(token: String) {
-        remove(SSConstants.XIAOMI_TOKEN_PUSH, token)
+        remove(
+            buildJsonObject {
+                put(SSConstants.PUSH_ANDROID_TOKEN, JsonPrimitive(token))
+                put(SSConstants.PUSH_VENDOR, JsonPrimitive(SSConstants.PUSH_VENDOR_XIAOMI))
+            }.toString()
+        )
     }
 
     override fun setIOSPush(newToken: String) {
@@ -202,18 +230,29 @@ internal class UserApiInternalImpl : UserApiInternalContract {
             SSApiInternal.setIOSToken(newToken)
         }
         append(buildJsonObject {
-            put(SSConstants.IOS_TOKEN_PUSH, JsonPrimitive(newToken))
+            put(SSConstants.PUSH_IOS_TOKEN, JsonPrimitive(newToken))
+            put(SSConstants.PUSH_VENDOR, JsonPrimitive(SSConstants.PUSH_VENDOR_APNS))
             put(SSConstants.DEVICE_ID, JsonPrimitive(SSApiInternal.getDeviceID()))
         }.toString())
     }
 
     override fun unSetIOSPush(token: String) {
-        remove(SSConstants.IOS_TOKEN_PUSH, token)
+        remove(
+            buildJsonObject {
+                put(SSConstants.PUSH_IOS_TOKEN, JsonPrimitive(token))
+                put(SSConstants.PUSH_VENDOR, JsonPrimitive(SSConstants.PUSH_VENDOR_APNS))
+            }.toString()
+        )
     }
 
-    private fun internalOperatorCall(properties: JsonElement, operator: String) {
+    private fun internalOperatorCall(properties: JsonObject, operator: String) {
         coroutineScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
-            internalOperatorCallOp(properties, operator)
+            val filteredProperties = properties.filterSSReservedKeys()
+            if (filteredProperties.isNotEmpty()) {
+                internalOperatorCallOp(filteredProperties, operator)
+            } else {
+                Logger.i(SSConstants.TAG_VALIDATION, "Payload ignored as none keys are valid after filtering reserved keys for $operator $properties")
+            }
         }
     }
 

@@ -49,6 +49,10 @@ constructor(
         user.remove(key, value)
     }
 
+    fun remove(properties: JSONObject) {
+        user.remove(properties.toString())
+    }
+
     fun setEmail(email: String) {
         user.setEmail(email)
     }
