@@ -3,6 +3,7 @@ package app.suprsend
 import app.suprsend.base.Logger
 import app.suprsend.base.SSConstants
 import app.suprsend.base.SdkCreator
+import app.suprsend.base.filterSSReservedKeys
 import app.suprsend.base.ioDispatcher
 import app.suprsend.base.singleThreadDispatcher
 import app.suprsend.base.toKotlinJsonObject
@@ -34,7 +35,7 @@ internal object SSApiInternal {
 
     fun purchaseMade(properties: String) {
         coroutineScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
-            trackOp(eventName = SSConstants.S_EVENT_PURCHASE_MADE, propertiesJO = properties.toKotlinJsonObject())
+            trackOp(eventName = SSConstants.S_EVENT_PURCHASE_MADE, propertiesJO = properties.toKotlinJsonObject().filterSSReservedKeys())
         }
     }
 
@@ -72,10 +73,7 @@ internal object SSApiInternal {
                     )
                 )
             userLocalDatasource.identify(uniqueId)
-            userImpl.internalOperatorCallOp(buildJsonObject {
-                put(SSConstants.FCM_TOKEN_PUSH, JsonPrimitive(getFcmToken()))
-                put(SSConstants.DEVICE_ID, JsonPrimitive(getDeviceID()))
-            }, SSConstants.APPEND)
+            appendNotificationToken()
             trackOp(SSConstants.S_EVENT_USER_LOGIN, buildJsonObject { })
             flush(mutationHandler)
         }
@@ -93,7 +91,7 @@ internal object SSApiInternal {
         coroutineScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
             Logger.i(TAG, "Setting super properties $propertiesJsonObject")
             val superPropertiesRepository = SuperPropertiesLocalDataSource()
-            superPropertiesRepository.add(propertiesJsonObject.toKotlinJsonObject())
+            superPropertiesRepository.add(propertiesJsonObject.toKotlinJsonObject().filterSSReservedKeys())
         }
     }
 
@@ -107,7 +105,7 @@ internal object SSApiInternal {
 
     fun trackOp(eventName: String, propertiesJsonString: String?) {
         coroutineScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
-            trackOp(eventName, propertiesJsonString.toKotlinJsonObject())
+            trackOp(eventName, propertiesJsonString.toKotlinJsonObject().filterSSReservedKeys())
         }
     }
 
@@ -172,14 +170,30 @@ internal object SSApiInternal {
             Logger.i(TAG, "reset : Current : $userId New : $newID")
             trackOp(SSConstants.S_EVENT_USER_LOGOUT, buildJsonObject { })
             userLocalDatasource.identify(newID)
-            userImpl.internalOperatorCallOp(buildJsonObject {
-                put(SSConstants.FCM_TOKEN_PUSH, JsonPrimitive(getFcmToken()))
-                put(SSConstants.DEVICE_ID, JsonPrimitive(getDeviceID()))
-            }, SSConstants.APPEND)
+            appendNotificationToken()
             flush(mutationHandler)
         }
     }
 
+    private fun appendNotificationToken() {
+        val fcmToken = getXiaomiToken()
+        if (fcmToken.isNotBlank()) {
+            userImpl.internalOperatorCallOp(buildJsonObject {
+                put(SSConstants.PUSH_ANDROID_TOKEN, JsonPrimitive(fcmToken))
+                put(SSConstants.PUSH_VENDOR, JsonPrimitive(SSConstants.PUSH_VENDOR_FCM))
+                put(SSConstants.DEVICE_ID, JsonPrimitive(getDeviceID()))
+            }, SSConstants.APPEND)
+        }
+
+        val xiaomiToken = getXiaomiToken()
+        if (xiaomiToken.isNotBlank()) {
+            userImpl.internalOperatorCallOp(buildJsonObject {
+                put(SSConstants.PUSH_ANDROID_TOKEN, JsonPrimitive(xiaomiToken))
+                put(SSConstants.PUSH_VENDOR, JsonPrimitive(SSConstants.PUSH_VENDOR_XIAOMI))
+                put(SSConstants.DEVICE_ID, JsonPrimitive(getDeviceID()))
+            }, SSConstants.APPEND)
+        }
+    }
     fun isAppInstalled(): Boolean {
         return ConfigHelper.getBoolean(SSConstants.CONFIG_IS_APP_LAUNCHED) ?: false
     }
@@ -195,12 +209,28 @@ internal object SSApiInternal {
         return ConfigHelper.get(SSConstants.CONFIG_DEVICE_ID) ?: ""
     }
 
-    fun setFcmToken(deviceId: String) {
-        ConfigHelper.addOrUpdate(SSConstants.CONFIG_FCM_PUSH_TOKEN, deviceId)
+    fun setFcmToken(token: String) {
+        ConfigHelper.addOrUpdate(SSConstants.CONFIG_FCM_PUSH_TOKEN, token)
     }
 
     fun getFcmToken(): String {
         return ConfigHelper.get(SSConstants.CONFIG_FCM_PUSH_TOKEN) ?: ""
+    }
+
+    fun setXiaomiToken(token: String) {
+        ConfigHelper.addOrUpdate(SSConstants.CONFIG_XIAOMI_PUSH_TOKEN, token)
+    }
+
+    fun getXiaomiToken(): String {
+        return ConfigHelper.get(SSConstants.CONFIG_XIAOMI_PUSH_TOKEN) ?: ""
+    }
+
+    fun setIOSToken(token: String) {
+        ConfigHelper.addOrUpdate(SSConstants.CONFIG_IOS_PUSH_TOKEN, token)
+    }
+
+    fun getIOSToken(): String {
+        return ConfigHelper.get(SSConstants.CONFIG_IOS_PUSH_TOKEN) ?: ""
     }
 
     fun setAppLaunched() {
@@ -215,7 +245,7 @@ internal object SSApiInternal {
         flow {
             while (true) {
                 emit(true)
-                delay(60 * 1000L)
+                delay(SSConstants.PERIODIC_FLUSH_EVENT_IN_SEC * 1000L)
             }
         }
             .onEach {

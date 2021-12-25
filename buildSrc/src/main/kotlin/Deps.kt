@@ -14,6 +14,9 @@ object Deps {
     const val SS_TOKEN="XXXX"
     const val SS_SECRET="XXXX"
 
+    const val XIAOMI_APP_ID="XXXX"
+    const val XIAOMI_APP_KEY="XXXX"
+
     const val MX_TOKEN="XXXX"
     const val JITPACK_TOKEN="XXXX"
 

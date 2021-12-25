@@ -8,9 +8,11 @@ import app.suprsend.config.ConfigHelper
 import app.suprsend.database.json
 import com.soywiz.krypto.HMAC
 import com.soywiz.krypto.md5
+/* ktlint-disable no-wildcard-imports */
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
+/* ktlint-enable no-wildcard-imports */
 import io.ktor.utils.io.charsets.Charsets
 import io.ktor.utils.io.core.toByteArray
 import kotlinx.datetime.Clock

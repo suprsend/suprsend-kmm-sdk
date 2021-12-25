@@ -49,6 +49,10 @@ constructor(
         user.remove(key, value)
     }
 
+    fun remove(properties: JSONObject) {
+        user.remove(properties.toString())
+    }
+
     fun setEmail(email: String) {
         user.setEmail(email)
     }
@@ -73,13 +77,33 @@ constructor(
         user.unSetWhatsApp(mobile)
     }
 
-    fun setAndroidPush(token: String) {
-        user.setAndroidPush(token)
+    fun setAndroidFcmPush(token: String) {
+        user.setAndroidFcmPush(token)
         SSApiInternal.flush(mutationHandler)
     }
 
-    fun unSetAndroidPush(token: String) {
-        user.unSetAndroidPush(token)
+    fun unSetAndroidFcmPush(token: String) {
+        user.unSetAndroidFcmPush(token)
+        SSApiInternal.flush(mutationHandler)
+    }
+
+    fun setAndroidXiaomiPush(token: String) {
+        user.setAndroidXiaomiPush(token)
+        SSApiInternal.flush(mutationHandler)
+    }
+
+    fun unSetAndroidXiaomiPush(token: String) {
+        user.unSetAndroidXiaomiPush(token)
+        SSApiInternal.flush(mutationHandler)
+    }
+
+    fun setIOSPush(token: String) {
+        user.setIOSPush(token)
+        SSApiInternal.flush(mutationHandler)
+    }
+
+    fun unSetIOSPush(token: String) {
+        user.unSetIOSPush(token)
         SSApiInternal.flush(mutationHandler)
     }
 }

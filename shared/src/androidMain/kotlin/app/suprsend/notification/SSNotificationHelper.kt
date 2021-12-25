@@ -8,7 +8,6 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Build
-import android.util.Log
 import androidx.core.app.NotificationCompat
 import app.suprsend.R
 import app.suprsend.SSApi
@@ -16,31 +15,47 @@ import app.suprsend.base.Logger
 import app.suprsend.base.SSConstants
 import app.suprsend.base.SdkAndroidCreator
 import app.suprsend.base.UrlUtils
+import app.suprsend.base.toKotlinJsonObject
 import app.suprsend.coroutineExceptionHandler
 import app.suprsend.database.json
 import app.suprsend.fcm.SSFirebaseMessagingService
+import app.suprsend.xiaomi.SSXiaomiReceiver
 import com.google.firebase.messaging.RemoteMessage
+import com.xiaomi.mipush.sdk.ErrorCode
+import com.xiaomi.mipush.sdk.MiPushClient
+import com.xiaomi.mipush.sdk.MiPushCommandMessage
+import com.xiaomi.mipush.sdk.MiPushMessage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.serialization.json.JsonElement
 import org.json.JSONObject
 
 object SSNotificationHelper {
 
     fun showFCMNotification(context: Context, remoteMessage: RemoteMessage) {
         try {
-            val data = remoteMessage.data
-            if (data.isNotEmpty()) {
-                Logger.i("fcm", "Message data payload: $data")
-                if (data.containsKey(SSConstants.NOTIFICATION_PAYLOAD)) {
-                    GlobalScope.launch(Dispatchers.IO + coroutineExceptionHandler) {
-                        val rawNotification = getRawNotification(payloadJson = data[SSConstants.NOTIFICATION_PAYLOAD] ?: "")
-                        showRawNotification(context = context.applicationContext, rawNotification = rawNotification)
-                    }
+            Logger.i(SSFirebaseMessagingService.TAG, "Message data payload: ${remoteMessage.messageId}")
+            if (remoteMessage.isSuprSendRemoteMessage()) {
+                GlobalScope.launch(Dispatchers.IO + coroutineExceptionHandler) {
+                    showRawNotification(context = context.applicationContext, rawNotification = remoteMessage.getRawNotification())
                 }
             }
         } catch (e: Exception) {
-            Logger.e("fcm", "Message data payload exception ", e)
+            Logger.e(SSFirebaseMessagingService.TAG, "Message data payload exception ", e)
+        }
+    }
+
+    fun showXiaomiNotification(context: Context, miPushMessage: MiPushMessage) {
+        try {
+            Logger.i(SSXiaomiReceiver.TAG, "Message data payload: ${miPushMessage.messageId}")
+            if (miPushMessage.isSuprSendPush()) {
+                GlobalScope.launch(Dispatchers.IO + coroutineExceptionHandler) {
+                    showRawNotification(context = context.applicationContext, rawNotification = miPushMessage.getRawNotification())
+                }
+            }
+        } catch (e: Exception) {
+            Logger.e(SSXiaomiReceiver.TAG, "Message data payload exception ", e)
         }
     }
 
@@ -59,10 +74,6 @@ object SSNotificationHelper {
         } catch (e: Exception) {
             Logger.e("nh", "showRawNotification", e)
         }
-    }
-
-    private fun getRawNotification(payloadJson: String): RawNotification {
-        return json.decodeFromString(RawNotification.serializer(), payloadJson)
     }
 
     private fun showNotificationInternal(context: Context, notificationVo: NotificationVo) {
@@ -397,11 +408,48 @@ object SSNotificationHelper {
     }
 }
 
-fun Context.getDrawableIdFromName(drawableName: String?): Int? {
+private fun Context.getDrawableIdFromName(drawableName: String?): Int? {
     drawableName ?: return null
     return try {
         resources.getIdentifier(drawableName, "drawable", packageName)
     } catch (e: Exception) {
         null
     }
+}
+
+fun RemoteMessage.isSuprSendRemoteMessage(): Boolean {
+    return data.containsKey(SSConstants.NOTIFICATION_PAYLOAD)
+}
+
+fun RemoteMessage.getRawNotification(): RawNotification {
+    return json.decodeFromString(RawNotification.serializer(), data[SSConstants.NOTIFICATION_PAYLOAD] ?: "")
+}
+
+fun MiPushMessage.isSuprSendPush(): Boolean {
+    return content.toKotlinJsonObject().containsKey(SSConstants.NOTIFICATION_PAYLOAD)
+}
+
+fun MiPushMessage.getRawNotification(): RawNotification {
+    return json.decodeFromJsonElement(RawNotification.serializer(), content.toKotlinJsonObject()[SSConstants.NOTIFICATION_PAYLOAD] as JsonElement)
+}
+
+fun MiPushCommandMessage?.getToken(): String? {
+
+    Logger.i(
+        SSXiaomiReceiver.TAG, "getToken\n" +
+            "Command : ${this?.command} \n" +
+            "resultCode : ${this?.resultCode} \n" +
+            "token : ${this?.commandArguments?.firstOrNull()} \n" +
+            "reason : ${this?.reason} \n"
+    )
+
+    this ?: return null
+
+    val token = commandArguments?.firstOrNull()
+
+    if (MiPushClient.COMMAND_REGISTER == command && resultCode == ErrorCode.SUCCESS.toLong() && !token.isNullOrBlank()) {
+        return token
+    }
+
+    return null
 }

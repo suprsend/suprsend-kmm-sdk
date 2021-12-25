@@ -2,6 +2,7 @@ package app.suprsend
 
 import android.app.Application
 import android.content.Context
+import android.util.Log
 import androidx.annotation.NonNull
 import app.suprsend.base.ActivityLifecycleCallbackHandler
 import app.suprsend.base.BasicDetails
@@ -13,14 +14,18 @@ import app.suprsend.base.uuid
 import app.suprsend.config.ConfigHelper
 import app.suprsend.database.DatabaseDriverFactory
 import app.suprsend.user.UserLocalDatasource
+import app.suprsend.xiaomi.SSXiaomiReceiver
+import com.xiaomi.channel.commonutils.logger.LoggerInterface
+import com.xiaomi.mipush.sdk.Logger
+import com.xiaomi.mipush.sdk.MiPushClient
 import org.json.JSONObject
 
 class SSApi
 private constructor(
-    private val apiKey: String,
-    private val apiSecret: String,
-    private val apiBaseUrl: String? = null // If null data will be directed to prod server,
-
+    apiKey: String,
+    apiSecret: String,
+    apiBaseUrl: String? = null, // If null data will be directed to prod server
+    isFromCache: Boolean = false
 ) {
 
     private val basicDetails: BasicDetails = BasicDetails(apiKey, apiSecret, apiBaseUrl)
@@ -49,7 +54,8 @@ private constructor(
             SSApiInternal.setAppLaunched()
         }
 
-        track(SSConstants.S_EVENT_APP_LAUNCHED)
+        if (!isFromCache)
+            track(SSConstants.S_EVENT_APP_LAUNCHED)
 
         val application = SdkAndroidCreator.context.applicationContext as Application
 
@@ -105,7 +111,7 @@ private constructor(
 
     companion object {
 
-        val instancesMap = hashMapOf<String, SSApi>()
+        private val instancesMap = hashMapOf<String, SSApi>()
 
         /**
          * Should be called before Application super.onCreate()
@@ -121,21 +127,42 @@ private constructor(
             SdkInitializer.initialize(databaseDriverFactory = DatabaseDriverFactory())
         }
 
+        fun initXiaomi(context: Context, appId: String, apiKey: String) {
+            MiPushClient.registerPush(context, appId, apiKey)
+            Logger.setLogger(context, object : LoggerInterface {
+                override fun setTag(tag: String?) {
+                    Log.d(SSXiaomiReceiver.TAG, "set Tag : $tag")
+                }
+
+                override fun log(message: String?) {
+                    Log.d(SSXiaomiReceiver.TAG, "Log : $message")
+                }
+
+                override fun log(message: String?, throwable: Throwable?) {
+                    Log.e(SSXiaomiReceiver.TAG, "Log : $message", throwable)
+                }
+            })
+        }
+
         fun getInstance(apiKey: String, apiSecret: String, apiBaseUrl: String? = null): SSApi {
+            return getInstanceInternal(apiKey = apiKey, apiSecret = apiSecret, apiBaseUrl = apiBaseUrl)
+        }
+
+        internal fun getInstanceFromCachedApiKey(): SSApi? {
+            val apiKey = ConfigHelper.get(SSConstants.CONFIG_API_KEY) ?: return null
+            val secret = ConfigHelper.get(SSConstants.CONFIG_API_SECRET) ?: return null
+            val apiBaseUrl = ConfigHelper.get(SSConstants.CONFIG_API_BASE_URL) ?: return null
+            return getInstanceInternal(apiKey = apiKey, apiSecret = secret, apiBaseUrl = apiBaseUrl, isFromCache = true)
+        }
+
+        private fun getInstanceInternal(apiKey: String, apiSecret: String, apiBaseUrl: String? = null, isFromCache: Boolean = false): SSApi {
             val uniqueId = "$apiKey-$apiSecret"
             if (instancesMap.containsKey(uniqueId)) {
                 return instancesMap[uniqueId]!!
             }
-            val instance = SSApi(apiKey, apiSecret, apiBaseUrl)
+            val instance = SSApi(apiKey, apiSecret, apiBaseUrl, isFromCache)
             instancesMap[uniqueId] = instance
             return instance
-        }
-
-        fun getInstanceFromCachedApiKey(): SSApi? {
-            val apiKey = ConfigHelper.get(SSConstants.CONFIG_API_KEY) ?: return null
-            val secret = ConfigHelper.get(SSConstants.CONFIG_API_SECRET) ?: return null
-            val apiBaseUrl = ConfigHelper.get(SSConstants.CONFIG_API_BASE_URL) ?: return null
-            return getInstance(apiKey, secret, apiBaseUrl)
         }
     }
 }

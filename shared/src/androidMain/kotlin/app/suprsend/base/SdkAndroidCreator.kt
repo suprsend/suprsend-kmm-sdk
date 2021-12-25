@@ -2,6 +2,7 @@ package app.suprsend.base
 
 import android.annotation.SuppressLint
 import android.content.Context
+import com.google.i18n.phonenumbers.PhoneNumberUtil
 import java.text.SimpleDateFormat
 import java.util.Date
 
@@ -18,6 +19,7 @@ internal object SdkAndroidCreator {
     val deviceInfo: DeviceInfo by lazy { DeviceInfo() }
 
     val networkInfo: NetworkInfo by lazy { NetworkInfo() }
+    val phoneNumberUtils: PhoneNumberUtil by lazy { PhoneNumberUtil.getInstance() }
 }
 
 @SuppressLint("SimpleDateFormat")

@@ -17,6 +17,28 @@ fun String?.toKotlinJsonObject(): JsonObject {
     }
 }
 
+internal fun JsonObject.filterSSReservedKeys(): JsonObject {
+    val receivedJo = this
+    if (size == 0)
+        return this
+    return buildJsonObject {
+        receivedJo.forEach { (key, jsonElement) ->
+            when {
+                key.isInValidKey() -> {
+                    Logger.i(SSConstants.TAG_VALIDATION, "Key should not start with $ or ss_ this events property will not be sent to suprsend - Key - $key")
+                }
+                else -> {
+                    put(key, jsonElement)
+                }
+            }
+        }
+    }
+}
+
+fun String.isInValidKey(): Boolean {
+    return contains("$") || contains("ss_")
+}
+
 fun JsonElement?.addUpdateJsoObject(updateJsonObject: JsonObject): JsonElement? {
     return if (this is JsonObject)
         this.addUpdateJsoObject(updateJsonObject)

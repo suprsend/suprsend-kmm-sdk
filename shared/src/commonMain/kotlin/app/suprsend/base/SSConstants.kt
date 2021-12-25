@@ -9,6 +9,7 @@ internal object SSConstants {
     const val EVENT_KEY_MAX_LENGTH = 120
     const val EVENT_VALUE_MAX_LENGTH = 512
     const val FLUSH_EVENT_PAYLOAD_SIZE = 20L
+    const val PERIODIC_FLUSH_EVENT_IN_SEC = 60
 
     // Config Helper Keys
     const val CONFIG_API_KEY = "api_key"
@@ -17,6 +18,8 @@ internal object SSConstants {
     const val CONFIG_USER_ID = "user_id"
     const val CONFIG_IS_APP_LAUNCHED = "is_app_launched"
     const val CONFIG_FCM_PUSH_TOKEN = "fcm_push_token"
+    const val CONFIG_XIAOMI_PUSH_TOKEN = "xiaomi_push_token"
+    const val CONFIG_IOS_PUSH_TOKEN = "ios_push_token"
     const val CONFIG_DEVICE_ID = "device_id"
 
     // Properties
@@ -26,7 +29,12 @@ internal object SSConstants {
     const val INSERT_ID = "\$insert_id"
     const val IDENTIFY = "\$identify"
     const val TIME = "\$time"
-    const val FCM_TOKEN_PUSH = "\$androidpush"
+    const val PUSH_ANDROID_TOKEN = "\$androidpush"
+    const val PUSH_IOS_TOKEN = "\$iospush"
+    const val PUSH_VENDOR = "\$pushvendor"
+    const val PUSH_VENDOR_FCM = "fcm"
+    const val PUSH_VENDOR_XIAOMI = "xiaomi"
+    const val PUSH_VENDOR_APNS = "apns"
     const val DEVICE_ID = "\$deviceId"
     const val SET = "\$set"
     const val SET_ONCE = "\$set_once"
@@ -54,4 +62,6 @@ internal object SSConstants {
     const val S_EVENT_NOTIFICATION_SUBSCRIBED = "\$notification_subscribed"
     const val S_EVENT_NOTIFICATION_UNSUBSCRIBED = "\$notification_unsubscribed"
     const val S_EVENT_PAGE_VISITED = "\$page_visited"
+
+    const val TAG_VALIDATION = "validation"
 }
