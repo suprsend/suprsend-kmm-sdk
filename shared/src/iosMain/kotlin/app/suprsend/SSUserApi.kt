@@ -73,13 +73,4 @@ constructor(
         user.unSetWhatsApp(mobile)
     }
 
-    fun setAndroidPush(token: String) {
-        user.setAndroidPush(token)
-        SSApiInternal.flush(mutationHandler)
-    }
-
-    fun unSetAndroidPush(token: String) {
-        user.unSetAndroidPush(token)
-        SSApiInternal.flush(mutationHandler)
-    }
 }

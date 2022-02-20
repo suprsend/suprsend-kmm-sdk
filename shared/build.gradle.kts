@@ -223,8 +223,8 @@ android {
         multiDexEnabled = true
         versionCode = Deps.SDK_VERSION_CODE
         versionName = Deps.SDK_VERSION_NAME
-        buildConfigField("String", "SS_SDK_VERSION_CODE", "\"${versionCode.toString()}\"")
-        buildConfigField("String", "SS_SDK_VERSION_NAME", "\"$versionName\"")
+        buildConfigField("String", "SS_SDK_VERSION_CODE", "\"${Deps.SDK_VERSION_CODE}\"")
+        buildConfigField("String", "SS_SDK_VERSION_NAME", "\"${Deps.SDK_VERSION_NAME}\"")
     }
 }
 
