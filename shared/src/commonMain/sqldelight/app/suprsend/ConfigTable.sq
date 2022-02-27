@@ -9,3 +9,7 @@ INSERT OR REPLACE INTO ConfigTable(key,value) VALUES (?,?);
 
 get:
 SELECT * FROM ConfigTable WHERE key = ? LIMIT 1;
+
+
+deleteAll:
+DELETE FROM ConfigTable;

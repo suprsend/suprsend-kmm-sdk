@@ -1,5 +1,6 @@
 package app.suprsend
 
+import app.suprsend.user.SSInternalUser
 import org.json.JSONObject
 
 class SSUserApi
@@ -7,103 +8,101 @@ constructor(
     private val mutationHandler: MutationHandler
 ) {
 
-    private val user = SSApiInternal.getUser()
-
     fun set(key: String, value: Any) {
-        user.set(key, value)
+        SSInternalUser.set(key, value)
     }
 
     fun set(properties: JSONObject) {
-        user.set(properties.toString())
+//        SSInternalUser.set(properties.toString())
     }
 
     fun unSet(key: String) {
-        user.unSet(key)
+        SSInternalUser.unSet(key)
     }
 
     fun unSet(keys: List<String>) {
-        user.unSet(keys)
+        SSInternalUser.unSet(keys)
     }
 
     fun setOnce(key: String, value: Any) {
-        user.setOnce(key, value)
+        SSInternalUser.setOnce(key, value)
     }
 
     fun setOnce(properties: JSONObject) {
-        user.setOnce(properties.toString())
+//        SSInternalUser.setOnce(properties.toString())
     }
 
     fun increment(key: String, value: Number) {
-        user.increment(key, value)
+        SSInternalUser.increment(key, value)
     }
 
     fun increment(properties: Map<String, Number>) {
-        user.increment(JSONObject(properties).toString())
+//        SSInternalUser.increment(JSONObject(properties).toString())
     }
 
     fun append(key: String, value: Any) {
-        user.append(key, value)
+        SSInternalUser.append(key, value)
     }
 
     fun remove(key: String, value: Any) {
-        user.remove(key, value)
+        SSInternalUser.remove(key, value)
     }
 
     fun remove(properties: JSONObject) {
-        user.remove(properties.toString())
+//        SSInternalUser.remove(properties.toString())
     }
 
     fun setEmail(email: String) {
-        user.setEmail(email)
+        SSInternalUser.setEmail(email)
     }
 
     fun unSetEmail(email: String) {
-        user.unSetEmail(email)
+        SSInternalUser.unSetEmail(email)
     }
 
     fun setSms(mobile: String) {
-        user.setSms(mobile)
+        SSInternalUser.setSms(mobile)
     }
 
     fun unSetSms(mobile: String) {
-        user.unSetSms(mobile)
+        SSInternalUser.unSetSms(mobile)
     }
 
     fun setWhatsApp(mobile: String) {
-        user.setWhatsApp(mobile)
+        SSInternalUser.setWhatsApp(mobile)
     }
 
     fun unSetWhatsApp(mobile: String) {
-        user.unSetWhatsApp(mobile)
+        SSInternalUser.unSetWhatsApp(mobile)
     }
 
     fun setAndroidFcmPush(token: String) {
-        user.setAndroidFcmPush(token)
+//        SSInternalUser.setAndroidFcmPush(token)
         SSApiInternal.flush(mutationHandler)
     }
 
     fun unSetAndroidFcmPush(token: String) {
-        user.unSetAndroidFcmPush(token)
+//        SSInternalUser.unSetAndroidFcmPush(token)
         SSApiInternal.flush(mutationHandler)
     }
 
     fun setAndroidXiaomiPush(token: String) {
-        user.setAndroidXiaomiPush(token)
+//        SSInternalUser.setAndroidXiaomiPush(token)
         SSApiInternal.flush(mutationHandler)
     }
 
     fun unSetAndroidXiaomiPush(token: String) {
-        user.unSetAndroidXiaomiPush(token)
+//        SSInternalUser.unSetAndroidXiaomiPush(token)
         SSApiInternal.flush(mutationHandler)
     }
 
     fun setIOSPush(token: String) {
-        user.setIOSPush(token)
+        SSInternalUser.setIOSPush(token)
         SSApiInternal.flush(mutationHandler)
     }
 
     fun unSetIOSPush(token: String) {
-        user.unSetIOSPush(token)
+        SSInternalUser.unSetIOSPush(token)
         SSApiInternal.flush(mutationHandler)
     }
 }

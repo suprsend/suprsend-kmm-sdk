@@ -3,9 +3,12 @@ package app.suprsend
 import app.suprsend.base.Logger
 import app.suprsend.base.SSConstants
 import app.suprsend.base.SdkCreator
+import app.suprsend.base.executorScope
 import app.suprsend.base.filterSSReservedKeys
+// import app.suprsend.base.flushExecutorScope
 import app.suprsend.base.ioDispatcher
-import app.suprsend.base.singleThreadDispatcher
+import app.suprsend.base.isInValidKey
+import app.suprsend.base.toJsonObject
 import app.suprsend.base.toKotlinJsonObject
 import app.suprsend.base.uuid
 import app.suprsend.config.ConfigHelper
@@ -13,12 +16,9 @@ import app.suprsend.event.EventFlushHandler
 import app.suprsend.event.EventModel
 import app.suprsend.event.PayloadCreator
 import app.suprsend.sprop.SuperPropertiesLocalDataSource
+import app.suprsend.user.SSInternalUser
 import app.suprsend.user.UserLocalDatasource
-import app.suprsend.user.api.UserApiInternalContract
-import app.suprsend.user.api.UserApiInternalImpl
 import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.launchIn
@@ -30,115 +30,72 @@ import kotlinx.serialization.json.buildJsonObject
 
 internal object SSApiInternal {
 
-    private val userImpl = UserApiInternalImpl()
-    private val coroutineScope = CoroutineScope(SupervisorJob())
+    val userLocalDatasource = UserLocalDatasource()
 
-    fun purchaseMade(properties: String) {
-        coroutineScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
-            trackOp(eventName = SSConstants.S_EVENT_PURCHASE_MADE, propertiesJO = properties.toKotlinJsonObject().filterSSReservedKeys())
+    fun identify(uniqueId: String) {
+        if (userLocalDatasource.getIdentity() == uniqueId) {
+            return
         }
-    }
-
-    fun notificationSubscribed() {
-        coroutineScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
-            trackOp(eventName = SSConstants.S_EVENT_NOTIFICATION_SUBSCRIBED, propertiesJO = buildJsonObject { })
-        }
-    }
-
-    fun notificationUnSubscribed() {
-        coroutineScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
-            trackOp(eventName = SSConstants.S_EVENT_NOTIFICATION_UNSUBSCRIBED, propertiesJO = buildJsonObject { })
-        }
-    }
-
-    fun pageVisited() {
-        coroutineScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
-            trackOp(eventName = SSConstants.S_EVENT_PAGE_VISITED, propertiesJO = buildJsonObject { })
-        }
-    }
-
-    fun identify(uniqueId: String, mutationHandler: MutationHandler) {
-        coroutineScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
-            val userLocalDatasource = UserLocalDatasource()
-            SdkCreator
-                .eventLocalDatasource
-                .track(
-                    EventModel(
-                        value = PayloadCreator
-                            .buildIdentityEventPayload(
-                                identifiedId = uniqueId,
-                                anonymousId = userLocalDatasource.getIdentity()
-                            ),
-                        id = uuid()
-                    )
+        SdkCreator
+            .eventLocalDatasource
+            .track(
+                EventModel(
+                    value = PayloadCreator
+                        .buildIdentityEventPayload(
+                            identifiedId = uniqueId,
+                            anonymousId = userLocalDatasource.getIdentity()
+                        ),
+                    id = uuid()
                 )
-            userLocalDatasource.identify(uniqueId)
-            appendNotificationToken()
-            trackOp(SSConstants.S_EVENT_USER_LOGIN, buildJsonObject { })
-            flush(mutationHandler)
-        }
+            )
+        userLocalDatasource.identify(uniqueId)
+        appendNotificationToken()
+        saveTrackEventPayload(SSConstants.S_EVENT_USER_LOGIN)
     }
 
     fun setSuperProperty(key: String, value: Any) {
-        coroutineScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
-            Logger.i(TAG, "Setting super properties $key $value")
-            val superPropertiesRepository = SuperPropertiesLocalDataSource()
-            superPropertiesRepository.add(key, value)
-        }
+        Logger.i(TAG, "Setting super properties $key $value")
+        val superPropertiesRepository = SuperPropertiesLocalDataSource()
+        superPropertiesRepository.add(key, value)
     }
 
-    fun setSuperProperties(propertiesJsonObject: String?) {
-        coroutineScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
-            Logger.i(TAG, "Setting super properties $propertiesJsonObject")
-            val superPropertiesRepository = SuperPropertiesLocalDataSource()
-            superPropertiesRepository.add(propertiesJsonObject.toKotlinJsonObject().filterSSReservedKeys())
-        }
+    fun setSuperProperties(properties: Map<String, Any>) {
+        Logger.i(TAG, "Setting super properties $properties")
+        val superPropertiesRepository = SuperPropertiesLocalDataSource()
+        superPropertiesRepository.add(properties.toJsonObject().filterSSReservedKeys())
     }
 
     fun removeSuperProperty(key: String) {
-        coroutineScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
-            Logger.i(TAG, "Remove super properties $key")
-            val superPropertiesRepository = SuperPropertiesLocalDataSource()
-            superPropertiesRepository.remove(key)
-        }
+        Logger.i(TAG, "Remove super properties $key")
+        val superPropertiesRepository = SuperPropertiesLocalDataSource()
+        superPropertiesRepository.remove(key)
     }
 
-    fun trackOp(eventName: String, propertiesJsonString: String?) {
-        coroutineScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
-            trackOp(eventName, propertiesJsonString.toKotlinJsonObject().filterSSReservedKeys())
+    fun track(eventName: String, propertiesMap: Map<String, Any>?) {
+        val properties = propertiesMap?.toJsonObject() ?: buildJsonObject {}
+        if (eventName.isInValidKey()) {
+            Logger.e("validation", "Event name should not contain $ & ss_ : $eventName")
+            return
         }
+        val filteredJson = properties.filterSSReservedKeys()
+
+        saveTrackEventPayload(eventName, filteredJson)
     }
 
-    private fun trackOp(eventName: String, propertiesJO: JsonObject?) {
-        try {
-            if (eventName.isBlank()) {
-                Logger.i(TAG, "event name cannot be blank")
-                return
-            }
-
-            val userLocalDatasource = UserLocalDatasource()
-            val superPropertiesLocalDataSource = SuperPropertiesLocalDataSource()
-            SdkCreator
-                .eventLocalDatasource
-                .track(
-                    EventModel(
-                        value = PayloadCreator.buildTrackEventPayload(
-                            eventName = eventName,
-                            distinctId = userLocalDatasource.getIdentity(),
-                            superProperties = superPropertiesLocalDataSource.getAll(),
-                            defaultProperties = SdkCreator.information.getDefaultProperties().toKotlinJsonObject(),
-                            userProperties = propertiesJO
-                        ),
-                        id = uuid()
-                    )
-                )
-        } catch (e: Exception) {
-            Logger.e(TAG, "", e)
-        }
+    fun purchaseMade(propertiesMap: Map<String, Any>) {
+        saveTrackEventPayload(eventName = SSConstants.S_EVENT_PURCHASE_MADE, propertiesJO = propertiesMap.toJsonObject())
     }
 
-    fun getUser(): UserApiInternalContract {
-        return userImpl
+    fun notificationSubscribed() {
+        saveTrackEventPayload(eventName = SSConstants.S_EVENT_NOTIFICATION_SUBSCRIBED)
+    }
+
+    fun notificationUnSubscribed() {
+        saveTrackEventPayload(eventName = SSConstants.S_EVENT_NOTIFICATION_UNSUBSCRIBED)
+    }
+
+    fun pageVisited() {
+        saveTrackEventPayload(eventName = SSConstants.S_EVENT_PAGE_VISITED)
     }
 
     fun flush(mutationHandler: MutationHandler) {
@@ -151,7 +108,7 @@ internal object SSApiInternal {
 
         mutationHandler.setFlushing(true)
 
-        coroutineScope.launch(ioDispatcher() + CoroutineExceptionHandler { _, throwable ->
+        executorScope.launch(ioDispatcher() + CoroutineExceptionHandler { _, throwable ->
             Logger.e(EventFlushHandler.TAG, "Exception", throwable)
             mutationHandler.setFlushing(false)
         }) {
@@ -162,38 +119,52 @@ internal object SSApiInternal {
         }
     }
 
-    fun reset(mutationHandler: MutationHandler) {
-        coroutineScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
-            val newID = uuid()
-            val userLocalDatasource = UserLocalDatasource()
-            val userId = userLocalDatasource.getIdentity()
-            Logger.i(TAG, "reset : Current : $userId New : $newID")
-            trackOp(SSConstants.S_EVENT_USER_LOGOUT, buildJsonObject { })
-            userLocalDatasource.identify(newID)
-            appendNotificationToken()
-            flush(mutationHandler)
+    fun reset() {
+        val newID = uuid()
+        val userId = userLocalDatasource.getIdentity()
+        Logger.i(TAG, "reset : Current : $userId New : $newID")
+        saveTrackEventPayload(SSConstants.S_EVENT_USER_LOGOUT)
+        userLocalDatasource.identify(newID)
+        appendNotificationToken()
+    }
+
+    fun saveTrackEventPayload(eventName: String, propertiesJO: JsonObject? = null) {
+        if (eventName.isBlank()) {
+            Logger.i(TAG, "event name cannot be blank")
+            return
         }
+
+        val superPropertiesLocalDataSource = SuperPropertiesLocalDataSource()
+        SdkCreator
+            .eventLocalDatasource
+            .track(
+                EventModel(
+                    value = PayloadCreator.buildTrackEventPayload(
+                        eventName = eventName,
+                        distinctId = userLocalDatasource.getIdentity(),
+                        superProperties = superPropertiesLocalDataSource.getAll(),
+                        defaultProperties = SdkCreator.information.getDefaultProperties().toKotlinJsonObject(),
+                        userProperties = propertiesJO
+                    ),
+                    id = uuid()
+                )
+            )
     }
 
     private fun appendNotificationToken() {
-        val fcmToken = getXiaomiToken()
-        if (fcmToken.isNotBlank()) {
-            userImpl.internalOperatorCallOp(buildJsonObject {
-                put(SSConstants.PUSH_ANDROID_TOKEN, JsonPrimitive(fcmToken))
-                put(SSConstants.PUSH_VENDOR, JsonPrimitive(SSConstants.PUSH_VENDOR_FCM))
-                put(SSConstants.DEVICE_ID, JsonPrimitive(getDeviceID()))
-            }, SSConstants.APPEND)
-        }
-
-        val xiaomiToken = getXiaomiToken()
-        if (xiaomiToken.isNotBlank()) {
-            userImpl.internalOperatorCallOp(buildJsonObject {
-                put(SSConstants.PUSH_ANDROID_TOKEN, JsonPrimitive(xiaomiToken))
-                put(SSConstants.PUSH_VENDOR, JsonPrimitive(SSConstants.PUSH_VENDOR_XIAOMI))
-                put(SSConstants.DEVICE_ID, JsonPrimitive(getDeviceID()))
-            }, SSConstants.APPEND)
+        val iosPushToken = getIOSToken()
+        if (iosPushToken.isNotBlank()) {
+            SSInternalUser.storeOperatorPayload(
+                properties = buildJsonObject {
+                    put(SSConstants.PUSH_IOS_TOKEN, JsonPrimitive(iosPushToken))
+                    put(SSConstants.PUSH_VENDOR, JsonPrimitive(SSConstants.PUSH_VENDOR_APNS))
+                    put(SSConstants.DEVICE_ID, JsonPrimitive(getDeviceID()))
+                },
+                operator = SSConstants.APPEND
+            )
         }
     }
+
     fun isAppInstalled(): Boolean {
         return ConfigHelper.getBoolean(SSConstants.CONFIG_IS_APP_LAUNCHED) ?: false
     }
@@ -207,22 +178,6 @@ internal object SSApiInternal {
 
     fun getDeviceID(): String {
         return ConfigHelper.get(SSConstants.CONFIG_DEVICE_ID) ?: ""
-    }
-
-    fun setFcmToken(token: String) {
-        ConfigHelper.addOrUpdate(SSConstants.CONFIG_FCM_PUSH_TOKEN, token)
-    }
-
-    fun getFcmToken(): String {
-        return ConfigHelper.get(SSConstants.CONFIG_FCM_PUSH_TOKEN) ?: ""
-    }
-
-    fun setXiaomiToken(token: String) {
-        ConfigHelper.addOrUpdate(SSConstants.CONFIG_XIAOMI_PUSH_TOKEN, token)
-    }
-
-    fun getXiaomiToken(): String {
-        return ConfigHelper.get(SSConstants.CONFIG_XIAOMI_PUSH_TOKEN) ?: ""
     }
 
     fun setIOSToken(token: String) {
@@ -252,12 +207,8 @@ internal object SSApiInternal {
                 Logger.i("flush", "Periodic flush")
                 flush(mutationHandler)
             }
-            .launchIn(coroutineScope)
+            .launchIn(executorScope)
     }
 
     const val TAG = "ssinternal"
-}
-
-internal val coroutineExceptionHandler = CoroutineExceptionHandler { _, exception ->
-    Logger.e("exception", "", exception)
 }

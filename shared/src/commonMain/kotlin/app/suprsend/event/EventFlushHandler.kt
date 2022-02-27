@@ -67,7 +67,6 @@ object EventFlushHandler {
                 eventLocalDatasource.delete(eventModelList.map { it.id })
                 eventModelList = eventLocalDatasource.getEvents(SSConstants.FLUSH_EVENT_PAYLOAD_SIZE)
             } else {
-                eventModelList = emptyList()
                 break
             }
         }

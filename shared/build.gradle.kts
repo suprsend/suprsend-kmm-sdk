@@ -1,4 +1,6 @@
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+import org.gradle.api.tasks.testing.logging.TestLogEvent
+import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 
 plugins {
     kotlin("multiplatform")
@@ -225,6 +227,15 @@ android {
         versionName = Deps.SDK_VERSION_NAME
         buildConfigField("String", "SS_SDK_VERSION_CODE", "\"${Deps.SDK_VERSION_CODE}\"")
         buildConfigField("String", "SS_SDK_VERSION_NAME", "\"${Deps.SDK_VERSION_NAME}\"")
+    }
+}
+
+tasks.withType<Test> {
+    testLogging {
+        exceptionFormat = TestExceptionFormat.FULL
+        events( TestLogEvent.SKIPPED, TestLogEvent.FAILED, TestLogEvent.STANDARD_OUT, TestLogEvent.STANDARD_ERROR)
+        showCauses = true
+        showExceptions = true
     }
 }
 

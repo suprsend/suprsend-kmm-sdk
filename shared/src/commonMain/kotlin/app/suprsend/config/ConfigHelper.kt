@@ -25,6 +25,10 @@ internal object ConfigHelper {
         return getStringToBoolean(queries.get(key).executeAsOneOrNull()?.value?.value)
     }
 
+    fun deleteAll() {
+        queries.deleteAll()
+    }
+
     private fun getStringToBoolean(value: String?): Boolean? {
         if (value == "1")
             return true

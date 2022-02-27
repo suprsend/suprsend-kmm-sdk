@@ -15,8 +15,8 @@ import app.suprsend.base.Logger
 import app.suprsend.base.SSConstants
 import app.suprsend.base.SdkAndroidCreator
 import app.suprsend.base.UrlUtils
+import app.suprsend.base.coroutineExceptionHandler
 import app.suprsend.base.toKotlinJsonObject
-import app.suprsend.coroutineExceptionHandler
 import app.suprsend.database.json
 import app.suprsend.fcm.SSFirebaseMessagingService
 import app.suprsend.xiaomi.SSXiaomiReceiver

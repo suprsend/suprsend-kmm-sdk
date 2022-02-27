@@ -5,8 +5,8 @@ import app.suprsend.base.Logger
 import app.suprsend.base.SSConstants
 import app.suprsend.base.addUpdateJsoObject
 import app.suprsend.base.uuid
-import app.suprsend.user.api.UserApiInternalImpl
 import kotlinx.datetime.Clock
+import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonObjectBuilder
@@ -73,20 +73,27 @@ object PayloadCreator {
      */
     fun buildUserOperatorPayload(
         distinctId: String,
-        setProperties: JsonElement,
         operator: String,
+        setPropertiesArray: JsonArray? = null,
+        setProperties: JsonObject? = null,
         apiKey: String = SSApiInternal.getCachedApiKey()
     ): JsonObject {
         val operatorPayload = buildJsonObject {
             addCommonEventProperties()
             put(SSConstants.DISTINCT_ID, JsonPrimitive(distinctId))
             put(SSConstants.ENV, JsonPrimitive(apiKey))
-            put(
-                operator,
-                setProperties
-            )
+            if (setProperties != null)
+                put(
+                    operator,
+                    setProperties as JsonElement
+                )
+            if (setPropertiesArray != null)
+                put(
+                    operator,
+                    setPropertiesArray as JsonElement
+                )
         }
-        Logger.i(UserApiInternalImpl.TAG, "Operator Payload : $operator $setProperties $operatorPayload")
+        Logger.i(SSApiInternal.TAG, "Operator Payload : $operator $setProperties $operatorPayload")
         return operatorPayload
     }
 }
