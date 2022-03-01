@@ -60,6 +60,9 @@ internal object SSApiInternal {
     fun identify(uniqueId: String, mutationHandler: MutationHandler) {
         coroutineScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
             val userLocalDatasource = UserLocalDatasource()
+            if (userLocalDatasource.getIdentity() == uniqueId) {
+                return@launch
+            }
             SdkCreator
                 .eventLocalDatasource
                 .track(
@@ -109,7 +112,7 @@ internal object SSApiInternal {
         }
     }
 
-    private fun trackOp(eventName: String, propertiesJO: JsonObject?) {
+    fun trackOp(eventName: String, propertiesJO: JsonObject?) {
         try {
             if (eventName.isBlank()) {
                 Logger.i(TAG, "event name cannot be blank")

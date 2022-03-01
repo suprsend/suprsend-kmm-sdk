@@ -33,6 +33,10 @@ struct SuccessView: View {
         .navigationBarHidden(true)
         .navigationBarBackButtonHidden(true)
         .onAppear{
+
+            if(AppConstants.cartList.count == 0){
+                return
+            }
             
             let total = AppConstants.cartList.reduce(0, { $0 + ($1.price - ($1.price * $1.discount)/100)})
             
