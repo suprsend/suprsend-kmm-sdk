@@ -22,21 +22,13 @@ import org.json.JSONObject
 
 class SSApi
 private constructor(
-    apiKey: String,
-    apiSecret: String,
-    apiBaseUrl: String? = null, // If null data will be directed to prod server
     isFromCache: Boolean = false
 ) {
 
-    private val basicDetails: BasicDetails = BasicDetails(apiKey, apiSecret, apiBaseUrl)
     private val mutationHandler: MutationHandler = AndroidMutationHandler()
     private val ssUserApi: SSUserApi = SSUserApi(mutationHandler)
 
     init {
-
-        ConfigHelper.addOrUpdate(SSConstants.CONFIG_API_BASE_URL, basicDetails.getApiBaseUrl())
-        ConfigHelper.addOrUpdate(SSConstants.CONFIG_API_KEY, basicDetails.apiKey)
-        ConfigHelper.addOrUpdate(SSConstants.CONFIG_API_SECRET, basicDetails.apiSecret)
 
         // Anonymous user id generation
         val userLocalDatasource = UserLocalDatasource()
@@ -70,7 +62,7 @@ private constructor(
     }
 
     fun identify(uniqueId: String) {
-        SSApiInternal.identify(uniqueId, mutationHandler)
+        SSApiInternal.identify(uniqueId)
     }
 
     fun setSuperProperty(key: String, value: Any) {
@@ -78,7 +70,7 @@ private constructor(
     }
 
     fun setSuperProperties(jsonObject: JSONObject) {
-        SSApiInternal.setSuperProperties(propertiesJsonObject = jsonObject.toString())
+//        SSApiInternal.setSuperProperties(propertiesJsonObject = jsonObject.toString())
     }
 
     fun unSetSuperProperty(key: String) {
@@ -86,11 +78,11 @@ private constructor(
     }
 
     fun track(@NonNull eventName: String, properties: JSONObject? = null) {
-        SSApiInternal.trackOp(eventName = eventName, propertiesJsonString = properties?.toString())
+        SSApiInternal.track(eventName = eventName, null)
     }
 
     fun purchaseMade(properties: JSONObject) {
-        SSApiInternal.purchaseMade(properties = properties.toString())
+//        SSApiInternal.purchaseMade(properties = properties.toString())
     }
 
     fun getUser(): SSUserApi {
@@ -102,7 +94,7 @@ private constructor(
     }
 
     fun reset() {
-        SSApiInternal.reset(mutationHandler)
+        SSApiInternal.reset()
     }
 
     fun setLogLevel(level: LogLevel) {
@@ -116,7 +108,7 @@ private constructor(
         /**
          * Should be called before Application super.onCreate()
          */
-        fun init(context: Context) {
+        fun init(context: Context, apiKey: String, apiSecret: String, apiBaseUrl: String? = null) {
 
             // Setting android context to user everywhere
             if (!SdkAndroidCreator.isContextInitialized()) {
@@ -125,6 +117,11 @@ private constructor(
 
             // Initialize nw and db
             SdkInitializer.initialize(databaseDriverFactory = DatabaseDriverFactory())
+
+            val basicDetails = BasicDetails(apiKey, apiSecret, apiBaseUrl)
+            ConfigHelper.addOrUpdate(SSConstants.CONFIG_API_BASE_URL, basicDetails.getApiBaseUrl())
+            ConfigHelper.addOrUpdate(SSConstants.CONFIG_API_KEY, basicDetails.apiKey)
+            ConfigHelper.addOrUpdate(SSConstants.CONFIG_API_SECRET, basicDetails.apiSecret)
         }
 
         fun initXiaomi(context: Context, appId: String, apiKey: String) {
@@ -144,23 +141,20 @@ private constructor(
             })
         }
 
-        fun getInstance(apiKey: String, apiSecret: String, apiBaseUrl: String? = null): SSApi {
-            return getInstanceInternal(apiKey = apiKey, apiSecret = apiSecret, apiBaseUrl = apiBaseUrl)
+        fun getInstance(): SSApi {
+            return getInstanceInternal()
         }
 
         internal fun getInstanceFromCachedApiKey(): SSApi? {
-            val apiKey = ConfigHelper.get(SSConstants.CONFIG_API_KEY) ?: return null
-            val secret = ConfigHelper.get(SSConstants.CONFIG_API_SECRET) ?: return null
-            val apiBaseUrl = ConfigHelper.get(SSConstants.CONFIG_API_BASE_URL) ?: return null
-            return getInstanceInternal(apiKey = apiKey, apiSecret = secret, apiBaseUrl = apiBaseUrl, isFromCache = true)
+            return getInstanceInternal(isFromCache = true)
         }
 
-        private fun getInstanceInternal(apiKey: String, apiSecret: String, apiBaseUrl: String? = null, isFromCache: Boolean = false): SSApi {
-            val uniqueId = "$apiKey-$apiSecret"
+        private fun getInstanceInternal(isFromCache: Boolean = false): SSApi {
+            val uniqueId = "only_one_instance_support"
             if (instancesMap.containsKey(uniqueId)) {
                 return instancesMap[uniqueId]!!
             }
-            val instance = SSApi(apiKey, apiSecret, apiBaseUrl, isFromCache)
+            val instance = SSApi(isFromCache)
             instancesMap[uniqueId] = instance
             return instance
         }

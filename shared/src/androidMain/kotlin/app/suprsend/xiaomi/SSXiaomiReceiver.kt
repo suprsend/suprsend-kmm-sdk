@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.Log
 import app.suprsend.SSApi
 import app.suprsend.base.Logger
-import app.suprsend.coroutineExceptionHandler
+import app.suprsend.base.coroutineExceptionHandler
 import app.suprsend.notification.SSNotificationHelper
 import app.suprsend.notification.getToken
 import com.xiaomi.mipush.sdk.MiPushCommandMessage

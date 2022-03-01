@@ -33,6 +33,7 @@ internal class DeviceInfo {
 //    }
 
     fun getDeviceId(): String {
+        // Todo : ios dev confirm device id picking
         return UIDevice.currentDevice.identifierForVendor?.UUIDString ?: ""
     }
 

@@ -87,7 +87,7 @@ class KotlinExtensionTest {
     }
 
     @Test
-    fun testIfItFiltersDollarKeys() {
+    fun testFilterSSReservedKeys() {
         val key = "\$"
         val sampleJson = """
             {

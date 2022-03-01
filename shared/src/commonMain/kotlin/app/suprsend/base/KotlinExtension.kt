@@ -7,7 +7,7 @@ import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.jsonObject
 
-fun String?.toKotlinJsonObject(): JsonObject {
+internal fun String?.toKotlinJsonObject(): JsonObject {
     return try {
         if (this.isNullOrBlank())
             return JsonObject(mutableMapOf())
@@ -35,17 +35,17 @@ internal fun JsonObject.filterSSReservedKeys(): JsonObject {
     }
 }
 
-fun String.isInValidKey(): Boolean {
-    return contains("$") || contains("ss_")
+internal fun String.isInValidKey(): Boolean {
+    return contains("$") || startsWith("ss_")
 }
 
-fun JsonElement?.addUpdateJsoObject(updateJsonObject: JsonObject): JsonElement? {
+internal fun JsonElement?.addUpdateJsoObject(updateJsonObject: JsonObject): JsonElement? {
     return if (this is JsonObject)
         this.addUpdateJsoObject(updateJsonObject)
     else this
 }
 
-fun JsonObject?.addUpdateJsoObject(updateJsonObject: JsonObject): JsonObject {
+internal fun JsonObject?.addUpdateJsoObject(updateJsonObject: JsonObject): JsonObject {
     this ?: return updateJsonObject
     return JsonObject(
         toMutableMap()
@@ -57,7 +57,7 @@ fun JsonObject?.addUpdateJsoObject(updateJsonObject: JsonObject): JsonObject {
     )
 }
 
-fun Map<String, Any>.toJsonObject(): JsonObject {
+internal fun Map<String, Any>.toJsonObject(): JsonObject {
     return buildJsonObject {
         forEach { (key, value) ->
             value.convertToJsonPrimitive(key)?.let { jp ->
@@ -67,13 +67,13 @@ fun Map<String, Any>.toJsonObject(): JsonObject {
     }
 }
 
-fun JsonObject.addCreateNewJO(key: String, value: Any): JsonObject {
+internal fun JsonObject.addCreateNewJO(key: String, value: Any): JsonObject {
     val valueJP = value.convertToJsonPrimitive(key)
     valueJP ?: return this
     return JsonObject(this + (key to valueJP))
 }
 
-fun Any.convertToJsonPrimitive(key: String): JsonPrimitive? {
+internal fun Any.convertToJsonPrimitive(key: String): JsonPrimitive? {
     val valuePrimitive = when (this) {
         is String -> JsonPrimitive(this)
         is Number -> JsonPrimitive(this)
@@ -87,9 +87,11 @@ fun Any.convertToJsonPrimitive(key: String): JsonPrimitive? {
     return valuePrimitive
 }
 
-fun getRandomString(length: Int): String {
+internal fun getRandomString(length: Int): String {
     val allowedChars = ('A'..'Z') + ('a'..'z') + ('0'..'9')
     return (1..length)
         .map { allowedChars.random() }
         .joinToString("")
 }
+
+fun CharSequence?.isValidEmail() = !isNullOrEmpty() && "^[^@]+@[^@]+\\.[^@]+\$".toRegex().matches(this.toString())

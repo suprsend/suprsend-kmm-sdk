@@ -8,6 +8,5 @@
 
     <application>
 
-        <activity android:name=".notification.NotificationRedirectionActivity" />
     </application>
 </manifest>

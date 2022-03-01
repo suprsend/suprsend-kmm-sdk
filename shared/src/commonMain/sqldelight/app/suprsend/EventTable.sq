@@ -17,3 +17,6 @@ FROM EventTable WHERE isDirty =? ORDER BY timeStamp LIMIT :limit ;
 
 delete:
 DELETE FROM EventTable WHERE id IN ?;
+
+deleteAll:
+DELETE FROM EventTable;

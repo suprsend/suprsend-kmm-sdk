@@ -17,6 +17,9 @@ internal class SuperPropertiesLocalDataSource : SuperPropertiesRepositoryContrac
     }
 
     override fun add(properties: JsonObject) {
+        if (properties.isEmpty()) {
+            return
+        }
         val updatedProperties = getAll().addUpdateJsoObject(properties)
         saveValues(updatedProperties)
     }

@@ -14,23 +14,21 @@ public class SSAPI {
         
     }
     
-    public static func initialize(){
-        IOSSSApi.Companion.init().initialize()
+    public static func initialize(apiKey:String,
+                                  apiSecret:String,
+                                  apiBaseUrl:String){
+        IOSSSApi.Companion.init().initialize( apiKey: apiKey,
+                                              apiSecret: apiSecret,
+                                              apiBaseUrl: apiBaseUrl)
     }
     
     public static func getInstance(
-        apiKey:String,
-        apiSecret:String,
-        apiBaseUrl:String
-    )  -> IOSSSApi{
+)  -> IOSSSApi{
         IOSSSApi
             .Companion
             .init()
             .getInstance(
-                apiKey: apiKey,
-                apiSecret: apiSecret,
-                apiBaseUrl: apiBaseUrl,
-                mutationHandler: IosMutationHandler()
+                isFromCache: false,mutationHandler: IosMutationHandler()
             )
     }
     

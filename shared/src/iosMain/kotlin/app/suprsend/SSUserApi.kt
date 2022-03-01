@@ -1,76 +1,107 @@
 package app.suprsend
 
-import app.suprsend.base.toJsonObject
+import app.suprsend.base.coroutineExceptionHandler
+import app.suprsend.base.executorScope
+import app.suprsend.base.singleThreadDispatcher
+import app.suprsend.user.SSInternalUser
+import kotlinx.coroutines.launch
 
 class SSUserApi
-constructor(
-    private val mutationHandler: MutationHandler
-) {
-
-    private val user = SSApiInternal.getUser()
+constructor() {
 
     fun set(key: String, value: Any) {
-        user.set(key, value)
+        executorScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
+            SSInternalUser.set(key, value)
+        }
     }
 
     fun set(properties: Map<String, Any>) {
-        user.set(properties.toJsonObject().toString())
+        executorScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
+            SSInternalUser.set(properties)
+        }
     }
 
     fun unSet(key: String) {
-        user.unSet(key)
+        executorScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
+            SSInternalUser.unSet(key)
+        }
     }
 
     fun unSet(keys: List<String>) {
-        user.unSet(keys)
+        executorScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
+            SSInternalUser.unSet(keys)
+        }
     }
 
     fun setOnce(key: String, value: Any) {
-        user.setOnce(key, value)
+        executorScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
+            SSInternalUser.setOnce(key, value)
+        }
     }
 
     fun setOnce(properties: Map<String, Any>) {
-        user.setOnce(properties.toJsonObject().toString())
+        executorScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
+            SSInternalUser.setOnce(properties)
+        }
     }
 
     fun increment(key: String, value: Number) {
-        user.increment(key, value)
+        executorScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
+            SSInternalUser.increment(key, value)
+        }
     }
 
     fun increment(properties: Map<String, Number>) {
-        user.increment(properties.toJsonObject().toString())
+        executorScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
+            SSInternalUser.increment(properties)
+        }
     }
 
     fun append(key: String, value: Any) {
-        user.append(key, value)
+        executorScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
+            SSInternalUser.append(key, value)
+        }
     }
 
     fun remove(key: String, value: Any) {
-        user.remove(key, value)
+        executorScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
+            SSInternalUser.remove(key, value)
+        }
     }
 
     fun setEmail(email: String) {
-        user.setEmail(email)
+        executorScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
+            SSInternalUser.setEmail(email)
+        }
     }
 
     fun unSetEmail(email: String) {
-        user.unSetEmail(email)
+        executorScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
+            SSInternalUser.unSetEmail(email)
+        }
     }
 
     fun setSms(mobile: String) {
-        user.setSms(mobile)
+        executorScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
+            SSInternalUser.setSms(mobile)
+        }
     }
 
     fun unSetSms(mobile: String) {
-        user.unSetSms(mobile)
+        executorScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
+            SSInternalUser.unSetSms(mobile)
+        }
     }
 
     fun setWhatsApp(mobile: String) {
-        user.setWhatsApp(mobile)
+        executorScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
+            SSInternalUser.setWhatsApp(mobile)
+        }
     }
 
     fun unSetWhatsApp(mobile: String) {
-        user.unSetWhatsApp(mobile)
+        executorScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
+            SSInternalUser.unSetWhatsApp(mobile)
+        }
     }
-
 }
