@@ -73,4 +73,14 @@ constructor(
         user.unSetWhatsApp(mobile)
     }
 
+    fun setIOSPush(token: String) {
+        user.setIOSPush(token)
+        SSApiInternal.flush(mutationHandler)
+    }
+
+    fun unSetIOSPush(token: String) {
+        user.unSetIOSPush(token)
+        SSApiInternal.flush(mutationHandler)
+    }
+
 }

@@ -10,6 +10,7 @@ import app.suprsend.base.uuid
 import app.suprsend.config.ConfigHelper
 import app.suprsend.database.DatabaseDriverFactory
 import app.suprsend.user.UserLocalDatasource
+import kotlinx.serialization.json.buildJsonObject
 
 class IOSSSApi
 private constructor(
@@ -39,11 +40,11 @@ private constructor(
 
         if (!SSApiInternal.isAppInstalled()) {
             // App Launched
-            track(SSConstants.S_EVENT_APP_INSTALLED)
+            SSApiInternal.trackOp(eventName = SSConstants.S_EVENT_APP_INSTALLED, propertiesJO = buildJsonObject {  })
             SSApiInternal.setAppLaunched()
         }
 
-        track(SSConstants.S_EVENT_APP_LAUNCHED)
+        SSApiInternal.trackOp(eventName = SSConstants.S_EVENT_APP_LAUNCHED, propertiesJO = buildJsonObject {  })
 
         SSApiInternal.startPeriodicFlush(mutationHandler)
 

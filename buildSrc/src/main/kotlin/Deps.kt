@@ -1,24 +1,32 @@
 object Deps {
 
-    const val NUM = 29
+    const val MAJOR_VERSION = 0
+    const val MINOR_VERSION = 1
+    const val BETA = 3
     const val APP_VERSION_CODE = 2
-    const val APP_VERSION_NAME = "0.0.1 Stag Beta $NUM"
-//    const val APP_VERSION_NAME = "0.0.1 Prod Beta $NUM"
+    const val ISPROD = false
+
+    var APP_VERSION_NAME = if (ISPROD) {
+        "$MAJOR_VERSION.$MINOR_VERSION Prod Beta $BETA"
+    } else {
+        "$MAJOR_VERSION.$MINOR_VERSION Stag Beta $BETA"
+    }
+
     const val RUN_LIB = true
 
     const val SDK_PACKAGE_NAME = "app.suprsend"
     const val SDK_VERSION_CODE = 1
-    const val SDK_VERSION_NAME = "0.0.0.$NUM"
+    const val SDK_VERSION_NAME = "$MAJOR_VERSION.${MINOR_VERSION}Beta$BETA"
 
-    const val SS_API_BASE_URL="XXXX"
-    const val SS_TOKEN="XXXX"
-    const val SS_SECRET="XXXX"
+    var SS_API_BASE_URL = if (ISPROD) "https://hub.suprsend.com" else "https://collector-staging.suprsend.workers.dev"
+    var SS_TOKEN = "XXXX"
+    var SS_SECRET = "XXXX"
 
-    const val XIAOMI_APP_ID="XXXX"
-    const val XIAOMI_APP_KEY="XXXX"
+    const val XIAOMI_APP_ID = "XXXX"
+    const val XIAOMI_APP_KEY = "XXXX"
 
-    const val MX_TOKEN="XXXX"
-    const val JITPACK_TOKEN="XXXX"
+    const val MX_TOKEN = "XXXX"
+    const val JITPACK_TOKEN = "XXXX"
 
     object Android {
         const val minSdk = 19
@@ -30,7 +38,7 @@ object Deps {
     object Publication {
         const val ARTIFACT_ID = "suprsend-kmm-sdk"
         const val GROUP = "com.github.suprsend"
-        const val VERSION = "0.0.0.$NUM"
+        const val VERSION = "$MAJOR_VERSION.${MINOR_VERSION}Beta$BETA"
     }
 
     object AndroidX {
