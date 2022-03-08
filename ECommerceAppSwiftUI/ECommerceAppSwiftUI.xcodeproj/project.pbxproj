@@ -54,8 +54,6 @@
 		2ADA0F50239E75C900F67F64 /* SortByModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADA0F4F239E75C900F67F64 /* SortByModel.swift */; };
 		2AEF4149239F8D7A00C3D0BA /* ItemDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF4148239F8D7A00C3D0BA /* ItemDetailsView.swift */; };
 		2AEF414B239F902200C3D0BA /* PagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF414A239F902200C3D0BA /* PagingView.swift */; };
-		2D62526B274A22C300BA5B33 /* sdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DAB6EC12731B25000630827 /* sdk.framework */; };
-		2D62526C274A22C300BA5B33 /* sdk.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2DAB6EC12731B25000630827 /* sdk.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2DAAAA892735A6DB00DAF147 /* DecideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAAAA882735A6DB00DAF147 /* DecideView.swift */; };
 		2DAAAA8C2735A73C00DAF147 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAAAA8B2735A73C00DAF147 /* LoginView.swift */; };
 		2DAAAA902735B86300DAF147 /* Other.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAAAA8F2735B86300DAF147 /* Other.swift */; };
@@ -65,17 +63,19 @@
 		599FD17026C9223E00DFCF64 /* LineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 599FD16F26C9223E00DFCF64 /* LineView.swift */; };
 		59BBEADC262F45B600102A61 /* ItemRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59BBEADB262F45B600102A61 /* ItemRow.swift */; };
 		68C7136E6AF2394AA0F7A840 /* Pods_ECommerceAppSwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A69F658A88CF16FBFFFF1408 /* Pods_ECommerceAppSwiftUI.framework */; };
+		88932D9527D74630003D68B2 /* SuperSend.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88932D9427D74630003D68B2 /* SuperSend.framework */; };
+		88932D9627D74630003D68B2 /* SuperSend.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 88932D9427D74630003D68B2 /* SuperSend.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A7528EEE27112BED00DD09EC /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7528EED27112BED00DD09EC /* AppConstants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		2D62526D274A22C300BA5B33 /* Embed Frameworks */ = {
+		88932D9727D74630003D68B2 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				2D62526C274A22C300BA5B33 /* sdk.framework in Embed Frameworks */,
+				88932D9627D74630003D68B2 /* SuperSend.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -143,6 +143,7 @@
 		2DFBFC872743F3F000F62BF5 /* Notifiaction.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = Notifiaction.apns; sourceTree = "<group>"; };
 		599FD16F26C9223E00DFCF64 /* LineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineView.swift; sourceTree = "<group>"; };
 		59BBEADB262F45B600102A61 /* ItemRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemRow.swift; sourceTree = "<group>"; };
+		88932D9427D74630003D68B2 /* SuperSend.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SuperSend.framework; sourceTree = "<group>"; };
 		A69F658A88CF16FBFFFF1408 /* Pods_ECommerceAppSwiftUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ECommerceAppSwiftUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7528EED27112BED00DD09EC /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -153,7 +154,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2ADA0F4C239E733500F67F64 /* PartialSheet in Frameworks */,
-				2D62526B274A22C300BA5B33 /* sdk.framework in Frameworks */,
+				88932D9527D74630003D68B2 /* SuperSend.framework in Frameworks */,
 				68C7136E6AF2394AA0F7A840 /* Pods_ECommerceAppSwiftUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -463,6 +464,7 @@
 		A7B37F40270B5C3400F7859E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				88932D9427D74630003D68B2 /* SuperSend.framework */,
 				2DAB6EC12731B25000630827 /* sdk.framework */,
 				A69F658A88CF16FBFFFF1408 /* Pods_ECommerceAppSwiftUI.framework */,
 			);
@@ -481,7 +483,7 @@
 				2A087186238D4CA6002F1E61 /* Frameworks */,
 				2A087187238D4CA6002F1E61 /* Resources */,
 				5ADF7DD0C7A9A65E4894AFE9 /* [CP] Embed Pods Frameworks */,
-				2D62526D274A22C300BA5B33 /* Embed Frameworks */,
+				88932D9727D74630003D68B2 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

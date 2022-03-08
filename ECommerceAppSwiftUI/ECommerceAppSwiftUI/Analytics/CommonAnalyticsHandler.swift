@@ -6,7 +6,7 @@
 //  Copyright © 2021 Ayush Gupta. All rights reserved.
 //
 
-import sdk
+import SuperSend
 
 struct CommonAnalyticsHandler {
     static func identify(identity: String) {

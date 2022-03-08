@@ -8,7 +8,7 @@
 
 import UIKit
 
-import sdk
+import SuperSend
 
 import Firebase
 import FirebaseMessaging
