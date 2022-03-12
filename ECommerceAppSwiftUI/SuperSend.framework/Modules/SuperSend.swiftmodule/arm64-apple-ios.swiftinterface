@@ -6,9 +6,31 @@ import Foundation
 import Swift
 import _Concurrency
 import shared
-@_hasMissingDesignatedInitializers public class SSAPI {
-  public static func initialize()
-  public static func getInstance(apiKey: Swift.String, apiSecret: Swift.String, apiBaseUrl: Swift.String) -> shared.IOSSSApi
-  public static func enableLogging()
+extension SuperSend.SuperSend {
+  public func identify(identity: Swift.String)
+  public func track(eventName: Swift.String)
+  public func track(eventName: Swift.String, properties: [Swift.String : Any])
+  public func set(key: Swift.String, value: Swift.String)
+  public func set(properties: [Swift.String : Any])
+  public func increment(key: Swift.String, value: Any)
+  public func increment(properties: [Swift.String : Any])
+  public func append(key: Swift.String, value: Swift.String)
+  public func remove(key: Swift.String, value: Swift.String)
+  public func unSet(key: Swift.String)
+  public func purchaseMade(properties: [Swift.String : Any])
+  public func setOnce(properties: [Swift.String : Any])
+  public func setOnce(key: Swift.String, value: Any)
+  public func setSuperProperty(key: Swift.String, value: Any)
+  public func setSuperProperties(properties: [Swift.String : Any])
+  public func unSetSuperProperty(key: Swift.String)
+  public func reset()
+  public func setEmail(emailId: Swift.String)
+  public func setiOSPushNotificationToken(token: Swift.String)
+  public func flush()
+}
+@_hasMissingDesignatedInitializers public class SuperSend {
+  public static var shared: SuperSend.SuperSend
+  public func configureWith(key: Swift.String, secret: Swift.String, baseUrl: Swift.String)
+  public func enableLogging()
   @objc deinit
 }

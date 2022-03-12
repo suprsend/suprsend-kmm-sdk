@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import SuperSend
 
 struct SuccessView: View {
     
@@ -44,16 +45,14 @@ struct SuccessView: View {
             
             CommonAnalyticsHandler.track(eventName: "order_success_screen_viewed")
             
-            AppConstants
-                .ssApi
-                .getUser()
-                .increment(
+            SuperSend.shared.increment(
                     properties: [
                         "order_count" : 1,
                         "amount" :total
                     ]
                 )
-            AppConstants.ssApi.purchaseMade(
+            
+            SuperSend.shared.purchaseMade (
                 properties: [
                     "email" : "\(storeageEmail)",
                     "product_id":"\(firstProduct.id)",
@@ -61,10 +60,8 @@ struct SuccessView: View {
                     "amount":"\(total)"
                 ]
             )
-            AppConstants
-                .ssApi
-                .getUser()
-                .setOnce(
+            
+            SuperSend.shared.setOnce(
                     properties: [
                         "first_ordered_at" : "\(Date().formatDate())",
                         "first_ordered_amount" : total,
