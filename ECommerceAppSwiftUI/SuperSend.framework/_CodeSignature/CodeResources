@@ -10,15 +10,15 @@
 		</data>
 		<key>Frameworks/shared.framework/_CodeSignature/CodeDirectory</key>
 		<data>
-		M00MnQJ2y2Ds2+Cx0+e1U8ksmKY=
+		nHiQ0uXW4/+h8KABU0jIB1tvPyA=
 		</data>
 		<key>Frameworks/shared.framework/_CodeSignature/CodeRequirements</key>
 		<data>
-		hIBQnNTx3Aw0QsJ6v1FeGG43KwU=
+		OnX22wWFKRSOFN1+obRynMCeyXM=
 		</data>
 		<key>Frameworks/shared.framework/_CodeSignature/CodeRequirements-1</key>
 		<data>
-		iQTxCZ6Bmyolz9aXNrytiNTCfJ0=
+		3Ei7o70BaGlRMHqjkt10OIjTS/k=
 		</data>
 		<key>Frameworks/shared.framework/_CodeSignature/CodeResources</key>
 		<data>
@@ -26,11 +26,11 @@
 		</data>
 		<key>Frameworks/shared.framework/_CodeSignature/CodeSignature</key>
 		<data>
-		YeHLyp0AQhcEQV9RclxIsplMszM=
+		2jmj7l5rSw0yVb/vlWAYkK/YBwk=
 		</data>
 		<key>Frameworks/shared.framework/shared</key>
 		<data>
-		ZtwGi+xpVY5DJbUyh5rGWJbCFiY=
+		+j7Biy60aGz80wsPdulPztTdWmE=
 		</data>
 		<key>Headers/SuperSend-Swift.h</key>
 		<data>
@@ -42,39 +42,39 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		1ZgjnBLRLrSS1fi1pM1JxRwTqk4=
+		0GhJBSob1TbhSCcjKYheEIHdOZA=
 		</data>
-		<key>Modules/SuperSend.swiftmodule/Project/arm64-apple-ios.swiftsourceinfo</key>
+		<key>Modules/SuperSend.swiftmodule/Project/x86_64-apple-ios-simulator.swiftsourceinfo</key>
 		<data>
-		48IRYPDxHXqTkJICgl3SSzPNxcE=
+		id/afi5Ki57XDQPXlMeYVwsYzu8=
 		</data>
-		<key>Modules/SuperSend.swiftmodule/Project/arm64.swiftsourceinfo</key>
+		<key>Modules/SuperSend.swiftmodule/Project/x86_64.swiftsourceinfo</key>
 		<data>
-		48IRYPDxHXqTkJICgl3SSzPNxcE=
+		id/afi5Ki57XDQPXlMeYVwsYzu8=
 		</data>
-		<key>Modules/SuperSend.swiftmodule/arm64-apple-ios.swiftdoc</key>
+		<key>Modules/SuperSend.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		b35RDA7tFO8P2wwsCpI+2yzZTKI=
+		BBejSxEkjzrHQ7ICJ+MWWHsrT1I=
 		</data>
-		<key>Modules/SuperSend.swiftmodule/arm64-apple-ios.swiftinterface</key>
+		<key>Modules/SuperSend.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		4qy5iKUMH3l3Qz9a1PMiTXD8Ia4=
+		0fAs+nX2XOdasgniY0NYzjbdi0M=
 		</data>
-		<key>Modules/SuperSend.swiftmodule/arm64-apple-ios.swiftmodule</key>
+		<key>Modules/SuperSend.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		NK5vI/w8btW4p95grlxzMtBngHg=
+		RfhfkERGomMDLt9VEaSn3OTRGRk=
 		</data>
-		<key>Modules/SuperSend.swiftmodule/arm64.swiftdoc</key>
+		<key>Modules/SuperSend.swiftmodule/x86_64.swiftdoc</key>
 		<data>
-		b35RDA7tFO8P2wwsCpI+2yzZTKI=
+		BBejSxEkjzrHQ7ICJ+MWWHsrT1I=
 		</data>
-		<key>Modules/SuperSend.swiftmodule/arm64.swiftinterface</key>
+		<key>Modules/SuperSend.swiftmodule/x86_64.swiftinterface</key>
 		<data>
-		4qy5iKUMH3l3Qz9a1PMiTXD8Ia4=
+		0fAs+nX2XOdasgniY0NYzjbdi0M=
 		</data>
-		<key>Modules/SuperSend.swiftmodule/arm64.swiftmodule</key>
+		<key>Modules/SuperSend.swiftmodule/x86_64.swiftmodule</key>
 		<data>
-		NK5vI/w8btW4p95grlxzMtBngHg=
+		RfhfkERGomMDLt9VEaSn3OTRGRk=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -94,21 +94,21 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			ugQo/3lCQfjUpVdY0/fdBkl1VpirX2kZ7zk8zD2a8tw=
+			gTsYyqSw+/I6PqrfV8Uv3YJ09mAf7wqtn43mVJF4Ue8=
 			</data>
 		</dict>
 		<key>Frameworks/shared.framework/_CodeSignature/CodeRequirements</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			+Qr+3hfurRr+zq8CMWK6PJXE+qlNmQTl6jiEEOhxEsI=
+			mHkgkE6rZQ51eIwFSqCwUk5qgL/HGqMt+NI3phdD+YY=
 			</data>
 		</dict>
 		<key>Frameworks/shared.framework/_CodeSignature/CodeRequirements-1</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			HisjiCyzWa6EOjGWDkpSvFqClME4tGxtCTwOOzJTi/g=
+			FSGPILa1ZTaGjxEjd1pSTSG3OjPHuJitetUuWCxaiSc=
 			</data>
 		</dict>
 		<key>Frameworks/shared.framework/_CodeSignature/CodeResources</key>
@@ -122,14 +122,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			cfiUxyA+iJ/JXpdMdMWwDRLAvG5TFHJFRkOp03bxP0w=
+			47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=
 			</data>
 		</dict>
 		<key>Frameworks/shared.framework/shared</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			Gj/ipHct6N+zIoCUdm2KjxshpA2fG2wlmMFTxJsKa/A=
+			udsp/ViHgivXWy0fOLqaTXOaYUx7lRSaM61k+Nl/Jvc=
 			</data>
 		</dict>
 		<key>Headers/SuperSend-Swift.h</key>
@@ -146,60 +146,60 @@
 			r+FCs+aFbCIwKy6/hKERFvOeOffeMqcgohG/sM0ndoo=
 			</data>
 		</dict>
-		<key>Modules/SuperSend.swiftmodule/Project/arm64-apple-ios.swiftsourceinfo</key>
+		<key>Modules/SuperSend.swiftmodule/Project/x86_64-apple-ios-simulator.swiftsourceinfo</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			N81J+c75ty51PHfLJqB6ccvQZfonU6aTOcx8BYylr3Q=
+			uuxmFTlAVYwb7prYxCxHXt3A0dFYnIFfe+ooFrKA/aA=
 			</data>
 		</dict>
-		<key>Modules/SuperSend.swiftmodule/Project/arm64.swiftsourceinfo</key>
+		<key>Modules/SuperSend.swiftmodule/Project/x86_64.swiftsourceinfo</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			N81J+c75ty51PHfLJqB6ccvQZfonU6aTOcx8BYylr3Q=
+			uuxmFTlAVYwb7prYxCxHXt3A0dFYnIFfe+ooFrKA/aA=
 			</data>
 		</dict>
-		<key>Modules/SuperSend.swiftmodule/arm64-apple-ios.swiftdoc</key>
+		<key>Modules/SuperSend.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			65HeVtCEcnu5/DyIPRIfXinh5owUkZL55rZCOpfqdAg=
+			5m68xTdezliaK1RaGbaGSiEZ0+Coqc4XVUZZQr0rV5I=
 			</data>
 		</dict>
-		<key>Modules/SuperSend.swiftmodule/arm64-apple-ios.swiftinterface</key>
+		<key>Modules/SuperSend.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			eWsY7+n6bBz75HFdJaFMkbJXAegeOlYugEjuS13I/1Q=
+			CC+CbKz/itmqS0hIqQdO3CyYs2SARIpxKYn9WhmivIY=
 			</data>
 		</dict>
-		<key>Modules/SuperSend.swiftmodule/arm64-apple-ios.swiftmodule</key>
+		<key>Modules/SuperSend.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			FLHXrU90Gl8hdyw+fvs6uBnnCZ1oxBcJsmE5LTV3UQQ=
+			aQwLR1F4vRxuL78uBXdz3gSRWGP87cNSVb+P99nemew=
 			</data>
 		</dict>
-		<key>Modules/SuperSend.swiftmodule/arm64.swiftdoc</key>
+		<key>Modules/SuperSend.swiftmodule/x86_64.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			65HeVtCEcnu5/DyIPRIfXinh5owUkZL55rZCOpfqdAg=
+			5m68xTdezliaK1RaGbaGSiEZ0+Coqc4XVUZZQr0rV5I=
 			</data>
 		</dict>
-		<key>Modules/SuperSend.swiftmodule/arm64.swiftinterface</key>
+		<key>Modules/SuperSend.swiftmodule/x86_64.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			eWsY7+n6bBz75HFdJaFMkbJXAegeOlYugEjuS13I/1Q=
+			CC+CbKz/itmqS0hIqQdO3CyYs2SARIpxKYn9WhmivIY=
 			</data>
 		</dict>
-		<key>Modules/SuperSend.swiftmodule/arm64.swiftmodule</key>
+		<key>Modules/SuperSend.swiftmodule/x86_64.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			FLHXrU90Gl8hdyw+fvs6uBnnCZ1oxBcJsmE5LTV3UQQ=
+			aQwLR1F4vRxuL78uBXdz3gSRWGP87cNSVb+P99nemew=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

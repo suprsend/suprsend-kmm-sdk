@@ -6,7 +6,7 @@
 //
 
 import XCTest
-@testable import sdk
+@testable import SuperSend
 
 class sdkTests: XCTestCase {
 
