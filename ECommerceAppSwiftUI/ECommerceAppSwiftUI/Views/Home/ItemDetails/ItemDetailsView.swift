@@ -108,7 +108,7 @@ struct ItemDetailsView: View {
     
     fileprivate func AddToCartButton() -> some View {
         Button(action: {
-            AppConstants.ssApi.track(
+            CommonAnalyticsHandler.track(
                 eventName: "add_to_cart",
                 properties: [
                     "id":"\(cloth.id.uuidString)",

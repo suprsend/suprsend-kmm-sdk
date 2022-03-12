@@ -9,13 +9,16 @@
 /* Begin PBXBuildFile section */
 		2D595E8427468E4900BA6F0E /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DFBFC8B27468E0E00F62BF5 /* libsqlite3.tbd */; platformFilter = ios; };
 		2DA33B932736559900ED968A /* IosMutationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA33B922736559900ED968A /* IosMutationHandler.swift */; };
-		2DAB6EB92731AC4200630827 /* SSAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAB6EB82731AC4200630827 /* SSAPI.swift */; };
 		2DAB6EBD2731ACC000630827 /* shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DAB6EBC2731ACC000630827 /* shared.framework */; platformFilter = ios; };
 		2DAB6EBE2731ACC000630827 /* shared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2DAB6EBC2731ACC000630827 /* shared.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2DE46BB22731A751001C41FF /* SuperSend.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DE46BA82731A751001C41FF /* SuperSend.framework */; };
 		2DE46BB72731A751001C41FF /* SuperSendTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DE46BB62731A751001C41FF /* SuperSendTests.swift */; };
 		2DE46BB92731A751001C41FF /* SuperSend.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DE46BAB2731A751001C41FF /* SuperSend.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		88932D9827D74713003D68B2 /* SuperSend.h in Sources */ = {isa = PBXBuildFile; fileRef = 2DE46BAB2731A751001C41FF /* SuperSend.h */; };
+		88A03F4127DC8E5C007C4ED2 /* SuperSend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A03F4027DC8E5C007C4ED2 /* SuperSend.swift */; };
+		88A03F4227DC8E5C007C4ED2 /* SuperSend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A03F4027DC8E5C007C4ED2 /* SuperSend.swift */; };
+		88A03F4627DCA1AF007C4ED2 /* SuperSend+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A03F4527DCA1AF007C4ED2 /* SuperSend+Utilities.swift */; };
+		88A03F4727DCA1AF007C4ED2 /* SuperSend+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A03F4527DCA1AF007C4ED2 /* SuperSend+Utilities.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,7 +47,6 @@
 
 /* Begin PBXFileReference section */
 		2DA33B922736559900ED968A /* IosMutationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IosMutationHandler.swift; sourceTree = "<group>"; };
-		2DAB6EB82731AC4200630827 /* SSAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSAPI.swift; sourceTree = "<group>"; };
 		2DAB6EBC2731ACC000630827 /* shared.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = shared.framework; path = "../shared/build/xcode-frameworks/shared.framework"; sourceTree = "<group>"; };
 		2DE46BA82731A751001C41FF /* SuperSend.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SuperSend.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DE46BAB2731A751001C41FF /* SuperSend.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SuperSend.h; sourceTree = "<group>"; };
@@ -53,6 +55,8 @@
 		2DE46BB62731A751001C41FF /* SuperSendTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuperSendTests.swift; sourceTree = "<group>"; };
 		2DE46BB82731A751001C41FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2DFBFC8B27468E0E00F62BF5 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/usr/lib/libsqlite3.tbd; sourceTree = DEVELOPER_DIR; };
+		88A03F4027DC8E5C007C4ED2 /* SuperSend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuperSend.swift; sourceTree = "<group>"; };
+		88A03F4527DCA1AF007C4ED2 /* SuperSend+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SuperSend+Utilities.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,14 +88,6 @@
 			path = mutation;
 			sourceTree = "<group>";
 		};
-		2DA33B94273655C900ED968A /* api */ = {
-			isa = PBXGroup;
-			children = (
-				2DAB6EB82731AC4200630827 /* SSAPI.swift */,
-			);
-			path = api;
-			sourceTree = "<group>";
-		};
 		2DAB6EBA2731AC6F00630827 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -105,7 +101,6 @@
 			isa = PBXGroup;
 			children = (
 				2DE46BAA2731A751001C41FF /* SuperSend */,
-				2DE46BB52731A751001C41FF /* SuperSendTests */,
 				2DE46BA92731A751001C41FF /* Products */,
 				2DAB6EBA2731AC6F00630827 /* Frameworks */,
 			);
@@ -123,7 +118,9 @@
 		2DE46BAA2731A751001C41FF /* SuperSend */ = {
 			isa = PBXGroup;
 			children = (
-				2DA33B94273655C900ED968A /* api */,
+				88A03F4027DC8E5C007C4ED2 /* SuperSend.swift */,
+				88A03F4527DCA1AF007C4ED2 /* SuperSend+Utilities.swift */,
+				2DE46BB52731A751001C41FF /* SuperSendTests */,
 				2DA33B8F273653D100ED968A /* mutation */,
 				2DE46BAB2731A751001C41FF /* SuperSend.h */,
 				2DE46BAC2731A751001C41FF /* Info.plist */,
@@ -262,7 +259,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_261.jdk/Contents/Home\n\ncd \"$PROJECT_DIR/..\"\n\n#./gradlew :shared:packForXCode -PXCODE_CONFIGURATION=${CONFIGURATION}\n\n#rm -Rf ECommerceAppSwiftUI/sdk.framework\n\n#./gradlew releaseFatFramework\n#cp -R ~/Library/Developer/Xcode/DerivedData/SuperSend-dqwkqvurbvnarjgzqrujglpzfpee/Build/Products/Debug-iphoneos/SuperSend.framework ECommerceAppSwiftUI/\n\n./gradlew debugFatFramework\ncp -R ~/Library/Developer/Xcode/DerivedData/SuperSend-dqwkqvurbvnarjgzqrujglpzfpee/Build/Products/Debug-iphonesimulator/SuperSend.framework ECommerceAppSwiftUI/\n";
+			shellScript = "export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_261.jdk/Contents/Home\n\ncd \"$PROJECT_DIR/..\"\n\n#./gradlew :shared:packForXCode -PXCODE_CONFIGURATION=${CONFIGURATION}\n\nrm -Rf ECommerceAppSwiftUI/SuperSend.framework\n\n./gradlew releaseFatFramework\ncp -R ~/Library/Developer/Xcode/DerivedData/SuperSend-dqwkqvurbvnarjgzqrujglpzfpee/Build/Products/Debug-iphoneos/SuperSend.framework ECommerceAppSwiftUI/\n\n#./gradlew debugFatFramework\n#cp -R ~/Library/Developer/Xcode/DerivedData/SuperSend-dqwkqvurbvnarjgzqrujglpzfpee/Build/Products/Debug-iphonesimulator/SuperSend.framework ECommerceAppSwiftUI/\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -271,9 +268,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				88A03F4627DCA1AF007C4ED2 /* SuperSend+Utilities.swift in Sources */,
 				88932D9827D74713003D68B2 /* SuperSend.h in Sources */,
-				2DAB6EB92731AC4200630827 /* SSAPI.swift in Sources */,
 				2DA33B932736559900ED968A /* IosMutationHandler.swift in Sources */,
+				88A03F4127DC8E5C007C4ED2 /* SuperSend.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -281,7 +279,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				88A03F4727DCA1AF007C4ED2 /* SuperSend+Utilities.swift in Sources */,
 				2DE46BB72731A751001C41FF /* SuperSendTests.swift in Sources */,
+				88A03F4227DC8E5C007C4ED2 /* SuperSend.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
