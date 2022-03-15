@@ -15,25 +15,73 @@ import FirebaseMessaging
 import UserNotifications
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate,MessagingDelegate,UNUserNotificationCenterDelegate {
+class AppDelegate: UIResponder {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         print("app : App init")
+        
+        let superSendConfiguration = SuperSendSDKConfiguration(key: "2XwhDGHS9QtuwrbXHfqp",
+                                                               secret: "RWGx8ybPFFAHaqTImHs0",
+                                                               baseUrl: "https://collector-staging.suprsend.workers.dev")
 
-        SuperSend.shared.configureWith(key: "2XwhDGHS9QtuwrbXHfqp", secret: "RWGx8ybPFFAHaqTImHs0", baseUrl: "https://collector-staging.suprsend.workers.dev")
+        SuperSend.shared.configureWith(configuration: superSendConfiguration, launchOptions: launchOptions)
         SuperSend.shared.enableLogging()
 
-        return true
-    }
+        SuperSend.shared.registerForPushNotifications()
     
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        print("\(userInfo)")
+        return true
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         print("App Delegate Open Url : \(url)")
         return true
     }
+
+}
+
+extension AppDelegate: UIApplicationDelegate {
     
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        
+        let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
+        let token = tokenParts.joined()
+        
+        print("Device Token: \(token)")
+        
+        SuperSend.shared.setPushNotificationToken(token: token)
+    }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification
+                     userInfo: [AnyHashable: Any],
+      fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        guard (userInfo["aps"] as? [String: AnyObject]) != nil else {
+        completionHandler(.failed)
+        return
+      }
+        SuperSend.shared.application(application, didReceiveRemoteNotification: userInfo)
+        completionHandler(.noData)
+    }
+
+    
+}
+
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        SuperSend.shared.userNotificationCenter(center, didReceive: response)
+        completionHandler()
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        
+        SuperSend.shared.userNotificationCenter(center, willPresent: notification)
+        
+        if #available(iOS 14.0, *) {
+            completionHandler([.banner, .badge, .sound])
+        } else {
+            // Fallback on earlier versions
+            completionHandler([.alert, .badge, .sound])
+        }
+    }
 }

@@ -82,10 +82,6 @@ extension SuperSend {
         superSendiOSAPI.getUser().setEmail(email: emailId)
     }
     
-    public func setiOSPushNotificationToken(token: String) {
-        superSendiOSAPI.getUser().setIOSPush(token: token)
-    }
-    
     public func flush() {
         superSendiOSAPI.flush()
     }

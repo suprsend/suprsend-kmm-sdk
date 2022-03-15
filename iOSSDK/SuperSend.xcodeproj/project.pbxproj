@@ -14,11 +14,14 @@
 		2DE46BB22731A751001C41FF /* SuperSend.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DE46BA82731A751001C41FF /* SuperSend.framework */; };
 		2DE46BB72731A751001C41FF /* SuperSendTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DE46BB62731A751001C41FF /* SuperSendTests.swift */; };
 		2DE46BB92731A751001C41FF /* SuperSend.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DE46BAB2731A751001C41FF /* SuperSend.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8883560C27E07C2B0005A920 /* AnalyticsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8883560B27E07C2B0005A920 /* AnalyticsConstants.swift */; };
 		88932D9827D74713003D68B2 /* SuperSend.h in Sources */ = {isa = PBXBuildFile; fileRef = 2DE46BAB2731A751001C41FF /* SuperSend.h */; };
 		88A03F4127DC8E5C007C4ED2 /* SuperSend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A03F4027DC8E5C007C4ED2 /* SuperSend.swift */; };
 		88A03F4227DC8E5C007C4ED2 /* SuperSend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A03F4027DC8E5C007C4ED2 /* SuperSend.swift */; };
 		88A03F4627DCA1AF007C4ED2 /* SuperSend+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A03F4527DCA1AF007C4ED2 /* SuperSend+Utilities.swift */; };
 		88A03F4727DCA1AF007C4ED2 /* SuperSend+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A03F4527DCA1AF007C4ED2 /* SuperSend+Utilities.swift */; };
+		88A03F4927DCB408007C4ED2 /* SuperSend+PushNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A03F4827DCB408007C4ED2 /* SuperSend+PushNotifications.swift */; };
+		88A03F4B27DE1799007C4ED2 /* SuperSendSDKConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A03F4A27DE1798007C4ED2 /* SuperSendSDKConfiguration.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,8 +58,11 @@
 		2DE46BB62731A751001C41FF /* SuperSendTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuperSendTests.swift; sourceTree = "<group>"; };
 		2DE46BB82731A751001C41FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2DFBFC8B27468E0E00F62BF5 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/usr/lib/libsqlite3.tbd; sourceTree = DEVELOPER_DIR; };
+		8883560B27E07C2B0005A920 /* AnalyticsConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsConstants.swift; sourceTree = "<group>"; };
 		88A03F4027DC8E5C007C4ED2 /* SuperSend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuperSend.swift; sourceTree = "<group>"; };
 		88A03F4527DCA1AF007C4ED2 /* SuperSend+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SuperSend+Utilities.swift"; sourceTree = "<group>"; };
+		88A03F4827DCB408007C4ED2 /* SuperSend+PushNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SuperSend+PushNotifications.swift"; sourceTree = "<group>"; };
+		88A03F4A27DE1798007C4ED2 /* SuperSendSDKConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuperSendSDKConfiguration.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,11 +125,14 @@
 			isa = PBXGroup;
 			children = (
 				88A03F4027DC8E5C007C4ED2 /* SuperSend.swift */,
+				88A03F4A27DE1798007C4ED2 /* SuperSendSDKConfiguration.swift */,
 				88A03F4527DCA1AF007C4ED2 /* SuperSend+Utilities.swift */,
 				2DE46BB52731A751001C41FF /* SuperSendTests */,
 				2DA33B8F273653D100ED968A /* mutation */,
 				2DE46BAB2731A751001C41FF /* SuperSend.h */,
 				2DE46BAC2731A751001C41FF /* Info.plist */,
+				88A03F4827DCB408007C4ED2 /* SuperSend+PushNotifications.swift */,
+				8883560B27E07C2B0005A920 /* AnalyticsConstants.swift */,
 			);
 			path = SuperSend;
 			sourceTree = "<group>";
@@ -196,7 +205,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1250;
-				LastUpgradeCheck = 1250;
+				LastUpgradeCheck = 1320;
 				TargetAttributes = {
 					2DE46BA72731A751001C41FF = {
 						CreatedOnToolsVersion = 12.5.1;
@@ -272,6 +281,9 @@
 				88932D9827D74713003D68B2 /* SuperSend.h in Sources */,
 				2DA33B932736559900ED968A /* IosMutationHandler.swift in Sources */,
 				88A03F4127DC8E5C007C4ED2 /* SuperSend.swift in Sources */,
+				8883560C27E07C2B0005A920 /* AnalyticsConstants.swift in Sources */,
+				88A03F4927DCB408007C4ED2 /* SuperSend+PushNotifications.swift in Sources */,
+				88A03F4B27DE1799007C4ED2 /* SuperSendSDKConfiguration.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -424,7 +436,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = G7DJURR5RJ;
@@ -453,7 +465,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = G7DJURR5RJ;

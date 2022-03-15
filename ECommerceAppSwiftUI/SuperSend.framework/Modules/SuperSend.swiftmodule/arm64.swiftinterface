@@ -4,6 +4,7 @@
 import Foundation
 @_exported import SuperSend
 import Swift
+import UIKit
 import _Concurrency
 import shared
 extension SuperSend.SuperSend {
@@ -25,12 +26,21 @@ extension SuperSend.SuperSend {
   public func unSetSuperProperty(key: Swift.String)
   public func reset()
   public func setEmail(emailId: Swift.String)
-  public func setiOSPushNotificationToken(token: Swift.String)
   public func flush()
 }
 @_hasMissingDesignatedInitializers public class SuperSend {
   public static var shared: SuperSend.SuperSend
-  public func configureWith(key: Swift.String, secret: Swift.String, baseUrl: Swift.String)
+  public func configureWith(configuration: SuperSend.SuperSendSDKConfiguration, launchOptions: [UIKit.UIApplication.LaunchOptionsKey : Any]?)
   public func enableLogging()
   @objc deinit
+}
+extension SuperSend.SuperSend {
+  public func setPushNotificationToken(token: Swift.String)
+  public func application(_ application: UIKit.UIApplication, didReceiveRemoteNotification userInfo: [Swift.AnyHashable : Any])
+  public func userNotificationCenter(_ center: UserNotifications.UNUserNotificationCenter, didReceive response: UserNotifications.UNNotificationResponse)
+  public func userNotificationCenter(_ center: UserNotifications.UNUserNotificationCenter, willPresent notification: UserNotifications.UNNotification)
+  public func registerForPushNotifications()
+}
+public struct SuperSendSDKConfiguration {
+  public init(key: Swift.String, secret: Swift.String, baseUrl: Swift.String)
 }
