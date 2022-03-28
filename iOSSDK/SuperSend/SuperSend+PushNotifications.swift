@@ -18,15 +18,21 @@ public extension SuperSend {
     // For iOS < 10
     func application(_ application: UIApplication, didReceiveRemoteNotification
                      userInfo: [AnyHashable: Any]) {
-        superSendiOSAPI.track(eventName: AnalyticsConstants.notificationClicked, properties: ["id": "123"])
+        if let id = userInfo[AnalyticsConstants.id] {
+            superSendiOSAPI.track(eventName: AnalyticsConstants.notificationClicked, properties: [AnalyticsConstants.id: id])
+        }
     }
     
      func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse) {
-         superSendiOSAPI.track(eventName: AnalyticsConstants.notificationClicked, properties: ["id": "123"])
+         if let id = response.notification.request.content.userInfo[AnalyticsConstants.id] {
+             superSendiOSAPI.track(eventName: AnalyticsConstants.notificationClicked, properties: [AnalyticsConstants.id: id])
+         }
     }
     
      func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification) {
-         superSendiOSAPI.track(eventName: AnalyticsConstants.notificationDelivered, properties: ["id": "123"])
+         if let id = notification.request.content.userInfo[AnalyticsConstants.id] {
+             superSendiOSAPI.track(eventName: AnalyticsConstants.notificationDelivered, properties: [AnalyticsConstants.id: id])
+         }
      }
     
     func registerForPushNotifications() {
@@ -56,4 +62,9 @@ public extension SuperSend {
             }
         }
     }
+    
+    func trackNotificationDidLaunchAppEvent(id: String) {
+        superSendiOSAPI.track(eventName: AnalyticsConstants.notificationClicked, properties: [AnalyticsConstants.id: id])
+    }
+    
 }

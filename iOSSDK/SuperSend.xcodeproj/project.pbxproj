@@ -14,6 +14,7 @@
 		2DE46BB22731A751001C41FF /* SuperSend.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DE46BA82731A751001C41FF /* SuperSend.framework */; };
 		2DE46BB72731A751001C41FF /* SuperSendTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DE46BB62731A751001C41FF /* SuperSendTests.swift */; };
 		2DE46BB92731A751001C41FF /* SuperSend.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DE46BAB2731A751001C41FF /* SuperSend.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		880ABBB427F182D100DA93D9 /* UNNotificationResponse+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880ABBB327F182D100DA93D9 /* UNNotificationResponse+Utility.swift */; };
 		8883560C27E07C2B0005A920 /* AnalyticsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8883560B27E07C2B0005A920 /* AnalyticsConstants.swift */; };
 		88932D9827D74713003D68B2 /* SuperSend.h in Sources */ = {isa = PBXBuildFile; fileRef = 2DE46BAB2731A751001C41FF /* SuperSend.h */; };
 		88A03F4127DC8E5C007C4ED2 /* SuperSend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A03F4027DC8E5C007C4ED2 /* SuperSend.swift */; };
@@ -58,6 +59,7 @@
 		2DE46BB62731A751001C41FF /* SuperSendTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuperSendTests.swift; sourceTree = "<group>"; };
 		2DE46BB82731A751001C41FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2DFBFC8B27468E0E00F62BF5 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/usr/lib/libsqlite3.tbd; sourceTree = DEVELOPER_DIR; };
+		880ABBB327F182D100DA93D9 /* UNNotificationResponse+Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UNNotificationResponse+Utility.swift"; sourceTree = "<group>"; };
 		8883560B27E07C2B0005A920 /* AnalyticsConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsConstants.swift; sourceTree = "<group>"; };
 		88A03F4027DC8E5C007C4ED2 /* SuperSend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuperSend.swift; sourceTree = "<group>"; };
 		88A03F4527DCA1AF007C4ED2 /* SuperSend+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SuperSend+Utilities.swift"; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 				2DE46BAC2731A751001C41FF /* Info.plist */,
 				88A03F4827DCB408007C4ED2 /* SuperSend+PushNotifications.swift */,
 				8883560B27E07C2B0005A920 /* AnalyticsConstants.swift */,
+				880ABBB327F182D100DA93D9 /* UNNotificationResponse+Utility.swift */,
 			);
 			path = SuperSend;
 			sourceTree = "<group>";
@@ -284,6 +287,7 @@
 				8883560C27E07C2B0005A920 /* AnalyticsConstants.swift in Sources */,
 				88A03F4927DCB408007C4ED2 /* SuperSend+PushNotifications.swift in Sources */,
 				88A03F4B27DE1799007C4ED2 /* SuperSendSDKConfiguration.swift in Sources */,
+				880ABBB427F182D100DA93D9 /* UNNotificationResponse+Utility.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
