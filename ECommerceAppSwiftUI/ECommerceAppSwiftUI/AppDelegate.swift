@@ -59,7 +59,11 @@ extension AppDelegate: UIApplicationDelegate {
         completionHandler(.failed)
         return
       }
-        SuperSend.shared.application(application, didReceiveRemoteNotification: userInfo)
+        
+        if let host = userInfo["host"] as? String, host == "com.supersend" {
+            SuperSend.shared.application(application, didReceiveRemoteNotification: userInfo)
+        }
+        
         completionHandler(.noData)
     }
 
@@ -69,13 +73,19 @@ extension AppDelegate: UIApplicationDelegate {
 extension AppDelegate: UNUserNotificationCenterDelegate {
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        SuperSend.shared.userNotificationCenter(center, didReceive: response)
+        
+        if response.isSuperSendNotification() {
+            SuperSend.shared.userNotificationCenter(center, didReceive: response)
+        }
+        
         completionHandler()
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         
-        SuperSend.shared.userNotificationCenter(center, willPresent: notification)
+        if notification.isSuperSendNotification() {
+            SuperSend.shared.userNotificationCenter(center, willPresent: notification)
+        }
         
         if #available(iOS 14.0, *) {
             completionHandler([.banner, .badge, .sound])

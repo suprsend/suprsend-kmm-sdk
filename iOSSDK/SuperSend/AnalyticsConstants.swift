@@ -8,7 +8,9 @@
 import Foundation
 
 struct AnalyticsConstants {
+    static let id = "id"
     static let notificationDelivered = "notification_delivered"
     static let notificationDismissed = "notification_clicked"
     static let notificationClicked = "notification_clicked"
+    static let host = "com.supersend"
 }

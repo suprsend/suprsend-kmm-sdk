@@ -23,7 +23,13 @@ public class SuperSend {
         
         superSendiOSAPI = IOSSSApi.Companion.init().getInstance(apiKey: configuration.key, apiSecret: configuration.secret, apiBaseUrl: configuration.baseUrl, mutationHandler: IosMutationHandler())
         
-        
+        // Check if App launched from notification
+        let notificationOption = launchOptions?[.remoteNotification]
+        if let notification = notificationOption as? [String: AnyObject],
+          let aps = notification["aps"] as? [String: AnyObject],
+           let id = aps[AnalyticsConstants.id] as! String? {
+            trackNotificationDidLaunchAppEvent(id: id)
+        }
     }
     
     public func enableLogging() {
