@@ -8,7 +8,7 @@
 
 import UIKit
 import SwiftUI
-import SuperSend
+import SuperSendSdk
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     

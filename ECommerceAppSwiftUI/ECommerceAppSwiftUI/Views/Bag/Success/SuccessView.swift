@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import SuperSend
+import SuperSendSdk
 
 struct SuccessView: View {
     

@@ -6,7 +6,7 @@
 //  Copyright © 2021 Ayush Gupta. All rights reserved.
 //
 
-import SuperSend
+import SuperSendSdk
 
 struct CommonAnalyticsHandler {
     
