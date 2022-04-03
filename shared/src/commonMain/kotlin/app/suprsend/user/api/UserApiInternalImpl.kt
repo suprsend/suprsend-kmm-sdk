@@ -142,16 +142,37 @@ internal class UserApiInternalImpl : UserApiInternalContract {
     }
 
     override fun setEmail(email: String) {
-        append(SSConstants.EMAIL, email)
+        coroutineScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
+            internalOperatorCallOp(
+                properties = buildJsonObject {
+                    put(SSConstants.EMAIL, JsonPrimitive(email))
+                },
+                operator = SSConstants.APPEND
+            )
+        }
     }
 
     override fun unSetEmail(email: String) {
-        remove(SSConstants.EMAIL, email)
+        coroutineScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
+            internalOperatorCallOp(
+                properties = buildJsonObject {
+                    put(SSConstants.EMAIL, JsonPrimitive(email))
+                },
+                operator = SSConstants.REMOVE
+            )
+        }
     }
 
     override fun setSms(mobile: String) {
         if (isMobileNumberValid(mobile)) {
-            append(SSConstants.SMS, mobile)
+            coroutineScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
+                internalOperatorCallOp(
+                    properties = buildJsonObject {
+                        put(SSConstants.SMS, JsonPrimitive(mobile))
+                    },
+                    operator = SSConstants.APPEND
+                )
+            }
         } else {
             Logger.e("serror", "Mobile number is not valid : $mobile")
         }
@@ -159,7 +180,14 @@ internal class UserApiInternalImpl : UserApiInternalContract {
 
     override fun unSetSms(mobile: String) {
         if (isMobileNumberValid(mobile)) {
-            remove(SSConstants.SMS, mobile)
+            coroutineScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
+                internalOperatorCallOp(
+                    properties = buildJsonObject {
+                        put(SSConstants.SMS, JsonPrimitive(mobile))
+                    },
+                    operator = SSConstants.REMOVE
+                )
+            }
         } else {
             Logger.e("serror", "Mobile number is not valid : $mobile")
         }
@@ -167,7 +195,14 @@ internal class UserApiInternalImpl : UserApiInternalContract {
 
     override fun setWhatsApp(mobile: String) {
         if (isMobileNumberValid(mobile)) {
-            append(SSConstants.WHATS_APP, mobile)
+            coroutineScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
+                internalOperatorCallOp(
+                    properties = buildJsonObject {
+                        put(SSConstants.WHATS_APP, JsonPrimitive(mobile))
+                    },
+                    operator = SSConstants.APPEND
+                )
+            }
         } else {
             Logger.e("serror", "Mobile number is not valid : $mobile")
         }
@@ -175,7 +210,14 @@ internal class UserApiInternalImpl : UserApiInternalContract {
 
     override fun unSetWhatsApp(mobile: String) {
         if (isMobileNumberValid(mobile)) {
-            remove(SSConstants.WHATS_APP, mobile)
+            coroutineScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
+                internalOperatorCallOp(
+                    properties = buildJsonObject {
+                        put(SSConstants.WHATS_APP, JsonPrimitive(mobile))
+                    },
+                    operator = SSConstants.REMOVE
+                )
+            }
         } else {
             Logger.e("serror", "Mobile number is not valid : $mobile")
         }
@@ -225,15 +267,17 @@ internal class UserApiInternalImpl : UserApiInternalContract {
     }
 
     override fun setIOSPush(newToken: String) {
-        val oldToken = SSApiInternal.getIOSToken()
-        if (oldToken != newToken) {
-            SSApiInternal.setIOSToken(newToken)
+        coroutineScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
+            val oldToken = SSApiInternal.getIOSToken()
+            if (oldToken != newToken) {
+                SSApiInternal.setIOSToken(newToken)
+            }
+            internalOperatorCallOp(properties = buildJsonObject {
+                put(SSConstants.PUSH_IOS_TOKEN, JsonPrimitive(newToken))
+                put(SSConstants.PUSH_VENDOR, JsonPrimitive(SSConstants.PUSH_VENDOR_APNS))
+                put(SSConstants.DEVICE_ID, JsonPrimitive(SSApiInternal.getDeviceID()))
+            }, operator = SSConstants.APPEND)
         }
-        append(buildJsonObject {
-            put(SSConstants.PUSH_IOS_TOKEN, JsonPrimitive(newToken))
-            put(SSConstants.PUSH_VENDOR, JsonPrimitive(SSConstants.PUSH_VENDOR_APNS))
-            put(SSConstants.DEVICE_ID, JsonPrimitive(SSApiInternal.getDeviceID()))
-        }.toString())
     }
 
     override fun unSetIOSPush(token: String) {
