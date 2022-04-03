@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import SuperSendSdk
+import SuprSendSdk
 import SwiftUI
 
 struct AppConstants {

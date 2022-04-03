@@ -63,9 +63,9 @@
 		599FD17026C9223E00DFCF64 /* LineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 599FD16F26C9223E00DFCF64 /* LineView.swift */; };
 		59BBEADC262F45B600102A61 /* ItemRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59BBEADB262F45B600102A61 /* ItemRow.swift */; };
 		68C7136E6AF2394AA0F7A840 /* Pods_ECommerceAppSwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A69F658A88CF16FBFFFF1408 /* Pods_ECommerceAppSwiftUI.framework */; };
+		881FDF6F27F9AE8700FF9EDC /* SuprSendSdk.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 881FDF6E27F9AE8700FF9EDC /* SuprSendSdk.xcframework */; };
+		881FDF7027F9AE8700FF9EDC /* SuprSendSdk.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 881FDF6E27F9AE8700FF9EDC /* SuprSendSdk.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		88A03F4427DC9D78007C4ED2 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A03F4327DC9D78007C4ED2 /* AppConstants.swift */; };
-		88D0B21227F3FAE0006D2E1F /* SuperSendSdk.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88D0B21127F3FAE0006D2E1F /* SuperSendSdk.xcframework */; };
-		88D0B21327F3FAE0006D2E1F /* SuperSendSdk.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 88D0B21127F3FAE0006D2E1F /* SuperSendSdk.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -75,7 +75,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				88D0B21327F3FAE0006D2E1F /* SuperSendSdk.xcframework in Embed Frameworks */,
+				881FDF7027F9AE8700FF9EDC /* SuprSendSdk.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -142,8 +142,8 @@
 		2DFBFC872743F3F000F62BF5 /* Notifiaction.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = Notifiaction.apns; sourceTree = "<group>"; };
 		599FD16F26C9223E00DFCF64 /* LineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineView.swift; sourceTree = "<group>"; };
 		59BBEADB262F45B600102A61 /* ItemRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemRow.swift; sourceTree = "<group>"; };
+		881FDF6E27F9AE8700FF9EDC /* SuprSendSdk.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = SuprSendSdk.xcframework; sourceTree = "<group>"; };
 		88A03F4327DC9D78007C4ED2 /* AppConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
-		88D0B21127F3FAE0006D2E1F /* SuperSendSdk.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = SuperSendSdk.xcframework; sourceTree = "<group>"; };
 		A69F658A88CF16FBFFFF1408 /* Pods_ECommerceAppSwiftUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ECommerceAppSwiftUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -152,8 +152,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				88D0B21227F3FAE0006D2E1F /* SuperSendSdk.xcframework in Frameworks */,
 				2ADA0F4C239E733500F67F64 /* PartialSheet in Frameworks */,
+				881FDF6F27F9AE8700FF9EDC /* SuprSendSdk.xcframework in Frameworks */,
 				68C7136E6AF2394AA0F7A840 /* Pods_ECommerceAppSwiftUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -463,7 +463,7 @@
 		A7B37F40270B5C3400F7859E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				88D0B21127F3FAE0006D2E1F /* SuperSendSdk.xcframework */,
+				881FDF6E27F9AE8700FF9EDC /* SuprSendSdk.xcframework */,
 				A69F658A88CF16FBFFFF1408 /* Pods_ECommerceAppSwiftUI.framework */,
 			);
 			name = Frameworks;
