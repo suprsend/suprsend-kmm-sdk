@@ -8,7 +8,7 @@
 
 import UIKit
 
-import SuperSendSdk
+import SuprSendSdk
 
 import Firebase
 import FirebaseMessaging
@@ -21,14 +21,14 @@ class AppDelegate: UIResponder {
         
         print("app : App init")
         
-        let superSendConfiguration = SuperSendSDKConfiguration(key: "2XwhDGHS9QtuwrbXHfqp",
+        let suprSendConfiguration = SuprSendSDKConfiguration(key: "2XwhDGHS9QtuwrbXHfqp",
                                                                secret: "RWGx8ybPFFAHaqTImHs0",
                                                                baseUrl: "https://collector-staging.suprsend.workers.dev")
 
-        SuperSend.shared.configureWith(configuration: superSendConfiguration, launchOptions: launchOptions)
-        SuperSend.shared.enableLogging()
+        SuprSend.shared.configureWith(configuration: suprSendConfiguration  , launchOptions: launchOptions)
+        SuprSend.shared.enableLogging()
 
-        SuperSend.shared.registerForPushNotifications()
+        SuprSend.shared.registerForPushNotifications()
     
         return true
     }
@@ -43,30 +43,13 @@ class AppDelegate: UIResponder {
 extension AppDelegate: UIApplicationDelegate {
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        
         let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
         let token = tokenParts.joined()
         
         print("Device Token: \(token)")
         
-        SuperSend.shared.setPushNotificationToken(token: token)
+        SuprSend.shared.setPushNotificationToken(token: token)
     }
-    
-    func application(_ application: UIApplication, didReceiveRemoteNotification
-                     userInfo: [AnyHashable: Any],
-      fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        guard (userInfo["aps"] as? [String: AnyObject]) != nil else {
-        completionHandler(.failed)
-        return
-      }
-        
-        if let host = userInfo["host"] as? String, host == "com.supersend" {
-            SuperSend.shared.application(application, didReceiveRemoteNotification: userInfo)
-        }
-        
-        completionHandler(.noData)
-    }
-
     
 }
 
@@ -74,8 +57,8 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         
-        if response.isSuperSendNotification() {
-            SuperSend.shared.userNotificationCenter(center, didReceive: response)
+        if response.isSuprSendNotification() {
+            SuprSend.shared.userNotificationCenter(center, didReceive: response)
         }
         
         completionHandler()
@@ -84,7 +67,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         
         if notification.isSuperSendNotification() {
-            SuperSend.shared.userNotificationCenter(center, willPresent: notification)
+            SuprSend.shared.userNotificationCenter(center, willPresent: notification)
         }
         
         if #available(iOS 14.0, *) {
