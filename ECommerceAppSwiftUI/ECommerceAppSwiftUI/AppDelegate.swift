@@ -9,7 +9,6 @@
 import UIKit
 
 import SuprSendSdk
-
 import Firebase
 import FirebaseMessaging
 import UserNotifications
@@ -21,8 +20,8 @@ class AppDelegate: UIResponder {
         
         print("app : App init")
         
-        let suprSendConfiguration = SuprSendSDKConfiguration(key: "2XwhDGHS9QtuwrbXHfqp",
-                                                               secret: "RWGx8ybPFFAHaqTImHs0",
+        let suprSendConfiguration = SuprSendSDKConfiguration(key: "kfWdrPL1nFqs7OUihiBn",
+                                                               secret: "From1HA1ZiSXs3ofBHXh",
                                                                baseUrl: "https://collector-staging.suprsend.workers.dev")
 
         SuprSend.shared.configureWith(configuration: suprSendConfiguration  , launchOptions: launchOptions)

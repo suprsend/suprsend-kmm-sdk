@@ -209,7 +209,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_261.jdk/Contents/Home\n\ncd \"$PROJECT_DIR/..\"\n\n./gradlew releaseFatFramework\n\ncp -R ~/Library/Developer/Xcode/DerivedData/SuprSendSdk-fpaorvwytrkmrufpcffveahpewdk/Build/Products/Debug-iphoneos/SuprSendSdk.framework iOSSDK/frameworks/device\n\ncp -R ~/Library/Developer/Xcode/DerivedData/SuprSendSdk-fpaorvwytrkmrufpcffveahpewdk/Build/Products/Debug-iphoneos/SuprSendSdk.framework ECommerceAppSwiftUI\n\n#./gradlew clean\n\n#./gradlew debugFatFramework\n#cp -R ~/Library/Developer/Xcode/DerivedData/SuprSendSdk-fpaorvwytrkmrufpcffveahpewdk/Build/Products/Debug-iphonesimulator/SuprSendSdk.framework iOSSDK/frameworks/simulator\n\n#cp -R ~/Library/Developer/Xcode/DerivedData/SuprSendSdk-fpaorvwytrkmrufpcffveahpewdk/Build/Products/Debug-iphonesimulator/SuprSendSdk.framework ECommerceAppSwiftUI\n";
+			shellScript = "export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_261.jdk/Contents/Home\n\ncd \"$PROJECT_DIR/..\"\n\n./gradlew releaseFatFramework\n\n#cp -R ~/Library/Developer/Xcode/DerivedData/SuprSendSdk-fpaorvwytrkmrufpcffveahpewdk/Build/Products/Debug-iphoneos/SuprSendSdk.framework ECommerceAppSwiftUI\n\n#cp -R ~/Library/Developer/Xcode/DerivedData/SuprSendSdk-fpaorvwytrkmrufpcffveahpewdk/Build/Products/Debug-iphoneos/SuprSendSdk.framework ECommerceAppSwiftUI\n\n#./gradlew clean\n\n#./gradlew debugFatFramework\n#cp -R ~/Library/Developer/Xcode/DerivedData/SuprSendSdk-fpaorvwytrkmrufpcffveahpewdk/Build/Products/Debug-iphonesimulator/SuprSendSdk.framework iOSSDK/frameworks/simulator\n\n#cp -R ~/Library/Developer/Xcode/DerivedData/SuprSendSdk-fpaorvwytrkmrufpcffveahpewdk/Build/Products/Debug-iphonesimulator/SuprSendSdk.framework ECommerceAppSwiftUI\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -378,15 +378,17 @@
 				GCC_PREFIX_HEADER = SuprSendSdk;
 				INFOPLIST_FILE = SuprSendSdk/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = suprsendsdk;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -408,15 +410,17 @@
 				GCC_PREFIX_HEADER = SuprSendSdk;
 				INFOPLIST_FILE = SuprSendSdk/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = suprsendsdk;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

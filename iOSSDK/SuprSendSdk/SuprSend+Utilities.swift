@@ -11,7 +11,6 @@ extension SuprSend {
     
     public func identify(identity: String) {
         suprSendiOSAPI.identify(uniqueId: identity)
-        suprSendiOSAPI.getUser().setEmail(email: identity)
     }
     
     public func track(eventName: String) {
