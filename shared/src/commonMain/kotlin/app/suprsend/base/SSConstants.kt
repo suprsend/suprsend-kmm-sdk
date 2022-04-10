@@ -35,7 +35,7 @@ internal object SSConstants {
     const val PUSH_VENDOR_FCM = "fcm"
     const val PUSH_VENDOR_XIAOMI = "xiaomi"
     const val PUSH_VENDOR_APNS = "apns"
-    const val DEVICE_ID = "\$deviceId"
+    const val DEVICE_ID = "\$device_Id"
     const val SET = "\$set"
     const val SET_ONCE = "\$set_once"
     const val ADD = "\$add"

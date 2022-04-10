@@ -17,7 +17,7 @@ internal class DeviceInfo {
         jsonObject.put("\$manufacturer", manufacturer())
         jsonObject.put("\$brand", brand())
         jsonObject.put("\$model", model())
-        jsonObject.put("\$deviceId", getDeviceId())
+        jsonObject.put(SSConstants.DEVICE_ID, getDeviceId())
         jsonObject.put("\$ss_sdk_version", BuildConfig.SS_SDK_VERSION_NAME)
 
         val networkInfo = SdkAndroidCreator.networkInfo

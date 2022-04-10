@@ -92,6 +92,6 @@ object PayloadCreator {
 }
 
 private fun JsonObjectBuilder.addCommonEventProperties() {
-    put(SSConstants.INSERT_ID, JsonPrimitive(uuid()))
+    put(SSConstants.INSERT_ID, JsonPrimitive(uuid().lowercase()))
     put(SSConstants.TIME, JsonPrimitive(Clock.System.now().toEpochMilliseconds()))
 }

@@ -269,14 +269,14 @@ internal class UserApiInternalImpl : UserApiInternalContract {
     override fun setIOSPush(newToken: String) {
         coroutineScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
             val oldToken = SSApiInternal.getIOSToken()
-            if (oldToken != newToken) {
+            if (newToken != oldToken) {
                 SSApiInternal.setIOSToken(newToken)
+                internalOperatorCallOp(properties = buildJsonObject {
+                    put(SSConstants.PUSH_IOS_TOKEN, JsonPrimitive(newToken))
+                    put(SSConstants.PUSH_VENDOR, JsonPrimitive(SSConstants.PUSH_VENDOR_APNS))
+                    put(SSConstants.DEVICE_ID, JsonPrimitive(SSApiInternal.getDeviceID()))
+                }, operator = SSConstants.APPEND)
             }
-            internalOperatorCallOp(properties = buildJsonObject {
-                put(SSConstants.PUSH_IOS_TOKEN, JsonPrimitive(newToken))
-                put(SSConstants.PUSH_VENDOR, JsonPrimitive(SSConstants.PUSH_VENDOR_APNS))
-                put(SSConstants.DEVICE_ID, JsonPrimitive(SSApiInternal.getDeviceID()))
-            }, operator = SSConstants.APPEND)
         }
     }
 

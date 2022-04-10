@@ -15,7 +15,7 @@ internal class DeviceInfo {
             put("\$os", JsonPrimitive(os()))
             put("\$os_version", JsonPrimitive(osVersion()))
             put("\$model", JsonPrimitive(model()))
-            put("\$deviceId", JsonPrimitive(getDeviceId()))
+            put(SSConstants.DEVICE_ID, JsonPrimitive(getDeviceId()))
 //            put("\$ss_sdk_version", JsonPrimitive(BuildConfig.SS_SDK_VERSION_NAME))
 
 //            val networkInfo = SdkIosCreator.networkInfo
