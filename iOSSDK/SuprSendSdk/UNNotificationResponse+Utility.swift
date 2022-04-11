@@ -16,8 +16,8 @@ public extension UNNotificationResponse {
 
 public extension UNNotification {
     func isSuperSendNotification() -> Bool {
-        if let fromSuprSend = request.content.userInfo[Constants.fromSuprSend] as? Bool {
-            return fromSuprSend
+        if let viaSuprSend = request.content.userInfo[Constants.viaSuprSend] as? Bool {
+            return viaSuprSend
         }
         return false
     }
