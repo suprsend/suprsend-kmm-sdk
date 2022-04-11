@@ -26,8 +26,8 @@ public class SuprSend {
         // Check if App launched from notification
         let notificationOption = launchOptions?[.remoteNotification]
         if let notification = notificationOption as? [String: AnyObject],
-           let fromSuprSend = notification[Constants.fromSuprSend] as? Bool,
-           fromSuprSend == true,
+           let viaSuprSend = notification[Constants.viaSuprSend] as? Bool,
+           viaSuprSend == true,
            let id = notification[AnalyticsConstants.id] as! String? {
             trackNotificationDidLaunchAppEvent(id: id)
         }

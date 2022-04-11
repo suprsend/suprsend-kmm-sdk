@@ -8,5 +8,5 @@
 import Foundation
 
 struct Constants {
-    static let fromSuprSend = "fromSuprSend"
+    static let viaSuprSend = "via_suprsend"
 }
