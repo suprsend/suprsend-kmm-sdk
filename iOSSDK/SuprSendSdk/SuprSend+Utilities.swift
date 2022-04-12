@@ -7,81 +7,82 @@
 
 import Foundation
 
+@objc
 extension SuprSend {
     
-    public func identify(identity: String) {
+    @objc public func identify(identity: String) {
         suprSendiOSAPI.identify(uniqueId: identity)
     }
     
-    public func track(eventName: String) {
+    @objc public func track(eventName: String) {
         suprSendiOSAPI.track(eventName: eventName)
     }
     
-    public func track(eventName: String, properties: [String : Any]) {
+    @objc public func track(eventName: String, properties: [String : Any]) {
         suprSendiOSAPI.track(eventName: eventName,properties: properties)
     }
     
-    public func set(key: String, value: String) {
+    @objc public func set(key: String, value: String) {
         suprSendiOSAPI.getUser().set(key: key, value:  value)
     }
     
-    public func set(properties: [String : Any]) {
+    @objc public func set(properties: [String : Any]) {
         suprSendiOSAPI.getUser().set(properties: properties)
     }
     
-    public func increment(key: String, value: Any) {
+    @objc public func increment(key: String, value: Any) {
         suprSendiOSAPI.getUser().increment(key: key, value: value)
     }
     
-    public func increment(properties: [String:Any]) {
+    @objc public func increment(properties: [String:Any]) {
         suprSendiOSAPI.getUser().increment(properties:properties)
     }
     
-    public func append(key: String, value: String) {
+    @objc public func append(key: String, value: String) {
         suprSendiOSAPI.getUser().append(key: key, value: value)
     }
     
-    public func remove(key: String, value: String) {
+    @objc public func remove(key: String, value: String) {
         suprSendiOSAPI.getUser().remove(key: key, value: value)
     }
     
-    public func unSet(key: String) {
+    @objc public func unSet(key: String) {
         suprSendiOSAPI.getUser().unSet(key:key)
     }
     
-    public func purchaseMade(properties: [String: Any]) {
+    @objc public func purchaseMade(properties: [String: Any]) {
         suprSendiOSAPI.purchaseMade(properties: properties)
     }
     
-    public func setOnce(properties: [String: Any]) {
+    @objc public func setOnce(properties: [String: Any]) {
         suprSendiOSAPI.getUser().setOnce(properties: properties)
     }
     
-    public func setOnce(key: String, value: Any) {
+    @objc public func setOnce(key: String, value: Any) {
         suprSendiOSAPI.getUser().setOnce(key: key, value: value)
     }
     
-    public func setSuperProperty(key: String, value: Any) {
+    @objc public func setSuperProperty(key: String, value: Any) {
         suprSendiOSAPI.setSuperProperty(key: key, value: value)
     }
     
-    public func setSuperProperties(properties: [String: Any]) {
+    @objc public func setSuperProperties(properties: [String: Any]) {
         suprSendiOSAPI.setSuperProperties(properties: properties)
     }
 
-    public func unSetSuperProperty(key: String) {
+    @objc public func unSetSuperProperty(key: String) {
         suprSendiOSAPI.unSetSuperProperty(key:key)
     }
     
-    public func reset() {
+    @objc public func reset() {
         suprSendiOSAPI.reset()
     }
     
-    public func setEmail(emailId: String) {
+    @objc public func setEmail(emailId: String) {
         suprSendiOSAPI.getUser().setEmail(email: emailId)
     }
     
-    public func flush() {
+    @objc public func flush() {
         suprSendiOSAPI.flush()
     }
     

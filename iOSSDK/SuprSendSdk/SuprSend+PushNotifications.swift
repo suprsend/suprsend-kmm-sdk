@@ -9,27 +9,28 @@ import Foundation
 import UIKit
 import shared
 
+@objc
 public extension SuprSend {
     
-    func setPushNotificationToken(token: String) {
+    @objc func setPushNotificationToken(token: String) {
         suprSendiOSAPI.getUser().setIOSPush(token: token)
     }
     
-    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse) {
+    @objc func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse) {
          if let id = response.notification.request.content.userInfo[AnalyticsConstants.id],
             response.isSuprSendNotification() {
              suprSendiOSAPI.track(eventName: AnalyticsConstants.notificationClicked, properties: [AnalyticsConstants.id: id])
          }
     }
     
-     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification) {
+     @objc func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification) {
          if let id = notification.request.content.userInfo[AnalyticsConstants.id],
             notification.isSuperSendNotification() {
              suprSendiOSAPI.track(eventName: AnalyticsConstants.notificationDelivered, properties: [AnalyticsConstants.id: id])
          }
      }
     
-    func registerForPushNotifications() {
+    @objc func registerForPushNotifications() {
         if #available(iOS 10, *) {
           let center = UNUserNotificationCenter.current()
             center.delegate = UIApplication.shared.delegate as? UNUserNotificationCenterDelegate
@@ -49,7 +50,7 @@ public extension SuprSend {
         }
     }
     
-    func trackNotificationDidLaunchAppEvent(id: String) {
+    @objc func trackNotificationDidLaunchAppEvent(id: String) {
         suprSendiOSAPI.track(eventName: AnalyticsConstants.notificationClicked, properties: [AnalyticsConstants.id: id])
     }
     

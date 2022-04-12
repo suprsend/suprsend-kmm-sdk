@@ -7,16 +7,37 @@
 
 import Foundation
 
-public struct SuprSendSDKConfiguration {
+@objc
+public class SuprSendSDKConfiguration: NSObject {
     
-    let key: String
-    let secret: String
-    let baseUrl: String
+    private let key: String
+    private var secret: String
     
-    public init(key: String, secret: String, baseUrl: String) {
+    init(key: String, secret: String) {
         self.key = key
         self.secret = secret
-        self.baseUrl = baseUrl
+    }
+    
+    @objc public convenience init(_ key: String, clientSecret: String) {
+        self.init(key: key, secret: clientSecret)
+    }
+    
+    func getKey() -> String {
+        return self.key
+    }
+    
+    func getSecret() -> String {
+        return self.secret
+    }
+    
+    func getBaseUrl() -> String {
+      var baseUrl = ""
+      #if DEBUG
+        baseUrl = "https://collector-staging.suprsend.workers.dev/"
+      #else
+        baseUrl = "http://hub.suprsend.com/"
+      #endif
+        return baseUrl
     }
     
 }

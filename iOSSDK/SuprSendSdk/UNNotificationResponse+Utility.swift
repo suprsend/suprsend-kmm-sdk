@@ -8,13 +8,16 @@
 import Foundation
 import NotificationCenter
 
+@objc
 public extension UNNotificationResponse {
-    func isSuprSendNotification() -> Bool {
+    @objc func isSuprSendNotification() -> Bool {
         return notification.isSuperSendNotification()
     }
 }
 
+@objc
 public extension UNNotification {
+    @objc
     func isSuperSendNotification() -> Bool {
         if let viaSuprSend = request.content.userInfo[Constants.viaSuprSend] as? Bool {
             return viaSuprSend

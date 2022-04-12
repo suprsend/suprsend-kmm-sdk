@@ -9,19 +9,20 @@ import Foundation
 import shared
 import UIKit
 
-public class SuprSend {
+@objc
+public class SuprSend: NSObject {
     
-    public static let shared = SuprSend()
+    @objc public static let shared = SuprSend()
     
     internal var suprSendiOSAPI: IOSSSApi!
     
     private var launchOptions: [UIApplication.LaunchOptionsKey: Any]?
 
-    public func configureWith(configuration: SuprSendSDKConfiguration, launchOptions: [UIApplication.LaunchOptionsKey: Any]?) {
+    @objc public func configureWith(configuration: SuprSendSDKConfiguration, launchOptions: [UIApplication.LaunchOptionsKey: Any]?) {
         
         IOSSSApi.Companion.init().initialize()
         
-        suprSendiOSAPI = IOSSSApi.Companion.init().getInstance(apiKey: configuration.key, apiSecret: configuration.secret, apiBaseUrl: configuration.baseUrl, mutationHandler: IosMutationHandler())
+        suprSendiOSAPI = IOSSSApi.Companion.init().getInstance(apiKey: configuration.getKey(), apiSecret: configuration.getSecret(), apiBaseUrl: configuration.getBaseUrl(), mutationHandler: IosMutationHandler())
         
         // Check if App launched from notification
         let notificationOption = launchOptions?[.remoteNotification]
@@ -33,7 +34,7 @@ public class SuprSend {
         }
     }
     
-    public func enableLogging() {
+    @objc public func enableLogging() {
         IOSSSApi.Companion.init().enableLogging()
     }
     
