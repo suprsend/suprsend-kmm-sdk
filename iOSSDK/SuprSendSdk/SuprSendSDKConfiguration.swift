@@ -18,8 +18,8 @@ public class SuprSendSDKConfiguration: NSObject {
         self.secret = secret
     }
     
-    @objc public convenience init(_ key: String, clientSecret: String) {
-        self.init(key: key, secret: clientSecret)
+    @objc public convenience init(withKey key: String, secret: String) {
+        self.init(key: key, secret: secret)
     }
     
     func getKey() -> String {
