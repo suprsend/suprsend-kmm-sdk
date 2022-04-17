@@ -9,8 +9,6 @@
 import UIKit
 
 import SuprSendSdk
-import Firebase
-import FirebaseMessaging
 import UserNotifications
 
 @UIApplicationMain
@@ -20,8 +18,8 @@ class AppDelegate: UIResponder {
         
         print("app : App init")
         
-        let suprSendConfiguration = SuprSendSDKConfiguration("kfWdrPL1nFqs7OUihiBn",
-                                                             clientSecret: "From1HA1ZiSXs3ofBHXh")
+        let suprSendConfiguration = SuprSendSDKConfiguration(withKey: "kfWdrPL1nFqs7OUihiBn",
+                                                             secret: "From1HA1ZiSXs3ofBHXh")
 
         SuprSend.shared.configureWith(configuration: suprSendConfiguration  , launchOptions: launchOptions)
         SuprSend.shared.enableLogging()

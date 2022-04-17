@@ -6,8 +6,26 @@
         "repositoryURL": "https://github.com/AndreaMiotto/PartialSheet.git",
         "state": {
           "branch": null,
-          "revision": "9d58b32e9fef8b17ff764bb72ba6a346f1921e77",
-          "version": "0.0.4"
+          "revision": "cda3be6f769ec89c48b17317a598ef186c95ca5c",
+          "version": "0.1.0"
+        }
+      },
+      {
+        "package": "shared",
+        "repositoryURL": "https://github.com/surajshindalkar/sharedPackage.git",
+        "state": {
+          "branch": "main",
+          "revision": "ba9ada796da7c6a0c1c5af2207206e7753f4c5fb",
+          "version": null
+        }
+      },
+      {
+        "package": "SuprSendSdk",
+        "repositoryURL": "https://github.com/suprsend/SuprSend-iOS-SDK",
+        "state": {
+          "branch": "main",
+          "revision": "17a10f3c0e7a4efa46c8f2b4082fcd005d66bdc0",
+          "version": null
         }
       }
     ]
