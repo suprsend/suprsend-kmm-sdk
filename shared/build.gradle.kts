@@ -25,6 +25,7 @@ kotlin {
     } else {
         "bitcode"
     }
+    println("Sdk name : "+System.getenv("SDK_NAME") + " onSimulator:$onSimulator")
     ios()
     ios {
         binaries {
@@ -37,13 +38,18 @@ kotlin {
         }
     }
     if (onSimulator) {
-        iosArm64("ios") {
+        iosArm64("iosArm64") {
             mavenPublication {
                 artifactId = "${project.name}-iosArm64"
             }
         }
+        iosSimulatorArm64("iosSimulatorArm64") {
+            mavenPublication {
+                artifactId = "${project.name}-iosSimulatorArm64"
+            }
+        }
     } else {
-        iosX64("ios") {
+        iosX64("iosX64") {
             mavenPublication {
                 artifactId = "${project.name}-iosx64"
             }
@@ -55,6 +61,7 @@ kotlin {
     //iosArm32 - iOS ARM 32
     //iosArm64 - iOS ARM 64
     //iosX64 - iOS Simulator (x86_64)
+    //iosSimulatorArm64 - ARM64 simulator target
 
 
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {

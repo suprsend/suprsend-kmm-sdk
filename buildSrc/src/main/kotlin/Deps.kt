@@ -70,7 +70,7 @@ object Deps {
 
     object JetBrains {
         object Kotlin {
-            const val VERSION = "1.5.20"
+            const val VERSION = "1.5.30"
             const val gradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$VERSION"
             const val serialization = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1"
             const val datetime = "org.jetbrains.kotlinx:kotlinx-datetime:0.1.1"
