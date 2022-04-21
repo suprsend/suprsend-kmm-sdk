@@ -59,7 +59,7 @@ object Deps {
         const val mockServer = "com.squareup.okhttp3:mockwebserver:4.9.0"
 
         object SQLDelight {
-            private const val VERSION = "1.4.4"
+            private const val VERSION = "1.5.3"
             const val gradlePlugin = "com.squareup.sqldelight:gradle-plugin:$VERSION"
             const val androidDriver = "com.squareup.sqldelight:android-driver:$VERSION"
             const val sqliteDriver = "com.squareup.sqldelight:sqlite-driver:$VERSION"
@@ -70,10 +70,10 @@ object Deps {
 
     object JetBrains {
         object Kotlin {
-            const val VERSION = "1.5.30"
+            const val VERSION = "1.6.20-M1"
             const val gradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$VERSION"
-            const val serialization = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1"
-            const val datetime = "org.jetbrains.kotlinx:kotlinx-datetime:0.1.1"
+            const val serialization = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2"
+            const val datetime = "org.jetbrains.kotlinx:kotlinx-datetime:0.3.2"
             const val testCommon = "org.jetbrains.kotlin:kotlin-test-common:$VERSION"
             const val testJunit = "org.jetbrains.kotlin:kotlin-test-junit:$VERSION"
             const val testAnnotationsCommon = "org.jetbrains.kotlin:kotlin-test-annotations-common:$VERSION"
@@ -82,7 +82,7 @@ object Deps {
 
 
         object Ktor {
-            private const val VERSION = "1.6.1"
+            private const val VERSION = "2.0.0"
             const val clientCommon = "io.ktor:ktor-client-core:$VERSION"
             const val clientAndroid = "io.ktor:ktor-client-okhttp:$VERSION"
             const val clientIos = "io.ktor:ktor-client-ios:$VERSION"
@@ -94,7 +94,7 @@ object Deps {
         }
 
         object Coroutines {
-            const val VERSION = "1.5.0-native-mt"
+            const val VERSION = "1.6.1"
             const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$VERSION"
             const val android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$VERSION"
             const val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$VERSION"

@@ -32,7 +32,7 @@ internal class SSDatabaseWrapper {
                 modelAdapter = DataModelColumnAdapter(serializer = EventModel.serializer())
             ),
             ConfigTableAdapter = ConfigTable.Adapter(
-                valueAdapter = DataModelColumnAdapter(serializer = ConfigModel.serializer())
+                value_Adapter = DataModelColumnAdapter(serializer = ConfigModel.serializer())
             )
         )
     }

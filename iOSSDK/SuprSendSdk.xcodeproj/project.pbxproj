@@ -7,11 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D01DD142811C1550040B25D /* shared.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D01DD132811C1550040B25D /* shared.xcframework */; };
+		2D01DD152811C1550040B25D /* shared.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2D01DD132811C1550040B25D /* shared.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2DA33B932736559900ED968A /* IosMutationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA33B922736559900ED968A /* IosMutationHandler.swift */; };
 		2DE46BB92731A751001C41FF /* SuprSendSdk.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DE46BAB2731A751001C41FF /* SuprSendSdk.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		880ABBB427F182D100DA93D9 /* UNNotificationResponse+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880ABBB327F182D100DA93D9 /* UNNotificationResponse+Utility.swift */; };
 		881FDF6A27F981F900FF9EDC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881FDF6927F981F900FF9EDC /* Constants.swift */; };
-		887A0EB3280BEA88003A96BB /* shared in Frameworks */ = {isa = PBXBuildFile; productRef = 887A0EB2280BEA88003A96BB /* shared */; };
 		8883560C27E07C2B0005A920 /* AnalyticsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8883560B27E07C2B0005A920 /* AnalyticsConstants.swift */; };
 		88932D9827D74713003D68B2 /* SuprSendSdk.h in Sources */ = {isa = PBXBuildFile; fileRef = 2DE46BAB2731A751001C41FF /* SuprSendSdk.h */; };
 		88A03F4127DC8E5C007C4ED2 /* SuprSend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A03F4027DC8E5C007C4ED2 /* SuprSend.swift */; };
@@ -20,7 +21,22 @@
 		88A03F4B27DE1799007C4ED2 /* SuprSendSDKConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A03F4A27DE1798007C4ED2 /* SuprSendSDKConfiguration.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		2D01DD162811C1550040B25D /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				2D01DD152811C1550040B25D /* shared.xcframework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		2D01DD132811C1550040B25D /* shared.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = shared.xcframework; path = ../shared/build/XCFrameworks/release/shared.xcframework; sourceTree = "<group>"; };
 		2DA33B922736559900ED968A /* IosMutationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IosMutationHandler.swift; sourceTree = "<group>"; };
 		2DE46BA82731A751001C41FF /* SuprSendSdk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SuprSendSdk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DE46BAB2731A751001C41FF /* SuprSendSdk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SuprSendSdk.h; sourceTree = "<group>"; };
@@ -40,7 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				887A0EB3280BEA88003A96BB /* shared in Frameworks */,
+				2D01DD142811C1550040B25D /* shared.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,6 +74,7 @@
 		2DAB6EBA2731AC6F00630827 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2D01DD132811C1550040B25D /* shared.xcframework */,
 				2DFBFC8B27468E0E00F62BF5 /* libsqlite3.tbd */,
 			);
 			name = Frameworks;
@@ -120,6 +137,7 @@
 				2DE46BA42731A751001C41FF /* Sources */,
 				2DE46BA52731A751001C41FF /* Frameworks */,
 				2DE46BA62731A751001C41FF /* Resources */,
+				2D01DD162811C1550040B25D /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -127,7 +145,6 @@
 			);
 			name = SuprSendSdk;
 			packageProductDependencies = (
-				887A0EB2280BEA88003A96BB /* shared */,
 			);
 			productName = sdk;
 			productReference = 2DE46BA82731A751001C41FF /* SuprSendSdk.framework */;
@@ -158,7 +175,6 @@
 			);
 			mainGroup = 2DE46B9E2731A751001C41FF;
 			packageReferences = (
-				887A0EB1280BEA88003A96BB /* XCRemoteSwiftPackageReference "sharedPackage" */,
 			);
 			productRefGroup = 2DE46BA92731A751001C41FF /* Products */;
 			projectDirPath = "";
@@ -195,7 +211,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export JAVA_HOME=/opt/homebrew/Cellar/openjdk@11/11.0.14.1/libexec/openjdk.jdk/Contents/Home\n\ncd \"$PROJECT_DIR/..\"\n\n./gradlew releaseFatFramework\n\n#cp -R ~/Library/Developer/Xcode/DerivedData/SuprSendSdk-fpaorvwytrkmrufpcffveahpewdk/Build/Products/Debug-iphoneos/SuprSendSdk.framework ECommerceAppSwiftUI\n\n#cp -R ~/Library/Developer/Xcode/DerivedData/SuprSendSdk-fpaorvwytrkmrufpcffveahpewdk/Build/Products/Debug-iphoneos/SuprSendSdk.framework ECommerceAppSwiftUI\n\n#./gradlew clean\n\n#./gradlew debugFatFramework\n#cp -R ~/Library/Developer/Xcode/DerivedData/SuprSendSdk-fpaorvwytrkmrufpcffveahpewdk/Build/Products/Debug-iphonesimulator/SuprSendSdk.framework iOSSDK/frameworks/simulator\n\n#cp -R ~/Library/Developer/Xcode/DerivedData/SuprSendSdk-fpaorvwytrkmrufpcffveahpewdk/Build/Products/Debug-iphonesimulator/SuprSendSdk.framework ECommerceAppSwiftUI\n";
+			shellScript = "#export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home\n\n#cd \"$PROJECT_DIR/..\"\n\n#./gradlew releaseFatFramework\n\ncp -R /Users/niks/Library/Developer/Xcode/DerivedData/SuprSendSdk-elbsfrxtpfbirnbwqqoledevwwdh/Build/Products/Debug-iphoneos/SuprSendSdk.framework ECommerceAppSwiftUI\n\n#cp -R ~/Library/Developer/Xcode/DerivedData/SuprSendSdk-fpaorvwytrkmrufpcffveahpewdk/Build/Products/Debug-iphoneos/SuprSendSdk.framework ECommerceAppSwiftUI\n\n#./gradlew clean\n\n#./gradlew debugFatFramework\n#cp -R ~/Library/Developer/Xcode/DerivedData/SuprSendSdk-fpaorvwytrkmrufpcffveahpewdk/Build/Products/Debug-iphonesimulator/SuprSendSdk.framework iOSSDK/frameworks/simulator\n\n#cp -R ~/Library/Developer/Xcode/DerivedData/SuprSendSdk-fpaorvwytrkmrufpcffveahpewdk/Build/Products/Debug-iphonesimulator/SuprSendSdk.framework ECommerceAppSwiftUI\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -446,25 +462,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		887A0EB1280BEA88003A96BB /* XCRemoteSwiftPackageReference "sharedPackage" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/surajshindalkar/sharedPackage.git";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		887A0EB2280BEA88003A96BB /* shared */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 887A0EB1280BEA88003A96BB /* XCRemoteSwiftPackageReference "sharedPackage" */;
-			productName = shared;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 2DE46B9F2731A751001C41FF /* Project object */;
 }

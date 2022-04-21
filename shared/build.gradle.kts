@@ -1,4 +1,4 @@
-import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 
 plugins {
     kotlin("multiplatform")
@@ -19,40 +19,15 @@ kotlin {
         publishLibraryVariantsGroupedByFlavor = true
     }
 
-    val onSimulator = System.getenv("SDK_NAME")?.startsWith("iphonesimulator") ?: false
-    val type = if (onSimulator) {
-        "marker"
-    } else {
-        "bitcode"
-    }
-    println("Sdk name : "+System.getenv("SDK_NAME") + " onSimulator:$onSimulator")
-    ios()
-    ios {
-        binaries {
-            framework {
-                baseName = "shared"
-                isStatic = true
-                embedBitcode(type)
-                freeCompilerArgs = listOf("-Xadd-light-debug=enable")
-            }
-        }
-    }
-    if (onSimulator) {
-        iosArm64("iosArm64") {
-            mavenPublication {
-                artifactId = "${project.name}-iosArm64"
-            }
-        }
-        iosSimulatorArm64("iosSimulatorArm64") {
-            mavenPublication {
-                artifactId = "${project.name}-iosSimulatorArm64"
-            }
-        }
-    } else {
-        iosX64("iosX64") {
-            mavenPublication {
-                artifactId = "${project.name}-iosx64"
-            }
+    val xcf = XCFramework()
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach {
+        it.binaries.framework {
+            baseName = "shared"
+            xcf.add(this)
         }
     }
 
@@ -64,12 +39,6 @@ kotlin {
     //iosSimulatorArm64 - ARM64 simulator target
 
 
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-        kotlinOptions {
-            jvmTarget = "1.8"
-            freeCompilerArgs = listOf("-progressive")
-        }
-    }
     sourceSets {
         all {
             languageSettings.apply {
@@ -80,6 +49,7 @@ kotlin {
     }
 
     sourceSets {
+
         val commonMain by getting {
             dependencies {
                 // Serialization
@@ -99,11 +69,12 @@ kotlin {
                 }
                 implementation(Deps.Squareup.SQLDelight.coroutinesExtension)
                 implementation(Deps.AndroidX.ANNOTATION)
-                implementation("com.soywiz.korlibs.krypto:krypto:2.2.0")
+                implementation("com.soywiz.korlibs.krypto:krypto:2.4.12")
             }
         }
         val commonTest by getting {
             dependencies {
+                implementation(kotlin("test"))
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
                 api(Deps.JetBrains.Ktor.clientMock)
@@ -151,7 +122,7 @@ kotlin {
 
             }
         }
-        val iosMain by getting {
+        val iosX64Main by getting {
             dependencies {
                 implementation(Deps.Squareup.SQLDelight.nativeDriver)
                 implementation(Deps.JetBrains.Ktor.clientIos)
@@ -162,27 +133,46 @@ kotlin {
                 }
             }
         }
-        val iosTest by getting
+        val iosArm64Main by getting {
+            dependencies {
+                implementation(Deps.Squareup.SQLDelight.nativeDriver)
+                implementation(Deps.JetBrains.Ktor.clientIos)
+                implementation(Deps.JetBrains.Coroutines.core) {
+                    version {
+                        strictly(Deps.JetBrains.Coroutines.VERSION)
+                    }
+                }
+            }
+        }
+        val iosSimulatorArm64Main by getting {
+            dependencies {
+                implementation(Deps.Squareup.SQLDelight.nativeDriver)
+                implementation(Deps.JetBrains.Ktor.clientIos)
+                implementation(Deps.JetBrains.Coroutines.core) {
+                    version {
+                        strictly(Deps.JetBrains.Coroutines.VERSION)
+                    }
+                }
+            }
+        }
+        val iosMain by creating {
+            dependsOn(commonMain)
+            iosX64Main.dependsOn(this)
+            iosArm64Main.dependsOn(this)
+            iosSimulatorArm64Main.dependsOn(this)
+        }
+        val iosX64Test by getting
+        val iosArm64Test by getting
+        val iosSimulatorArm64Test by getting
+        val iosTest by creating {
+            dependsOn(commonTest)
+            iosX64Test.dependsOn(this)
+            iosArm64Test.dependsOn(this)
+            iosSimulatorArm64Test.dependsOn(this)
+        }
+
     }
 
-
-    tasks.register<org.jetbrains.kotlin.gradle.tasks.FatFrameworkTask>("debugFatFramework") {
-        baseName = "shared"
-        destinationDir = buildDir.resolve("xcode-frameworks")
-        from(
-//            kotlin.targets.getByName<KotlinNativeTarget>("iosArm64").binaries.getFramework("DEBUG"),
-            kotlin.targets.getByName<KotlinNativeTarget>("iosX64").binaries.getFramework("DEBUG")
-        )
-    }
-
-    tasks.register<org.jetbrains.kotlin.gradle.tasks.FatFrameworkTask>("releaseFatFramework") {
-        baseName = "shared"
-        destinationDir = buildDir.resolve("xcode-frameworks")
-        from(
-            kotlin.targets.getByName<KotlinNativeTarget>("iosArm64").binaries.getFramework("RELEASE"),
-//            kotlin.targets.getByName<KotlinNativeTarget>("iosX64").binaries.getFramework("RELEASE"),
-        )
-    }
 }
 
 sqldelight {
@@ -193,10 +183,6 @@ sqldelight {
     }
 }
 
-fun getIosTarget(): String {
-    val sdkName = System.getenv("SDK_NAME") ?: "iphonesimulator"
-    return if (sdkName.startsWith("iphoneos")) "iosArm64" else "iosX64"
-}
 afterEvaluate {
     publishing {
         publications {
@@ -228,24 +214,9 @@ android {
         targetSdkVersion(Deps.Android.targetSdk)
         consumerProguardFiles("consumer-rules.pro")
         multiDexEnabled = true
-        versionCode = Deps.SDK_VERSION_CODE
-        versionName = Deps.SDK_VERSION_NAME
+//        versionCode = Deps.SDK_VERSION_CODE
+//        versionName = Deps.SDK_VERSION_NAME
         buildConfigField("String", "SS_SDK_VERSION_CODE", "\"${Deps.SDK_VERSION_CODE}\"")
         buildConfigField("String", "SS_SDK_VERSION_NAME", "\"${Deps.SDK_VERSION_NAME}\"")
     }
 }
-
-val packForXcode by tasks.creating(Sync::class) {
-    group = "build"
-    val mode = System.getenv("CONFIGURATION") ?: "DEBUG"
-    val targetName = getIosTarget()
-    val framework =
-        kotlin.targets.getByName<KotlinNativeTarget>(targetName).binaries.getFramework(mode)
-    inputs.property("mode", mode)
-    dependsOn(framework.linkTask)
-    val targetDir = File(buildDir, "xcode-frameworks")
-    from(framework.outputDirectory)
-    into(targetDir)
-}
-
-tasks.getByName("build").dependsOn(packForXcode)

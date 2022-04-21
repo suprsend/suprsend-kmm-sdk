@@ -1,7 +1,7 @@
 import app.suprsend.config.ConfigModel;
 CREATE TABLE ConfigTable (
     key TEXT PRIMARY KEY NOT NULL,
-    value TEXT as ConfigModel NOT NULL
+    value TEXT AS ConfigModel NOT NULL
 );
 
 insert:
