@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2D01DD142811C1550040B25D /* shared.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D01DD132811C1550040B25D /* shared.xcframework */; };
-		2D01DD152811C1550040B25D /* shared.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2D01DD132811C1550040B25D /* shared.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2D9471FB2812B320009FE3B1 /* shared.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D9471FA2812B320009FE3B1 /* shared.xcframework */; };
+		2D9471FC2812B320009FE3B1 /* shared.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2D9471FA2812B320009FE3B1 /* shared.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2DA33B932736559900ED968A /* IosMutationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA33B922736559900ED968A /* IosMutationHandler.swift */; };
 		2DE46BB92731A751001C41FF /* SuprSendSdk.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DE46BAB2731A751001C41FF /* SuprSendSdk.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		880ABBB427F182D100DA93D9 /* UNNotificationResponse+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880ABBB327F182D100DA93D9 /* UNNotificationResponse+Utility.swift */; };
@@ -28,7 +28,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				2D01DD152811C1550040B25D /* shared.xcframework in Embed Frameworks */,
+				2D9471FC2812B320009FE3B1 /* shared.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -36,7 +36,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		2D01DD132811C1550040B25D /* shared.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = shared.xcframework; path = ../shared/build/XCFrameworks/release/shared.xcframework; sourceTree = "<group>"; };
+		2D9471FA2812B320009FE3B1 /* shared.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = shared.xcframework; sourceTree = "<group>"; };
 		2DA33B922736559900ED968A /* IosMutationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IosMutationHandler.swift; sourceTree = "<group>"; };
 		2DE46BA82731A751001C41FF /* SuprSendSdk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SuprSendSdk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DE46BAB2731A751001C41FF /* SuprSendSdk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SuprSendSdk.h; sourceTree = "<group>"; };
@@ -56,7 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2D01DD142811C1550040B25D /* shared.xcframework in Frameworks */,
+				2D9471FB2812B320009FE3B1 /* shared.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,7 +74,7 @@
 		2DAB6EBA2731AC6F00630827 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				2D01DD132811C1550040B25D /* shared.xcframework */,
+				2D9471FA2812B320009FE3B1 /* shared.xcframework */,
 				2DFBFC8B27468E0E00F62BF5 /* libsqlite3.tbd */,
 			);
 			name = Frameworks;
@@ -211,7 +211,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home\n\n#cd \"$PROJECT_DIR/..\"\n\n#./gradlew releaseFatFramework\n\ncp -R /Users/niks/Library/Developer/Xcode/DerivedData/SuprSendSdk-elbsfrxtpfbirnbwqqoledevwwdh/Build/Products/Debug-iphoneos/SuprSendSdk.framework ECommerceAppSwiftUI\n\n#cp -R ~/Library/Developer/Xcode/DerivedData/SuprSendSdk-fpaorvwytrkmrufpcffveahpewdk/Build/Products/Debug-iphoneos/SuprSendSdk.framework ECommerceAppSwiftUI\n\n#./gradlew clean\n\n#./gradlew debugFatFramework\n#cp -R ~/Library/Developer/Xcode/DerivedData/SuprSendSdk-fpaorvwytrkmrufpcffveahpewdk/Build/Products/Debug-iphonesimulator/SuprSendSdk.framework iOSSDK/frameworks/simulator\n\n#cp -R ~/Library/Developer/Xcode/DerivedData/SuprSendSdk-fpaorvwytrkmrufpcffveahpewdk/Build/Products/Debug-iphonesimulator/SuprSendSdk.framework ECommerceAppSwiftUI\n";
+			shellScript = "#export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home\n\n#cd \"$PROJECT_DIR/..\"\n\n#./gradlew releaseFatFramework\n\n#cp -R /Users/niks/Library/Developer/Xcode/DerivedData/SuprSendSdk-elbsfrxtpfbirnbwqqoledevwwdh/Build/Products/Debug-iphoneos/SuprSendSdk.framework ECommerceAppSwiftUI\n\n#cp -R ~/Library/Developer/Xcode/DerivedData/SuprSendSdk-fpaorvwytrkmrufpcffveahpewdk/Build/Products/Debug-iphoneos/SuprSendSdk.framework ECommerceAppSwiftUI\n\n#./gradlew clean\n\n#./gradlew debugFatFramework\n#cp -R ~/Library/Developer/Xcode/DerivedData/SuprSendSdk-fpaorvwytrkmrufpcffveahpewdk/Build/Products/Debug-iphonesimulator/SuprSendSdk.framework iOSSDK/frameworks/simulator\n\n#cp -R ~/Library/Developer/Xcode/DerivedData/SuprSendSdk-fpaorvwytrkmrufpcffveahpewdk/Build/Products/Debug-iphonesimulator/SuprSendSdk.framework ECommerceAppSwiftUI\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -376,7 +376,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				EXCLUDED_ARCHS = arm64;
+				EXCLUDED_ARCHS = "";
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../shared/build/xcode-frameworks";
 				GCC_PREFIX_HEADER = SuprSendSdk;
 				INFOPLIST_FILE = SuprSendSdk/Info.plist;
@@ -387,7 +387,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACH_O_TYPE = staticlib;
+				MACH_O_TYPE = mh_dylib;
 				MARKETING_VERSION = 1.0.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
@@ -425,7 +425,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACH_O_TYPE = staticlib;
+				MACH_O_TYPE = mh_dylib;
 				MARKETING_VERSION = 1.0.0;
 				OTHER_LDFLAGS = (
 					"-all_load",

@@ -54,10 +54,10 @@
 		2ADA0F50239E75C900F67F64 /* SortByModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADA0F4F239E75C900F67F64 /* SortByModel.swift */; };
 		2AEF4149239F8D7A00C3D0BA /* ItemDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF4148239F8D7A00C3D0BA /* ItemDetailsView.swift */; };
 		2AEF414B239F902200C3D0BA /* PagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF414A239F902200C3D0BA /* PagingView.swift */; };
-		2D01DD192811C31D0040B25D /* SuprSendSdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D01DD172811C31C0040B25D /* SuprSendSdk.framework */; };
-		2D01DD1A2811C31D0040B25D /* SuprSendSdk.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2D01DD172811C31C0040B25D /* SuprSendSdk.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		2D01DD1B2811C31D0040B25D /* shared.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D01DD182811C31C0040B25D /* shared.xcframework */; };
-		2D01DD1C2811C31D0040B25D /* shared.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2D01DD182811C31C0040B25D /* shared.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2D9472022812B4A0009FE3B1 /* shared.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D01DD182811C31C0040B25D /* shared.xcframework */; };
+		2D9472032812B4A0009FE3B1 /* shared.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2D01DD182811C31C0040B25D /* shared.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2D9472052812B4A2009FE3B1 /* SuprSendSdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D01DD172811C31C0040B25D /* SuprSendSdk.framework */; };
+		2D9472062812B4A2009FE3B1 /* SuprSendSdk.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2D01DD172811C31C0040B25D /* SuprSendSdk.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2DAAAA892735A6DB00DAF147 /* DecideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAAAA882735A6DB00DAF147 /* DecideView.swift */; };
 		2DAAAA8C2735A73C00DAF147 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAAAA8B2735A73C00DAF147 /* LoginView.swift */; };
 		2DAAAA902735B86300DAF147 /* Other.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAAAA8F2735B86300DAF147 /* Other.swift */; };
@@ -71,14 +71,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		2D01DD1D2811C31D0040B25D /* Embed Frameworks */ = {
+		2D9472042812B4A0009FE3B1 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				2D01DD1C2811C31D0040B25D /* shared.xcframework in Embed Frameworks */,
-				2D01DD1A2811C31D0040B25D /* SuprSendSdk.framework in Embed Frameworks */,
+				2D9472032812B4A0009FE3B1 /* shared.xcframework in Embed Frameworks */,
+				2D9472062812B4A2009FE3B1 /* SuprSendSdk.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -154,10 +154,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2D01DD1B2811C31D0040B25D /* shared.xcframework in Frameworks */,
+				2D9472022812B4A0009FE3B1 /* shared.xcframework in Frameworks */,
 				2ADA0F4C239E733500F67F64 /* PartialSheet in Frameworks */,
 				887A0E81280BCD4C003A96BB /* libsqlite3.tbd in Frameworks */,
-				2D01DD192811C31D0040B25D /* SuprSendSdk.framework in Frameworks */,
+				2D9472052812B4A2009FE3B1 /* SuprSendSdk.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -473,7 +473,7 @@
 				2A087185238D4CA6002F1E61 /* Sources */,
 				2A087186238D4CA6002F1E61 /* Frameworks */,
 				2A087187238D4CA6002F1E61 /* Resources */,
-				2D01DD1D2811C31D0040B25D /* Embed Frameworks */,
+				2D9472042812B4A0009FE3B1 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

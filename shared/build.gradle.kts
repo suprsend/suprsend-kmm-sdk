@@ -40,15 +40,6 @@ kotlin {
 
 
     sourceSets {
-        all {
-            languageSettings.apply {
-                useExperimentalAnnotation("kotlin.RequiresOptIn")
-                useExperimentalAnnotation("kotlinx.coroutines.ExperimentalCoroutinesApi")
-            }
-        }
-    }
-
-    sourceSets {
 
         val commonMain by getting {
             dependencies {
