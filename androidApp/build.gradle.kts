@@ -98,8 +98,8 @@ dependencies {
     implementation("com.google.firebase:firebase-crashlytics:18.2.1")
 
     if (Deps.RUN_LIB) {
-        implementation(project(":shared"))
-        println("Using shared library")
+        implementation(project(":SuprsendCore"))
+        println("Using SuprsendCore library")
     }else{
         implementation("com.github.suprsend:suprsend-kmm-sdk:${Deps.Publication.VERSION}")
         println("Using remote library")
