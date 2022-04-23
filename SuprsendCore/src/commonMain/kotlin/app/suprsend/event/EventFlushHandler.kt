@@ -36,7 +36,7 @@ object EventFlushHandler {
             val contentMd5 = requestJson.toByteArray(Charsets.UTF_8).md5().hexLower
             val contentType = "application/json"
             val date = Clock.System.now().toString()
-            val requestURI = "/event"
+            val requestURI = "/event/"
             val envKey = ConfigHelper.get(SSConstants.CONFIG_API_KEY) ?: ""
             val secret = ConfigHelper.get(SSConstants.CONFIG_API_SECRET) ?: ""
 
