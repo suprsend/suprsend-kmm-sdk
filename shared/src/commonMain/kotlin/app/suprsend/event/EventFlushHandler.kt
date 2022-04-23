@@ -50,15 +50,17 @@ object EventFlushHandler {
 
             // Logger.i(TAG, "stringToSign : $stringToSign Signature : $signature")
 
-            val httpResponse = network.get()!!.post<HttpResponse> {
-                url("$baseUrl$requestURI")
-                contentType(ContentType.Application.Json)
-                headers {
-                    append("Date", date)
-                    append(HttpHeaders.Authorization, "$envKey:$signature")
-                }
+            val httpResponse = network.get()!!.post {
+                url {
+                    url("$baseUrl$requestURI")
+                    contentType(ContentType.Application.Json)
+                    headers {
+                        append("Date", date)
+                        append(HttpHeaders.Authorization, "$envKey:$signature")
+                    }
 
-                body = requestJson
+                }
+                setBody(requestJson)
             }
 
             // Logger.i(TAG, "$httpResponse $requestJson")

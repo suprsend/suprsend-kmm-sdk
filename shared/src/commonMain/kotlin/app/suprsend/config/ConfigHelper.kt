@@ -14,7 +14,7 @@ internal object ConfigHelper {
     }
 
     fun get(key: String): String? {
-        return queries.get(key).executeAsOneOrNull()?.value?.value
+        return queries.get(key).executeAsOneOrNull()?.value_?.value
     }
 
     fun addOrUpdate(key: String, value: Boolean) {
@@ -22,7 +22,7 @@ internal object ConfigHelper {
     }
 
     fun getBoolean(key: String): Boolean? {
-        return getStringToBoolean(queries.get(key).executeAsOneOrNull()?.value?.value)
+        return getStringToBoolean(queries.get(key).executeAsOneOrNull()?.value_?.value)
     }
 
     private fun getStringToBoolean(value: String?): Boolean? {

@@ -54,6 +54,10 @@
 		2ADA0F50239E75C900F67F64 /* SortByModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADA0F4F239E75C900F67F64 /* SortByModel.swift */; };
 		2AEF4149239F8D7A00C3D0BA /* ItemDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF4148239F8D7A00C3D0BA /* ItemDetailsView.swift */; };
 		2AEF414B239F902200C3D0BA /* PagingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEF414A239F902200C3D0BA /* PagingView.swift */; };
+		2D9472022812B4A0009FE3B1 /* shared.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D01DD182811C31C0040B25D /* shared.xcframework */; };
+		2D9472032812B4A0009FE3B1 /* shared.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2D01DD182811C31C0040B25D /* shared.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2D9472052812B4A2009FE3B1 /* SuprSendSdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D01DD172811C31C0040B25D /* SuprSendSdk.framework */; };
+		2D9472062812B4A2009FE3B1 /* SuprSendSdk.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2D01DD172811C31C0040B25D /* SuprSendSdk.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2DAAAA892735A6DB00DAF147 /* DecideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAAAA882735A6DB00DAF147 /* DecideView.swift */; };
 		2DAAAA8C2735A73C00DAF147 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAAAA8B2735A73C00DAF147 /* LoginView.swift */; };
 		2DAAAA902735B86300DAF147 /* Other.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DAAAA8F2735B86300DAF147 /* Other.swift */; };
@@ -64,9 +68,22 @@
 		59BBEADC262F45B600102A61 /* ItemRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59BBEADB262F45B600102A61 /* ItemRow.swift */; };
 		887A0E81280BCD4C003A96BB /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 887A0E80280BCD2B003A96BB /* libsqlite3.tbd */; };
 		88A03F4427DC9D78007C4ED2 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A03F4327DC9D78007C4ED2 /* AppConstants.swift */; };
-		88DB37C3280BF9F60060FD7E /* SuprSendSdk in Frameworks */ = {isa = PBXBuildFile; productRef = 88DB37C2280BF9F60060FD7E /* SuprSendSdk */; };
-		88DB37C6280BFCAB0060FD7E /* shared in Frameworks */ = {isa = PBXBuildFile; productRef = 88DB37C5280BFCAB0060FD7E /* shared */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		2D9472042812B4A0009FE3B1 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				2D9472032812B4A0009FE3B1 /* shared.xcframework in Embed Frameworks */,
+				2D9472062812B4A2009FE3B1 /* SuprSendSdk.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		2A087189238D4CA6002F1E61 /* ECommerceAppSwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ECommerceAppSwiftUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -117,6 +134,8 @@
 		2ADA0F4F239E75C900F67F64 /* SortByModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortByModel.swift; sourceTree = "<group>"; };
 		2AEF4148239F8D7A00C3D0BA /* ItemDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailsView.swift; sourceTree = "<group>"; };
 		2AEF414A239F902200C3D0BA /* PagingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingView.swift; sourceTree = "<group>"; };
+		2D01DD172811C31C0040B25D /* SuprSendSdk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SuprSendSdk.framework; sourceTree = "<group>"; };
+		2D01DD182811C31C0040B25D /* shared.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = shared.xcframework; sourceTree = "<group>"; };
 		2DAAAA882735A6DB00DAF147 /* DecideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecideView.swift; sourceTree = "<group>"; };
 		2DAAAA8B2735A73C00DAF147 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		2DAAAA8F2735B86300DAF147 /* Other.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Other.swift; sourceTree = "<group>"; };
@@ -135,10 +154,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				88DB37C3280BF9F60060FD7E /* SuprSendSdk in Frameworks */,
-				88DB37C6280BFCAB0060FD7E /* shared in Frameworks */,
+				2D9472022812B4A0009FE3B1 /* shared.xcframework in Frameworks */,
 				2ADA0F4C239E733500F67F64 /* PartialSheet in Frameworks */,
 				887A0E81280BCD4C003A96BB /* libsqlite3.tbd in Frameworks */,
+				2D9472052812B4A2009FE3B1 /* SuprSendSdk.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -437,6 +456,8 @@
 		887A0E5B280B2F19003A96BB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2D01DD182811C31C0040B25D /* shared.xcframework */,
+				2D01DD172811C31C0040B25D /* SuprSendSdk.framework */,
 				887A0E80280BCD2B003A96BB /* libsqlite3.tbd */,
 			);
 			name = Frameworks;
@@ -452,6 +473,7 @@
 				2A087185238D4CA6002F1E61 /* Sources */,
 				2A087186238D4CA6002F1E61 /* Frameworks */,
 				2A087187238D4CA6002F1E61 /* Resources */,
+				2D9472042812B4A0009FE3B1 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -460,8 +482,6 @@
 			name = ECommerceAppSwiftUI;
 			packageProductDependencies = (
 				2ADA0F4B239E733500F67F64 /* PartialSheet */,
-				88DB37C2280BF9F60060FD7E /* SuprSendSdk */,
-				88DB37C5280BFCAB0060FD7E /* shared */,
 			);
 			productName = ECommerceAppSwiftUI;
 			productReference = 2A087189238D4CA6002F1E61 /* ECommerceAppSwiftUI.app */;
@@ -493,8 +513,6 @@
 			mainGroup = 2A087180238D4CA6002F1E61;
 			packageReferences = (
 				2ADA0F4A239E733500F67F64 /* XCRemoteSwiftPackageReference "PartialSheet" */,
-				887A0EB4280BF75F003A96BB /* XCRemoteSwiftPackageReference "SuprSend-iOS-SDK" */,
-				88DB37C4280BFCAB0060FD7E /* XCRemoteSwiftPackageReference "sharedPackage" */,
 			);
 			productRefGroup = 2A08718A238D4CA6002F1E61 /* Products */;
 			projectDirPath = "";
@@ -814,22 +832,6 @@
 				minimumVersion = 0.0.4;
 			};
 		};
-		887A0EB4280BF75F003A96BB /* XCRemoteSwiftPackageReference "SuprSend-iOS-SDK" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/suprsend/SuprSend-iOS-SDK";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-		88DB37C4280BFCAB0060FD7E /* XCRemoteSwiftPackageReference "sharedPackage" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/surajshindalkar/sharedPackage.git";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -837,16 +839,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2ADA0F4A239E733500F67F64 /* XCRemoteSwiftPackageReference "PartialSheet" */;
 			productName = PartialSheet;
-		};
-		88DB37C2280BF9F60060FD7E /* SuprSendSdk */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 887A0EB4280BF75F003A96BB /* XCRemoteSwiftPackageReference "SuprSend-iOS-SDK" */;
-			productName = SuprSendSdk;
-		};
-		88DB37C5280BFCAB0060FD7E /* shared */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 88DB37C4280BFCAB0060FD7E /* XCRemoteSwiftPackageReference "sharedPackage" */;
-			productName = shared;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

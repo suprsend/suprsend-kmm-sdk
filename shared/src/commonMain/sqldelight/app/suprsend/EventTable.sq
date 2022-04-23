@@ -2,7 +2,7 @@ import app.suprsend.event.EventModel;
 
 CREATE TABLE EventTable (
     id TEXT PRIMARY KEY NOT NULL,
-    model   TEXT as EventModel,
+    model TEXT AS EventModel,
     isDirty INTEGER NOT NULL,
     timeStamp INTEGER NOT NULL
 );

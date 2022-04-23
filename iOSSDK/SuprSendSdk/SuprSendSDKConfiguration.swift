@@ -35,7 +35,7 @@ public class SuprSendSDKConfiguration: NSObject {
       #if DEBUG
         baseUrl = "https://collector-staging.suprsend.workers.dev/"
       #else
-        baseUrl = "http://hub.suprsend.com/"
+        baseUrl = "https://hub.suprsend.com/"
       #endif
         return baseUrl
     }
