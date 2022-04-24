@@ -11,15 +11,17 @@ import Foundation
 public class SuprSendSDKConfiguration: NSObject {
     
     private let key: String
-    private var secret: String
+    private let secret: String
+    private let baseUrl: String?
     
-    init(key: String, secret: String) {
+    init(key: String, secret: String, baseUrl: String? = nil) {
         self.key = key
         self.secret = secret
+        self.baseUrl = baseUrl
     }
     
-    @objc public convenience init(withKey key: String, secret: String) {
-        self.init(key: key, secret: secret)
+    @objc public convenience init(withKey key: String, secret: String, baseUrl: String? = nil) {
+        self.init(key: key, secret: secret, baseUrl: baseUrl)
     }
     
     func getKey() -> String {
@@ -31,6 +33,11 @@ public class SuprSendSDKConfiguration: NSObject {
     }
     
     func getBaseUrl() -> String {
+        
+      if let url = baseUrl {
+        return url
+      }
+        
       var baseUrl = ""
       #if DEBUG
         baseUrl = "https://collector-staging.suprsend.workers.dev/"

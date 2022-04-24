@@ -7,7 +7,7 @@
 
 import Foundation
 import UIKit
-import shared
+import SuprsendCore
 
 @objc
 public extension SuprSend {

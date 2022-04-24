@@ -1,0 +1,16 @@
+PODS:
+  - SuprsendCore (1.0.0)
+
+DEPENDENCIES:
+  - SuprsendCore
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - SuprsendCore
+
+SPEC CHECKSUMS:
+  SuprsendCore: 810cd4e9f7e829c1d694aa556774a3dd787607e8
+
+PODFILE CHECKSUM: b7fa039b412265cba9f4d073b32b9b7395c62cae
+
+COCOAPODS: 1.11.3

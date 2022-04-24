@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import shared
+import SuprsendCore
 import UIKit
 
 @objc

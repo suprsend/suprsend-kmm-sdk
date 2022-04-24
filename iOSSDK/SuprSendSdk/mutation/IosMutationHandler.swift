@@ -8,7 +8,7 @@
 import Foundation
 
 import Foundation
-import shared
+import SuprsendCore
 
 class IosMutationHandler : MutationHandler {
     var flush = false

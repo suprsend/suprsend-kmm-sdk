@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2D9471FB2812B320009FE3B1 /* shared.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D9471FA2812B320009FE3B1 /* shared.xcframework */; };
-		2D9471FC2812B320009FE3B1 /* shared.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2D9471FA2812B320009FE3B1 /* shared.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2DA33B932736559900ED968A /* IosMutationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA33B922736559900ED968A /* IosMutationHandler.swift */; };
 		2DE46BB92731A751001C41FF /* SuprSendSdk.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DE46BAB2731A751001C41FF /* SuprSendSdk.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		880ABBB427F182D100DA93D9 /* UNNotificationResponse+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880ABBB327F182D100DA93D9 /* UNNotificationResponse+Utility.swift */; };
@@ -19,24 +17,12 @@
 		88A03F4627DCA1AF007C4ED2 /* SuprSend+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A03F4527DCA1AF007C4ED2 /* SuprSend+Utilities.swift */; };
 		88A03F4927DCB408007C4ED2 /* SuprSend+PushNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A03F4827DCB408007C4ED2 /* SuprSend+PushNotifications.swift */; };
 		88A03F4B27DE1799007C4ED2 /* SuprSendSDKConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A03F4A27DE1798007C4ED2 /* SuprSendSDKConfiguration.swift */; };
+		88D52DEB28154FD10075B001 /* SuprsendCore.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88D52DEA28154FD10075B001 /* SuprsendCore.xcframework */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		2D01DD162811C1550040B25D /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				2D9471FC2812B320009FE3B1 /* shared.xcframework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
-		2D9471FA2812B320009FE3B1 /* shared.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = shared.xcframework; sourceTree = "<group>"; };
+		09D59035793F20C6D5433989 /* Pods-SuprSendSdk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SuprSendSdk.debug.xcconfig"; path = "Target Support Files/Pods-SuprSendSdk/Pods-SuprSendSdk.debug.xcconfig"; sourceTree = "<group>"; };
+		1E254BBE674E8744219DD49E /* Pods-SuprSendSdk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SuprSendSdk.release.xcconfig"; path = "Target Support Files/Pods-SuprSendSdk/Pods-SuprSendSdk.release.xcconfig"; sourceTree = "<group>"; };
 		2DA33B922736559900ED968A /* IosMutationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IosMutationHandler.swift; sourceTree = "<group>"; };
 		2DE46BA82731A751001C41FF /* SuprSendSdk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SuprSendSdk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DE46BAB2731A751001C41FF /* SuprSendSdk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SuprSendSdk.h; sourceTree = "<group>"; };
@@ -49,6 +35,7 @@
 		88A03F4527DCA1AF007C4ED2 /* SuprSend+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SuprSend+Utilities.swift"; sourceTree = "<group>"; };
 		88A03F4827DCB408007C4ED2 /* SuprSend+PushNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SuprSend+PushNotifications.swift"; sourceTree = "<group>"; };
 		88A03F4A27DE1798007C4ED2 /* SuprSendSDKConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuprSendSDKConfiguration.swift; sourceTree = "<group>"; };
+		88D52DEA28154FD10075B001 /* SuprsendCore.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = SuprsendCore.xcframework; path = Pods/SuprsendCore/SuprsendCore.xcframework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,13 +43,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2D9471FB2812B320009FE3B1 /* shared.xcframework in Frameworks */,
+				88D52DEB28154FD10075B001 /* SuprsendCore.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2B1D7B2CA7B66921603C4D3E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				09D59035793F20C6D5433989 /* Pods-SuprSendSdk.debug.xcconfig */,
+				1E254BBE674E8744219DD49E /* Pods-SuprSendSdk.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		2DA33B8F273653D100ED968A /* mutation */ = {
 			isa = PBXGroup;
 			children = (
@@ -74,7 +70,7 @@
 		2DAB6EBA2731AC6F00630827 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				2D9471FA2812B320009FE3B1 /* shared.xcframework */,
+				88D52DEA28154FD10075B001 /* SuprsendCore.xcframework */,
 				2DFBFC8B27468E0E00F62BF5 /* libsqlite3.tbd */,
 			);
 			name = Frameworks;
@@ -86,6 +82,7 @@
 				2DE46BAA2731A751001C41FF /* SuprSendSdk */,
 				2DE46BA92731A751001C41FF /* Products */,
 				2DAB6EBA2731AC6F00630827 /* Frameworks */,
+				2B1D7B2CA7B66921603C4D3E /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -132,20 +129,18 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2DE46BBC2731A751001C41FF /* Build configuration list for PBXNativeTarget "SuprSendSdk" */;
 			buildPhases = (
+				DB3976CA159A5204E2AB0624 /* [CP] Check Pods Manifest.lock */,
 				2DAB6EC02731B1B000630827 /* ShellScript */,
 				2DE46BA32731A751001C41FF /* Headers */,
 				2DE46BA42731A751001C41FF /* Sources */,
 				2DE46BA52731A751001C41FF /* Frameworks */,
 				2DE46BA62731A751001C41FF /* Resources */,
-				2D01DD162811C1550040B25D /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = SuprSendSdk;
-			packageProductDependencies = (
-			);
 			productName = sdk;
 			productReference = 2DE46BA82731A751001C41FF /* SuprSendSdk.framework */;
 			productType = "com.apple.product-type.framework";
@@ -174,8 +169,6 @@
 				Base,
 			);
 			mainGroup = 2DE46B9E2731A751001C41FF;
-			packageReferences = (
-			);
 			productRefGroup = 2DE46BA92731A751001C41FF /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -212,6 +205,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "#export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home\n\n#cd \"$PROJECT_DIR/..\"\n\n#./gradlew releaseFatFramework\n\n#cp -R /Users/niks/Library/Developer/Xcode/DerivedData/SuprSendSdk-elbsfrxtpfbirnbwqqoledevwwdh/Build/Products/Debug-iphoneos/SuprSendSdk.framework ECommerceAppSwiftUI\n\n#cp -R ~/Library/Developer/Xcode/DerivedData/SuprSendSdk-fpaorvwytrkmrufpcffveahpewdk/Build/Products/Debug-iphoneos/SuprSendSdk.framework ECommerceAppSwiftUI\n\n#./gradlew clean\n\n#./gradlew debugFatFramework\n#cp -R ~/Library/Developer/Xcode/DerivedData/SuprSendSdk-fpaorvwytrkmrufpcffveahpewdk/Build/Products/Debug-iphonesimulator/SuprSendSdk.framework iOSSDK/frameworks/simulator\n\n#cp -R ~/Library/Developer/Xcode/DerivedData/SuprSendSdk-fpaorvwytrkmrufpcffveahpewdk/Build/Products/Debug-iphonesimulator/SuprSendSdk.framework ECommerceAppSwiftUI\n";
+		};
+		DB3976CA159A5204E2AB0624 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SuprSendSdk-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -367,6 +382,7 @@
 		};
 		2DE46BBD2731A751001C41FF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 09D59035793F20C6D5433989 /* Pods-SuprSendSdk.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -377,7 +393,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				EXCLUDED_ARCHS = "";
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../shared/build/xcode-frameworks";
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_PREFIX_HEADER = SuprSendSdk;
 				INFOPLIST_FILE = SuprSendSdk/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -406,6 +422,7 @@
 		};
 		2DE46BBE2731A751001C41FF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1E254BBE674E8744219DD49E /* Pods-SuprSendSdk.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -415,7 +432,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../shared/build/xcode-frameworks";
+				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_PREFIX_HEADER = SuprSendSdk;
 				INFOPLIST_FILE = SuprSendSdk/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
