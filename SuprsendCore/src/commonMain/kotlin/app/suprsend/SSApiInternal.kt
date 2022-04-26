@@ -197,6 +197,7 @@ internal object SSApiInternal {
             }, SSConstants.APPEND)
         }
     }
+
     fun isAppInstalled(): Boolean {
         return ConfigHelper.getBoolean(SSConstants.CONFIG_IS_APP_LAUNCHED) ?: false
     }
@@ -261,6 +262,8 @@ internal object SSApiInternal {
     const val TAG = "ssinternal"
 }
 
+const val TAG_EXCEPTION = "ss_ex"
+
 internal val coroutineExceptionHandler = CoroutineExceptionHandler { _, exception ->
-    Logger.e("exception", "", exception)
+    Logger.e(TAG_EXCEPTION, "", exception)
 }

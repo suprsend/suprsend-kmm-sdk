@@ -2,6 +2,7 @@ package app.suprsend
 
 import app.suprsend.base.BasicDetails
 import app.suprsend.base.LogLevel
+import app.suprsend.base.Logger
 import app.suprsend.base.SSConstants
 import app.suprsend.base.SdkIosCreator
 import app.suprsend.base.logLevel
@@ -40,11 +41,11 @@ private constructor(
 
         if (!SSApiInternal.isAppInstalled()) {
             // App Launched
-            SSApiInternal.trackOp(eventName = SSConstants.S_EVENT_APP_INSTALLED, propertiesJO = buildJsonObject {  })
+            SSApiInternal.trackOp(eventName = SSConstants.S_EVENT_APP_INSTALLED, propertiesJO = buildJsonObject { })
             SSApiInternal.setAppLaunched()
         }
 
-        SSApiInternal.trackOp(eventName = SSConstants.S_EVENT_APP_LAUNCHED, propertiesJO = buildJsonObject {  })
+        SSApiInternal.trackOp(eventName = SSConstants.S_EVENT_APP_LAUNCHED, propertiesJO = buildJsonObject { })
 
         SSApiInternal.startPeriodicFlush(mutationHandler)
 
@@ -54,31 +55,59 @@ private constructor(
     }
 
     fun identify(uniqueId: String) {
-        SSApiInternal.identify(uniqueId, mutationHandler)
+        try {
+            SSApiInternal.identify(uniqueId, mutationHandler)
+        } catch (exception: Exception) {
+            Logger.e(TAG_EXCEPTION, "", exception)
+        }
     }
 
     fun setSuperProperty(key: String, value: Any) {
-        SSApiInternal.setSuperProperty(key, value)
+        try {
+            SSApiInternal.setSuperProperty(key, value)
+        } catch (exception: Exception) {
+            Logger.e(TAG_EXCEPTION, "", exception)
+        }
     }
 
     fun setSuperProperties(properties: Map<String, Any>) {
-        SSApiInternal.setSuperProperties(propertiesJsonObject = properties.toJsonObject().toString())
+        try {
+            SSApiInternal.setSuperProperties(propertiesJsonObject = properties.toJsonObject().toString())
+        } catch (exception: Exception) {
+            Logger.e(TAG_EXCEPTION, "", exception)
+        }
     }
 
     fun unSetSuperProperty(key: String) {
-        SSApiInternal.removeSuperProperty(key)
+        try {
+            SSApiInternal.removeSuperProperty(key)
+        } catch (exception: Exception) {
+            Logger.e(TAG_EXCEPTION, "", exception)
+        }
     }
 
     fun track(eventName: String, properties: Map<String, Any>? = null) {
-        SSApiInternal.trackOp(eventName = eventName, propertiesJsonString = properties?.toJsonObject()?.toString())
+        try {
+            SSApiInternal.trackOp(eventName = eventName, propertiesJsonString = properties?.toJsonObject()?.toString())
+        } catch (exception: Exception) {
+            Logger.e(TAG_EXCEPTION, "", exception)
+        }
     }
 
     fun track(eventName: String) {
-        SSApiInternal.trackOp(eventName = eventName, propertiesJsonString = null)
+        try {
+            SSApiInternal.trackOp(eventName = eventName, propertiesJsonString = null)
+        } catch (exception: Exception) {
+            Logger.e(TAG_EXCEPTION, "", exception)
+        }
     }
 
     fun purchaseMade(properties: Map<String, Any>) {
-        SSApiInternal.purchaseMade(properties = properties.toJsonObject().toString())
+        try {
+            SSApiInternal.purchaseMade(properties = properties.toJsonObject().toString())
+        } catch (exception: Exception) {
+            Logger.e(TAG_EXCEPTION, "", exception)
+        }
     }
 
     fun getUser(): SSUserApi {
@@ -86,11 +115,19 @@ private constructor(
     }
 
     fun flush() {
-        SSApiInternal.flush(mutationHandler)
+        try {
+            SSApiInternal.flush(mutationHandler)
+        } catch (exception: Exception) {
+            Logger.e(TAG_EXCEPTION, "", exception)
+        }
     }
 
     fun reset() {
-        SSApiInternal.reset(mutationHandler)
+        try {
+            SSApiInternal.reset(mutationHandler)
+        } catch (exception: Exception) {
+            Logger.e(TAG_EXCEPTION, "", exception)
+        }
     }
 
     companion object {
@@ -100,17 +137,27 @@ private constructor(
         fun initialize() {
 
             // Initialize nw and db
-            SdkInitializer.initialize(databaseDriverFactory = DatabaseDriverFactory())
+            try {
+                SdkInitializer.initialize(databaseDriverFactory = DatabaseDriverFactory())
+            } catch (exception: Exception) {
+                Logger.e(TAG_EXCEPTION, "", exception)
+            }
         }
 
         fun enableLogging() {
-            logLevel.set(LogLevel.VERBOSE)
+            try {
+                logLevel.set(LogLevel.VERBOSE)
+            } catch (exception: Exception) {
+                Logger.e(TAG_EXCEPTION, "", exception)
+            }
         }
 
+        @Throws(Exception::class)
         fun getInstance(apiKey: String, apiSecret: String, apiBaseUrl: String? = null, mutationHandler: MutationHandler): IOSSSApi {
             return IOSSSApi(apiKey, apiSecret, apiBaseUrl, mutationHandler)
         }
 
+        @Throws(Exception::class)
         fun getInstanceFromCachedApiKey(mutationHandler: MutationHandler): IOSSSApi? {
             val apiKey = ConfigHelper.get(SSConstants.CONFIG_API_KEY) ?: return null
             val secret = ConfigHelper.get(SSConstants.CONFIG_API_SECRET) ?: return null
