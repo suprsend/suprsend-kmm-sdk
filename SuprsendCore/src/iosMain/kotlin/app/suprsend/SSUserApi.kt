@@ -1,5 +1,6 @@
 package app.suprsend
 
+import app.suprsend.base.Logger
 import app.suprsend.base.toJsonObject
 
 class SSUserApi
@@ -10,77 +11,148 @@ constructor(
     private val user = SSApiInternal.getUser()
 
     fun set(key: String, value: Any) {
-        user.set(key, value)
+        try {
+            user.set(key, value)
+        } catch (exception: Exception) {
+            Logger.e(TAG_EXCEPTION, "", exception)
+        }
     }
 
     fun set(properties: Map<String, Any>) {
-        user.set(properties.toJsonObject().toString())
+        try {
+            user.set(properties.toJsonObject().toString())
+        } catch (exception: Exception) {
+            Logger.e(TAG_EXCEPTION, "", exception)
+        }
     }
 
     fun unSet(key: String) {
-        user.unSet(key)
+        try {
+            user.unSet(key)
+        } catch (exception: Exception) {
+            Logger.e(TAG_EXCEPTION, "", exception)
+        }
     }
 
     fun unSet(keys: List<String>) {
-        user.unSet(keys)
+        try {
+            user.unSet(keys)
+        } catch (exception: Exception) {
+            Logger.e(TAG_EXCEPTION, "", exception)
+        }
     }
 
     fun setOnce(key: String, value: Any) {
-        user.setOnce(key, value)
+        try {
+            user.setOnce(key, value)
+        } catch (exception: Exception) {
+            Logger.e(TAG_EXCEPTION, "", exception)
+        }
     }
 
     fun setOnce(properties: Map<String, Any>) {
-        user.setOnce(properties.toJsonObject().toString())
+        try {
+            user.setOnce(properties.toJsonObject().toString())
+        } catch (exception: Exception) {
+            Logger.e(TAG_EXCEPTION, "", exception)
+        }
     }
 
     fun increment(key: String, value: Number) {
-        user.increment(key, value)
+        try {
+            user.increment(key, value)
+        } catch (exception: Exception) {
+            Logger.e(TAG_EXCEPTION, "", exception)
+        }
     }
 
     fun increment(properties: Map<String, Number>) {
-        user.increment(properties.toJsonObject().toString())
+        try {
+            user.increment(properties.toJsonObject().toString())
+        } catch (exception: Exception) {
+            Logger.e(TAG_EXCEPTION, "", exception)
+        }
     }
 
     fun append(key: String, value: Any) {
-        user.append(key, value)
+        try {
+            user.append(key, value)
+        } catch (exception: Exception) {
+            Logger.e(TAG_EXCEPTION, "", exception)
+        }
     }
 
     fun remove(key: String, value: Any) {
-        user.remove(key, value)
+        try {
+            user.remove(key, value)
+        } catch (exception: Exception) {
+            Logger.e(TAG_EXCEPTION, "", exception)
+        }
     }
 
     fun setEmail(email: String) {
-        user.setEmail(email)
+        try {
+            user.setEmail(email)
+        } catch (exception: Exception) {
+            Logger.e(TAG_EXCEPTION, "", exception)
+        }
     }
 
     fun unSetEmail(email: String) {
-        user.unSetEmail(email)
+        try {
+            user.unSetEmail(email)
+        } catch (exception: Exception) {
+            Logger.e(TAG_EXCEPTION, "", exception)
+        }
     }
 
     fun setSms(mobile: String) {
-        user.setSms(mobile)
+        try {
+            user.setSms(mobile)
+        } catch (exception: Exception) {
+            Logger.e(TAG_EXCEPTION, "", exception)
+        }
     }
 
     fun unSetSms(mobile: String) {
-        user.unSetSms(mobile)
+        try {
+            user.unSetSms(mobile)
+        } catch (exception: Exception) {
+            Logger.e(TAG_EXCEPTION, "", exception)
+        }
     }
 
     fun setWhatsApp(mobile: String) {
-        user.setWhatsApp(mobile)
+        try {
+            user.setWhatsApp(mobile)
+        } catch (exception: Exception) {
+            Logger.e(TAG_EXCEPTION, "", exception)
+        }
     }
 
     fun unSetWhatsApp(mobile: String) {
-        user.unSetWhatsApp(mobile)
+        try {
+            user.unSetWhatsApp(mobile)
+        } catch (exception: Exception) {
+            Logger.e(TAG_EXCEPTION, "", exception)
+        }
     }
 
     fun setIOSPush(token: String) {
-        user.setIOSPush(token)
-        SSApiInternal.flush(mutationHandler)
+        try {
+            user.setIOSPush(token)
+            SSApiInternal.flush(mutationHandler)
+        } catch (exception: Exception) {
+            Logger.e(TAG_EXCEPTION, "", exception)
+        }
     }
 
     fun unSetIOSPush(token: String) {
-        user.unSetIOSPush(token)
-        SSApiInternal.flush(mutationHandler)
+        try {
+            user.unSetIOSPush(token)
+            SSApiInternal.flush(mutationHandler)
+        } catch (exception: Exception) {
+            Logger.e(TAG_EXCEPTION, "", exception)
+        }
     }
-
 }
