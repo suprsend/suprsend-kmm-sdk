@@ -82,9 +82,25 @@ constructor(
         }
     }
 
+    fun append(properties: Map<String, Any>) {
+        try {
+            user.append(properties.toJsonObject().toString())
+        } catch (exception: Exception) {
+            Logger.e(TAG_EXCEPTION, "", exception)
+        }
+    }
+
     fun remove(key: String, value: Any) {
         try {
             user.remove(key, value)
+        } catch (exception: Exception) {
+            Logger.e(TAG_EXCEPTION, "", exception)
+        }
+    }
+
+    fun remove(properties: Map<String, Any>) {
+        try {
+            user.remove(properties.toJsonObject().toString())
         } catch (exception: Exception) {
             Logger.e(TAG_EXCEPTION, "", exception)
         }
