@@ -1,0 +1,20 @@
+PODS:
+  - SuprsendCore (1.0.0)
+  - SuprSendSdk (1.0.0)
+
+DEPENDENCIES:
+  - SuprsendCore
+  - SuprSendSdk
+
+SPEC REPOS:
+  trunk:
+    - SuprsendCore
+    - SuprSendSdk
+
+SPEC CHECKSUMS:
+  SuprsendCore: 810cd4e9f7e829c1d694aa556774a3dd787607e8
+  SuprSendSdk: aa988cb0547c46d0d32ba25d2feb404f590cee41
+
+PODFILE CHECKSUM: 415b035783489eb253280384a0c14a922a1e0743
+
+COCOAPODS: 1.11.3

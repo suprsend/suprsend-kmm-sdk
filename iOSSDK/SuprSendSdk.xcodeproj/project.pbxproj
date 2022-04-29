@@ -3,13 +3,15 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		2DA33B932736559900ED968A /* IosMutationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA33B922736559900ED968A /* IosMutationHandler.swift */; };
 		2DE46BB92731A751001C41FF /* SuprSendSdk.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DE46BAB2731A751001C41FF /* SuprSendSdk.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		35FA26EF88F58E741A4FF382 /* Pods_SuprSendSdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A00B64DFE24F780CCAD7F23 /* Pods_SuprSendSdk.framework */; };
 		880ABBB427F182D100DA93D9 /* UNNotificationResponse+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880ABBB327F182D100DA93D9 /* UNNotificationResponse+Utility.swift */; };
+		880D9B4B281AE547000B929B /* Pods_SuprSendSdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A00B64DFE24F780CCAD7F23 /* Pods_SuprSendSdk.framework */; };
 		881FDF6A27F981F900FF9EDC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881FDF6927F981F900FF9EDC /* Constants.swift */; };
 		8883560C27E07C2B0005A920 /* AnalyticsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8883560B27E07C2B0005A920 /* AnalyticsConstants.swift */; };
 		88932D9827D74713003D68B2 /* SuprSendSdk.h in Sources */ = {isa = PBXBuildFile; fileRef = 2DE46BAB2731A751001C41FF /* SuprSendSdk.h */; };
@@ -17,25 +19,25 @@
 		88A03F4627DCA1AF007C4ED2 /* SuprSend+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A03F4527DCA1AF007C4ED2 /* SuprSend+Utilities.swift */; };
 		88A03F4927DCB408007C4ED2 /* SuprSend+PushNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A03F4827DCB408007C4ED2 /* SuprSend+PushNotifications.swift */; };
 		88A03F4B27DE1799007C4ED2 /* SuprSendSDKConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A03F4A27DE1798007C4ED2 /* SuprSendSDKConfiguration.swift */; };
-		88D52DEB28154FD10075B001 /* SuprsendCore.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88D52DEA28154FD10075B001 /* SuprsendCore.xcframework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		09D59035793F20C6D5433989 /* Pods-SuprSendSdk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SuprSendSdk.debug.xcconfig"; path = "Target Support Files/Pods-SuprSendSdk/Pods-SuprSendSdk.debug.xcconfig"; sourceTree = "<group>"; };
-		1E254BBE674E8744219DD49E /* Pods-SuprSendSdk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SuprSendSdk.release.xcconfig"; path = "Target Support Files/Pods-SuprSendSdk/Pods-SuprSendSdk.release.xcconfig"; sourceTree = "<group>"; };
 		2DA33B922736559900ED968A /* IosMutationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IosMutationHandler.swift; sourceTree = "<group>"; };
 		2DE46BA82731A751001C41FF /* SuprSendSdk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SuprSendSdk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DE46BAB2731A751001C41FF /* SuprSendSdk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SuprSendSdk.h; sourceTree = "<group>"; };
 		2DE46BAC2731A751001C41FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2DFBFC8B27468E0E00F62BF5 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/usr/lib/libsqlite3.tbd; sourceTree = DEVELOPER_DIR; };
+		4716AB3C7FA096D402842D12 /* Pods-SuprSendSdk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SuprSendSdk.debug.xcconfig"; path = "Target Support Files/Pods-SuprSendSdk/Pods-SuprSendSdk.debug.xcconfig"; sourceTree = "<group>"; };
+		6A00B64DFE24F780CCAD7F23 /* Pods_SuprSendSdk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SuprSendSdk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		880ABBB327F182D100DA93D9 /* UNNotificationResponse+Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UNNotificationResponse+Utility.swift"; sourceTree = "<group>"; };
+		880D9B47281AE4C6000B929B /* SuprsendCore.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = SuprsendCore.xcframework; path = Pods/SuprsendCore/SuprsendCore.xcframework; sourceTree = "<group>"; };
 		881FDF6927F981F900FF9EDC /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		8883560B27E07C2B0005A920 /* AnalyticsConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsConstants.swift; sourceTree = "<group>"; };
 		88A03F4027DC8E5C007C4ED2 /* SuprSend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuprSend.swift; sourceTree = "<group>"; };
 		88A03F4527DCA1AF007C4ED2 /* SuprSend+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SuprSend+Utilities.swift"; sourceTree = "<group>"; };
 		88A03F4827DCB408007C4ED2 /* SuprSend+PushNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SuprSend+PushNotifications.swift"; sourceTree = "<group>"; };
 		88A03F4A27DE1798007C4ED2 /* SuprSendSDKConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuprSendSDKConfiguration.swift; sourceTree = "<group>"; };
-		88D52DEA28154FD10075B001 /* SuprsendCore.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = SuprsendCore.xcframework; path = Pods/SuprsendCore/SuprsendCore.xcframework; sourceTree = "<group>"; };
+		F6A4988CADA3E027E05E2816 /* Pods-SuprSendSdk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SuprSendSdk.release.xcconfig"; path = "Target Support Files/Pods-SuprSendSdk/Pods-SuprSendSdk.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,7 +45,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				88D52DEB28154FD10075B001 /* SuprsendCore.xcframework in Frameworks */,
+				880D9B4B281AE547000B929B /* Pods_SuprSendSdk.framework in Frameworks */,
+				35FA26EF88F58E741A4FF382 /* Pods_SuprSendSdk.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -53,8 +56,8 @@
 		2B1D7B2CA7B66921603C4D3E /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				09D59035793F20C6D5433989 /* Pods-SuprSendSdk.debug.xcconfig */,
-				1E254BBE674E8744219DD49E /* Pods-SuprSendSdk.release.xcconfig */,
+				4716AB3C7FA096D402842D12 /* Pods-SuprSendSdk.debug.xcconfig */,
+				F6A4988CADA3E027E05E2816 /* Pods-SuprSendSdk.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -70,8 +73,9 @@
 		2DAB6EBA2731AC6F00630827 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				88D52DEA28154FD10075B001 /* SuprsendCore.xcframework */,
+				880D9B47281AE4C6000B929B /* SuprsendCore.xcframework */,
 				2DFBFC8B27468E0E00F62BF5 /* libsqlite3.tbd */,
+				6A00B64DFE24F780CCAD7F23 /* Pods_SuprSendSdk.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -129,7 +133,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2DE46BBC2731A751001C41FF /* Build configuration list for PBXNativeTarget "SuprSendSdk" */;
 			buildPhases = (
-				DB3976CA159A5204E2AB0624 /* [CP] Check Pods Manifest.lock */,
+				D67C57867CE584A811D140B4 /* [CP] Check Pods Manifest.lock */,
 				2DAB6EC02731B1B000630827 /* ShellScript */,
 				2DE46BA32731A751001C41FF /* Headers */,
 				2DE46BA42731A751001C41FF /* Sources */,
@@ -206,7 +210,7 @@
 			shellPath = /bin/sh;
 			shellScript = "#export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home\n\n#cd \"$PROJECT_DIR/..\"\n\n#./gradlew releaseFatFramework\n\n#cp -R /Users/niks/Library/Developer/Xcode/DerivedData/SuprSendSdk-elbsfrxtpfbirnbwqqoledevwwdh/Build/Products/Debug-iphoneos/SuprSendSdk.framework ECommerceAppSwiftUI\n\n#cp -R ~/Library/Developer/Xcode/DerivedData/SuprSendSdk-fpaorvwytrkmrufpcffveahpewdk/Build/Products/Debug-iphoneos/SuprSendSdk.framework ECommerceAppSwiftUI\n\n#./gradlew clean\n\n#./gradlew debugFatFramework\n#cp -R ~/Library/Developer/Xcode/DerivedData/SuprSendSdk-fpaorvwytrkmrufpcffveahpewdk/Build/Products/Debug-iphonesimulator/SuprSendSdk.framework iOSSDK/frameworks/simulator\n\n#cp -R ~/Library/Developer/Xcode/DerivedData/SuprSendSdk-fpaorvwytrkmrufpcffveahpewdk/Build/Products/Debug-iphonesimulator/SuprSendSdk.framework ECommerceAppSwiftUI\n";
 		};
-		DB3976CA159A5204E2AB0624 /* [CP] Check Pods Manifest.lock */ = {
+		D67C57867CE584A811D140B4 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -382,7 +386,7 @@
 		};
 		2DE46BBD2731A751001C41FF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 09D59035793F20C6D5433989 /* Pods-SuprSendSdk.debug.xcconfig */;
+			baseConfigurationReference = 4716AB3C7FA096D402842D12 /* Pods-SuprSendSdk.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -393,7 +397,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				EXCLUDED_ARCHS = "";
-				FRAMEWORK_SEARCH_PATHS = "";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREFIX_HEADER = SuprSendSdk;
 				INFOPLIST_FILE = SuprSendSdk/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -403,6 +407,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = "";
 				MACH_O_TYPE = mh_dylib;
 				MARKETING_VERSION = 1.0.0;
 				ONLY_ACTIVE_ARCH = NO;
@@ -422,7 +427,7 @@
 		};
 		2DE46BBE2731A751001C41FF /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1E254BBE674E8744219DD49E /* Pods-SuprSendSdk.release.xcconfig */;
+			baseConfigurationReference = F6A4988CADA3E027E05E2816 /* Pods-SuprSendSdk.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -432,7 +437,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = "";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREFIX_HEADER = SuprSendSdk;
 				INFOPLIST_FILE = SuprSendSdk/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -442,6 +447,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = "";
 				MACH_O_TYPE = mh_dylib;
 				MARKETING_VERSION = 1.0.0;
 				OTHER_LDFLAGS = (

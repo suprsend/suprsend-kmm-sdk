@@ -5,12 +5,12 @@ DEPENDENCIES:
   - SuprsendCore
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  trunk:
     - SuprsendCore
 
 SPEC CHECKSUMS:
   SuprsendCore: 810cd4e9f7e829c1d694aa556774a3dd787607e8
 
-PODFILE CHECKSUM: b7fa039b412265cba9f4d073b32b9b7395c62cae
+PODFILE CHECKSUM: da0eb6fac2881a87417b815e442a44fe2c18ef69
 
 COCOAPODS: 1.11.3

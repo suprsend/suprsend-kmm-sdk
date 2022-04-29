@@ -16,6 +16,10 @@ public extension SuprSend {
         suprSendiOSAPI.getUser().setIOSPush(token: token)
     }
     
+    @objc func unSetPushNotificationToken(token: String) {
+        suprSendiOSAPI.getUser().unSetIOSPush(token: token)
+    }
+    
     @objc func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse) {
          if let id = response.notification.request.content.userInfo[AnalyticsConstants.id],
             response.isSuprSendNotification() {
