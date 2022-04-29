@@ -30,24 +30,28 @@ extension SuprSend {
         suprSendiOSAPI.getUser().set(properties: properties)
     }
     
-    @objc public func increment(key: String, value: Any) {
+    @objc public func increment(key: String, value: Float) {
         suprSendiOSAPI.getUser().increment(key: key, value: value)
     }
     
-    @objc public func increment(properties: [String:Any]) {
+    @objc public func increment(properties: [String: Float]) {
         suprSendiOSAPI.getUser().increment(properties:properties)
     }
     
-    @objc public func append(key: String, value: String) {
+    @objc public func append(key: String, value: Any) {
         suprSendiOSAPI.getUser().append(key: key, value: value)
     }
     
-    @objc public func remove(key: String, value: String) {
+    @objc public func remove(key: String, value: Any) {
         suprSendiOSAPI.getUser().remove(key: key, value: value)
     }
     
     @objc public func unSet(key: String) {
         suprSendiOSAPI.getUser().unSet(key:key)
+    }
+    
+    @objc public func unSet(keys: [String]) {
+        suprSendiOSAPI.getUser().unSet(keys:keys)
     }
     
     @objc public func purchaseMade(properties: [String: Any]) {
@@ -80,6 +84,26 @@ extension SuprSend {
     
     @objc public func setEmail(emailId: String) {
         suprSendiOSAPI.getUser().setEmail(email: emailId)
+    }
+    
+    @objc public func unSetEmail(emailId: String) {
+        suprSendiOSAPI.getUser().unSetEmail(email: emailId)
+    }
+    
+    @objc public func setSms(mobileNumber: String) {
+        suprSendiOSAPI.getUser().setSms(mobile: mobileNumber)
+    }
+    
+    @objc public func unSetSms(mobileNumber: String) {
+        suprSendiOSAPI.getUser().unSetSms(mobile: mobileNumber)
+    }
+    
+    @objc public func setWhatsApp(mobileNumber: String) {
+        suprSendiOSAPI.getUser().setWhatsApp(mobile: mobileNumber)
+    }
+    
+    @objc public func unSetWhatsApp(mobileNumber: String) {
+        suprSendiOSAPI.getUser().unSetWhatsApp(mobile: mobileNumber)
     }
     
     @objc public func flush() {

@@ -20,9 +20,13 @@ public class SuprSend: NSObject {
 
     @objc public func configureWith(configuration: SuprSendSDKConfiguration, launchOptions: [UIApplication.LaunchOptionsKey: Any]?) {
         
-        IOSSSApi.Companion.init().initialize()
-        
-        suprSendiOSAPI = IOSSSApi.Companion.init().getInstance(apiKey: configuration.getKey(), apiSecret: configuration.getSecret(), apiBaseUrl: configuration.getBaseUrl(), mutationHandler: IosMutationHandler())
+        let api = IOSSSApi.Companion.init()
+            api.initialize()
+        do {
+            suprSendiOSAPI = try api.getInstance(apiKey: configuration.getKey(), apiSecret: configuration.getSecret(), apiBaseUrl: configuration.getBaseUrl(), mutationHandler: IosMutationHandler())
+        } catch {
+            print("Error = \(error)")
+        }
         
         // Check if App launched from notification
         let notificationOption = launchOptions?[.remoteNotification]

@@ -31,12 +31,12 @@ struct CommonAnalyticsHandler {
         SuprSend.shared.set(properties: properties)
     }
     
-    static func increment(key: String, value: Any) {
+    static func increment(key: String, value: Float) {
         SuprSend.shared.increment(key: key, value: value)
     }
     
-    static func increment(properties: [String:Any]) {
-        SuprSend.shared.increment(properties:properties)
+    static func increment(properties: [String: Float]) {
+        SuprSend.shared.increment(properties: properties)
     }
     
     static func append(key: String, value: String) {
