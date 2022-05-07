@@ -172,6 +172,7 @@ internal object SSApiInternal {
             val userId = userLocalDatasource.getIdentity()
             Logger.i(TAG, "reset : Current : $userId New : $newID")
             trackOp(SSConstants.S_EVENT_USER_LOGOUT, buildJsonObject { })
+            SuperPropertiesLocalDataSource().removeAll()
             userLocalDatasource.identify(newID)
             appendNotificationToken()
             flush(mutationHandler)
@@ -179,23 +180,15 @@ internal object SSApiInternal {
     }
 
     private fun appendNotificationToken() {
-        val fcmToken = getXiaomiToken()
-        if (fcmToken.isNotBlank()) {
+        val iosToken = getIOSToken()
+        if (iosToken.isNotBlank()) {
             userImpl.internalOperatorCallOp(buildJsonObject {
-                put(SSConstants.PUSH_ANDROID_TOKEN, JsonPrimitive(fcmToken))
-                put(SSConstants.PUSH_VENDOR, JsonPrimitive(SSConstants.PUSH_VENDOR_FCM))
+                put(SSConstants.PUSH_IOS_TOKEN, JsonPrimitive(iosToken))
+                put(SSConstants.PUSH_VENDOR, JsonPrimitive(SSConstants.PUSH_VENDOR_APNS))
                 put(SSConstants.DEVICE_ID, JsonPrimitive(getDeviceID()))
             }, SSConstants.APPEND)
         }
 
-        val xiaomiToken = getXiaomiToken()
-        if (xiaomiToken.isNotBlank()) {
-            userImpl.internalOperatorCallOp(buildJsonObject {
-                put(SSConstants.PUSH_ANDROID_TOKEN, JsonPrimitive(xiaomiToken))
-                put(SSConstants.PUSH_VENDOR, JsonPrimitive(SSConstants.PUSH_VENDOR_XIAOMI))
-                put(SSConstants.DEVICE_ID, JsonPrimitive(getDeviceID()))
-            }, SSConstants.APPEND)
-        }
     }
 
     fun isAppInstalled(): Boolean {

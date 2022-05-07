@@ -26,6 +26,10 @@ internal class SuperPropertiesLocalDataSource : SuperPropertiesRepositoryContrac
         saveValues(JsonObject(result))
     }
 
+    override fun removeAll() {
+        saveValues(JsonObject(mapOf()))
+    }
+
     override fun getAll(): JsonObject {
         val superPropertiesJsonString = ConfigHelper.get(CONFIG_KEY)
         return superPropertiesJsonString.toKotlinJsonObject()
