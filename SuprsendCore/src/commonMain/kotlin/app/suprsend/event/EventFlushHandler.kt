@@ -58,7 +58,6 @@ object EventFlushHandler {
                         append("Date", date)
                         append(HttpHeaders.Authorization, "$envKey:$signature")
                     }
-
                 }
                 setBody(requestJson)
             }

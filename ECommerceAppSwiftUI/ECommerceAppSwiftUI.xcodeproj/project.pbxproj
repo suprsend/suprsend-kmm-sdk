@@ -64,16 +64,19 @@
 		59BBEADC262F45B600102A61 /* ItemRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59BBEADB262F45B600102A61 /* ItemRow.swift */; };
 		5F9472DB2D3597017E4514B3 /* Pods_ECommerceAppSwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ABF94E64DE73773D681601E /* Pods_ECommerceAppSwiftUI.framework */; };
 		887A0E81280BCD4C003A96BB /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 887A0E80280BCD2B003A96BB /* libsqlite3.tbd */; };
+		888F5FAE2828066D0019BB84 /* SuprsendCore.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 888F5FAB2828052A0019BB84 /* SuprsendCore.xcframework */; };
+		888F5FAF2828066D0019BB84 /* SuprsendCore.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 888F5FAB2828052A0019BB84 /* SuprsendCore.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		88A03F4427DC9D78007C4ED2 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A03F4327DC9D78007C4ED2 /* AppConstants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		2D9472042812B4A0009FE3B1 /* Embed Frameworks */ = {
+		888F5FB02828066D0019BB84 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				888F5FAF2828066D0019BB84 /* SuprsendCore.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -142,6 +145,7 @@
 		5BA1EAEB0B2AD6035A453A85 /* Pods-ECommerceAppSwiftUI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ECommerceAppSwiftUI.release.xcconfig"; path = "Target Support Files/Pods-ECommerceAppSwiftUI/Pods-ECommerceAppSwiftUI.release.xcconfig"; sourceTree = "<group>"; };
 		69CB3BB3134BD48824D0ED05 /* Pods-ECommerceAppSwiftUI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ECommerceAppSwiftUI.debug.xcconfig"; path = "Target Support Files/Pods-ECommerceAppSwiftUI/Pods-ECommerceAppSwiftUI.debug.xcconfig"; sourceTree = "<group>"; };
 		887A0E80280BCD2B003A96BB /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		888F5FAB2828052A0019BB84 /* SuprsendCore.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = SuprsendCore.xcframework; path = ../SuprsendCore/build/XCFrameworks/debug/SuprsendCore.xcframework; sourceTree = "<group>"; };
 		88A03F4327DC9D78007C4ED2 /* AppConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -150,6 +154,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				888F5FAE2828066D0019BB84 /* SuprsendCore.xcframework in Frameworks */,
 				2ADA0F4C239E733500F67F64 /* PartialSheet in Frameworks */,
 				887A0E81280BCD4C003A96BB /* libsqlite3.tbd in Frameworks */,
 				5F9472DB2D3597017E4514B3 /* Pods_ECommerceAppSwiftUI.framework in Frameworks */,
@@ -452,6 +457,7 @@
 		887A0E5B280B2F19003A96BB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				888F5FAB2828052A0019BB84 /* SuprsendCore.xcframework */,
 				887A0E80280BCD2B003A96BB /* libsqlite3.tbd */,
 				3ABF94E64DE73773D681601E /* Pods_ECommerceAppSwiftUI.framework */,
 			);
@@ -478,8 +484,8 @@
 				2A087185238D4CA6002F1E61 /* Sources */,
 				2A087186238D4CA6002F1E61 /* Frameworks */,
 				2A087187238D4CA6002F1E61 /* Resources */,
-				2D9472042812B4A0009FE3B1 /* Embed Frameworks */,
 				9DC643DEDB1BE5FCB616176A /* [CP] Embed Pods Frameworks */,
+				888F5FB02828066D0019BB84 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
