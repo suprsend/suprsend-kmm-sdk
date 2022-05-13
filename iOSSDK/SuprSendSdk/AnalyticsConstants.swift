@@ -8,8 +8,14 @@
 import Foundation
 
 struct AnalyticsConstants {
-    static let id = "nid"
+    static let nid = "nid"
+    static let id = "id"
     static let notificationDelivered = "$notification_delivered"
     static let notificationDismissed = "$notification_clicked"
     static let notificationClicked = "$notification_clicked"
+    static let network = "$network"
+    static let sdkVersion = "ss_sdk_version"
+    static let isConncted = "$connected"
+    static let cellular = "cellular"
+    static let wifi = "wifi"
 }

@@ -21,18 +21,19 @@ public extension SuprSend {
     }
     
     @objc func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse) {
-         if let id = response.notification.request.content.userInfo[AnalyticsConstants.id],
+         if let id = response.notification.request.content.userInfo[AnalyticsConstants.nid],
             response.isSuprSendNotification() {
              suprSendiOSAPI.track(eventName: AnalyticsConstants.notificationClicked, properties: [AnalyticsConstants.id: id])
          }
     }
     
-     @objc func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification) {
-         if let id = notification.request.content.userInfo[AnalyticsConstants.id],
-            notification.isSuperSendNotification() {
-             suprSendiOSAPI.track(eventName: AnalyticsConstants.notificationDelivered, properties: [AnalyticsConstants.id: id])
-         }
-     }
+    @objc
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        if let id = userInfo[AnalyticsConstants.nid],
+           let viaSuperSend = userInfo[Constants.viaSuprSend] as? Bool, viaSuperSend == true {
+            suprSendiOSAPI.track(eventName: AnalyticsConstants.notificationDelivered, properties: [AnalyticsConstants.id: id])
+        }
+    }
     
     @objc func registerForPushNotifications() {
         if #available(iOS 10, *) {
