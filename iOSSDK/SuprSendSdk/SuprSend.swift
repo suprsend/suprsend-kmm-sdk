@@ -40,10 +40,7 @@ public class SuprSend: NSObject {
             trackNotificationDidLaunchAppEvent(id: id)
         }
         
-        checkForNetworkReachability()
-        
-        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
-        suprSendiOSAPI.getUser().setValue(appVersion, forKey: AnalyticsConstants.sdkVersion)
+      //  checkForNetworkReachability()
     }
     
     @objc public func enableLogging() {
@@ -62,6 +59,12 @@ public class SuprSend: NSObject {
                 DispatchQueue.main.async {
                     self.suprSendiOSAPI.getUser().set(key: AnalyticsConstants.isConncted, value: false)
                 }
+            }
+            
+            do {
+                try reachable.startNotifier()
+            } catch let error {
+                print(error)
             }
         }
     }

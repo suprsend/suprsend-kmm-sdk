@@ -28,7 +28,7 @@ public extension SuprSend {
     }
     
     @objc
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
         if let id = userInfo[AnalyticsConstants.nid],
            let viaSuperSend = userInfo[Constants.viaSuprSend] as? Bool, viaSuperSend == true {
             suprSendiOSAPI.track(eventName: AnalyticsConstants.notificationDelivered, properties: [AnalyticsConstants.id: id])
