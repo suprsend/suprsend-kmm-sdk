@@ -33,7 +33,7 @@ private constructor(
         val userLocalDatasource = UserLocalDatasource()
         val userId = userLocalDatasource.getIdentity()
         if (userId.isBlank()) {
-            userLocalDatasource.identify(uuid().lowercase())
+            userLocalDatasource.identify(uuid())
         }
 
         // Device Properties
