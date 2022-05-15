@@ -3,15 +3,17 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D74E5D928269D5600B886E0 /* SuprSendSdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D74E5D828269D5600B886E0 /* SuprSendSdk.framework */; };
+		2D74E5DA28269D5600B886E0 /* SuprSendSdk.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2D74E5D828269D5600B886E0 /* SuprSendSdk.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2D74E5DC28269D6F00B886E0 /* SuprsendCore.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D74E5DB28269D6F00B886E0 /* SuprsendCore.xcframework */; };
+		2D74E5DD28269D6F00B886E0 /* SuprsendCore.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2D74E5DB28269D6F00B886E0 /* SuprsendCore.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2DA33B932736559900ED968A /* IosMutationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA33B922736559900ED968A /* IosMutationHandler.swift */; };
 		2DE46BB92731A751001C41FF /* SuprSendSdk.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DE46BAB2731A751001C41FF /* SuprSendSdk.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		35FA26EF88F58E741A4FF382 /* Pods_SuprSendSdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A00B64DFE24F780CCAD7F23 /* Pods_SuprSendSdk.framework */; };
 		880ABBB427F182D100DA93D9 /* UNNotificationResponse+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880ABBB327F182D100DA93D9 /* UNNotificationResponse+Utility.swift */; };
-		880D9B4B281AE547000B929B /* Pods_SuprSendSdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A00B64DFE24F780CCAD7F23 /* Pods_SuprSendSdk.framework */; };
 		881FDF6A27F981F900FF9EDC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881FDF6927F981F900FF9EDC /* Constants.swift */; };
 		8836C6E9282E73E50089487F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8836C6E8282E73E50089487F /* SystemConfiguration.framework */; };
 		8836C6EB282E77330089487F /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8836C6EA282E77330089487F /* Reachability.swift */; };
@@ -23,7 +25,35 @@
 		88A03F4B27DE1799007C4ED2 /* SuprSendSDKConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A03F4A27DE1798007C4ED2 /* SuprSendSDKConfiguration.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		2D74E5C5282695BA00B886E0 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				2D74E5DD28269D6F00B886E0 /* SuprsendCore.xcframework in Embed Frameworks */,
+				2D74E5DA28269D5600B886E0 /* SuprSendSdk.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		2D74E5C2282695B900B886E0 /* SuprsendCore.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = SuprsendCore.xcframework; sourceTree = "<group>"; };
+		2D74E5CD28269D2600B886E0 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		2D74E5CF28269D2600B886E0 /* IosMutationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IosMutationHandler.swift; sourceTree = "<group>"; };
+		2D74E5D028269D2600B886E0 /* SuprSend+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SuprSend+Utilities.swift"; sourceTree = "<group>"; };
+		2D74E5D128269D2600B886E0 /* UNNotificationResponse+Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UNNotificationResponse+Utility.swift"; sourceTree = "<group>"; };
+		2D74E5D228269D2600B886E0 /* SuprSendSDKConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuprSendSDKConfiguration.swift; sourceTree = "<group>"; };
+		2D74E5D328269D2600B886E0 /* SuprSendSdk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SuprSendSdk.h; sourceTree = "<group>"; };
+		2D74E5D428269D2600B886E0 /* SuprSend+PushNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SuprSend+PushNotifications.swift"; sourceTree = "<group>"; };
+		2D74E5D528269D2600B886E0 /* AnalyticsConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsConstants.swift; sourceTree = "<group>"; };
+		2D74E5D628269D2600B886E0 /* SuprSend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuprSend.swift; sourceTree = "<group>"; };
+		2D74E5D728269D2600B886E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2D74E5D828269D5600B886E0 /* SuprSendSdk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SuprSendSdk.framework; path = ../ECommerceAppSwiftUI/SuprSendSdk.framework; sourceTree = "<group>"; };
+		2D74E5DB28269D6F00B886E0 /* SuprsendCore.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = SuprsendCore.xcframework; path = ../ECommerceAppSwiftUI/SuprsendCore.xcframework; sourceTree = "<group>"; };
 		2DA33B922736559900ED968A /* IosMutationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IosMutationHandler.swift; sourceTree = "<group>"; };
 		2DE46BA82731A751001C41FF /* SuprSendSdk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SuprSendSdk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DE46BAB2731A751001C41FF /* SuprSendSdk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SuprSendSdk.h; sourceTree = "<group>"; };
@@ -49,9 +79,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				880D9B4B281AE547000B929B /* Pods_SuprSendSdk.framework in Frameworks */,
-				8836C6E9282E73E50089487F /* SystemConfiguration.framework in Frameworks */,
-				35FA26EF88F58E741A4FF382 /* Pods_SuprSendSdk.framework in Frameworks */,
+				2D74E5DC28269D6F00B886E0 /* SuprsendCore.xcframework in Frameworks */,
+				2D74E5D928269D5600B886E0 /* SuprSendSdk.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -67,6 +96,31 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		2D74E5CC28269D2600B886E0 /* SuprSendSdk */ = {
+			isa = PBXGroup;
+			children = (
+				2D74E5CD28269D2600B886E0 /* Constants.swift */,
+				2D74E5CE28269D2600B886E0 /* mutation */,
+				2D74E5D028269D2600B886E0 /* SuprSend+Utilities.swift */,
+				2D74E5D128269D2600B886E0 /* UNNotificationResponse+Utility.swift */,
+				2D74E5D228269D2600B886E0 /* SuprSendSDKConfiguration.swift */,
+				2D74E5D328269D2600B886E0 /* SuprSendSdk.h */,
+				2D74E5D428269D2600B886E0 /* SuprSend+PushNotifications.swift */,
+				2D74E5D528269D2600B886E0 /* AnalyticsConstants.swift */,
+				2D74E5D628269D2600B886E0 /* SuprSend.swift */,
+				2D74E5D728269D2600B886E0 /* Info.plist */,
+			);
+			path = SuprSendSdk;
+			sourceTree = "<group>";
+		};
+		2D74E5CE28269D2600B886E0 /* mutation */ = {
+			isa = PBXGroup;
+			children = (
+				2D74E5CF28269D2600B886E0 /* IosMutationHandler.swift */,
+			);
+			path = mutation;
+			sourceTree = "<group>";
+		};
 		2DA33B8F273653D100ED968A /* mutation */ = {
 			isa = PBXGroup;
 			children = (
@@ -78,8 +132,11 @@
 		2DAB6EBA2731AC6F00630827 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				8836C6E8282E73E50089487F /* SystemConfiguration.framework */,
+				2D74E5DB28269D6F00B886E0 /* SuprsendCore.xcframework */,
+				2D74E5D828269D5600B886E0 /* SuprSendSdk.framework */,
+				2D74E5CC28269D2600B886E0 /* SuprSendSdk */,
 				880D9B47281AE4C6000B929B /* SuprsendCore.xcframework */,
+				2D74E5C2282695B900B886E0 /* SuprsendCore.xcframework */,
 				2DFBFC8B27468E0E00F62BF5 /* libsqlite3.tbd */,
 				6A00B64DFE24F780CCAD7F23 /* Pods_SuprSendSdk.framework */,
 			);
@@ -146,6 +203,7 @@
 				2DE46BA42731A751001C41FF /* Sources */,
 				2DE46BA52731A751001C41FF /* Frameworks */,
 				2DE46BA62731A751001C41FF /* Resources */,
+				2D74E5C5282695BA00B886E0 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

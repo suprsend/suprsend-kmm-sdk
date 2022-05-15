@@ -8,5 +8,6 @@ target 'ECommerceAppSwiftUI' do
   # Pods for ECommerceAppSwiftUI
   # pod 'SuprsendCore'
    pod 'SuprSendSdk'
- 
+   pod 'Reachability'
+
 end

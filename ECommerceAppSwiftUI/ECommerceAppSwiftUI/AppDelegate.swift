@@ -18,9 +18,11 @@ class AppDelegate: UIResponder {
         
         print("app : App init")
         
-        let suprSendConfiguration = SuprSendSDKConfiguration(withKey: "kfWdrPL1nFqs7OUihiBn",
-                                                             secret: "From1HA1ZiSXs3ofBHXh",
-            baseUrl: "https://collector-staging.suprsend.workers.dev/")
+        let suprSendConfiguration = SuprSendSDKConfiguration(
+        withKey: "kfWdrPL1nFqs7OUihiBn",
+        secret: "From1HA1ZiSXs3ofBHXh",
+        baseUrl: "https://collector-staging.suprsend.workers.dev"
+        )
 
         SuprSend.shared.configureWith(configuration: suprSendConfiguration  , launchOptions: launchOptions)
         SuprSend.shared.enableLogging()
@@ -50,10 +52,10 @@ extension AppDelegate: UIApplicationDelegate {
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         SuprSend.shared.application(application, didReceiveRemoteNotification: userInfo)
-        
+
         completionHandler(.newData)
     }
-    
+
 }
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
@@ -68,7 +70,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        
+
         if #available(iOS 14.0, *) {
             completionHandler([.banner, .badge, .sound])
         } else {
@@ -76,5 +78,5 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
             completionHandler([.alert, .badge, .sound])
         }
     }
-    
+
 }
