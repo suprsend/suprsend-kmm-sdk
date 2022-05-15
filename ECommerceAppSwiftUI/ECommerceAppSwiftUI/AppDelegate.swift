@@ -50,6 +50,12 @@ extension AppDelegate: UIApplicationDelegate {
         SuprSend.shared.setPushNotificationToken(token: token)
     }
     
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        SuprSend.shared.application(application, didReceiveRemoteNotification: userInfo)
+
+        completionHandler(.newData)
+    }
+
 }
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
@@ -64,11 +70,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        
-        if notification.isSuperSendNotification() {
-            SuprSend.shared.userNotificationCenter(center, willPresent: notification)
-        }
-        
+
         if #available(iOS 14.0, *) {
             completionHandler([.banner, .badge, .sound])
         } else {
@@ -76,4 +78,5 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
             completionHandler([.alert, .badge, .sound])
         }
     }
+
 }

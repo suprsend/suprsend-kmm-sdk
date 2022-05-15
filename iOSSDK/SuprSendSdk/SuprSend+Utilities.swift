@@ -42,6 +42,14 @@ extension SuprSend {
         suprSendiOSAPI.getUser().append(key: key, value: value)
     }
     
+    @objc public func append(properties: [String: Any]) {
+        suprSendiOSAPI.getUser().append(properties: properties)
+    }
+    
+    @objc public func remove(properties: [String: Any]) {
+        suprSendiOSAPI.getUser().remove(properties: properties)
+    }
+    
     @objc public func remove(key: String, value: Any) {
         suprSendiOSAPI.getUser().remove(key: key, value: value)
     }
