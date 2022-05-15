@@ -1,0 +1,19 @@
+import app.suprsend.event.EventModel;
+
+CREATE TABLE EventTable (
+    id TEXT PRIMARY KEY NOT NULL,
+    model TEXT AS EventModel,
+    isDirty INTEGER NOT NULL,
+    timeStamp INTEGER NOT NULL
+);
+
+track:
+INSERT OR FAIL INTO EventTable(id,model,isDirty,timeStamp) VALUES (?,?,?,?);
+
+
+getTrackedEvents:
+SELECT *
+FROM EventTable WHERE isDirty =? ORDER BY timeStamp LIMIT :limit ;
+
+delete:
+DELETE FROM EventTable WHERE id IN ?;

@@ -11,6 +11,14 @@
 		7555FF83242A565900829871 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* ContentView.swift */; };
 		7555FFB2242A642300829871 /* shared.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7555FFB1242A642300829871 /* shared.framework */; };
 		7555FFB3242A642300829871 /* shared.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7555FFB1242A642300829871 /* shared.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A79D0C91270827270017DEF7 /* RemoteImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79D0C90270827270017DEF7 /* RemoteImage.swift */; };
+		A79D0C94270846450017DEF7 /* WalkThroughtView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79D0C93270846450017DEF7 /* WalkThroughtView.swift */; };
+		A79D0C96270846770017DEF7 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79D0C95270846770017DEF7 /* LoginView.swift */; };
+		A79D0C98270846B70017DEF7 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79D0C97270846B70017DEF7 /* HomeView.swift */; };
+		A79D0C9A270846D90017DEF7 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79D0C99270846D90017DEF7 /* AppConstants.swift */; };
+		A79D0C9C270846FD0017DEF7 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79D0C9B270846FD0017DEF7 /* Product.swift */; };
+		A79D0C9E27084E9A0017DEF7 /* ProductDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79D0C9D27084E9A0017DEF7 /* ProductDetailView.swift */; };
+		A7BB31EE270360FC0042D04E /* StringExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BB31ED270360FC0042D04E /* StringExt.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -33,6 +41,14 @@
 		7555FF82242A565900829871 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7555FFB1242A642300829871 /* shared.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = shared.framework; path = "../shared/build/xcode-frameworks/shared.framework"; sourceTree = "<group>"; };
+		A79D0C90270827270017DEF7 /* RemoteImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteImage.swift; sourceTree = "<group>"; };
+		A79D0C93270846450017DEF7 /* WalkThroughtView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkThroughtView.swift; sourceTree = "<group>"; };
+		A79D0C95270846770017DEF7 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		A79D0C97270846B70017DEF7 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		A79D0C99270846D90017DEF7 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
+		A79D0C9B270846FD0017DEF7 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
+		A79D0C9D27084E9A0017DEF7 /* ProductDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailView.swift; sourceTree = "<group>"; };
+		A7BB31ED270360FC0042D04E /* StringExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExt.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,9 +83,14 @@
 		7555FF7D242A565900829871 /* iosApp */ = {
 			isa = PBXGroup;
 			children = (
+				A79D0C92270846340017DEF7 /* ui */,
 				7555FF82242A565900829871 /* ContentView.swift */,
 				7555FF8C242A565B00829871 /* Info.plist */,
 				2152FB032600AC8F00CF470E /* iOSApp.swift */,
+				A7BB31ED270360FC0042D04E /* StringExt.swift */,
+				A79D0C90270827270017DEF7 /* RemoteImage.swift */,
+				A79D0C99270846D90017DEF7 /* AppConstants.swift */,
+				A79D0C9B270846FD0017DEF7 /* Product.swift */,
 			);
 			path = iosApp;
 			sourceTree = "<group>";
@@ -80,6 +101,17 @@
 				7555FFB1242A642300829871 /* shared.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A79D0C92270846340017DEF7 /* ui */ = {
+			isa = PBXGroup;
+			children = (
+				A79D0C93270846450017DEF7 /* WalkThroughtView.swift */,
+				A79D0C95270846770017DEF7 /* LoginView.swift */,
+				A79D0C97270846B70017DEF7 /* HomeView.swift */,
+				A79D0C9D27084E9A0017DEF7 /* ProductDetailView.swift */,
+			);
+			path = ui;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -172,8 +204,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
+				A79D0C96270846770017DEF7 /* LoginView.swift in Sources */,
+				A79D0C9E27084E9A0017DEF7 /* ProductDetailView.swift in Sources */,
+				A79D0C98270846B70017DEF7 /* HomeView.swift in Sources */,
+				A79D0C9C270846FD0017DEF7 /* Product.swift in Sources */,
+				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
+				A79D0C9A270846D90017DEF7 /* AppConstants.swift in Sources */,
+				A7BB31EE270360FC0042D04E /* StringExt.swift in Sources */,
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,
+				A79D0C94270846450017DEF7 /* WalkThroughtView.swift in Sources */,
+				A79D0C91270827270017DEF7 /* RemoteImage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -300,6 +340,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
 				CODE_SIGN_STYLE = Automatic;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../shared/build/xcode-frameworks";
@@ -319,6 +360,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
 				CODE_SIGN_STYLE = Automatic;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../shared/build/xcode-frameworks";
