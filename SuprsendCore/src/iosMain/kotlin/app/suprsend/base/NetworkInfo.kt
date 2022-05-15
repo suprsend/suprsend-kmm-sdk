@@ -12,6 +12,7 @@ import platform.CoreTelephony.CTRadioAccessTechnologyLTE
 import platform.CoreTelephony.CTRadioAccessTechnologyWCDMA
 import platform.CoreTelephony.CTRadioAccessTechnologyeHRPD
 import platform.CoreTelephony.CTTelephonyNetworkInfo
+import cocoapods.Reachability.Reachability
 
 internal class NetworkInfo {
 
@@ -33,8 +34,9 @@ internal class NetworkInfo {
         return NetworkType.UNKNOWN
     }
 
-//    fun isConnected(): Boolean {
-//    }
+    fun isConnected(): Boolean {
+        return Reachability.reachabilityForInternetConnection()?.isReachable() == true
+    }
 }
 
 enum class NetworkType(val readableName: String) {

@@ -56,7 +56,9 @@ struct LoginView: View {
                         .shadow(radius: 0.9)
                 })
                 
-                Button(action: {}, label: {
+                Button(action: {
+                    CommonAnalyticsHandler.track(eventName: "Join Apple")
+                }, label: {
                     Label(
                         title: { Text("Join using Apple") },
                         icon: { Image("apple").resizable()

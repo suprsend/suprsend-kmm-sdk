@@ -51,6 +51,10 @@ struct CommonAnalyticsHandler {
         SuprSend.shared.unSet(key:key)
     }
     
+    static func setSms(mobileNumber: String) {
+        SuprSend.shared.setSms(mobileNumber: mobileNumber)
+    }
+    
     static func reset() {
         SuprSend.shared.reset()
     }

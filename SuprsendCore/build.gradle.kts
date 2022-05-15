@@ -2,6 +2,7 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
 
 plugins {
     kotlin("multiplatform")
+    kotlin("native.cocoapods")
     id("com.android.library")
     id("kotlinx-serialization")
     id("com.squareup.sqldelight")
@@ -17,6 +18,13 @@ kotlin {
     android {
         publishLibraryVariants("release", "debug")
         publishLibraryVariantsGroupedByFlavor = true
+    }
+    cocoapods {
+        summary = "Core SuprSend Framework"
+        homepage = "https://github.com/suprsend/suprsend-kmm-sdk"
+        frameworkName = "SuprsendCore"
+
+        pod("Reachability")
     }
 
     val xcf = XCFramework()

@@ -1,16 +1,20 @@
 PODS:
+  - Reachability (3.2)
   - SuprSendSdk (1.0.0)
 
 DEPENDENCIES:
+  - Reachability
   - SuprSendSdk
 
 SPEC REPOS:
   trunk:
+    - Reachability
     - SuprSendSdk
 
 SPEC CHECKSUMS:
+  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   SuprSendSdk: aa988cb0547c46d0d32ba25d2feb404f590cee41
 
-PODFILE CHECKSUM: e7a30592d6949ae32a8eaf9fcc71243c21bb6718
+PODFILE CHECKSUM: 6248a53b0d89ed2e87f28c2da57463a3398ca838
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.11.2

@@ -16,11 +16,12 @@ internal class DeviceInfo {
             put("\$os_version", JsonPrimitive(osVersion()))
             put("\$model", JsonPrimitive(model()))
             put(SSConstants.DEVICE_ID, JsonPrimitive(getDeviceId()))
-//            put("\$ss_sdk_version", JsonPrimitive(BuildConfig.SS_SDK_VERSION_NAME))
 
-//            val networkInfo = SdkIosCreator.networkInfo
+            put("\$ss_sdk_version", JsonPrimitive("0.1Beta1"))
+
+            val networkInfo = SdkIosCreator.networkInfo
 //            put("\$network", JsonPrimitive(networkInfo.getNetworkType().readableName))
-//            put("\$connected", JsonPrimitive(networkInfo.isConnected().toString()))
+            put("\$connected", JsonPrimitive(networkInfo.isConnected().toString()))
         }.toString()
     }
 
