@@ -10,3 +10,6 @@
 .cxx
 local.properties
 /iOSSDK/Pods
+/ECommerceAppSwiftUI/Pods
+/ECommerceAppSwiftUI/SuprsendCore.xcframework
+/ECommerceAppSwiftUI/SuprSendSdk.framework
