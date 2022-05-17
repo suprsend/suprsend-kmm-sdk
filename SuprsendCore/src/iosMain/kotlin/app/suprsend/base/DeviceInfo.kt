@@ -19,9 +19,9 @@ internal class DeviceInfo {
 
             put("\$ss_sdk_version", JsonPrimitive("ios-rn/0.1.0Beta1"))
 
-            val networkInfo = SdkIosCreator.networkInfo
-            put("\$network", JsonPrimitive(networkInfo.getNetworkType().readableName))
-            put("\$connected", JsonPrimitive(networkInfo.isConnected().toString()))
+//            val networkInfo = SdkIosCreator.networkInfo
+//            put("\$network", JsonPrimitive(networkInfo.getNetworkType().readableName))
+//            put("\$connected", JsonPrimitive(networkInfo.isConnected().toString()))
         }.toString()
     }
 
