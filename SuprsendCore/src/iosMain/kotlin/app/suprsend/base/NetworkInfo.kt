@@ -12,17 +12,17 @@ package app.suprsend.base
 //import platform.CoreTelephony.CTRadioAccessTechnologyWCDMA
 //import platform.CoreTelephony.CTRadioAccessTechnologyeHRPD
 //import platform.CoreTelephony.CTTelephonyNetworkInfo
-import cocoapods.Reachability.Reachability
+//import cocoapods.Reachability.Reachability
 
 internal class NetworkInfo {
 
     fun getNetworkType(): NetworkType {
-        val connection = Reachability.reachabilityForInternetConnection()
-        return when {
-            connection?.isReachableViaWiFi() == true -> NetworkType.WIFI
-            connection?.isReachableViaWWAN() == true -> NetworkType.CELLULAR
-            else -> NetworkType.UNKNOWN
-        }
+//        val connection = Reachability.reachabilityForInternetConnection()
+//        return when {
+//            connection?.isReachableViaWiFi() == true -> NetworkType.WIFI
+//            connection?.isReachableViaWWAN() == true -> NetworkType.CELLULAR
+//            else -> NetworkType.UNKNOWN
+//        }
 //        when (CTTelephonyNetworkInfo().currentRadioAccessTechnology) {
 //            CTRadioAccessTechnologyGPRS,
 //            CTRadioAccessTechnologyEdge,
@@ -36,11 +36,12 @@ internal class NetworkInfo {
 //            CTRadioAccessTechnologyeHRPD -> NetworkType.G3
 //            CTRadioAccessTechnologyLTE -> NetworkType.G4
 //        }
-//        return NetworkType.UNKNOWN
+        return NetworkType.UNKNOWN
     }
 
     fun isConnected(): Boolean {
-        return Reachability.reachabilityForInternetConnection()?.isReachable() == true
+//        return Reachability.reachabilityForInternetConnection()?.isReachable() == true
+        return false
     }
 }
 
