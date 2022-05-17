@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import SuprsendCore
+import SwiftUI
 
 @objc
 public extension SuprSend {
@@ -32,6 +33,12 @@ public extension SuprSend {
         if let id = userInfo[AnalyticsConstants.nid],
            let viaSuperSend = userInfo[Constants.viaSuprSend] as? Bool, viaSuperSend == true {
             suprSendiOSAPI.track(eventName: AnalyticsConstants.notificationDelivered, properties: [AnalyticsConstants.id: id])
+            
+            let deadlineTime = DispatchTime.now() + .seconds(2)
+            DispatchQueue.main.asyncAfter(deadline: deadlineTime) {
+                self.suprSendiOSAPI.flush()
+            }
+
         }
     }
     
