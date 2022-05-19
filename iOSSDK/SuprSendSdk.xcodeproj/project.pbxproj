@@ -3,19 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2D74E5D928269D5600B886E0 /* SuprSendSdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D74E5D828269D5600B886E0 /* SuprSendSdk.framework */; };
-		2D74E5DA28269D5600B886E0 /* SuprSendSdk.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2D74E5D828269D5600B886E0 /* SuprSendSdk.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		2D74E5DC28269D6F00B886E0 /* SuprsendCore.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D74E5DB28269D6F00B886E0 /* SuprsendCore.xcframework */; };
-		2D74E5DD28269D6F00B886E0 /* SuprsendCore.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2D74E5DB28269D6F00B886E0 /* SuprsendCore.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2DA33B932736559900ED968A /* IosMutationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA33B922736559900ED968A /* IosMutationHandler.swift */; };
 		2DE46BB92731A751001C41FF /* SuprSendSdk.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DE46BAB2731A751001C41FF /* SuprSendSdk.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		880ABBB427F182D100DA93D9 /* UNNotificationResponse+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880ABBB327F182D100DA93D9 /* UNNotificationResponse+Utility.swift */; };
 		881FDF6A27F981F900FF9EDC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881FDF6927F981F900FF9EDC /* Constants.swift */; };
-		8836C6E9282E73E50089487F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8836C6E8282E73E50089487F /* SystemConfiguration.framework */; };
 		8836C6EB282E77330089487F /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8836C6EA282E77330089487F /* Reachability.swift */; };
 		8883560C27E07C2B0005A920 /* AnalyticsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8883560B27E07C2B0005A920 /* AnalyticsConstants.swift */; };
 		88932D9827D74713003D68B2 /* SuprSendSdk.h in Sources */ = {isa = PBXBuildFile; fileRef = 2DE46BAB2731A751001C41FF /* SuprSendSdk.h */; };
@@ -23,22 +18,8 @@
 		88A03F4627DCA1AF007C4ED2 /* SuprSend+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A03F4527DCA1AF007C4ED2 /* SuprSend+Utilities.swift */; };
 		88A03F4927DCB408007C4ED2 /* SuprSend+PushNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A03F4827DCB408007C4ED2 /* SuprSend+PushNotifications.swift */; };
 		88A03F4B27DE1799007C4ED2 /* SuprSendSDKConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A03F4A27DE1798007C4ED2 /* SuprSendSDKConfiguration.swift */; };
+		905502EB9A3BDDA2E11B80D4 /* Pods_SuprSendSdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A00B64DFE24F780CCAD7F23 /* Pods_SuprSendSdk.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		2D74E5C5282695BA00B886E0 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				2D74E5DD28269D6F00B886E0 /* SuprsendCore.xcframework in Embed Frameworks */,
-				2D74E5DA28269D5600B886E0 /* SuprSendSdk.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		2D74E5C2282695B900B886E0 /* SuprsendCore.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = SuprsendCore.xcframework; sourceTree = "<group>"; };
@@ -64,7 +45,6 @@
 		880ABBB327F182D100DA93D9 /* UNNotificationResponse+Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UNNotificationResponse+Utility.swift"; sourceTree = "<group>"; };
 		880D9B47281AE4C6000B929B /* SuprsendCore.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = SuprsendCore.xcframework; path = Pods/SuprsendCore/SuprsendCore.xcframework; sourceTree = "<group>"; };
 		881FDF6927F981F900FF9EDC /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		8836C6E8282E73E50089487F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		8836C6EA282E77330089487F /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		8883560B27E07C2B0005A920 /* AnalyticsConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsConstants.swift; sourceTree = "<group>"; };
 		88A03F4027DC8E5C007C4ED2 /* SuprSend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuprSend.swift; sourceTree = "<group>"; };
@@ -79,8 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2D74E5DC28269D6F00B886E0 /* SuprsendCore.xcframework in Frameworks */,
-				2D74E5D928269D5600B886E0 /* SuprSendSdk.framework in Frameworks */,
+				905502EB9A3BDDA2E11B80D4 /* Pods_SuprSendSdk.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -203,7 +182,6 @@
 				2DE46BA42731A751001C41FF /* Sources */,
 				2DE46BA52731A751001C41FF /* Frameworks */,
 				2DE46BA62731A751001C41FF /* Resources */,
-				2D74E5C5282695BA00B886E0 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

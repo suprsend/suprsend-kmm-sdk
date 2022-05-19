@@ -8,7 +8,6 @@
 import Foundation
 import SuprsendCore
 import UIKit
-import SystemConfiguration
 
 @objc
 public class SuprSend: NSObject {
@@ -40,33 +39,10 @@ public class SuprSend: NSObject {
             trackNotificationDidLaunchAppEvent(id: id)
         }
         
-      //  checkForNetworkReachability()
     }
     
     @objc public func enableLogging() {
         IOSSSApi.Companion.init().enableLogging()
     }
-    
-    func checkForNetworkReachability() {
-        if let reachable = reachability {
-            reachable.whenReachable = { _ in
-                DispatchQueue.main.async {
-                    self.suprSendiOSAPI.getUser().set(key: AnalyticsConstants.isConncted, value: true)
-                    self.suprSendiOSAPI.getUser().set(key: AnalyticsConstants.network, value: reachable.connection == .wifi ? AnalyticsConstants.wifi : AnalyticsConstants.cellular)
-                }
-            }
-            reachable.whenUnreachable = { _ in
-                DispatchQueue.main.async {
-                    self.suprSendiOSAPI.getUser().set(key: AnalyticsConstants.isConncted, value: false)
-                }
-            }
-            
-            do {
-                try reachable.startNotifier()
-            } catch let error {
-                print(error)
-            }
-        }
-    }
-    
+        
 }

@@ -25,6 +25,11 @@ public extension SuprSend {
          if let id = response.notification.request.content.userInfo[AnalyticsConstants.nid],
             response.isSuprSendNotification() {
              suprSendiOSAPI.track(eventName: AnalyticsConstants.notificationClicked, properties: [AnalyticsConstants.id: id])
+             
+             let deadlineTime = DispatchTime.now() + .seconds(2)
+             DispatchQueue.main.asyncAfter(deadline: deadlineTime) {
+                 self.suprSendiOSAPI.flush()
+             }
          }
     }
     
