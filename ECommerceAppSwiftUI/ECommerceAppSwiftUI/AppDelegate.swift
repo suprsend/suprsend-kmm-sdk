@@ -20,9 +20,7 @@ class AppDelegate: UIResponder {
         
         let suprSendConfiguration = SuprSendSDKConfiguration(
         withKey: "kfWdrPL1nFqs7OUihiBn",
-        secret: "From1HA1ZiSXs3ofBHXh",
-        baseUrl: "https://collector-staging.suprsend.workers.dev"
-        )
+        secret: "From1HA1ZiSXs3ofBHXh")
 
         SuprSend.shared.configureWith(configuration: suprSendConfiguration  , launchOptions: launchOptions)
         SuprSend.shared.enableLogging()

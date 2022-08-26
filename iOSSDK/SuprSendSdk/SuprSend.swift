@@ -30,15 +30,6 @@ public class SuprSend: NSObject {
             print("Error = \(error)")
         }
         
-        // Check if App launched from notification
-        let notificationOption = launchOptions?[.remoteNotification]
-        if let notification = notificationOption as? [String: AnyObject],
-           let viaSuprSend = notification[Constants.viaSuprSend] as? Bool,
-           viaSuprSend == true,
-           let id = notification[AnalyticsConstants.nid] as! String? {
-            trackNotificationDidLaunchAppEvent(id: id)
-        }
-        
     }
     
     @objc public func enableLogging() {
