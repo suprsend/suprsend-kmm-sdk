@@ -20,18 +20,25 @@ class AppDelegate: UIResponder {
         
         let suprSendConfiguration = SuprSendSDKConfiguration(
         withKey: "kfWdrPL1nFqs7OUihiBn",
-        secret: "From1HA1ZiSXs3ofBHXh")
+        secret: "From1HA1ZiSXs3ofBHXh",
+        baseUrl: "https://collector-staging.suprsend.workers.dev/")
 
         SuprSend.shared.configureWith(configuration: suprSendConfiguration  , launchOptions: launchOptions)
         SuprSend.shared.enableLogging()
+        
+        1.   var options: UNAuthorizationOptions = [.badge, .alert, .sound]
+        
+        2.  var options: UNAuthorizationOptions = .provisional
+        
+        var options: UNAuthorizationOptions = [.badge, .alert, .sound]
 
-        SuprSend.shared.registerForPushNotifications()
+        3.  if #available(iOS 12.0, *) {
+          options = UNAuthorizationOptions(rawValue: options.rawValue | UNAuthorizationOptions.provisional.rawValue)
+        }
+
+        
+        SuprSend.shared.registerForPushNotifications(options: options)
     
-        return true
-    }
-    
-    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        print("App Delegate Open Url : \(url)")
         return true
     }
 
@@ -52,6 +59,21 @@ extension AppDelegate: UIApplicationDelegate {
         SuprSend.shared.application(application, didReceiveRemoteNotification: userInfo)
 
         completionHandler(.newData)
+    }
+    
+    func application(_ app: UIApplication, open url: URL,
+                     options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        if let scheme = url.scheme,
+            scheme.localizedCaseInsensitiveCompare("com.ecommerceApp") == .orderedSame,
+            let view = url.host {
+            
+            var parameters: [String: String] = [:]
+            URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems?.forEach {
+                parameters[$0.name] = $0.value
+            }
+            
+        }
+        return true
     }
 
 }

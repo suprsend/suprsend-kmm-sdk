@@ -18,4 +18,5 @@ struct AnalyticsConstants {
     static let isConncted = "$connected"
     static let cellular = "cellular"
     static let wifi = "wifi"
+    static let globalActionUrl = "global_action_url"
 }

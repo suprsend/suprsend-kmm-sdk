@@ -14,6 +14,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
     
+    let decideViewModel = DecideViewModel(selectedTab: 0)
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
@@ -23,7 +25,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         print("demo : configure scene")
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
-            window.rootViewController = UIHostingController(rootView: DecideView())
+            window.rootViewController = UIHostingController(rootView: DecideView(decideViewModel: decideViewModel))
             self.window = window
             window.makeKeyAndVisible()
         }
@@ -31,12 +33,26 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, openURLContexts urlContexts: Set<UIOpenURLContext>) {
         
         let urllink = urlContexts.first {
-            
-            return $0.url.scheme == "supr"
+            return $0.url.scheme == "demoApp"
         }
         
-        print("Url : \(urllink?.url)")
         
+        guard let incomingUrl = urllink?.url.absoluteString else { return  }
+        let urlMinusScheme = incomingUrl.replacingOccurrences(of: "demoApp://", with: "")
+        print(urlMinusScheme)
+        
+        switch urlMinusScheme {
+        case "firstTab":
+            decideViewModel.selectedTab = 0
+        case "secondTab":
+            decideViewModel.selectedTab = 1
+        case "thirdTab":
+            decideViewModel.selectedTab = 2
+        case "fourthTab":
+            decideViewModel.selectedTab = 3
+        default:
+            break
+        }
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {

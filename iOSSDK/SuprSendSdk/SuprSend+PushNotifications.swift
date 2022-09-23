@@ -21,49 +21,47 @@ public extension SuprSend {
         suprSendiOSAPI.getUser().unSetIOSPush(token: token)
     }
     
+    // Notification Click
     @objc func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse) {
          if let id = response.notification.request.content.userInfo[AnalyticsConstants.nid],
             response.isSuprSendNotification() {
              suprSendiOSAPI.track(eventName: AnalyticsConstants.notificationClicked, properties: [AnalyticsConstants.id: id])
              
-             let deadlineTime = DispatchTime.now() + .seconds(2)
-             DispatchQueue.main.asyncAfter(deadline: deadlineTime) {
-                 self.suprSendiOSAPI.flush()
+             self.suprSendiOSAPI.flush()
+
+             // Check if Deep link exists
+             if let deeplink = response.notification.request.content.userInfo[AnalyticsConstants.globalActionUrl] as? String,
+                 let url = URL(string: deeplink) {
+                 UIApplication.shared.open(url)
+             }
+             
+             if let badgeNumber = response.notification.request.content.badge {
+                 UIApplication.shared.applicationIconBadgeNumber = badgeNumber.intValue
              }
          }
     }
     
+    // Notification Delivered
     @objc
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
         if let id = userInfo[AnalyticsConstants.nid],
            let viaSuperSend = userInfo[Constants.viaSuprSend] as? Bool, viaSuperSend == true {
             suprSendiOSAPI.track(eventName: AnalyticsConstants.notificationDelivered, properties: [AnalyticsConstants.id: id])
-            
-            let deadlineTime = DispatchTime.now() + .seconds(2)
-            DispatchQueue.main.asyncAfter(deadline: deadlineTime) {
-                self.suprSendiOSAPI.flush()
-            }
-
+            self.suprSendiOSAPI.flush()
         }
     }
     
-    @objc func registerForPushNotifications() {
+    @objc func registerForPushNotifications(options: UNAuthorizationOptions) {
         if #available(iOS 10, *) {
           let center = UNUserNotificationCenter.current()
             center.delegate = UIApplication.shared.delegate as? UNUserNotificationCenterDelegate
-          var options: UNAuthorizationOptions = [.alert, .sound, .badge]
-          if #available(iOS 12.0, *) {
-            options = UNAuthorizationOptions(rawValue: options.rawValue | UNAuthorizationOptions.provisional.rawValue)
-          }
-            
-          center.requestAuthorization(options: options) { (granted, error) in
+            center.requestAuthorization(options: options) { (granted, error) in
               if granted {
                   DispatchQueue.main.async {
                     UIApplication.shared.registerForRemoteNotifications()
                   }
               }
           }
-            
         }
     }
     

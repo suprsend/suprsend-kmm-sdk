@@ -63,20 +63,44 @@
 		531630701530613AFA193C47 /* Pods_ECommerceAppSwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ABF94E64DE73773D681601E /* Pods_ECommerceAppSwiftUI.framework */; };
 		599FD17026C9223E00DFCF64 /* LineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 599FD16F26C9223E00DFCF64 /* LineView.swift */; };
 		59BBEADC262F45B600102A61 /* ItemRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59BBEADB262F45B600102A61 /* ItemRow.swift */; };
+		887085D228D83D35004CA177 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887085D128D83D35004CA177 /* NotificationService.swift */; };
+		887085D628D83D35004CA177 /* ECommerceAppSwiftUINotificationService.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 887085CF28D83D34004CA177 /* ECommerceAppSwiftUINotificationService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		887A0E81280BCD4C003A96BB /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 887A0E80280BCD2B003A96BB /* libsqlite3.tbd */; };
-		888F5FAE2828066D0019BB84 /* SuprsendCore.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 888F5FAB2828052A0019BB84 /* SuprsendCore.xcframework */; };
-		888F5FAF2828066D0019BB84 /* SuprsendCore.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 888F5FAB2828052A0019BB84 /* SuprsendCore.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8899515C28DC4B5000AEE82E /* DecideViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8899515B28DC4B5000AEE82E /* DecideViewModel.swift */; };
 		88A03F4427DC9D78007C4ED2 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A03F4327DC9D78007C4ED2 /* AppConstants.swift */; };
+		88FEBAC228DC687300857469 /* SuprSendSdk.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88FEBAC128DC687300857469 /* SuprSendSdk.xcframework */; };
+		88FEBAC328DC687400857469 /* SuprSendSdk.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 88FEBAC128DC687300857469 /* SuprSendSdk.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		887085D428D83D35004CA177 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2A087181238D4CA6002F1E61 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 887085CE28D83D34004CA177;
+			remoteInfo = ECommerceAppSwiftUINotificationService;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
-		888F5FB02828066D0019BB84 /* Embed Frameworks */ = {
+		887085D728D83D35004CA177 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				887085D628D83D35004CA177 /* ECommerceAppSwiftUINotificationService.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		88FEBAC428DC687400857469 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				888F5FAF2828066D0019BB84 /* SuprsendCore.xcframework in Embed Frameworks */,
+				88FEBAC328DC687400857469 /* SuprSendSdk.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -144,9 +168,14 @@
 		59BBEADB262F45B600102A61 /* ItemRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemRow.swift; sourceTree = "<group>"; };
 		5BA1EAEB0B2AD6035A453A85 /* Pods-ECommerceAppSwiftUI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ECommerceAppSwiftUI.release.xcconfig"; path = "Target Support Files/Pods-ECommerceAppSwiftUI/Pods-ECommerceAppSwiftUI.release.xcconfig"; sourceTree = "<group>"; };
 		69CB3BB3134BD48824D0ED05 /* Pods-ECommerceAppSwiftUI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ECommerceAppSwiftUI.debug.xcconfig"; path = "Target Support Files/Pods-ECommerceAppSwiftUI/Pods-ECommerceAppSwiftUI.debug.xcconfig"; sourceTree = "<group>"; };
+		887085CF28D83D34004CA177 /* ECommerceAppSwiftUINotificationService.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ECommerceAppSwiftUINotificationService.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		887085D128D83D35004CA177 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		887085D328D83D35004CA177 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		887A0E80280BCD2B003A96BB /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		888F5FAB2828052A0019BB84 /* SuprsendCore.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = SuprsendCore.xcframework; path = ../SuprsendCore/build/XCFrameworks/debug/SuprsendCore.xcframework; sourceTree = "<group>"; };
+		8899515B28DC4B5000AEE82E /* DecideViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecideViewModel.swift; sourceTree = "<group>"; };
 		88A03F4327DC9D78007C4ED2 /* AppConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
+		88FEBAC128DC687300857469 /* SuprSendSdk.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = SuprSendSdk.xcframework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,10 +183,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				888F5FAE2828066D0019BB84 /* SuprsendCore.xcframework in Frameworks */,
+				88FEBAC228DC687300857469 /* SuprSendSdk.xcframework in Frameworks */,
 				2ADA0F4C239E733500F67F64 /* PartialSheet in Frameworks */,
 				887A0E81280BCD4C003A96BB /* libsqlite3.tbd in Frameworks */,
 				531630701530613AFA193C47 /* Pods_ECommerceAppSwiftUI.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		887085CC28D83D34004CA177 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,6 +204,7 @@
 			isa = PBXGroup;
 			children = (
 				2A08718B238D4CA6002F1E61 /* ECommerceAppSwiftUI */,
+				887085D028D83D34004CA177 /* ECommerceAppSwiftUINotificationService */,
 				2A08718A238D4CA6002F1E61 /* Products */,
 				887A0E5B280B2F19003A96BB /* Frameworks */,
 				FF35AE4BCA196E2C81B1ED51 /* Pods */,
@@ -178,6 +215,7 @@
 			isa = PBXGroup;
 			children = (
 				2A087189238D4CA6002F1E61 /* ECommerceAppSwiftUI.app */,
+				887085CF28D83D34004CA177 /* ECommerceAppSwiftUINotificationService.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -426,6 +464,7 @@
 			isa = PBXGroup;
 			children = (
 				2DAAAA882735A6DB00DAF147 /* DecideView.swift */,
+				8899515B28DC4B5000AEE82E /* DecideViewModel.swift */,
 			);
 			path = Decide;
 			sourceTree = "<group>";
@@ -454,9 +493,19 @@
 			path = LineView;
 			sourceTree = "<group>";
 		};
+		887085D028D83D34004CA177 /* ECommerceAppSwiftUINotificationService */ = {
+			isa = PBXGroup;
+			children = (
+				887085D128D83D35004CA177 /* NotificationService.swift */,
+				887085D328D83D35004CA177 /* Info.plist */,
+			);
+			path = ECommerceAppSwiftUINotificationService;
+			sourceTree = "<group>";
+		};
 		887A0E5B280B2F19003A96BB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				88FEBAC128DC687300857469 /* SuprSendSdk.xcframework */,
 				888F5FAB2828052A0019BB84 /* SuprsendCore.xcframework */,
 				887A0E80280BCD2B003A96BB /* libsqlite3.tbd */,
 				3ABF94E64DE73773D681601E /* Pods_ECommerceAppSwiftUI.framework */,
@@ -485,11 +534,13 @@
 				2A087186238D4CA6002F1E61 /* Frameworks */,
 				2A087187238D4CA6002F1E61 /* Resources */,
 				9DC643DEDB1BE5FCB616176A /* [CP] Embed Pods Frameworks */,
-				888F5FB02828066D0019BB84 /* Embed Frameworks */,
+				887085D728D83D35004CA177 /* Embed Foundation Extensions */,
+				88FEBAC428DC687400857469 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				887085D528D83D35004CA177 /* PBXTargetDependency */,
 			);
 			name = ECommerceAppSwiftUI;
 			packageProductDependencies = (
@@ -499,18 +550,38 @@
 			productReference = 2A087189238D4CA6002F1E61 /* ECommerceAppSwiftUI.app */;
 			productType = "com.apple.product-type.application";
 		};
+		887085CE28D83D34004CA177 /* ECommerceAppSwiftUINotificationService */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 887085DA28D83D35004CA177 /* Build configuration list for PBXNativeTarget "ECommerceAppSwiftUINotificationService" */;
+			buildPhases = (
+				887085CB28D83D34004CA177 /* Sources */,
+				887085CC28D83D34004CA177 /* Frameworks */,
+				887085CD28D83D34004CA177 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ECommerceAppSwiftUINotificationService;
+			productName = ECommerceAppSwiftUINotificationService;
+			productReference = 887085CF28D83D34004CA177 /* ECommerceAppSwiftUINotificationService.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		2A087181238D4CA6002F1E61 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1130;
+				LastSwiftUpdateCheck = 1400;
 				LastUpgradeCheck = 1320;
 				ORGANIZATIONNAME = Suprsend;
 				TargetAttributes = {
 					2A087188238D4CA6002F1E61 = {
 						CreatedOnToolsVersion = 11.3;
+					};
+					887085CE28D83D34004CA177 = {
+						CreatedOnToolsVersion = 14.0;
 					};
 				};
 			};
@@ -524,13 +595,14 @@
 			);
 			mainGroup = 2A087180238D4CA6002F1E61;
 			packageReferences = (
-				2ADA0F4A239E733500F67F64 /* XCRemoteSwiftPackageReference "PartialSheet.git" */,
+				2ADA0F4A239E733500F67F64 /* XCRemoteSwiftPackageReference "PartialSheet" */,
 			);
 			productRefGroup = 2A08718A238D4CA6002F1E61 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				2A087188238D4CA6002F1E61 /* ECommerceAppSwiftUI */,
+				887085CE28D83D34004CA177 /* ECommerceAppSwiftUINotificationService */,
 			);
 		};
 /* End PBXProject section */
@@ -556,6 +628,13 @@
 				2A087193238D4CAA002F1E61 /* Assets.xcassets in Resources */,
 				2A9AFC942416250000EE6EC0 /* 3-Favorite.png in Resources */,
 				2A333F1323AC98A2008E1B18 /* OpenSans-ExtraBold.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		887085CD28D83D34004CA177 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -634,6 +713,7 @@
 				2ADA0F50239E75C900F67F64 /* SortByModel.swift in Sources */,
 				2A0871AE238D4E78002F1E61 /* FavoriteView.swift in Sources */,
 				2A0871B0238D4E86002F1E61 /* ProfileView.swift in Sources */,
+				8899515C28DC4B5000AEE82E /* DecideViewModel.swift in Sources */,
 				2AEF414B239F902200C3D0BA /* PagingView.swift in Sources */,
 				2A333F1A23ACB267008E1B18 /* UIColor+Extension.swift in Sources */,
 				2ACADA3623A79DA500A4DF3D /* PromoCodeModel.swift in Sources */,
@@ -650,7 +730,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		887085CB28D83D34004CA177 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				887085D228D83D35004CA177 /* NotificationService.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		887085D528D83D35004CA177 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 887085CE28D83D34004CA177 /* ECommerceAppSwiftUINotificationService */;
+			targetProxy = 887085D428D83D35004CA177 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		2A087197238D4CAA002F1E61 /* LaunchScreen.storyboard */ = {
@@ -784,11 +880,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 69CB3BB3134BD48824D0ED05 /* Pods-ECommerceAppSwiftUI.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ECommerceAppSwiftUI/ECommerceAppSwiftUI.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_ASSET_PATHS = "\"ECommerceAppSwiftUI/Preview Content\"";
 				DEVELOPMENT_TEAM = G7DJURR5RJ;
 				ENABLE_BITCODE = NO;
@@ -822,11 +919,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5BA1EAEB0B2AD6035A453A85 /* Pods-ECommerceAppSwiftUI.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = ECommerceAppSwiftUI/ECommerceAppSwiftUI.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_ASSET_PATHS = "\"ECommerceAppSwiftUI/Preview Content\"";
 				DEVELOPMENT_TEAM = G7DJURR5RJ;
 				ENABLE_BITCODE = NO;
@@ -856,6 +954,62 @@
 			};
 			name = Release;
 		};
+		887085D828D83D35004CA177 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = G7DJURR5RJ;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ECommerceAppSwiftUINotificationService/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ECommerceAppSwiftUINotificationService;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Suprsend. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = suprsend.ecommerce.ECommerceAppSwiftUINotificationService;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		887085D928D83D35004CA177 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = G7DJURR5RJ;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ECommerceAppSwiftUINotificationService/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ECommerceAppSwiftUINotificationService;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Suprsend. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = suprsend.ecommerce.ECommerceAppSwiftUINotificationService;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -877,10 +1031,19 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		887085DA28D83D35004CA177 /* Build configuration list for PBXNativeTarget "ECommerceAppSwiftUINotificationService" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				887085D828D83D35004CA177 /* Debug */,
+				887085D928D83D35004CA177 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		2ADA0F4A239E733500F67F64 /* XCRemoteSwiftPackageReference "PartialSheet.git" */ = {
+		2ADA0F4A239E733500F67F64 /* XCRemoteSwiftPackageReference "PartialSheet" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/AndreaMiotto/PartialSheet.git";
 			requirement = {
@@ -893,7 +1056,7 @@
 /* Begin XCSwiftPackageProductDependency section */
 		2ADA0F4B239E733500F67F64 /* PartialSheet */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 2ADA0F4A239E733500F67F64 /* XCRemoteSwiftPackageReference "PartialSheet.git" */;
+			package = 2ADA0F4A239E733500F67F64 /* XCRemoteSwiftPackageReference "PartialSheet" */;
 			productName = PartialSheet;
 		};
 /* End XCSwiftPackageProductDependency section */

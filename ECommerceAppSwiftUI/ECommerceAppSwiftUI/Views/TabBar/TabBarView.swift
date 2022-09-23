@@ -8,16 +8,24 @@
 
 import SwiftUI
 
+class TabBarViewModel: ObservableObject {
+    @Published var selectedTab: Int
+    
+    init(selectedTab: Int) {
+        self.selectedTab = selectedTab
+    }
+}
+
 
 struct TabBarView: View {
     
-    @State var selected = 0
-    
+    @ObservedObject var viewModel: TabBarViewModel
+        
     var body: some View {
         ZStack {
             Color.init(hex: "f9f9f9")
                 .edgesIgnoringSafeArea(.all)
-            TabView(selection: $selected) {
+            TabView(selection: $viewModel.selectedTab) {
                 HomeView()
                     .tabItem {
                         Image(systemName: "house.fill")
@@ -49,11 +57,5 @@ struct TabBarView: View {
         .navigationBarTitle("", displayMode: .inline)
         .navigationBarHidden(true)
         .navigationBarBackButtonHidden(true)
-    }
-}
-
-struct TabBarView_Previews: PreviewProvider {
-    static var previews: some View {
-        TabBarView()
     }
 }

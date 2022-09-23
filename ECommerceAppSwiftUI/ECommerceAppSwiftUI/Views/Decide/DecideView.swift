@@ -9,20 +9,17 @@
 import SwiftUI
 
 struct DecideView: View {
+    
+    @ObservedObject var decideViewModel: DecideViewModel
+    
     @AppStorage("isLoggedIn")
     var isLoggedIn: Bool = false
-    
+
     var body: some View {
-        if(isLoggedIn){
-            TabBarView()
-        }else{
+        if(isLoggedIn) {
+            TabBarView(viewModel: TabBarViewModel(selectedTab: decideViewModel.selectedTab))
+        } else {
             LoginView()
         }
-    }
-}
-
-struct DecideView_Previews: PreviewProvider {
-    static var previews: some View {
-        DecideView()
     }
 }
