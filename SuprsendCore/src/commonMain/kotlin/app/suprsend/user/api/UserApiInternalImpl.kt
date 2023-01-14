@@ -2,6 +2,7 @@ package app.suprsend.user.api
 
 import app.suprsend.SSApiInternal
 import app.suprsend.base.Logger
+import app.suprsend.base.PreferredLanguage
 import app.suprsend.base.SSConstants
 import app.suprsend.base.SdkCreator
 import app.suprsend.base.convertToJsonPrimitive
@@ -224,47 +225,6 @@ internal class UserApiInternalImpl : UserApiInternalContract {
     }
 
     // TODO - Create constant
-    override fun setAndroidFcmPush(newToken: String) {
-        val oldToken = SSApiInternal.getFcmToken()
-        if (oldToken != newToken) {
-            SSApiInternal.setFcmToken(newToken)
-        }
-        append(buildJsonObject {
-            put(SSConstants.PUSH_ANDROID_TOKEN, JsonPrimitive(newToken))
-            put(SSConstants.PUSH_VENDOR, JsonPrimitive(SSConstants.PUSH_VENDOR_FCM))
-            put(SSConstants.DEVICE_ID, JsonPrimitive(SSApiInternal.getDeviceID()))
-        }.toString())
-    }
-
-    override fun unSetAndroidFcmPush(token: String) {
-        remove(
-            buildJsonObject {
-                put(SSConstants.PUSH_ANDROID_TOKEN, JsonPrimitive(token))
-                put(SSConstants.PUSH_VENDOR, JsonPrimitive(SSConstants.PUSH_VENDOR_FCM))
-            }.toString()
-        )
-    }
-
-    override fun setAndroidXiaomiPush(newToken: String) {
-        val oldToken = SSApiInternal.getXiaomiToken()
-        if (oldToken != newToken) {
-            SSApiInternal.setXiaomiToken(newToken)
-        }
-        append(buildJsonObject {
-            put(SSConstants.PUSH_ANDROID_TOKEN, JsonPrimitive(newToken))
-            put(SSConstants.PUSH_VENDOR, JsonPrimitive(SSConstants.PUSH_VENDOR_XIAOMI))
-            put(SSConstants.DEVICE_ID, JsonPrimitive(SSApiInternal.getDeviceID()))
-        }.toString())
-    }
-
-    override fun unSetAndroidXiaomiPush(token: String) {
-        remove(
-            buildJsonObject {
-                put(SSConstants.PUSH_ANDROID_TOKEN, JsonPrimitive(token))
-                put(SSConstants.PUSH_VENDOR, JsonPrimitive(SSConstants.PUSH_VENDOR_XIAOMI))
-            }.toString()
-        )
-    }
 
     override fun setIOSPush(newToken: String) {
         coroutineScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
@@ -286,6 +246,21 @@ internal class UserApiInternalImpl : UserApiInternalContract {
                 put(SSConstants.PUSH_IOS_TOKEN, JsonPrimitive(token))
                 put(SSConstants.PUSH_VENDOR, JsonPrimitive(SSConstants.PUSH_VENDOR_APNS))
             }.toString()
+        )
+    }
+
+    override fun setPreferredLanguage(languageCode: String) {
+        val processedLanguageCode = languageCode.lowercase()
+        val isValid = PreferredLanguage.values[processedLanguageCode] != null
+        if (!isValid) {
+            Logger.i(SSConstants.TAG_SUPRSEND, "invalid value $languageCode")
+            return
+        }
+        internalOperatorCall(
+            properties = buildJsonObject {
+                put(SSConstants.PREFERRED_LANGUAGE, JsonPrimitive(processedLanguageCode))
+            },
+            operator = SSConstants.SET
         )
     }
 

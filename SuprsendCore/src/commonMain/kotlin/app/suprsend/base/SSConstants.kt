@@ -29,11 +29,8 @@ internal object SSConstants {
     const val INSERT_ID = "\$insert_id"
     const val IDENTIFY = "\$identify"
     const val TIME = "\$time"
-    const val PUSH_ANDROID_TOKEN = "\$androidpush"
     const val PUSH_IOS_TOKEN = "\$iospush"
     const val PUSH_VENDOR = "\$pushvendor"
-    const val PUSH_VENDOR_FCM = "fcm"
-    const val PUSH_VENDOR_XIAOMI = "xiaomi"
     const val PUSH_VENDOR_APNS = "apns"
     const val DEVICE_ID = "\$device_id"
     const val SET = "\$set"
@@ -45,6 +42,7 @@ internal object SSConstants {
     const val EMAIL = "\$email"
     const val SMS = "\$sms"
     const val WHATS_APP = "\$whatsapp"
+    const val PREFERRED_LANGUAGE = "\$preferred_language"
 
     const val ENV = "env"
     const val PROPERTIES = "properties"
@@ -64,4 +62,5 @@ internal object SSConstants {
     const val S_EVENT_PAGE_VISITED = "\$page_visited"
 
     const val TAG_VALIDATION = "validation"
+    const val TAG_SUPRSEND = "suprsend"
 }
