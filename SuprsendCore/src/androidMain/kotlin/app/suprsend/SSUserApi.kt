@@ -77,26 +77,6 @@ constructor(
         user.unSetWhatsApp(mobile)
     }
 
-    fun setAndroidFcmPush(token: String) {
-        user.setAndroidFcmPush(token)
-        SSApiInternal.flush(mutationHandler)
-    }
-
-    fun unSetAndroidFcmPush(token: String) {
-        user.unSetAndroidFcmPush(token)
-        SSApiInternal.flush(mutationHandler)
-    }
-
-    fun setAndroidXiaomiPush(token: String) {
-        user.setAndroidXiaomiPush(token)
-        SSApiInternal.flush(mutationHandler)
-    }
-
-    fun unSetAndroidXiaomiPush(token: String) {
-        user.unSetAndroidXiaomiPush(token)
-        SSApiInternal.flush(mutationHandler)
-    }
-
     fun setIOSPush(token: String) {
         user.setIOSPush(token)
         SSApiInternal.flush(mutationHandler)
@@ -105,5 +85,9 @@ constructor(
     fun unSetIOSPush(token: String) {
         user.unSetIOSPush(token)
         SSApiInternal.flush(mutationHandler)
+    }
+
+    fun setPreferredLanguage(languageCode: String) {
+        user.setPreferredLanguage(languageCode)
     }
 }
