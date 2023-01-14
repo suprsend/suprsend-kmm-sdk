@@ -2,17 +2,12 @@ package app.suprsend.xiaomi
 
 import android.content.Context
 import android.util.Log
-import app.suprsend.SSApi
 import app.suprsend.base.Logger
-import app.suprsend.coroutineExceptionHandler
 import app.suprsend.notification.SSNotificationHelper
 import app.suprsend.notification.getToken
 import com.xiaomi.mipush.sdk.MiPushCommandMessage
 import com.xiaomi.mipush.sdk.MiPushMessage
 import com.xiaomi.mipush.sdk.PushMessageReceiver
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 class SSXiaomiReceiver : PushMessageReceiver() {
 
@@ -45,11 +40,11 @@ class SSXiaomiReceiver : PushMessageReceiver() {
             if (token.isNullOrBlank())
                 return
 
-            GlobalScope.launch(Dispatchers.IO + coroutineExceptionHandler) {
-                Log.d(TAG, "Xiaomi Token : $token")
-                val instance = SSApi.getInstanceFromCachedApiKey()
-                instance?.getUser()?.setAndroidXiaomiPush(token)
-            }
+            Log.d(TAG, "Xiaomi Token : $token")
+//            GlobalScope.launch(Dispatchers.IO + coroutineExceptionHandler) {
+//                val instance = SSApi.getInstanceFromCachedApiKey()
+//                instance?.getUser()?.setAndroidXiaomiPush(token)
+//            }
         } catch (e: Exception) {
             Logger.e(TAG, "onReceiveRegisterResult exception ", e)
         }
