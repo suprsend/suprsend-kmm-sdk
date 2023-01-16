@@ -1,0 +1,16 @@
+PODS:
+  - SuprsendCore (1.0.0)
+
+DEPENDENCIES:
+  - SuprsendCore
+
+SPEC REPOS:
+  trunk:
+    - SuprsendCore
+
+SPEC CHECKSUMS:
+  SuprsendCore: 810cd4e9f7e829c1d694aa556774a3dd787607e8
+
+PODFILE CHECKSUM: 8d7fc36b936311ba03073c51d26ea1afc720ab00
+
+COCOAPODS: 1.11.3

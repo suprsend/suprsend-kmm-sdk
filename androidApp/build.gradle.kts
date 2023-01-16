@@ -16,7 +16,7 @@ android {
     buildToolsVersion(Deps.Android.buildToolsVersion)
 
     defaultConfig {
-        applicationId = "app.suprsend.android.android"
+        applicationId = "${Deps.SDK_PACKAGE_NAME}.android"
         minSdkVersion(Deps.Android.minSdk)
         targetSdkVersion(Deps.Android.targetSdk)
         versionCode = Deps.APP_VERSION_CODE
@@ -45,6 +45,8 @@ android {
 
     buildTypes {
         getByName("debug") {
+            buildConfigField("String", "XIAOMI_APP_ID", "\"${Deps.XIAOMI_APP_ID}\"")
+            buildConfigField("String", "XIAOMI_APP_KEY", "\"${Deps.XIAOMI_APP_KEY}\"")
             buildConfigField("String", "SS_TOKEN", "\"${Deps.SS_TOKEN}\"")
             buildConfigField("String", "SS_SECRET", "\"${Deps.SS_SECRET}\"")
             buildConfigField("String", "MX_TOKEN", "\"${Deps.MX_TOKEN}\"")
@@ -55,6 +57,8 @@ android {
             isMinifyEnabled = false
         }
         getByName("release") {
+            buildConfigField("String", "XIAOMI_APP_ID", "\"${Deps.XIAOMI_APP_ID}\"")
+            buildConfigField("String", "XIAOMI_APP_KEY", "\"${Deps.XIAOMI_APP_KEY}\"")
             buildConfigField("String", "SS_TOKEN", "\"${Deps.SS_TOKEN}\"")
             buildConfigField("String", "SS_SECRET", "\"${Deps.SS_SECRET}\"")
             buildConfigField("String", "MX_TOKEN", "\"${Deps.MX_TOKEN}\"")
@@ -94,8 +98,8 @@ dependencies {
     implementation("com.google.firebase:firebase-crashlytics:18.2.1")
 
     if (Deps.RUN_LIB) {
-        implementation(project(":shared"))
-        println("Using shared library")
+        implementation(project(":SuprsendCore"))
+        println("Using SuprsendCore library")
     }else{
         implementation("com.github.suprsend:suprsend-kmm-sdk:${Deps.Publication.VERSION}")
         println("Using remote library")
