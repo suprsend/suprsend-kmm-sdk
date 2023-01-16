@@ -1,0 +1,44 @@
+package app.suprsend.sprop
+
+import app.suprsend.base.BaseDatabase
+import kotlin.test.assertEquals
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.buildJsonObject
+import org.junit.Test
+
+internal class SuperPropertiesLocalDataSourceTest : BaseDatabase() {
+
+    @Test
+    fun testAddSuperProperty() {
+        val superPropertiesLocalDataSource = SuperPropertiesLocalDataSource()
+        superPropertiesLocalDataSource.add("Product Name", "Cycle 123")
+        assertEquals(
+            buildJsonObject {
+                put("Product Name", JsonPrimitive("Cycle 123"))
+            },
+            superPropertiesLocalDataSource.getAll()
+        )
+    }
+
+    @Test
+    fun testRemoveProperty() {
+        val superPropertiesLocalDataSource = SuperPropertiesLocalDataSource()
+        superPropertiesLocalDataSource.add("Product Name", "Cycle 123")
+        superPropertiesLocalDataSource.add("Price", 590)
+        assertEquals(
+            buildJsonObject {
+                put("Product Name", JsonPrimitive("Cycle 123"))
+                put("Price", JsonPrimitive(590))
+            },
+            superPropertiesLocalDataSource.getAll()
+        )
+
+        superPropertiesLocalDataSource.remove("Price")
+        assertEquals(
+            buildJsonObject {
+                put("Product Name", JsonPrimitive("Cycle 123"))
+            },
+            superPropertiesLocalDataSource.getAll()
+        )
+    }
+}

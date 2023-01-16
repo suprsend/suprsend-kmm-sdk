@@ -1,0 +1,2 @@
+-dontwarn app.suprsend.**
+-keep class app.suprsend.**{*;}

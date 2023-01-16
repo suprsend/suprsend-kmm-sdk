@@ -1,0 +1,534 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2DA33B932736559900ED968A /* IosMutationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA33B922736559900ED968A /* IosMutationHandler.swift */; };
+		2DE46BB92731A751001C41FF /* SuprSendSdk.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DE46BAB2731A751001C41FF /* SuprSendSdk.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		880ABBB427F182D100DA93D9 /* UNNotificationResponse+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880ABBB327F182D100DA93D9 /* UNNotificationResponse+Utility.swift */; };
+		881FDF6A27F981F900FF9EDC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 881FDF6927F981F900FF9EDC /* Constants.swift */; };
+		8836C6EB282E77330089487F /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8836C6EA282E77330089487F /* Reachability.swift */; };
+		8883560C27E07C2B0005A920 /* AnalyticsConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8883560B27E07C2B0005A920 /* AnalyticsConstants.swift */; };
+		88932D9827D74713003D68B2 /* SuprSendSdk.h in Sources */ = {isa = PBXBuildFile; fileRef = 2DE46BAB2731A751001C41FF /* SuprSendSdk.h */; };
+		88A03F4127DC8E5C007C4ED2 /* SuprSend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A03F4027DC8E5C007C4ED2 /* SuprSend.swift */; };
+		88A03F4627DCA1AF007C4ED2 /* SuprSend+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A03F4527DCA1AF007C4ED2 /* SuprSend+Utilities.swift */; };
+		88A03F4927DCB408007C4ED2 /* SuprSend+PushNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A03F4827DCB408007C4ED2 /* SuprSend+PushNotifications.swift */; };
+		88A03F4B27DE1799007C4ED2 /* SuprSendSDKConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A03F4A27DE1798007C4ED2 /* SuprSendSDKConfiguration.swift */; };
+		905502EB9A3BDDA2E11B80D4 /* Pods_SuprSendSdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A00B64DFE24F780CCAD7F23 /* Pods_SuprSendSdk.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		2D74E5C2282695B900B886E0 /* SuprsendCore.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = SuprsendCore.xcframework; sourceTree = "<group>"; };
+		2D74E5CD28269D2600B886E0 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		2D74E5CF28269D2600B886E0 /* IosMutationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IosMutationHandler.swift; sourceTree = "<group>"; };
+		2D74E5D028269D2600B886E0 /* SuprSend+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SuprSend+Utilities.swift"; sourceTree = "<group>"; };
+		2D74E5D128269D2600B886E0 /* UNNotificationResponse+Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UNNotificationResponse+Utility.swift"; sourceTree = "<group>"; };
+		2D74E5D228269D2600B886E0 /* SuprSendSDKConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuprSendSDKConfiguration.swift; sourceTree = "<group>"; };
+		2D74E5D328269D2600B886E0 /* SuprSendSdk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SuprSendSdk.h; sourceTree = "<group>"; };
+		2D74E5D428269D2600B886E0 /* SuprSend+PushNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SuprSend+PushNotifications.swift"; sourceTree = "<group>"; };
+		2D74E5D528269D2600B886E0 /* AnalyticsConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsConstants.swift; sourceTree = "<group>"; };
+		2D74E5D628269D2600B886E0 /* SuprSend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuprSend.swift; sourceTree = "<group>"; };
+		2D74E5D728269D2600B886E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2D74E5D828269D5600B886E0 /* SuprSendSdk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SuprSendSdk.framework; path = ../ECommerceAppSwiftUI/SuprSendSdk.framework; sourceTree = "<group>"; };
+		2D74E5DB28269D6F00B886E0 /* SuprsendCore.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = SuprsendCore.xcframework; path = ../ECommerceAppSwiftUI/SuprsendCore.xcframework; sourceTree = "<group>"; };
+		2DA33B922736559900ED968A /* IosMutationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IosMutationHandler.swift; sourceTree = "<group>"; };
+		2DE46BA82731A751001C41FF /* SuprSendSdk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SuprSendSdk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2DE46BAB2731A751001C41FF /* SuprSendSdk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SuprSendSdk.h; sourceTree = "<group>"; };
+		2DE46BAC2731A751001C41FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2DFBFC8B27468E0E00F62BF5 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.3.sdk/usr/lib/libsqlite3.tbd; sourceTree = DEVELOPER_DIR; };
+		4716AB3C7FA096D402842D12 /* Pods-SuprSendSdk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SuprSendSdk.debug.xcconfig"; path = "Target Support Files/Pods-SuprSendSdk/Pods-SuprSendSdk.debug.xcconfig"; sourceTree = "<group>"; };
+		6A00B64DFE24F780CCAD7F23 /* Pods_SuprSendSdk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SuprSendSdk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		880ABBB327F182D100DA93D9 /* UNNotificationResponse+Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UNNotificationResponse+Utility.swift"; sourceTree = "<group>"; };
+		880D9B47281AE4C6000B929B /* SuprsendCore.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = SuprsendCore.xcframework; path = Pods/SuprsendCore/SuprsendCore.xcframework; sourceTree = "<group>"; };
+		881FDF6927F981F900FF9EDC /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		8836C6EA282E77330089487F /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		8883560B27E07C2B0005A920 /* AnalyticsConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsConstants.swift; sourceTree = "<group>"; };
+		88A03F4027DC8E5C007C4ED2 /* SuprSend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuprSend.swift; sourceTree = "<group>"; };
+		88A03F4527DCA1AF007C4ED2 /* SuprSend+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SuprSend+Utilities.swift"; sourceTree = "<group>"; };
+		88A03F4827DCB408007C4ED2 /* SuprSend+PushNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SuprSend+PushNotifications.swift"; sourceTree = "<group>"; };
+		88A03F4A27DE1798007C4ED2 /* SuprSendSDKConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuprSendSDKConfiguration.swift; sourceTree = "<group>"; };
+		F6A4988CADA3E027E05E2816 /* Pods-SuprSendSdk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SuprSendSdk.release.xcconfig"; path = "Target Support Files/Pods-SuprSendSdk/Pods-SuprSendSdk.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2DE46BA52731A751001C41FF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				905502EB9A3BDDA2E11B80D4 /* Pods_SuprSendSdk.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2B1D7B2CA7B66921603C4D3E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				4716AB3C7FA096D402842D12 /* Pods-SuprSendSdk.debug.xcconfig */,
+				F6A4988CADA3E027E05E2816 /* Pods-SuprSendSdk.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		2D74E5CC28269D2600B886E0 /* SuprSendSdk */ = {
+			isa = PBXGroup;
+			children = (
+				2D74E5CD28269D2600B886E0 /* Constants.swift */,
+				2D74E5CE28269D2600B886E0 /* mutation */,
+				2D74E5D028269D2600B886E0 /* SuprSend+Utilities.swift */,
+				2D74E5D128269D2600B886E0 /* UNNotificationResponse+Utility.swift */,
+				2D74E5D228269D2600B886E0 /* SuprSendSDKConfiguration.swift */,
+				2D74E5D328269D2600B886E0 /* SuprSendSdk.h */,
+				2D74E5D428269D2600B886E0 /* SuprSend+PushNotifications.swift */,
+				2D74E5D528269D2600B886E0 /* AnalyticsConstants.swift */,
+				2D74E5D628269D2600B886E0 /* SuprSend.swift */,
+				2D74E5D728269D2600B886E0 /* Info.plist */,
+			);
+			path = SuprSendSdk;
+			sourceTree = "<group>";
+		};
+		2D74E5CE28269D2600B886E0 /* mutation */ = {
+			isa = PBXGroup;
+			children = (
+				2D74E5CF28269D2600B886E0 /* IosMutationHandler.swift */,
+			);
+			path = mutation;
+			sourceTree = "<group>";
+		};
+		2DA33B8F273653D100ED968A /* mutation */ = {
+			isa = PBXGroup;
+			children = (
+				2DA33B922736559900ED968A /* IosMutationHandler.swift */,
+			);
+			path = mutation;
+			sourceTree = "<group>";
+		};
+		2DAB6EBA2731AC6F00630827 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2D74E5DB28269D6F00B886E0 /* SuprsendCore.xcframework */,
+				2D74E5D828269D5600B886E0 /* SuprSendSdk.framework */,
+				2D74E5CC28269D2600B886E0 /* SuprSendSdk */,
+				880D9B47281AE4C6000B929B /* SuprsendCore.xcframework */,
+				2D74E5C2282695B900B886E0 /* SuprsendCore.xcframework */,
+				2DFBFC8B27468E0E00F62BF5 /* libsqlite3.tbd */,
+				6A00B64DFE24F780CCAD7F23 /* Pods_SuprSendSdk.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2DE46B9E2731A751001C41FF = {
+			isa = PBXGroup;
+			children = (
+				2DE46BAA2731A751001C41FF /* SuprSendSdk */,
+				2DE46BA92731A751001C41FF /* Products */,
+				2DAB6EBA2731AC6F00630827 /* Frameworks */,
+				2B1D7B2CA7B66921603C4D3E /* Pods */,
+			);
+			sourceTree = "<group>";
+		};
+		2DE46BA92731A751001C41FF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2DE46BA82731A751001C41FF /* SuprSendSdk.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2DE46BAA2731A751001C41FF /* SuprSendSdk */ = {
+			isa = PBXGroup;
+			children = (
+				88A03F4027DC8E5C007C4ED2 /* SuprSend.swift */,
+				88A03F4A27DE1798007C4ED2 /* SuprSendSDKConfiguration.swift */,
+				88A03F4527DCA1AF007C4ED2 /* SuprSend+Utilities.swift */,
+				2DA33B8F273653D100ED968A /* mutation */,
+				2DE46BAB2731A751001C41FF /* SuprSendSdk.h */,
+				2DE46BAC2731A751001C41FF /* Info.plist */,
+				88A03F4827DCB408007C4ED2 /* SuprSend+PushNotifications.swift */,
+				8883560B27E07C2B0005A920 /* AnalyticsConstants.swift */,
+				880ABBB327F182D100DA93D9 /* UNNotificationResponse+Utility.swift */,
+				881FDF6927F981F900FF9EDC /* Constants.swift */,
+				8836C6EA282E77330089487F /* Reachability.swift */,
+			);
+			path = SuprSendSdk;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		2DE46BA32731A751001C41FF /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2DE46BB92731A751001C41FF /* SuprSendSdk.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		2DE46BA72731A751001C41FF /* SuprSendSdk */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2DE46BBC2731A751001C41FF /* Build configuration list for PBXNativeTarget "SuprSendSdk" */;
+			buildPhases = (
+				D67C57867CE584A811D140B4 /* [CP] Check Pods Manifest.lock */,
+				2DAB6EC02731B1B000630827 /* ShellScript */,
+				2DE46BA32731A751001C41FF /* Headers */,
+				2DE46BA42731A751001C41FF /* Sources */,
+				2DE46BA52731A751001C41FF /* Frameworks */,
+				2DE46BA62731A751001C41FF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SuprSendSdk;
+			productName = sdk;
+			productReference = 2DE46BA82731A751001C41FF /* SuprSendSdk.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2DE46B9F2731A751001C41FF /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1250;
+				LastUpgradeCheck = 1320;
+				TargetAttributes = {
+					2DE46BA72731A751001C41FF = {
+						CreatedOnToolsVersion = 12.5.1;
+						LastSwiftMigration = 1250;
+					};
+				};
+			};
+			buildConfigurationList = 2DE46BA22731A751001C41FF /* Build configuration list for PBXProject "SuprSendSdk" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 2DE46B9E2731A751001C41FF;
+			productRefGroup = 2DE46BA92731A751001C41FF /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2DE46BA72731A751001C41FF /* SuprSendSdk */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2DE46BA62731A751001C41FF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2DAB6EC02731B1B000630827 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_161.jdk/Contents/Home\n\n#cd \"$PROJECT_DIR/..\"\n\n#./gradlew releaseFatFramework\n\n#cp -R /Users/niks/Library/Developer/Xcode/DerivedData/SuprSendSdk-elbsfrxtpfbirnbwqqoledevwwdh/Build/Products/Debug-iphoneos/SuprSendSdk.framework ECommerceAppSwiftUI\n\n#cp -R ~/Library/Developer/Xcode/DerivedData/SuprSendSdk-fpaorvwytrkmrufpcffveahpewdk/Build/Products/Debug-iphoneos/SuprSendSdk.framework ECommerceAppSwiftUI\n\n#./gradlew clean\n\n#./gradlew debugFatFramework\n#cp -R ~/Library/Developer/Xcode/DerivedData/SuprSendSdk-fpaorvwytrkmrufpcffveahpewdk/Build/Products/Debug-iphonesimulator/SuprSendSdk.framework iOSSDK/frameworks/simulator\n\n#cp -R ~/Library/Developer/Xcode/DerivedData/SuprSendSdk-fpaorvwytrkmrufpcffveahpewdk/Build/Products/Debug-iphonesimulator/SuprSendSdk.framework ECommerceAppSwiftUI\n\n";
+		};
+		D67C57867CE584A811D140B4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SuprSendSdk-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2DE46BA42731A751001C41FF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				88A03F4627DCA1AF007C4ED2 /* SuprSend+Utilities.swift in Sources */,
+				88932D9827D74713003D68B2 /* SuprSendSdk.h in Sources */,
+				2DA33B932736559900ED968A /* IosMutationHandler.swift in Sources */,
+				88A03F4127DC8E5C007C4ED2 /* SuprSend.swift in Sources */,
+				8883560C27E07C2B0005A920 /* AnalyticsConstants.swift in Sources */,
+				88A03F4927DCB408007C4ED2 /* SuprSend+PushNotifications.swift in Sources */,
+				88A03F4B27DE1799007C4ED2 /* SuprSendSDKConfiguration.swift in Sources */,
+				880ABBB427F182D100DA93D9 /* UNNotificationResponse+Utility.swift in Sources */,
+				8836C6EB282E77330089487F /* Reachability.swift in Sources */,
+				881FDF6A27F981F900FF9EDC /* Constants.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		2DE46BBA2731A751001C41FF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREFIX_HEADER = SuperSendSdk;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = SuperSendSdk/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = supersendsdk;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		2DE46BBB2731A751001C41FF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = SuperSendSdk;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = SuperSendSdk/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = supersendsdk;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		2DE46BBD2731A751001C41FF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4716AB3C7FA096D402842D12 /* Pods-SuprSendSdk.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = G7DJURR5RJ;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				EXCLUDED_ARCHS = "";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				GCC_PREFIX_HEADER = SuprSendSdk;
+				INFOPLIST_FILE = SuprSendSdk/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = "";
+				MACH_O_TYPE = mh_dylib;
+				MARKETING_VERSION = 1.0.0;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-Objc",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = suprsendsdk;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		2DE46BBE2731A751001C41FF /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F6A4988CADA3E027E05E2816 /* Pods-SuprSendSdk.release.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = G7DJURR5RJ;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				GCC_PREFIX_HEADER = SuprSendSdk;
+				INFOPLIST_FILE = SuprSendSdk/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = "";
+				MACH_O_TYPE = mh_dylib;
+				MARKETING_VERSION = 1.0.0;
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-Objc",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = suprsendsdk;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2DE46BA22731A751001C41FF /* Build configuration list for PBXProject "SuprSendSdk" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2DE46BBA2731A751001C41FF /* Debug */,
+				2DE46BBB2731A751001C41FF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2DE46BBC2731A751001C41FF /* Build configuration list for PBXNativeTarget "SuprSendSdk" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2DE46BBD2731A751001C41FF /* Debug */,
+				2DE46BBE2731A751001C41FF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2DE46B9F2731A751001C41FF /* Project object */;
+}
