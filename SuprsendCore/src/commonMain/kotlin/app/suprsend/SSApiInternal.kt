@@ -176,8 +176,7 @@ internal object SSApiInternal {
                 removeNotificationToken()
             SuperPropertiesLocalDataSource().removeAll()
             userLocalDatasource.identify(newID)
-            if (unSubscribeNotification)
-                appendNotificationToken()
+            appendNotificationToken()
             flush(mutationHandler)
         }
     }
