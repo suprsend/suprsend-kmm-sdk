@@ -1,18 +1,18 @@
 package app.suprsend.base
 
-//import platform.CoreTelephony.CTRadioAccessTechnologyCDMA1x
-//import platform.CoreTelephony.CTRadioAccessTechnologyCDMAEVDORev0
-//import platform.CoreTelephony.CTRadioAccessTechnologyCDMAEVDORevA
-//import platform.CoreTelephony.CTRadioAccessTechnologyCDMAEVDORevB
-//import platform.CoreTelephony.CTRadioAccessTechnologyEdge
-//import platform.CoreTelephony.CTRadioAccessTechnologyGPRS
-//import platform.CoreTelephony.CTRadioAccessTechnologyHSDPA
-//import platform.CoreTelephony.CTRadioAccessTechnologyHSUPA
-//import platform.CoreTelephony.CTRadioAccessTechnologyLTE
-//import platform.CoreTelephony.CTRadioAccessTechnologyWCDMA
-//import platform.CoreTelephony.CTRadioAccessTechnologyeHRPD
-//import platform.CoreTelephony.CTTelephonyNetworkInfo
-//import cocoapods.Reachability.Reachability
+// import platform.CoreTelephony.CTRadioAccessTechnologyCDMA1x
+// import platform.CoreTelephony.CTRadioAccessTechnologyCDMAEVDORev0
+// import platform.CoreTelephony.CTRadioAccessTechnologyCDMAEVDORevA
+// import platform.CoreTelephony.CTRadioAccessTechnologyCDMAEVDORevB
+// import platform.CoreTelephony.CTRadioAccessTechnologyEdge
+// import platform.CoreTelephony.CTRadioAccessTechnologyGPRS
+// import platform.CoreTelephony.CTRadioAccessTechnologyHSDPA
+// import platform.CoreTelephony.CTRadioAccessTechnologyHSUPA
+// import platform.CoreTelephony.CTRadioAccessTechnologyLTE
+// import platform.CoreTelephony.CTRadioAccessTechnologyWCDMA
+// import platform.CoreTelephony.CTRadioAccessTechnologyeHRPD
+// import platform.CoreTelephony.CTTelephonyNetworkInfo
+// import cocoapods.Reachability.Reachability
 
 internal class NetworkInfo {
 
