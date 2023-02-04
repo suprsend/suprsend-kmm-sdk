@@ -26,13 +26,9 @@ class AppDelegate: UIResponder {
         SuprSend.shared.configureWith(configuration: suprSendConfiguration  , launchOptions: launchOptions)
         SuprSend.shared.enableLogging()
         
-        1.   var options: UNAuthorizationOptions = [.badge, .alert, .sound]
-        
-        2.  var options: UNAuthorizationOptions = .provisional
-        
         var options: UNAuthorizationOptions = [.badge, .alert, .sound]
 
-        3.  if #available(iOS 12.0, *) {
+        if #available(iOS 12.0, *) {
           options = UNAuthorizationOptions(rawValue: options.rawValue | UNAuthorizationOptions.provisional.rawValue)
         }
 

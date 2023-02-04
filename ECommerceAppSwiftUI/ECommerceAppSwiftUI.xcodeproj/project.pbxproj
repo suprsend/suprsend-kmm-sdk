@@ -68,8 +68,8 @@
 		887A0E81280BCD4C003A96BB /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 887A0E80280BCD2B003A96BB /* libsqlite3.tbd */; };
 		8899515C28DC4B5000AEE82E /* DecideViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8899515B28DC4B5000AEE82E /* DecideViewModel.swift */; };
 		88A03F4427DC9D78007C4ED2 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A03F4327DC9D78007C4ED2 /* AppConstants.swift */; };
-		88FEBAC228DC687300857469 /* SuprSendSdk.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88FEBAC128DC687300857469 /* SuprSendSdk.xcframework */; };
-		88FEBAC328DC687400857469 /* SuprSendSdk.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 88FEBAC128DC687300857469 /* SuprSendSdk.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		88EC6FD7297E4AD6007D2E4A /* SuprsendCore.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88EC6FD6297E4AD6007D2E4A /* SuprsendCore.xcframework */; };
+		88EC6FD8297E4AD6007D2E4A /* SuprsendCore.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 88EC6FD6297E4AD6007D2E4A /* SuprsendCore.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,7 +100,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				88FEBAC328DC687400857469 /* SuprSendSdk.xcframework in Embed Frameworks */,
+				88EC6FD8297E4AD6007D2E4A /* SuprsendCore.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -172,10 +172,9 @@
 		887085D128D83D35004CA177 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		887085D328D83D35004CA177 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		887A0E80280BCD2B003A96BB /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
-		888F5FAB2828052A0019BB84 /* SuprsendCore.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = SuprsendCore.xcframework; path = ../SuprsendCore/build/XCFrameworks/debug/SuprsendCore.xcframework; sourceTree = "<group>"; };
 		8899515B28DC4B5000AEE82E /* DecideViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecideViewModel.swift; sourceTree = "<group>"; };
 		88A03F4327DC9D78007C4ED2 /* AppConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
-		88FEBAC128DC687300857469 /* SuprSendSdk.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = SuprSendSdk.xcframework; sourceTree = "<group>"; };
+		88EC6FD6297E4AD6007D2E4A /* SuprsendCore.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = SuprsendCore.xcframework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,7 +182,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				88FEBAC228DC687300857469 /* SuprSendSdk.xcframework in Frameworks */,
+				88EC6FD7297E4AD6007D2E4A /* SuprsendCore.xcframework in Frameworks */,
 				2ADA0F4C239E733500F67F64 /* PartialSheet in Frameworks */,
 				887A0E81280BCD4C003A96BB /* libsqlite3.tbd in Frameworks */,
 				531630701530613AFA193C47 /* Pods_ECommerceAppSwiftUI.framework in Frameworks */,
@@ -505,8 +504,7 @@
 		887A0E5B280B2F19003A96BB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				88FEBAC128DC687300857469 /* SuprSendSdk.xcframework */,
-				888F5FAB2828052A0019BB84 /* SuprsendCore.xcframework */,
+				88EC6FD6297E4AD6007D2E4A /* SuprsendCore.xcframework */,
 				887A0E80280BCD2B003A96BB /* libsqlite3.tbd */,
 				3ABF94E64DE73773D681601E /* Pods_ECommerceAppSwiftUI.framework */,
 			);

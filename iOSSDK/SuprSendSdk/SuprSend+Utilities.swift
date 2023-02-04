@@ -86,8 +86,8 @@ extension SuprSend {
         suprSendiOSAPI.unSetSuperProperty(key:key)
     }
     
-    @objc public func reset() {
-        suprSendiOSAPI.reset()
+    @objc public func reset(unsubscribeNotification: Bool) {
+        suprSendiOSAPI.reset(unSubscribeNotification: unsubscribeNotification)
     }
     
     @objc public func setEmail(emailId: String) {
