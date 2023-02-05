@@ -6,8 +6,8 @@ target 'ECommerceAppSwiftUI' do
   use_frameworks!
 
   # Pods for ECommerceAppSwiftUI
-  # pod 'SuprsendCore'
-   pod 'SuprSendSdk', '1.0.1'
+   pod 'SuprsendCore', '1.0.2'
+   pod 'SuprSendSdk', '1.0.2'
    pod 'Reachability'
 
 end

@@ -68,8 +68,6 @@
 		887A0E81280BCD4C003A96BB /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 887A0E80280BCD2B003A96BB /* libsqlite3.tbd */; };
 		8899515C28DC4B5000AEE82E /* DecideViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8899515B28DC4B5000AEE82E /* DecideViewModel.swift */; };
 		88A03F4427DC9D78007C4ED2 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A03F4327DC9D78007C4ED2 /* AppConstants.swift */; };
-		88EC6FD7297E4AD6007D2E4A /* SuprsendCore.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88EC6FD6297E4AD6007D2E4A /* SuprsendCore.xcframework */; };
-		88EC6FD8297E4AD6007D2E4A /* SuprsendCore.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 88EC6FD6297E4AD6007D2E4A /* SuprsendCore.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,17 +90,6 @@
 				887085D628D83D35004CA177 /* ECommerceAppSwiftUINotificationService.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		88FEBAC428DC687400857469 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				88EC6FD8297E4AD6007D2E4A /* SuprsendCore.xcframework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -182,7 +169,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				88EC6FD7297E4AD6007D2E4A /* SuprsendCore.xcframework in Frameworks */,
 				2ADA0F4C239E733500F67F64 /* PartialSheet in Frameworks */,
 				887A0E81280BCD4C003A96BB /* libsqlite3.tbd in Frameworks */,
 				531630701530613AFA193C47 /* Pods_ECommerceAppSwiftUI.framework in Frameworks */,
@@ -533,7 +519,6 @@
 				2A087187238D4CA6002F1E61 /* Resources */,
 				9DC643DEDB1BE5FCB616176A /* [CP] Embed Pods Frameworks */,
 				887085D728D83D35004CA177 /* Embed Foundation Extensions */,
-				88FEBAC428DC687400857469 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -883,7 +868,7 @@
 				CODE_SIGN_ENTITLEMENTS = ECommerceAppSwiftUI/ECommerceAppSwiftUI.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 20;
 				DEVELOPMENT_ASSET_PATHS = "\"ECommerceAppSwiftUI/Preview Content\"";
 				DEVELOPMENT_TEAM = G7DJURR5RJ;
 				ENABLE_BITCODE = NO;
@@ -922,7 +907,7 @@
 				CODE_SIGN_ENTITLEMENTS = ECommerceAppSwiftUI/ECommerceAppSwiftUI.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 20;
 				DEVELOPMENT_ASSET_PATHS = "\"ECommerceAppSwiftUI/Preview Content\"";
 				DEVELOPMENT_TEAM = G7DJURR5RJ;
 				ENABLE_BITCODE = NO;
