@@ -22,7 +22,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2D74E5C2282695B900B886E0 /* SuprsendCore.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = SuprsendCore.xcframework; sourceTree = "<group>"; };
 		2D74E5CD28269D2600B886E0 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		2D74E5CF28269D2600B886E0 /* IosMutationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IosMutationHandler.swift; sourceTree = "<group>"; };
 		2D74E5D028269D2600B886E0 /* SuprSend+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SuprSend+Utilities.swift"; sourceTree = "<group>"; };
@@ -115,7 +114,6 @@
 				2D74E5D828269D5600B886E0 /* SuprSendSdk.framework */,
 				2D74E5CC28269D2600B886E0 /* SuprSendSdk */,
 				880D9B47281AE4C6000B929B /* SuprsendCore.xcframework */,
-				2D74E5C2282695B900B886E0 /* SuprsendCore.xcframework */,
 				2DFBFC8B27468E0E00F62BF5 /* libsqlite3.tbd */,
 				6A00B64DFE24F780CCAD7F23 /* Pods_SuprSendSdk.framework */,
 			);

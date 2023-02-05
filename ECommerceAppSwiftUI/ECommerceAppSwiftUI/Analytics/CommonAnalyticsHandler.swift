@@ -55,8 +55,8 @@ struct CommonAnalyticsHandler {
         SuprSend.shared.setSms(mobileNumber: mobileNumber)
     }
     
-    static func reset() {
-        SuprSend.shared.reset()
+    static func reset(unsubscribePushNotification: Bool) {
+        SuprSend.shared.reset(unsubscribeNotification: unsubscribePushNotification)
     }
     
     static func setOnce(key: String, value: Any) {
