@@ -122,9 +122,9 @@ private constructor(
         }
     }
 
-    fun reset(unSubscribeNotification: Boolean) {
+    fun reset() {
         try {
-            SSApiInternal.reset(mutationHandler, unSubscribeNotification)
+            SSApiInternal.reset(mutationHandler)
         } catch (exception: Exception) {
             Logger.e(TAG_EXCEPTION, "", exception)
         }

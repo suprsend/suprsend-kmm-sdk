@@ -99,11 +99,7 @@ struct ProfileRow: View {
             }
             .onTapGesture {
                 CommonAnalyticsHandler.unset(key: "choices")
-                if profile.title == "Logout(unsubscribe Push)" {
-                    CommonAnalyticsHandler.reset(unsubscribePushNotification: true)
-                } else {
-                    CommonAnalyticsHandler.reset(unsubscribePushNotification: false)
-                }
+                CommonAnalyticsHandler.reset()
                 CommonAnalyticsHandler.unSetSuperProperties(key: "user_type")
                 self.isLoggedIn.toggle()
             }

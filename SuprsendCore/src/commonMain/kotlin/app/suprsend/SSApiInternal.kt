@@ -165,30 +165,17 @@ internal object SSApiInternal {
         }
     }
 
-    fun reset(mutationHandler: MutationHandler, unSubscribeNotification: Boolean = true) {
+    fun reset(mutationHandler: MutationHandler) {
         coroutineScope.launch(singleThreadDispatcher() + coroutineExceptionHandler) {
             val newID = uuid()
             val userLocalDatasource = UserLocalDatasource()
             val userId = userLocalDatasource.getIdentity()
             Logger.i(TAG, "reset : Current : $userId New : $newID")
             trackOp(SSConstants.S_EVENT_USER_LOGOUT, buildJsonObject { })
-            if (unSubscribeNotification)
-                removeNotificationToken()
             SuperPropertiesLocalDataSource().removeAll()
             userLocalDatasource.identify(newID)
             appendNotificationToken()
             flush(mutationHandler)
-        }
-    }
-
-    private fun removeNotificationToken() {
-        val iosToken = getIOSToken()
-        if (iosToken.isNotBlank()) {
-            userImpl.internalOperatorCallOp(buildJsonObject {
-                put(SSConstants.PUSH_IOS_TOKEN, JsonPrimitive(iosToken))
-                put(SSConstants.PUSH_VENDOR, JsonPrimitive(SSConstants.PUSH_VENDOR_APNS))
-                put(SSConstants.DEVICE_ID, JsonPrimitive(getDeviceID()))
-            }, SSConstants.REMOVE)
         }
     }
 
@@ -201,6 +188,7 @@ internal object SSApiInternal {
                 put(SSConstants.DEVICE_ID, JsonPrimitive(getDeviceID()))
             }, SSConstants.APPEND)
         }
+
     }
 
     fun isAppInstalled(): Boolean {
