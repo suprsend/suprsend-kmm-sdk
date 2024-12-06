@@ -44,6 +44,10 @@ public extension SuprSend {
     // Notification Delivered
     @objc
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
+        trackNotificationDelivered(userInfo: userInfo)
+    }
+    
+    private func trackNotificationDelivered(userInfo: [AnyHashable: Any]) {
         if let id = userInfo[AnalyticsConstants.nid],
            let viaSuperSend = userInfo[Constants.viaSuprSend] as? Bool, viaSuperSend == true {
             suprSendiOSAPI.track(eventName: AnalyticsConstants.notificationDelivered, properties: [AnalyticsConstants.id: id])
@@ -69,4 +73,7 @@ public extension SuprSend {
         suprSendiOSAPI.track(eventName: AnalyticsConstants.notificationClicked, properties: [AnalyticsConstants.id: id])
     }
     
+    @objc func didReceive(_ request: UNNotificationRequest, withContentHandler contentHandler: @escaping (UNNotificationContent) -> Void) {
+        trackNotificationDelivered(userInfo: request.content.userInfo)
+    }
 }
